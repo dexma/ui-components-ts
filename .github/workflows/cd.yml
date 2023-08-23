@@ -26,6 +26,12 @@ jobs:
           npm run build-storybook
 
       - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@v4
+        uses: crazy-max/ghaction-github-pages@v3
         with:
-          folder: docs # The folder the action should deploy.
+          target_branch: gh-pages
+          build_dir: storybook-static
+          commit_message: 'chore(deploy): Storybook'
+          keep_history: false
+          jekyll: false
+        env: 
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}

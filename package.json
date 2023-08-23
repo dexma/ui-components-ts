@@ -18,7 +18,7 @@
     },
     "scripts": {
         "build": "tsc && vite build",
-        "build-storybook": "storybook build -c ./.storybook -o docs",
+        "build-storybook": "storybook build",
         "coverage": "vitest run --coverage && serve coverage",
         "lint": "eslint --ext .js,.jsx,.ts,.tsx --fix",
         "prettier": "prettier --write \"src/**/*.{ts,tsx,js,mdx}\"",
