@@ -20,14 +20,9 @@ jobs:
       - name: Checkout 🛎️
         uses: actions/checkout@v3
 
-      - name: Use Node.js v16.18.0
-        uses: actions/setup-node@v2
-        with:
-          node-version: '16.18.0'
-
       - name: Install and Build 🔧
         run: | # Install npm packages and build the Storybook files
-          npm install -legacy-peer-deps
+          npm install
           npm run build-storybook
 
       - name: Deploy 🚀
