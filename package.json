@@ -1,15 +1,15 @@
 {
-    "name": "vite-component-library-template",
+    "name": "ui-components-ts",
     "private": false,
-    "version": "2.0.3",
-    "main": "./dist/vite-component-library-template.umd.js",
-    "module": "./dist/vite-component-library-template.es.js",
+    "version": "0.0.0",
+    "main": "./dist/ui-components-ts.umd.js",
+    "module": "./dist/ui-components-ts.es.js",
     "types": "./dist/index.d.ts",
     "exports": {
         ".": {
             "types": "./dist/index.d.ts",
-            "import": "./dist/vite-component-library-template.es.js",
-            "require": "./dist/vite-component-library-template.umd.js"
+            "import": "./dist/ui-components-ts.es.js",
+            "require": "./dist/ui-components-ts.umd.js"
         },
         "./dist/style.css": "./dist/style.css"
     },
@@ -17,16 +17,37 @@
         "node": "18"
     },
     "scripts": {
-        "dev": "storybook dev -p 6006",
-        "build": "storybook build",
-        "build:lib": "tsc && vite build",
+        "build": "tsc && vite build",
+        "build-storybook": "storybook build",
+        "coverage": "vitest run --coverage && serve coverage",
         "lint": "eslint --ext .js,.jsx,.ts,.tsx --fix",
         "prettier": "prettier --write \"src/**/*.{ts,tsx,js,mdx}\"",
         "test": "vitest",
         "test:ui": "vitest --ui",
-        "coverage": "vitest run --coverage && serve coverage",
         "prepare": "husky install",
-        "prepack": "json -f package.json -I -e \"delete this.devDependencies; delete this.dependencies\""
+        "prepack": "json -f package.json -I -e \"delete this.devDependencies; delete this.dependencies\"",
+        "semantic-release": "semantic-release",
+        "storybook": "storybook dev -p 6006"
+    },
+    "publishConfig": {
+        "tag": "latest"
+    },
+    "release": {
+        "branch": "master",
+        "tagFormat": "v${version}",
+        "plugins": [
+            "@semantic-release/commit-analyzer",
+            "@semantic-release/release-notes-generator",
+            "@semantic-release/npm",
+            "@semantic-release/github",
+            "@semantic-release/changelog",
+            [
+                "@semantic-release/git",
+                {
+                    "message": "release (${nextRelease.version})"
+                }
+            ]
+        ]
     },
     "dependencies": {
         "react": "18.2.0",
