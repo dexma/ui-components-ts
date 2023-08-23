@@ -2,7 +2,6 @@
     "name": "vite-component-library-template",
     "private": false,
     "version": "2.0.3",
-    "packageManager": "pnpm@8.4.0",
     "main": "./dist/vite-component-library-template.umd.js",
     "module": "./dist/vite-component-library-template.es.js",
     "types": "./dist/index.d.ts",
@@ -24,7 +23,8 @@
         "lint": "eslint --ext .js,.jsx,.ts,.tsx --fix",
         "prettier": "prettier --write \"src/**/*.{ts,tsx,js,mdx}\"",
         "test": "vitest",
-        "test:cov": "vitest run --coverage",
+        "test:ui": "vitest --ui",
+        "coverage": "vitest run --coverage && serve coverage",
         "prepare": "husky install",
         "prepack": "json -f package.json -I -e \"delete this.devDependencies; delete this.dependencies\""
     },
@@ -33,13 +33,12 @@
         "react-dom": "18.2.0"
     },
     "devDependencies": {
-        "@storybook/addon-essentials": "7.2.2",
-        "@storybook/addon-interactions": "7.2.2",
-        "@storybook/addon-links": "7.2.2",
-        "@storybook/addon-styling": "1.3.6",
-        "@storybook/blocks": "7.2.2",
-        "@storybook/react": "7.2.2",
-        "@storybook/react-vite": "7.2.2",
+        "@storybook/addon-essentials": "7.1.0",
+        "@storybook/addon-interactions": "7.1.0",
+        "@storybook/addon-links": "7.1.0",
+        "@storybook/addon-storysource": "7.1.0",
+        "@storybook/react": "7.1.0",
+        "@storybook/react-vite": "7.1.0",
         "@storybook/testing-library": "0.2.0",
         "@testing-library/jest-dom": "6.0.1",
         "@testing-library/react": "14.0.0",
@@ -69,7 +68,8 @@
         "lint-staged": "13.2.3",
         "prettier": "3.0.1",
         "prop-types": "15.8.1",
-        "storybook": "7.3.2",
+        "storybook": "7.1.0",
+        "styled-components": "6.0.7",
         "typescript": "5.1.6",
         "vite": "4.4.9",
         "vite-plugin-dts": "3.5.1",
@@ -78,6 +78,10 @@
     "peerDependencies": {
         "react": "18.2.0",
         "react-dom": "18.2.0"
+    },
+    "volta": {
+        "node": "18.17.0",
+        "npm": "9.6.7"
     },
     "files": [
         "dist"
