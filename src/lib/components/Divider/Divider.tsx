@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { ThemeContext, withTheme } from 'styled-components';
+import { ThemeContext } from 'styled-components';
 
 import { StyledDivider } from '@/styles/Divider/StyledDivider';
 import theme from '@/utils/theme';
@@ -26,4 +26,4 @@ StyledDivider.displayName = 'StyledDivider';
 Divider.propTypes = propTypes;
 Divider.defaultProps = defaultProps;
 
-export default withTheme(Divider);
+export default Divider;

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { ThemeContext, withTheme } from 'styled-components';
+import { ThemeContext } from 'styled-components';
 
 import theme, { Theme } from '@/utils/theme';
 import { StyledGrid } from '@/styles/Grid/StyledGrid';
