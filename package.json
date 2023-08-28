@@ -18,7 +18,8 @@
     },
     "scripts": {
         "build": "tsc && vite build",
-        "build-storybook": "storybook build",
+        "build-storybook": "npm run build:icons && storybook build",
+        "build-icons": "node scripts/buildIconConfig.js",
         "coverage": "vitest run --coverage && serve coverage",
         "lint": "eslint --ext .js,.jsx,.ts,.tsx --fix",
         "prettier": "prettier --write \"src/**/*.{ts,tsx,js,mdx}\"",
@@ -27,7 +28,7 @@
         "prepare": "husky install",
         "prepack": "json -f package.json -I -e \"delete this.devDependencies; delete this.dependencies\"",
         "semantic-release": "semantic-release",
-        "storybook": "storybook dev -p 6006"
+        "storybook": "npm run build:icons && storybook dev -p 6006"
     },
     "publishConfig": {
         "tag": "latest"
@@ -94,7 +95,8 @@
         "typescript": "5.1.6",
         "vite": "4.4.9",
         "vite-plugin-dts": "3.5.1",
-        "vitest": "0.34.1"
+        "vitest": "0.34.1",
+        "xmldom": "^0.5.0"
     },
     "peerDependencies": {
         "react": "18.2.0",
