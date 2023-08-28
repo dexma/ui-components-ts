@@ -51,16 +51,22 @@ const isHexColor = (hex?: string) => (hex ? /^#[0-9A-F]{6}$/i.test(hex) || /^#[0
 
 type IconProps = {
     name?: string;
-    color?: string;
+    color?: string | keyof typeof theme.color;
     size?: number | IconSize;
     className?: string;
     onClick?: (e: any) => void;
 };
 
+const getColor = (color?: string | keyof typeof theme.color) => {
+    if (!color) return theme.color.gray500;
+    if (isHexColor(color)) return color;
+    return theme.color[color as keyof typeof theme.color];
+};
+
 export const Icon = forwardRef((props: IconProps, ref) => {
     const th = useContext(ThemeContext) || theme;
     const { name, color, size, className, onClick } = props;
-    const fillColor = isHexColor(color) ? color : get(th.color, 'color');
+    const fillColor = getColor(color);
     const pathElements = getIconPaths(name);
     const iconSize = getIconSize(size);
     const iconProps = omit(props, ['name', 'className', 'color', 'size', 'onClick']);

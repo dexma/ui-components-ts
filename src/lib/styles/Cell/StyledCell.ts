@@ -5,7 +5,7 @@ import { Theme } from '@/utils/theme';
 
 const percentage = (number: number) => number * 100;
 
-const isColumnFull = (value: string | number): boolean => isNumber(value);
+const isColumnFull = (value: string | number): boolean => !isNumber(value);
 
 const getColumnFull = () => `{
       flex-grow: 1;
@@ -26,15 +26,9 @@ const getColumnOffset = (size: number, columns: number) => {
   `;
 };
 
-const getColumns = (theme: Theme, breakpoint: number) => {
-    const columns = gridColumns(theme) || 0;
-    return isColumnFull(breakpoint) ? getColumnFull() : getColumn(breakpoint, columns);
-};
+const getColumns = (theme: Theme, breakpoint: number) => (isColumnFull(breakpoint) ? getColumnFull() : getColumn(breakpoint, gridColumns(theme)));
 
-const getColumnsOffset = (theme: Theme, breakpoint: number) => {
-    const columns = gridColumns(theme) || 0;
-    return getColumnOffset(breakpoint, columns);
-};
+const getColumnsOffset = (theme: Theme, breakpoint: number) => getColumnOffset(breakpoint, gridColumns(theme));
 
 type StyledCellProps = {
     $direction?: string;

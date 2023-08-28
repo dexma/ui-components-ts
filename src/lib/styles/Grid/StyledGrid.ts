@@ -23,8 +23,8 @@ const StyledGrid = styled.div<{ $fluid?: boolean; theme: Theme }>`
     margin-right: auto;
     margin-left: auto;
     width: 100%;
-    ${(props: { fluid?: boolean; theme: Theme }) =>
-        props.fluid
+    ${(props: { $fluid?: boolean; theme: Theme }) =>
+        props.$fluid
             ? css`
                   padding-right: ${gridOuterPadding(props.theme)};
                   padding-left: ${gridOuterPadding(props.theme)};

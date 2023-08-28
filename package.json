@@ -18,7 +18,7 @@
     },
     "scripts": {
         "build": "tsc && vite build",
-        "build-storybook": "npm run build:icons && storybook build",
+        "build-storybook": "npm run build-icons && storybook build",
         "build-icons": "node scripts/buildIconConfig.js",
         "coverage": "vitest run --coverage && serve coverage",
         "lint": "eslint --ext .js,.jsx,.ts,.tsx --fix",
@@ -28,7 +28,7 @@
         "prepare": "husky install",
         "prepack": "json -f package.json -I -e \"delete this.devDependencies; delete this.dependencies\"",
         "semantic-release": "semantic-release",
-        "storybook": "npm run build:icons && storybook dev -p 6006"
+        "storybook": "npm run build-icons && storybook dev -p 6006"
     },
     "publishConfig": {
         "tag": "latest"
