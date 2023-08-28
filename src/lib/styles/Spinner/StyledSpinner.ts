@@ -3,10 +3,12 @@ import { parseToRgb } from 'polished';
 import get from 'lodash/get';
 
 import { rotate360 } from '@/utils/animation';
+import { Theme } from '@/utils/theme';
 
 type StyledSpinnerProps = {
     size: number;
     color: string;
+    theme: Theme;
 };
 
 const StyledSpinner = styled.div<StyledSpinnerProps>`
