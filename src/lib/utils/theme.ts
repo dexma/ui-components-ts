@@ -404,4 +404,6 @@ const theme = {
     progress,
 };
 
+export type Theme = typeof theme;
+
 export default theme;

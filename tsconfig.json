@@ -21,8 +21,10 @@
         "paths": {
             "@/components/*": ["./lib/components/*"],
             "@/styles/*": ["./lib/styles/*"],
-            "@/utils/*": ["./lib/utils/*"]
+            "@/utils/*": ["./lib/utils/*"],
+            "@/config/*": ["./lib/config/*"]
         }
     },
-    "include": ["./src/**/*.ts", "./src/**/*.tsx", "./src/**/*.stories.*", "./src/**/*.test.*", "./.storybook/**/*"]
+    "include": ["./src/**/*.ts", "./src/**/*.tsx", "./src/**/*.stories.*", "./src/**/*.test.*", "./.storybook/**/*"],
+    "exclude": ["node_modules", "build", "dist", "coverage", "storybook-static", "./src/lib/config/**/*"]
 }
