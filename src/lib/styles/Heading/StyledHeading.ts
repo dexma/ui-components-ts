@@ -5,7 +5,6 @@ import { Theme } from '@/utils/theme';
 
 const getSizes = (as: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6', theme: Theme) => {
     const fontSizes = headingFontSize(theme);
-    console.log('fontSizes', fontSizes);
     const typeHeading = as;
     return css`
         font-size: ${fontSizes && typeHeading ? fontSizes[typeHeading] : 'inherit'};

@@ -25,6 +25,6 @@
             "@/config/*": ["./lib/config/*"]
         }
     },
-    "include": ["./src/**/*.ts", "./src/**/*.tsx", "./src/**/*.stories.*", "./src/**/*.test.*", "./.storybook/**/*"],
+    "include": ["./src/**/*.ts", "./src/**/*.tsx", "./src/**/*.stories.*", "./tests/**/*.test.*", "./.storybook/**/*"],
     "exclude": ["node_modules", "build", "dist", "coverage", "storybook-static", "./src/lib/config/**/*"]
 }

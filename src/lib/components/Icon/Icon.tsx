@@ -16,7 +16,7 @@ export enum IconSize {
     XLARGE = 'xlarge',
 }
 
-export const getIconSize = (size?: number | IconSize) => {
+export const getIconSize = (size?: number | string | IconSize) => {
     if (isNumber(size)) return size;
     if (size === IconSize.SMALL) return 16;
     if (size === IconSize.MEDIUM) return 20;
@@ -52,7 +52,7 @@ const isHexColor = (hex?: string) => (hex ? /^#[0-9A-F]{6}$/i.test(hex) || /^#[0
 type IconProps = {
     name?: string;
     color?: string | keyof typeof theme.color;
-    size?: number | IconSize;
+    size?: number | string | IconSize;
     className?: string;
     onClick?: (e: any) => void;
 };

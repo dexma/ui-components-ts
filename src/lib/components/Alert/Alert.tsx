@@ -91,7 +91,7 @@ export const Alert = (props: AlertProps) => {
     );
 
     return closed ? null : (
-        <StyledAlert data-testid='alert' role='alert' $showIcon={props.showIcon} $type={type} $description={description} $message={message}>
+        <StyledAlert data-testid='alert' role='alert' $showIcon={props.showIcon} $type={type} $description={description} $message={message} theme={th}>
             <span data-testid='alert-message' className='message'>
                 {showIcon && <Icon color={get(th.color, 'color')} name={renderIcon} size={IconSize.MEDIUM} className='icon' data-testid={`alert-icon-${type}`} />}
                 {message}

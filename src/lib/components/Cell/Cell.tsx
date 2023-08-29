@@ -49,6 +49,7 @@ export const Cell = (props: CellProps) => {
     const th = useContext(ThemeContext) || theme;
     return (
         <StyledCell
+            data-testid='cell'
             $xs={props.xs}
             $sm={props.sm}
             $md={props.md}

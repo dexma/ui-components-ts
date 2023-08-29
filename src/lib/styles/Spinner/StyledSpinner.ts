@@ -6,7 +6,7 @@ import { rotate360 } from '@/utils/animation';
 import { Theme } from '@/utils/theme';
 
 type StyledSpinnerProps = {
-    size: number;
+    $size: number;
     color: string;
     theme: Theme;
 };
@@ -18,12 +18,8 @@ const StyledSpinner = styled.div<StyledSpinnerProps>`
     position: relative;
     transition: all 200ms ease-out;
     vertical-align: middle;
-    height: ${(props) => {
-        return `${props.size}px`;
-    }};
-    width: ${(props) => {
-        return `${props.size}px`;
-    }};
+    height: ${(props) => `${props.$size}px`};
+    width: ${(props) => `${props.$size}px`};
     animation: ${rotate360} 0.85s linear infinite;
     border-width: 2px;
     border-style: solid;
