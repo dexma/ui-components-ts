@@ -72,7 +72,7 @@ const main = async () => {
     try {
         const iconFiles = await fs.readdirSync(directoryIconsPath);
         const iconElements = await getIconElementsFromFiles(iconFiles);
-        await fs.writeFileSync(`${directoryExportPath}/icon.js`, 'export default' + JSON.stringify(iconElements));
+        await fs.writeFileSync(`${directoryExportPath}/icon.ts`, 'export default' + JSON.stringify(iconElements));
         return 'ok';
     } catch (err) {
         console.log('err', err);
