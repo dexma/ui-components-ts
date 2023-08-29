@@ -1,3 +1,4 @@
+export * from './Alert';
 export * from './Cell';
 export * from './Divider';
 export * from './Dots';
