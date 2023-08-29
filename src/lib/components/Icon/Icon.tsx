@@ -81,7 +81,7 @@ export const Icon = forwardRef((props: IconProps, ref) => {
             fill='currentColor'
             preserveAspectRatio='xMidYMid meet'
             xmlns='http://www.w3.org/2000/svg'
-            fillColor={fillColor}
+            $fillColor={fillColor}
             data-testid='icon'
             onClick={onClick}
             {...iconProps}

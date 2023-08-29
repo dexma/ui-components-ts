@@ -42,6 +42,7 @@ type CellProps = {
     direction?: string;
     children?: JSX.Element | JSX.Element[];
     className?: string;
+    style?: React.CSSProperties;
 };
 
 export const Cell = (props: CellProps) => {
@@ -59,6 +60,7 @@ export const Cell = (props: CellProps) => {
             $direction={props.direction}
             className={props.className}
             theme={th}
+            style={props.style}
         >
             {props.children}
         </StyledCell>
