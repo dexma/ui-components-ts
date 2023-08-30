@@ -18,7 +18,7 @@ type ComparisonType = {
         from: Date | null;
         to: Date | null;
         type: string;
-        text: string;
+        text: string | null;
     };
     color: string;
     value: number;
