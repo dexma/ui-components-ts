@@ -11,10 +11,10 @@ const defaultProps = {
     theme: theme,
 };
 
-export const Row = (props: { reverse?: boolean; alignItems?: string; theme: Theme; children: ReactNode }) => {
+export const Row = (props: { className?: string; reverse?: boolean; alignItems?: string; theme: Theme; children: ReactNode }) => {
     const th = useContext(ThemeContext) || theme;
     return (
-        <StyledRow $alignItems={props.alignItems} $reverse={props.reverse} theme={th}>
+        <StyledRow className={props.className} $alignItems={props.alignItems} $reverse={props.reverse} theme={th}>
             {props.children}
         </StyledRow>
     );

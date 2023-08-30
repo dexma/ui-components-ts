@@ -22,7 +22,8 @@
             "@/components/*": ["./lib/components/*"],
             "@/styles/*": ["./lib/styles/*"],
             "@/utils/*": ["./lib/utils/*"],
-            "@/config/*": ["./lib/config/*"]
+            "@/config/*": ["./lib/config/*"],
+            "@/tests/*": ["./tests/*"]
         }
     },
     "include": ["./src/**/*.ts", "./src/**/*.tsx", "./src/**/*.stories.*", "./tests/**/*.test.*", "./.storybook/**/*"],

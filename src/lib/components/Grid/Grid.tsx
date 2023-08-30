@@ -12,10 +12,10 @@ const propTypes = {
     fluid: PropTypes.bool,
 };
 
-export const Grid = (props: { fluid?: boolean; children: JSX.Element | JSX.Element[] }) => {
+export const Grid = (props: { fluid?: boolean; className?: string; children: JSX.Element | JSX.Element[] }) => {
     const th = useContext(ThemeContext) || theme;
     return (
-        <StyledGrid $fluid={props.fluid} theme={th}>
+        <StyledGrid className={props.className} $fluid={props.fluid} theme={th}>
             {props.children}
         </StyledGrid>
     );
