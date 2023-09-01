@@ -1,6 +1,7 @@
 export * from './Alert';
 export * from './Cell';
 export * from './Chart';
+export * from './Card';
 export * from './Divider';
 export * from './Dots';
 export * from './Heading';
