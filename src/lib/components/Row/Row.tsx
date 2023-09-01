@@ -1,4 +1,4 @@
-import React, { ReactNode, useContext } from 'react';
+import React, { CSSProperties, ReactNode, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { ThemeContext } from 'styled-components';
 
@@ -11,10 +11,10 @@ const defaultProps = {
     theme: theme,
 };
 
-export const Row = (props: { className?: string; reverse?: boolean; alignItems?: string; theme: Theme; children: ReactNode }) => {
+export const Row = (props: { className?: string; reverse?: boolean; alignItems?: string; theme: Theme; children: ReactNode; style?: CSSProperties }) => {
     const th = useContext(ThemeContext) || theme;
     return (
-        <StyledRow className={props.className} $alignItems={props.alignItems} $reverse={props.reverse} theme={th}>
+        <StyledRow className={props.className} style={{ ...props.style }} $alignItems={props.alignItems} $reverse={props.reverse} theme={th}>
             {props.children}
         </StyledRow>
     );

@@ -10,3 +10,5 @@ export * from './Icon';
 export * from './Paragraph';
 export * from './Result';
 export * from './Row';
+export * from './Theme';
+export { DataIdProvider } from '@/components/DataId/DataIdProvider';

@@ -30,5 +30,3 @@ StyledSpinner.displayName = 'StyledSpinner';
 
 Spinner.propTypes = propTypes;
 Spinner.defaultProps = defaultProps;
-
-export default Spinner;
