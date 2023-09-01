@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import styled, { ThemeContext, withTheme } from 'styled-components';
+import { ThemeContext } from 'styled-components';
 import omit from 'lodash/omit';
 
 import Highcharts from 'highcharts';
@@ -148,7 +148,7 @@ type ChartProps = {
 
 export const Chart = React.forwardRef((props: ChartProps, ref) => {
     const { options, isLoading, showError, errorContent, dataId, 'data-testid': dataTestId, decimalPoint, thousandsSep, numericSymbols, months, shortMonths, weekdays } = props;
-
+    const th = useContext(ThemeContext) || theme;
     const loading = isLoading && !showError;
     const error = !isLoading && showError && errorContent;
     const showChart = !loading && !error && options;
@@ -241,7 +241,7 @@ export const Chart = React.forwardRef((props: ChartProps, ref) => {
     }, [options, fontFamily, backgroundColor]);
 
     return (
-        <StyledChart data-id={dataId} data-testid={dataTestId}>
+        <StyledChart data-id={dataId} data-testid={dataTestId} theme={th}>
             {(loading || !aggregateOptions) && <ChartLoading />}
             {error && <ChartError>{errorContent}</ChartError>}
             {showChart && aggregateOptions && <HighchartsReact highcharts={Highcharts} ref={ref} {...highchartsReactProps} options={aggregateOptions} />}
@@ -252,4 +252,4 @@ export const Chart = React.forwardRef((props: ChartProps, ref) => {
 // Chart.propTypes = propTypes;
 Chart.defaultProps = defaultProps;
 
-export default withTheme(withDataId(Chart));
+export default withDataId(Chart);
