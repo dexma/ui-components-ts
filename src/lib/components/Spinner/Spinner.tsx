@@ -21,9 +21,9 @@ const defaultProps = {
     size: 24,
 };
 
-export const Spinner = (props: { color: keyof typeof theme.color; size: number }) => {
+export const Spinner = (props: { color?: string; size: number }) => {
     const th = useContext(ThemeContext) || theme;
-    return <StyledSpinner data-testid='spinner' $size={props.size} color={props.color} theme={th} />;
+    return <StyledSpinner data-testid='spinner' $size={props.size} color={props.color || 'gray400'} theme={th} />;
 };
 
 StyledSpinner.displayName = 'StyledSpinner';
