@@ -156,19 +156,17 @@ const CardContent = (props: CardContentProps) => (
 );
 
 export const Card = (props: CardProps) => {
-    const { link, title, subtitle, description, icon, image, footer, isActive, isHorizontal } = props;
+    const { link, title, subtitle, description, icon, image, footer, isActive, isHorizontal, onClick, onFocus } = props;
     const th = useContext(ThemeContext) || theme;
     const classes = classNames(isActive && 'active');
-
-    const cardProps = omit(props, ['icon', 'title', 'subtitle', 'description']);
     return (
         <>
             {link ? (
-                <StyledCardLink className={classes} theme={th} $hasFooter={footer !== null}>
+                <StyledCardLink href={link} className={classes} theme={th} $hasFooter={footer !== null} data-testid='card' onClick={onClick} onFocus={onFocus}>
                     <CardContent title={title} subtitle={subtitle} description={description} icon={icon} image={image} footer={footer} isHorizontal={isHorizontal} />
                 </StyledCardLink>
             ) : (
-                <StyledCard className={classes}>
+                <StyledCard className={classes} theme={th} $hasFooter={footer !== null} data-testid='card' onClick={onClick} onFocus={onFocus}>
                     <CardContent title={title} subtitle={subtitle} description={description} icon={icon} image={image} footer={footer} isHorizontal={isHorizontal} />
                 </StyledCard>
             )}
@@ -181,4 +179,4 @@ StyledCard.displayName = 'StyledCard';
 Card.propTypes = propTypes;
 Card.defaultProps = defaultProps;
 
-export default withTheme(Card);
+export default Card;

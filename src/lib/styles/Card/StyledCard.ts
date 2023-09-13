@@ -66,7 +66,7 @@ const getStyleCard = (props: StyledCardProps) => {
         //height: $card-height;
         word-wrap: break-word;
         background-clip: border-box;
-        background-color: ${gray100(theme)};
+        background-color: ${gray100(props.theme)};
         border-radius: ${borderRadius(props.theme)};
         box-shadow: ${boxShadow(props.theme)};
         overflow: hidden;
@@ -156,6 +156,8 @@ type StyledCardProps = {
     theme: Theme;
     $isHorizontal?: boolean;
     $hasFooter?: boolean;
+    onClick?: (event: React.MouseEvent<HTMLAnchorElement>) => void;
+    onFocus?: (event: React.FocusEvent<HTMLAnchorElement>) => void;
 };
 
 const StyledCard = styled.div<StyledCardProps>`
