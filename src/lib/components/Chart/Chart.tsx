@@ -1,10 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { ForwardedRef, Ref, useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { ThemeContext } from 'styled-components';
 import omit from 'lodash/omit';
 
 import Highcharts from 'highcharts';
-import HighchartsReact from 'highcharts-react-official';
+import HighchartsReact, { HighchartsReactRefObject } from 'highcharts-react-official';
 import HCRounded from 'highcharts-rounded-corners';
 import HighchartsHeatmap from 'highcharts/modules/heatmap';
 
@@ -146,7 +146,7 @@ type ChartProps = {
     weekdays?: string[];
 };
 
-export const Chart = React.forwardRef((props: ChartProps, ref) => {
+export const Chart = React.forwardRef((props: ChartProps, ref: ForwardedRef<HTMLDivElement>) => {
     const { options, isLoading, showError, errorContent, dataId, 'data-testid': dataTestId, decimalPoint, thousandsSep, numericSymbols, months, shortMonths, weekdays } = props;
     const th = useContext(ThemeContext) || theme;
     const loading = isLoading && !showError;
@@ -244,7 +244,9 @@ export const Chart = React.forwardRef((props: ChartProps, ref) => {
         <StyledChart data-id={dataId} data-testid={dataTestId} theme={th}>
             {(loading || !aggregateOptions) && <ChartLoading />}
             {error && <ChartError>{errorContent}</ChartError>}
-            {showChart && aggregateOptions && <HighchartsReact highcharts={Highcharts} ref={ref} {...highchartsReactProps} options={aggregateOptions} />}
+            {showChart && aggregateOptions && (
+                <HighchartsReact highcharts={Highcharts} ref={ref as Ref<HighchartsReactRefObject>} {...highchartsReactProps} options={aggregateOptions} />
+            )}
         </StyledChart>
     );
 });
