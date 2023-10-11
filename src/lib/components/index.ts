@@ -13,6 +13,7 @@ export * from './Grid';
 export * from './Icon';
 export * from './Input';
 export * from './Paragraph';
+export * from './Pagination';
 export * from './Progress';
 export * from './Result';
 export * from './Row';
