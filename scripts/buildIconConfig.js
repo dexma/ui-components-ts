@@ -5,7 +5,7 @@ const directoryIconsPath = path.join(__dirname, '../src/lib/assets/icons');
 const directoryExportPath = path.join(__dirname, '../src/lib/config');
 
 const formatIcon = (icon, name) => {
-    const DOMParser = require('@xmldom/xmldom').DOMParser;
+    const DOMParser = require('xmldom').DOMParser;
     const parser = new DOMParser();
     const dom = parser.parseFromString(icon, 'text/xml');
     const pathElement = dom.documentElement.getElementsByTagName('path');

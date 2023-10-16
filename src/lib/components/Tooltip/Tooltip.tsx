@@ -6,9 +6,13 @@ type TooltipPropsExtended = TooltipProps & {
 };
 
 export const Tooltip = (props: TooltipPropsExtended) => {
-    const { position, placement } = props;
+    const { position, placement, trigger } = props;
 
-    return <TooltipReact placement={position || placement}>{props.children}</TooltipReact>;
+    return (
+        <TooltipReact placement={position || placement} {...props}>
+            {props.children}
+        </TooltipReact>
+    );
 };
 
 export default Tooltip;
