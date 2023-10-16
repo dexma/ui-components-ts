@@ -28,5 +28,3 @@ storybook-static
 
 # Testing
 coverage
-
-src/lib/config/icon.ts

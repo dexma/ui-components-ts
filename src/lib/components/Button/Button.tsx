@@ -1,5 +1,5 @@
 /* eslint-disable import/no-cycle */
-import React, { forwardRef, useContext } from 'react';
+import React, { MouseEventHandler, useContext } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import debounce from 'lodash/debounce';
@@ -96,6 +96,7 @@ const defaultProps = {
     isExpanded: false,
     theme: theme,
     dataId: 'button',
+    'data-testid': 'button',
 };
 
 const getButtonIconSize = (size?: string | ButtonSize) => {
@@ -128,6 +129,9 @@ type ButtonType = {
     debounceTime?: number;
     children?: any;
     dataId?: string;
+    onMouseEnter?: MouseEventHandler<HTMLButtonElement>;
+    onMouseLeave?: MouseEventHandler<HTMLButtonElement>;
+    'data-testid'?: string;
 };
 
 export const Button = (props: ButtonType) => {
@@ -151,6 +155,9 @@ export const Button = (props: ButtonType) => {
             $text={text}
             theme={th}
             onClick={handleClick}
+            onMouseEnter={props.onMouseEnter}
+            onMouseLeave={props.onMouseLeave}
+            data-testid={props['data-testid']}
         >
             {isLoading ? <Spinner size={spinnerSize} data-testid='button-loading' /> : null}
             {!isLoading && iconBefore ? <Icon name={iconBefore} size={iconSize} color={iconColor} data-testid='button-icon-before' /> : null}
