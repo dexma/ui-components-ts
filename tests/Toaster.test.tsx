@@ -1,40 +1,58 @@
 import React from 'react';
 import { describe, expect, it } from 'vitest';
-import { mount } from 'enzyme';
 
-import { Toaster } from '../../src/components/Toaster/Toaster';
-import ToasterContext from '../../src/components/Toaster/ToasterContext';
-import { ToastType } from '../../src/components/Toaster/Toast';
+import { Toaster } from '@/components/Toaster';
+import ToasterContext from '@/components/Toaster/ToasterContext';
+import { ToastType } from '@/components/Toaster/Toast';
+import { fireEvent, render, screen } from '@testing-library/react';
+import { Button } from '@/components/Button';
 
 describe('<Toaster>', () => {
     it('Should render a toast element when call toast', () => {
-        let toastFunction = null;
-        const toaster = mount(
+        render(
             <Toaster>
-                <ToasterContext.Consumer>{(context) => (toastFunction = context.toast)}</ToasterContext.Consumer>
+                <ToasterContext.Consumer>
+                    {(context) => {
+                        return (
+                            <Button
+                                variant='outline'
+                                text='Information'
+                                onClick={() => {
+                                    context.toast({
+                                        text: 'INFORMATION TOAST! This is an example of a notification message toast.',
+                                        type: ToastType.INFO,
+                                    });
+                                }}
+                            />
+                        );
+                    }}
+                </ToasterContext.Consumer>
             </Toaster>
         );
-        toastFunction({ text: 'some alert', type: ToastType.INFO });
-        toaster.update();
-        expect(toaster.find('StyledToast').length).toEqual(1);
+        fireEvent.click(screen.getByText('Information'));
+        expect(screen.getByText('INFORMATION TOAST! This is an example of a notification message toast.')).toBeInTheDocument();
     });
     it('Should render nothing if toast not called', () => {
-        const toaster = mount(
+        render(
             <Toaster>
-                <ToasterContext.Consumer>{() => {}}</ToasterContext.Consumer>
+                <ToasterContext.Consumer>
+                    {(context) => {
+                        return (
+                            <Button
+                                variant='outline'
+                                text='Information'
+                                onClick={() => {
+                                    context.toast({
+                                        text: 'INFORMATION TOAST! This is an example of a notification message toast.',
+                                        type: ToastType.INFO,
+                                    });
+                                }}
+                            />
+                        );
+                    }}
+                </ToasterContext.Consumer>
             </Toaster>
         );
-        expect(toaster.find('.toast').length).toEqual(0);
-    });
-    it('Should render text passed', () => {
-        let toastFunction = null;
-        const toaster = mount(
-            <Toaster>
-                <ToasterContext.Consumer>{(context) => (toastFunction = context.toast)}</ToasterContext.Consumer>
-            </Toaster>
-        );
-        toastFunction({ text: 'expected text', type: ToastType.ERROR });
-        toaster.update();
-        expect(toaster.text()).toEqual('expected text');
+        expect(screen.queryByText('INFORMATION TOAST! This is an example of a notification message toast.')).not.toBeInTheDocument();
     });
 });
