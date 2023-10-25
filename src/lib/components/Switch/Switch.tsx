@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { withTheme } from 'styled-components';
 import { Switch as SwitchAntDesign } from 'antd';
 
-import theme from '@/utils/theme';
+import theme, { Theme } from '@/utils/theme';
 import withDataId from '@/components/DataId/withDataId';
 import { StyledSwitch } from '@/styles/Switch/StyledSwitch';
 import { SwitchProps as AntdSwitchProps, SwitchSize } from 'antd/es/switch';
@@ -54,6 +54,7 @@ type SwitchProps = {
     dataId?: string;
     onChange?: () => void;
     onClick?: () => void;
+    theme: Theme;
 } & AntdSwitchProps;
 export const Switch = (props: SwitchProps) => {
     const { disabled, size, onChange, onClick, dataId } = props;

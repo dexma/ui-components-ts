@@ -3,7 +3,7 @@ import { Grid } from '../components/Grid';
 import { Row } from '../components/Row';
 import { Cell } from '../components/Cell';
 import { Paragraph } from '../components/Paragraph';
-import Switch from 'antd/es/switch';
+import { Switch } from '@/components/Switch/index';
 
 export default {
     title: 'Switch',
