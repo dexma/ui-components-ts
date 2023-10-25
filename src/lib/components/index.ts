@@ -6,6 +6,7 @@ export * from './Chart';
 export * from './ColorPicker';
 export * from './Divider';
 export * from './Dots';
+export * from './FieldGroup';
 export * from './Heading';
 export * from './Gauge';
 export * from './Grid';

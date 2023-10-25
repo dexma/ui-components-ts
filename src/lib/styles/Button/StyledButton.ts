@@ -80,7 +80,7 @@ export const getIconSize = (props: StyledButtonProps) => {
 };
 const getIconColor = (color: string, iconColor?: string) => iconColor ?? color;
 
-type ButtonVariantProps = {
+export type ButtonVariantProps = {
     theme: Theme;
     disabled: boolean;
     $isLoading: boolean;
@@ -339,7 +339,7 @@ const StyledButtonGroup = styled.div`
     ${getButtonGroupBase};
 `;
 
-type StyledButtonProps = {
+export type StyledButtonProps = {
     $size: string;
     $variant: string;
     disabled: boolean;
