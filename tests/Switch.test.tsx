@@ -1,7 +1,7 @@
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
-import { Switch } from '@/components/Switch/Index';
+import { Switch } from '@/components/Switch';
 
 describe('<Switch>', () => {
     it('Should render the switch', () => {
