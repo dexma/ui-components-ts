@@ -12,6 +12,7 @@ export * from './Gauge';
 export * from './Grid';
 export * from './Icon';
 export * from './Input';
+export * from './Modal';
 export * from './Paragraph';
 export * from './Pagination';
 export * from './Popover';
