@@ -26,4 +26,5 @@ export * from './Tabs';
 export * from './Theme';
 export * from './Toaster';
 export * from './Switch';
+export * from './SwitchPeriodComparative';
 export { DataIdProvider } from '../components/DataId/DataIdProvider';
