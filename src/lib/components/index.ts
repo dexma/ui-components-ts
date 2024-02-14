@@ -23,6 +23,7 @@ export * from './Row';
 export * from './Tag';
 export * from './TagGroup';
 export * from './Tabs';
+export * from './Table';
 export * from './Theme';
 export * from './Toaster';
 export * from './Switch';
