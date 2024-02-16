@@ -1,6 +1,7 @@
 export * from './Alert';
 export * from './Button';
 export * from './Card';
+export * from './Cascader';
 export * from './Cell';
 export * from './Chart';
 export * from './ColorPicker';
