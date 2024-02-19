@@ -111,7 +111,7 @@ export const ButtonGroup = (props: any) => {
     return <StyledButtonGroup {...props} />;
 };
 
-type ButtonType = {
+export type ButtonType = {
     className?: string;
     text?: string;
     size?: string | ButtonSize;
