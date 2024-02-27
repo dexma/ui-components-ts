@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import isNumber from 'lodash/isNumber';
-import { gridColumns, gridHalfGutterWidth } from '@/utils/selectors';
-import { Theme } from '@/utils/theme';
+import { gridColumns, gridHalfGutterWidth } from '@utils/selectors';
+import { Theme } from '@utils/theme';
 
 const percentage = (number: number) => number * 100;
 

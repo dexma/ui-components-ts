@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { StyledSpinner } from '@/styles/Spinner/StyledSpinner';
+import { StyledSpinner } from '@styles/Spinner/StyledSpinner';
 
 const StyledLoading = styled.div`
     width: 100%;

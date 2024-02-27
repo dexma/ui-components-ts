@@ -1,9 +1,6 @@
 import React from 'react';
-import { Cell } from '@/components/Cell';
-import { Chart } from '@/components/Chart';
-import { Grid } from '@/components/Grid';
-import { Row } from '@/components/Row';
-import Section from '@/components/Section/Section';
+
+import { Section, Cell, Chart, Grid, Row } from '@components';
 import { mockBasicArea } from '../../../tests/mock/Chart';
 
 export default {

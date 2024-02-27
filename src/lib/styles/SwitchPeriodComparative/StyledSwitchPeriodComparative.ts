@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
-import { StyledFieldGroup } from '@/styles/Fieldgroup/StyledFieldGroup';
-import { StyledIcon } from '@/styles/Icon/StyledIcon';
-import { backgroundColor, borderRadius, fontColor, fontSize, fontWeightSemiBold, primaryColor, primaryColorSvg, switchPeriodComparativeFontSize } from '@/utils/selectors';
-import { Theme, color } from '@/utils/theme';
+import { Theme, color } from '@utils/theme';
+import { backgroundColor, borderRadius, fontColor, fontSize, fontWeightSemiBold, primaryColor, primaryColorSvg, switchPeriodComparativeFontSize } from '@utils/selectors';
+import { StyledFieldGroup } from '@styles/Fieldgroup/StyledFieldGroup';
+import { StyledIcon } from '@styles/Icon/StyledIcon';
 
 type StyledSwitchPeriodComparativeProps = {
     theme: Theme;

@@ -1,7 +1,8 @@
 import React from 'react';
-import { expect, describe, it, vitest } from 'vitest';
-import { Pagination } from '@/components/Pagination';
+import { expect, describe, it } from 'vitest';
 import { render } from '@testing-library/react';
+
+import { Pagination } from '@components';
 
 describe('<Pagination>', () => {
     it('Should render the correct classNamePrefix component', () => {

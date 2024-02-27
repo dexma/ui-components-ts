@@ -1,12 +1,10 @@
-import path from 'node:path';
-import { defineConfig } from 'vitest/config';
 import { UserConfigExport } from 'vite';
+import { defineConfig } from 'vitest/config';
+import tsconfigPaths from 'vite-tsconfig-paths';
 
 const app = async (): Promise<UserConfigExport> => {
     return defineConfig({
-        resolve: {
-            alias: [{ find: '@', replacement: path.resolve(__dirname, '/src/lib') }],
-        },
+        plugins: [tsconfigPaths()],
         test: {
             globals: true,
             environment: 'jsdom',

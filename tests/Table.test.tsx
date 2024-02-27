@@ -1,8 +1,8 @@
 import React from 'react';
+import { beforeAll, describe, expect, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
-import Table from '@/components/Table/Table';
-import { Result } from '@/components/Result';
+
+import { Table, Result, ResultVariants } from '@components';
 
 type User = {
     key: string;
@@ -45,6 +45,11 @@ const columns = [
 ];
 
 describe('<Table>', () => {
+    beforeAll(() => {
+        const { getComputedStyle } = window;
+        window.getComputedStyle = (elt) => getComputedStyle(elt);
+    });
+
     it('Should render table component', () => {
         render(<Table dataSource={dataSource} columns={columns} />);
         expect(screen.getByTestId('table')).toBeTruthy();
@@ -54,7 +59,9 @@ describe('<Table>', () => {
         expect(screen.getByTestId('table-loading')).toBeTruthy();
     });
     it('Should render loading component', () => {
-        render(<Table dataSource={dataSource} columns={columns} showError errorContent={<Result variant='error' title='Error table' info='Test info table error' />} />);
+        render(
+            <Table dataSource={dataSource} columns={columns} showError errorContent={<Result variant={ResultVariants.ERROR} title='Error table' info='Test info table error' />} />
+        );
         expect(screen.getByTestId('table-error')).toBeTruthy();
         expect(screen.getByText('Error table')).toBeTruthy();
         expect(screen.getByText('Test info table error')).toBeTruthy();

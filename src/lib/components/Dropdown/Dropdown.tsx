@@ -1,7 +1,8 @@
 import React from 'react';
 import { Dropdown as DropdownAntd } from 'antd';
-import { Button } from '@/components/Button';
-import { StyledGlobalDropdown } from '@/styles/Dropdown/StyledDropdown';
+
+import { Button } from '@components';
+import { StyledGlobalDropdown } from '@styles/Dropdown/StyledDropdown';
 
 const defaultProps: DropdownProps = {
     placement: 'bottomRight',

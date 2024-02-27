@@ -1,9 +1,6 @@
 import React from 'react';
-import { Cell } from '../components/Cell';
-import { ColorPicker } from '../components/ColorPicker';
-import { Grid } from '../components/Grid';
-import { Paragraph } from '../components/Paragraph';
-import { Row } from '../components/Row';
+
+import { ColorPicker, Grid, Row, Cell, Paragraph } from '@components';
 
 export default {
     title: 'ColorPicker',

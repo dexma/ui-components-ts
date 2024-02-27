@@ -1,34 +1,8 @@
 import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
-
-import { StyledCell } from '@/styles/Cell/StyledCell';
-import theme from '@/utils/theme';
 import { ThemeContext } from 'styled-components';
 
-const propTypes = {
-    /**
-     * Responsive extra small size
-     */
-    xs: PropTypes.oneOfType([PropTypes.number, PropTypes.bool, PropTypes.string]),
-    /**
-     * Responsive small size
-     */
-    sm: PropTypes.oneOfType([PropTypes.number, PropTypes.bool, PropTypes.string]),
-    /**
-     * Responsive medium size
-     */
-    md: PropTypes.oneOfType([PropTypes.number, PropTypes.bool, PropTypes.string]),
-    /**
-     * Responsive large size
-     */
-    lg: PropTypes.oneOfType([PropTypes.number, PropTypes.bool, PropTypes.string]),
-    xsOffset: PropTypes.number,
-    smOffset: PropTypes.number,
-    mdOffset: PropTypes.number,
-    lgOffset: PropTypes.number,
-    first: PropTypes.oneOf(['xs', 'sm', 'md', 'lg']),
-    last: PropTypes.oneOf(['xs', 'sm', 'md', 'lg']),
-};
+import theme from '@utils/theme';
+import { StyledCell } from '@styles/Cell/StyledCell';
 
 type CellProps = {
     xs?: number;
@@ -69,7 +43,3 @@ export const Cell = (props: CellProps) => {
 };
 
 StyledCell.displayName = 'StyledCell';
-
-Cell.propTypes = propTypes;
-
-export default Cell;

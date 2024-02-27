@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import { Pagination as PaginationAntDesign, PaginationProps as PaginationAntProps } from 'antd';
 import { ThemeContext } from 'styled-components';
-import { Icon } from '@/components/Icon';
-import { StyledPagination } from '@/styles/Pagination/StyledPagination';
-import theme from '@/utils/theme';
+import { Icon } from '@components/Icon';
+import { StyledPagination } from '@styles/Pagination/StyledPagination';
+import theme from '@utils/theme';
 
 export const itemRender = (page: number, type: 'page' | 'prev' | 'next' | 'jump-prev' | 'jump-next', element: React.ReactNode) => {
     if (type === 'prev') {

@@ -1,9 +1,8 @@
 import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
 import { Tabs as TabsAntDesign, TabsProps as TabsPropsAntDesign } from 'antd';
 
-import theme from '@/utils/theme';
-import { StyledTabs } from '@/styles/Tabs/StyledTabs';
+import theme from '@utils/theme';
+import { StyledTabs } from '@styles/Tabs/StyledTabs';
 import { ThemeContext } from 'styled-components';
 
 type TabsProps = TabsPropsAntDesign & {

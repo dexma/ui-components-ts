@@ -1,12 +1,7 @@
-import Cell from '@/components/Cell/Cell';
-import { Grid } from '@/components/Grid';
-import Paragraph from '@/components/Paragraph/Paragraph';
-import Result from '@/components/Result/Result';
-import Row from '@/components/Row/Row';
-import { Table } from '@/components/Table';
-import { columnsTable, dataTable } from '../../../tests/mock/Table';
-
 import React, { useState } from 'react';
+
+import { Result, ResultVariants, Grid, Row, Cell, Paragraph, Table } from '@components';
+import { columnsTable, dataTable } from '../../../tests/mock/Table';
 
 export default {
     title: 'Table',
@@ -72,7 +67,7 @@ export const error = () => (
                     dataSource={dataTable}
                     columns={columnsTable}
                     showError
-                    errorContent={<Result variant='error' title='Error data' info='Please check and modify the following information before resubmitting.' />}
+                    errorContent={<Result variant={ResultVariants.ERROR} title='Error data' info='Please check and modify the following information before resubmitting.' />}
                 />
             </Cell>
         </Row>

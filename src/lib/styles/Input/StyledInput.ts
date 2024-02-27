@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
-import { gray500, border, primaryColor, borderRadius, inputHeight, inputFontSize, inputPaddingX } from '@/utils/selectors';
-import { StyledSpinner } from '@/styles/Spinner/StyledSpinner';
-import { Theme } from '@/utils/theme';
+import { gray500, border, primaryColor, borderRadius, inputHeight, inputFontSize, inputPaddingX } from '@utils/selectors';
+import { StyledSpinner } from '@styles/Spinner/StyledSpinner';
+import { Theme } from '@utils/theme';
 
 export const getLoading = (props: any) => {
     const { theme, focused } = props;

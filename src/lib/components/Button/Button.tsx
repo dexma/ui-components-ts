@@ -1,17 +1,13 @@
 /* eslint-disable import/no-cycle */
 import React, { MouseEventHandler, useContext } from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import debounce from 'lodash/debounce';
 import { ThemeContext } from 'styled-components';
 
-import theme from '@/utils/theme';
-import { Icon, getIconSize } from '@/components/Icon';
-import { Tooltip } from '@/components/Tooltip';
-import { Spinner } from '@/components/Spinner/Spinner';
-
-import { StyledButton, StyledButtonGroup } from '@/styles/Button/StyledButton';
-import withDataId from '@/components/DataId/withDataId';
+import theme from '@utils/theme';
+import { Tooltip, Spinner, Icon, getIconSize } from '@components';
+import withDataId from '@components/DataId/withDataId';
+import { StyledButton, StyledButtonGroup } from '@styles/Button/StyledButton';
 
 export enum ButtonSize {
     SMALL = 'small',
@@ -21,80 +17,12 @@ export enum ButtonSize {
 }
 export const BUTTON_VARIANT = ['primary', 'secondary', 'outline', 'destructive', 'link', 'icon', 'icon-secondary', 'icon-outline'];
 
-const propTypes = {
-    /**
-     * Set the text of button
-     */
-    text: PropTypes.string,
-    /**
-     * Set the size of button
-     */
-    size: PropTypes.oneOf(['small', 'medium', 'large', 'xlarge']).isRequired,
-    /**
-     * Set the style variant of the button
-     */
-    variant: PropTypes.oneOf(BUTTON_VARIANT).isRequired,
-    /**
-     * Set the icon before the text or children you have to set with our <a href="https://dexma.github.io/ui-components/?path=/docs/icon--sizes#icons">Icons</a>:
-     */
-    iconBefore: PropTypes.string,
-    /**
-     * Set the icon after the text or children you have to set with our <a href="https://dexma.github.io/ui-components/?path=/docs/icon--sizes#icons">Icons</a>:
-     */
-    iconAfter: PropTypes.string,
-    /**
-     * Set a color from <a href="https://dexma.github.io/ui-components/?path=/docs/colors--colors">color</a> or pass a HEX color #333 or #333333
-     */
-    iconColor: PropTypes.string,
-    /**
-     * Invoked once the button has been clicked.
-     */
-    tooltip: PropTypes.string,
-    /**
-     * Invoked once the button has been clicked.
-     */
-    onClick: PropTypes.func,
-    /**
-     * Invoked once the button has been focused.
-     */
-    onFocus: PropTypes.func,
-    /**
-     * State to set loader icon and status
-     */
-    isLoading: PropTypes.bool,
-    /**
-     * State to set the button disabled
-     */
-    isDisabled: PropTypes.bool,
-    /**
-     * Set the button with a circle style
-     */
-    isCircle: PropTypes.bool,
-    /**
-     * Set the button with a expanded style 100%
-     */
-    isExpanded: PropTypes.bool,
-    /**
-     * Set the time that you want to debounce a click
-     */
-    debounceTime: PropTypes.number,
-    /**
-     * Theme json based
-     */
-    theme: PropTypes.shape({}),
-    /**
-     * data-id attribute to identfy the element in DOM
-     */
-    dataId: PropTypes.string,
-};
-
 const defaultProps = {
     size: 'medium',
     variant: 'primary',
     isDisabled: false,
     isLoading: false,
     isExpanded: false,
-    theme: theme,
     dataId: 'button',
     'data-testid': 'button',
 };
@@ -111,7 +39,7 @@ export const ButtonGroup = (props: any) => {
     return <StyledButtonGroup {...props} />;
 };
 
-export type ButtonType = {
+export type ButtonProps = {
     className?: string;
     text?: string;
     size?: string | ButtonSize;
@@ -134,7 +62,7 @@ export type ButtonType = {
     'data-testid'?: string;
 };
 
-export const Button = (props: ButtonType) => {
+export const Button = withDataId((props: ButtonProps) => {
     const { className, text, iconBefore, iconAfter, iconColor, tooltip, onClick, isDisabled, isExpanded, isLoading, size, debounceTime, children, dataId, variant } = props;
     const th = useContext(ThemeContext) || theme;
     const classes = classNames(isExpanded && 'expanded', className);
@@ -157,6 +85,7 @@ export const Button = (props: ButtonType) => {
             onClick={handleClick}
             onMouseEnter={props.onMouseEnter}
             onMouseLeave={props.onMouseLeave}
+            data-id={dataId}
             data-testid={props['data-testid']}
         >
             {isLoading ? <Spinner size={spinnerSize} data-testid='button-loading' /> : null}
@@ -167,11 +96,8 @@ export const Button = (props: ButtonType) => {
         </StyledButton>
     );
     return tooltip ? <Tooltip title={tooltip}>{getStyledButton()}</Tooltip> : getStyledButton();
-};
+});
 
 StyledButton.displayName = 'StyledButton';
 
-Button.propTypes = propTypes;
 Button.defaultProps = defaultProps;
-
-export default withDataId(Button);

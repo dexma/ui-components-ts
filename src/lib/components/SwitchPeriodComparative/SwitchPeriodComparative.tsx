@@ -1,13 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
 import moment, { Moment } from 'moment';
-import { withTheme } from 'styled-components';
+import { ThemeContext } from 'styled-components';
 import omit from 'lodash/omit';
 import { uniqueId } from 'lodash';
-import theme from '@/utils/theme';
-import { StyledSwitchPeriodComparative } from '@/styles/SwitchPeriodComparative/StyledSwitchPeriodComparative';
-import FieldGroup from '@/components/FieldGroup/FieldGroup';
-import { ISO_FORMAT } from '@/utils/dates';
+
+import theme from '@utils/theme';
+import { ISO_FORMAT } from '@utils/dates';
+import { FieldGroup } from '@components';
+import { StyledSwitchPeriodComparative } from '@styles/SwitchPeriodComparative/StyledSwitchPeriodComparative';
 
 const getRangeDaysBetweenTwoDates = (startDate: string, endDate: string) => {
     const start = moment(new Date(startDate)).startOf('day');
@@ -34,56 +34,28 @@ export const getSamePeriodLastYear = (startDate: string, endDate: string): [stri
     return [startYearBefore.format(ISO_FORMAT), endYearBefore.format(ISO_FORMAT)];
 };
 
-const propTypes = {
-    /**
-     * Set if previous or last period is selected
-     */
-    selectedPeriod: PropTypes.oneOf(['previous_period', 'last_period']).isRequired,
-    /**
-     * Set start date
-     */
-    startDate: PropTypes.string,
-    /**
-     * Set end date
-     */
-    endDate: PropTypes.string,
-    /**
-     * Set text previous
-     */
-    previousPeriodText: PropTypes.string,
-    /**
-     * Set text same period
-     */
-    samePeriodLastYearText: PropTypes.string,
-    /**
-     * Call this function after a period is selected
-     */
-    onPeriodSelect: PropTypes.func,
-    /**
-     * Theme json based
-     */
-    theme: PropTypes.shape({}),
-};
-
 const defaultProps = {
     selectedPeriod: 'previous_period',
-    theme: theme,
 };
 
 enum SelectedPeriod {
     PREVIOUS_PERIOD = 'previous_period',
     LAST_PERIOD = 'last_period',
 }
+
+export type SelectedPeriodType = 'previous_period' | 'last_period';
+
 type SwitchPeriodComparativeProps = {
-    selectedPeriod: 'previous_period' | 'last_period';
+    selectedPeriod: SelectedPeriodType;
     startDate: string;
     endDate: string;
     previousPeriodText?: string;
     samePeriodLastYearText?: string;
-    onPeriodSelect?: ({ period, date }: { period: string; date: { startDate: Moment; endDate: Moment } }) => void;
+    onPeriodSelect?: ({ period, date }: { period: SelectedPeriodType; date: { startDate: Moment; endDate: Moment } }) => void;
 };
 export const SwitchPeriodComparative = (props: SwitchPeriodComparativeProps) => {
     const { selectedPeriod, startDate, endDate, previousPeriodText, samePeriodLastYearText, onPeriodSelect } = props;
+    const th = useContext(ThemeContext) || theme;
     const switchPeriodComparativeProps = omit(props, ['selectedPeriod', 'startDate', 'endDate', 'previousPeriodText', 'samePeriodLastYearText', 'onPeriodSelect']);
     const formatDate = (start: string, end: string): { startDate: Moment; endDate: Moment } => {
         const newStartDate = moment(start, ISO_FORMAT).startOf('day');
@@ -114,7 +86,7 @@ export const SwitchPeriodComparative = (props: SwitchPeriodComparativeProps) => 
         return value === SelectedPeriod.PREVIOUS_PERIOD ? formatDate(previousStartDate, previousEndDate) : formatDate(lastYearStartDate, lastYearEndDate);
     };
 
-    const onPeriodChange = (value: string) => {
+    const onPeriodChange = (value: SelectedPeriodType) => {
         onPeriodSelect && onPeriodSelect({ period: value, date: getActivePeriod(value) });
     };
     const previousPeriod = `${previousStartDate} - ${previousEndDate}`;
@@ -124,7 +96,7 @@ export const SwitchPeriodComparative = (props: SwitchPeriodComparativeProps) => 
     const lastId = uniqueId();
 
     return (
-        <StyledSwitchPeriodComparative data-testid='switch-period-comparative' {...switchPeriodComparativeProps}>
+        <StyledSwitchPeriodComparative data-testid='switch-period-comparative' {...switchPeriodComparativeProps} theme={th}>
             <div className='compare-period'>
                 <div className='compare-period-container'>
                     <FieldGroup
@@ -144,7 +116,7 @@ export const SwitchPeriodComparative = (props: SwitchPeriodComparativeProps) => 
                         ]}
                         selectedValues={selectedPeriod}
                         type='radio'
-                        onChange={(item: { value: string }) => onPeriodChange(item.value)}
+                        onChange={(item: { value: SelectedPeriodType }) => onPeriodChange(item.value)}
                     />
                 </div>
             </div>
@@ -154,7 +126,4 @@ export const SwitchPeriodComparative = (props: SwitchPeriodComparativeProps) => 
 
 StyledSwitchPeriodComparative.displayName = 'StyledSwitchPeriodComparative';
 
-SwitchPeriodComparative.propTypes = propTypes;
 SwitchPeriodComparative.defaultProps = defaultProps;
-
-export default withTheme(SwitchPeriodComparative);

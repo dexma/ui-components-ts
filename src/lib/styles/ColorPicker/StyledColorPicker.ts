@@ -1,8 +1,8 @@
 import { SketchPicker } from 'react-color';
 import styled from 'styled-components';
-import { Input } from '@/components/Input';
-import { Spinner } from '@/components/Spinner/Spinner';
-import { Theme } from '@/utils/theme';
+import { Input } from '@components/Input';
+import { Spinner } from '@components/Spinner/Spinner';
+import { Theme } from '@utils/theme';
 
 const StyledColorPickerLayout = styled.div`
     display: flex;

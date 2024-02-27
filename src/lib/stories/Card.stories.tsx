@@ -1,14 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Grid } from '../components/Grid';
-import { Cell } from '../components/Cell';
-import { Button } from '../components/Button';
-import { Row } from '../components/Row';
-import { Paragraph } from '../components/Paragraph';
-import { Card } from '../components/Card';
 
+import { Grid, Cell, Button, Row, Paragraph, Card } from '@components';
+import { StyledCell } from '@styles/Cell/StyledCell';
 import { mockCards } from '../../../tests/mock/Card';
-import { StyledCell } from '@/styles/Cell/StyledCell';
 
 export default {
     title: 'Card',

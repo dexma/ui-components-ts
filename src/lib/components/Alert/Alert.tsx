@@ -1,48 +1,15 @@
 import React, { useContext, useState } from 'react';
-import PropTypes from 'prop-types';
 import { ThemeContext } from 'styled-components';
 import get from 'lodash/get';
 
-import theme from '@/utils/theme';
-import { StyledAlert } from '@/styles/Alert/StyledAlert';
-import { Icon, IconSize } from '@/components/Icon';
-
-const propTypes = {
-    /**
-     * Type of Alert styles
-     */
-    type: PropTypes.oneOf(['basic', 'outline', 'warning', 'info', 'success', 'error']).isRequired,
-    /**
-     * Content of Alert
-     */
-    message: PropTypes.string.isRequired,
-    /**
-     * Whether Alert can be closed
-     */
-    closable: PropTypes.bool,
-    /**
-     * Show the icon of the type you passed: `success`, `info`, `warning`, `error`
-     */
-    showIcon: PropTypes.bool,
-    /**
-     * Additional content description of Alert
-     */
-    description: PropTypes.string,
-    /**
-     * Callback when Alert is closed
-     */
-    onClose: PropTypes.func,
-    /**
-     * Theme json based
-     */
-    theme: PropTypes.shape({}),
-};
+import theme from '@utils/theme';
+import { StyledAlert } from '@styles/Alert/StyledAlert';
+import { Icon, IconSize } from '@components/Icon';
 
 const defaultProps = {
     closable: false,
     showIcon: false,
     type: 'warning',
-    theme: theme,
 };
 
 type AlertProps = {
@@ -107,7 +74,4 @@ export const Alert = (props: AlertProps) => {
 
 StyledAlert.displayName = 'StyledAlert';
 
-Alert.propTypes = propTypes;
 Alert.defaultProps = defaultProps;
-
-export default Alert;

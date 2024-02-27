@@ -2,10 +2,10 @@ import styled, { css } from 'styled-components';
 import { darken, saturate, transparentize, rgba } from 'polished';
 import get from 'lodash/get';
 
-import { white, gray300, gray400, gray500, gray700, gray900, red, primaryColor, backgroundColor, buttonSize, borderRadius, iconColor } from '@/utils/selectors';
-import { StyledIcon } from '@/styles/Icon/StyledIcon';
-import { StyledSpinner } from '@/styles/Spinner/StyledSpinner';
-import { Theme } from '@/utils/theme';
+import { Theme } from '@utils/theme';
+import { white, gray300, gray400, gray500, gray700, gray900, red, primaryColor, backgroundColor, buttonSize, borderRadius, iconColor } from '@utils/selectors';
+import { StyledIcon } from '@styles/Icon/StyledIcon';
+import { StyledSpinner } from '@styles/Spinner/StyledSpinner';
 
 export const getSpinnerWhite = () => css`
     ${StyledSpinner} {

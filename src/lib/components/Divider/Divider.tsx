@@ -1,16 +1,8 @@
 import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
 import { ThemeContext } from 'styled-components';
 
-import { StyledDivider } from '@/styles/Divider/StyledDivider';
-import theme from '@/utils/theme';
-
-const propTypes = {
-    /**
-     * Show the divider vertical
-     */
-    vertical: PropTypes.bool,
-};
+import theme from '@utils/theme';
+import { StyledDivider } from '@styles/Divider/StyledDivider';
 
 const defaultProps = {
     vertical: false,
@@ -23,7 +15,4 @@ export const Divider = (props: { vertical: boolean }) => {
 
 StyledDivider.displayName = 'StyledDivider';
 
-Divider.propTypes = propTypes;
 Divider.defaultProps = defaultProps;
-
-export default Divider;

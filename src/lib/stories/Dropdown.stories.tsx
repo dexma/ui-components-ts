@@ -1,9 +1,6 @@
 import React from 'react';
-import { Dropdown, DropdownProps } from '../components/Dropdown';
-import { Row } from '@/components/Row';
-import { Grid } from '@/components/Grid';
-import { Cell } from '@/components/Cell';
-import { Paragraph } from '@/components/Paragraph';
+
+import { Dropdown, DropdownProps, Row, Grid, Cell, Paragraph } from '@components';
 
 const content = [
     {

@@ -1,30 +1,10 @@
 import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
 import { ThemeContext } from 'styled-components';
 import omit from 'lodash/omit';
 
-import { Spinner } from '@/components/Spinner/Spinner';
-import { StyledLoading } from '@/styles/Loading/StyledLoading';
-import theme from '@/utils/theme';
-
-const propTypes = {
-    /**
-     * Set the color name for the loading, it will be a <a href="https://dexma.github.io/ui-components/?path=/docs/colors--colors">color</a>
-     */
-    color: PropTypes.string,
-    /**
-     * Size base on the theme
-     */
-    size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    /**
-     * The status of the loading
-     */
-    type: PropTypes.oneOf(['spinner']),
-    /**
-     * The status of the loading
-     */
-    isLoading: PropTypes.bool,
-};
+import theme from '@utils/theme';
+import { Spinner } from '@components/Spinner/Spinner';
+import { StyledLoading } from '@styles/Loading/StyledLoading';
 
 const defaultProps = {
     size: 24,
@@ -55,7 +35,6 @@ export const Loading = (props: LoadingProps) => {
 
 StyledLoading.displayName = 'StyledLoading';
 
-Loading.propTypes = propTypes;
 Loading.defaultProps = defaultProps;
 
 export default Loading;

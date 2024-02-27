@@ -1,8 +1,9 @@
 import React, { useContext } from 'react';
-import { ThemeContext, withTheme } from 'styled-components';
-import { Checkbox as CheckboxAntd, ConfigProvider } from 'antd';
 import omit from 'lodash/omit';
-import theme from '@/utils/theme';
+import { Checkbox as CheckboxAntd, ConfigProvider } from 'antd';
+import { ThemeContext } from 'styled-components';
+
+import theme from '@utils/theme';
 
 const defaultProps: CheckboxProps = {};
 
@@ -35,5 +36,3 @@ export const Checkbox = (props: CheckboxProps) => {
 };
 
 Checkbox.defaultProps = defaultProps;
-
-export default withTheme(Checkbox);

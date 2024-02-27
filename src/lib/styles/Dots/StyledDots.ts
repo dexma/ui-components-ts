@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
-import theme from '@/utils/theme';
-import { glow } from '@/utils/animation';
+import theme from '@utils/theme';
+import { glow } from '@utils/animation';
 
 const StyledDot = styled.div<{ theme: typeof theme; size: number }>`
     background: ${(props) => props.theme.iconColor};

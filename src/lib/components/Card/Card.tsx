@@ -1,76 +1,10 @@
-import React, { ReactNode, useContext } from 'react';
-import PropTypes from 'prop-types';
-import { ThemeContext, withTheme } from 'styled-components';
+import React, { useContext } from 'react';
+import { ThemeContext } from 'styled-components';
 import classNames from 'classnames';
-import omit from 'lodash/omit';
 
-import { Icon } from '@/components/Icon';
-import { Paragraph } from '@/components/Paragraph';
-import { StyledCard, StyledCardLink } from '@/styles/Card/StyledCard';
-import theme from '@/utils/theme';
-
-const propTypes = {
-    /**
-     * Set the card as a link with href
-     */
-    link: PropTypes.string,
-    /**
-     * Show the title of the card
-     */
-    title: PropTypes.string,
-    /**
-     * Show ... if the title collapse
-     */
-    titleTruncated: PropTypes.bool,
-    /**
-     * Set the subtitle of the card
-     */
-    subtitle: PropTypes.string,
-    /**
-     * Set the description of the card
-     */
-    description: PropTypes.string,
-    /**
-     * You can use icon as the main picture
-     */
-    icon: PropTypes.string,
-    /**
-     * You can pass image url image
-     */
-    image: PropTypes.string,
-    /**
-     * You can set the footer of the card
-     */
-    footer: PropTypes.node,
-    /**
-     * Show the active card
-     */
-    isActive: PropTypes.bool,
-    /**
-     * Show a white card
-     */
-    isWhite: PropTypes.bool,
-    /**
-     * Show a loading placeholder
-     */
-    isLoading: PropTypes.bool,
-    /**
-     * Show the horizontal style card
-     */
-    isHorizontal: PropTypes.bool,
-    /**
-     * Invoked once the button has been clicked.
-     */
-    onClick: PropTypes.func,
-    /**
-     * Invoked once the button has been focused.
-     */
-    onFocus: PropTypes.func,
-    /**
-     * Theme json based
-     */
-    theme: PropTypes.shape({}),
-};
+import theme from '@utils/theme';
+import { Icon, Paragraph } from '@components';
+import { StyledCard, StyledCardLink } from '@styles/Card/StyledCard';
 
 const defaultProps = {
     titleTruncated: false,
@@ -78,10 +12,9 @@ const defaultProps = {
     isWhite: false,
     isLoading: false,
     isHorizontal: false,
-    theme: theme,
 };
 
-export const CardHeader = ({ image, icon }: { image?: string; icon?: string }) => {
+const CardHeader = ({ image, icon }: { image?: string; icon?: string }) => {
     if (!image && !icon) return null;
     return (
         <div className='card-header' data-testid='card-header'>
@@ -91,7 +24,7 @@ export const CardHeader = ({ image, icon }: { image?: string; icon?: string }) =
     );
 };
 
-export const CardBody = ({ title, subtitle, description }: { title?: string; subtitle?: string; description?: string }) => {
+const CardBody = ({ title, subtitle, description }: { title?: string; subtitle?: string; description?: string }) => {
     if (!title && !subtitle && !description) return null;
     return (
         <div className='card-body' data-testid='card-body'>
@@ -102,7 +35,7 @@ export const CardBody = ({ title, subtitle, description }: { title?: string; sub
     );
 };
 
-export const CardFooter = ({ footer }: { footer: React.ReactNode }) => {
+const CardFooter = ({ footer }: { footer: React.ReactNode }) => {
     if (!footer) return null;
     return (
         <div className='card-footer' data-testid='card-footer'>
@@ -176,7 +109,6 @@ export const Card = (props: CardProps) => {
 
 StyledCard.displayName = 'StyledCard';
 
-Card.propTypes = propTypes;
 Card.defaultProps = defaultProps;
 
 export default Card;

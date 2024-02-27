@@ -1,46 +1,16 @@
 import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
-import styled, { ThemeContext, withTheme } from 'styled-components';
+import styled, { ThemeContext } from 'styled-components';
 import omit from 'lodash/omit';
 import { Table as TableAntDesign, ConfigProvider, TableProps as AntDTableProps } from 'antd';
 
-import { StyledResult } from '@/styles/Result/StyledResult';
-import Button, { ButtonType } from '@/components/Button/Button';
-import { StyledTable } from '@/styles/Table/StyledTable';
-import withDataId from '@/components/DataId/withDataId';
-import { itemRender } from '@/components/Pagination';
-import theme, { Theme } from '@/utils/theme';
-
-const propTypes = {
-    /**
-     * When you have a expanded table you need to set true the flag
-     */
-    isExpanded: PropTypes.bool,
-    /**
-     * State to show/hide loading
-     */
-    isLoading: PropTypes.bool,
-    /**
-     * State to show/hide error
-     */
-    showError: PropTypes.bool,
-    /**
-     * The content of the error normally will be a Result component
-     */
-    errorContent: PropTypes.node,
-    /**
-     * Theme json based
-     */
-    theme: PropTypes.shape({}),
-    /**
-     * data-id attribute to identfy the element in DOM
-     */
-    dataId: PropTypes.string,
-};
+import theme from '@utils/theme';
+import { Button, itemRender } from '@components';
+import withDataId from '@components/DataId/withDataId';
+import { StyledResult } from '@styles/Result/StyledResult';
+import { StyledTable } from '@styles/Table/StyledTable';
 
 const defaultProps = {
     isExpanded: false,
-    theme: theme,
     dataId: 'table',
 };
 
@@ -149,8 +119,8 @@ type TableProps = {
     errorContent?: React.ReactNode;
 };
 
-export const Table = <T extends object>(props: AntDTableProps<T> & TableProps) => {
-    const { isExpanded, expandedRowRender, columns, dataSource, isLoading, showError, errorContent, dataId } = props;
+export const Table = withDataId(<T extends object>(props: AntDTableProps<T> & TableProps) => {
+    const { isExpanded, expandable, columns, dataSource, isLoading, showError, errorContent, dataId } = props;
     const tableProps = omit(props, ['theme', 'columns', 'dataId']);
     const th = useContext(ThemeContext) || theme;
     const getColumnsExpanded = () => {
@@ -179,7 +149,7 @@ export const Table = <T extends object>(props: AntDTableProps<T> & TableProps) =
                 {showTable && (
                     <TableAntDesign
                         expandable={{
-                            expandIcon: expandedRowRender && getExpandedIcon,
+                            expandIcon: expandable?.expandedRowRender && getExpandedIcon,
                         }}
                         pagination={{ itemRender: itemRender }}
                         columns={isExpanded ? getColumnsExpanded() : columns}
@@ -189,11 +159,8 @@ export const Table = <T extends object>(props: AntDTableProps<T> & TableProps) =
             </StyledTable>
         </ConfigProvider>
     );
-};
+});
 
 StyledTable.displayName = 'StyledTable';
 
-Table.defaultProps = propTypes;
 Table.defaultProps = defaultProps;
-
-export default withDataId(Table);

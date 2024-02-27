@@ -3,9 +3,9 @@ import { Cascader as CascaderAntd, ConfigProvider } from 'antd';
 import { CascaderRef, DefaultOptionType } from 'antd/es/cascader';
 import { DefaultTheme, ThemeContext } from 'styled-components';
 
-import theme from '@/utils/theme';
-import { Icon } from '@/components/Icon';
-import { CascaderOptionStyle, StyledTagSelected } from '@/styles/Cascader/StyledCascader';
+import theme from '@utils/theme';
+import { Icon } from '@components/Icon';
+import { CascaderOptionStyle, StyledTagSelected } from '@styles/Cascader/StyledCascader';
 
 type Value = (string | number)[];
 type CascaderProps<OptionType extends DefaultOptionType> = {
@@ -83,9 +83,6 @@ const defaultProps = {
     open: false,
     multiple: false,
     options: [],
-    theme: theme,
 };
 
 Cascader.defaultProps = defaultProps;
-
-export default Cascader;

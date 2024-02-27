@@ -4,6 +4,7 @@ export * from './Card';
 export * from './Cascader';
 export * from './Cell';
 export * from './Chart';
+export * from './Checkbox';
 export * from './ColorPicker';
 export * from './Divider';
 export * from './Dots';

@@ -1,11 +1,9 @@
 import React, { ForwardedRef, Ref, useContext, useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import { ThemeContext } from 'styled-components';
 import omit from 'lodash/omit';
 
 import Highcharts from 'highcharts';
 import HighchartsReact, { HighchartsReactRefObject } from 'highcharts-react-official';
-import HCRounded from 'highcharts-rounded-corners';
 import HighchartsHeatmap from 'highcharts/modules/heatmap';
 
 import addSolidGauge from 'highcharts/modules/solid-gauge';
@@ -16,14 +14,14 @@ import addExportData from 'highcharts/modules/export-data';
 import boost from 'highcharts/modules/boost';
 import highchartsMore from 'highcharts/highcharts-more';
 import addPatternFill from 'highcharts/modules/pattern-fill';
+import accessibility from 'highcharts/modules/accessibility';
 
-import theme from '@/utils/theme';
-import withDataId from '@/components/DataId/withDataId';
-import { StyledChart, StyledChartError, StyledChartLoading } from '@/styles/Chart/StyledChart';
+import theme from '@utils/theme';
+import withDataId from '@components/DataId/withDataId';
+import { StyledChart, StyledChartError, StyledChartLoading } from '@styles/Chart/StyledChart';
 
-boost(Highcharts);
+if (import.meta.env.MODE !== 'test') boost(Highcharts);
 addSankeyModule(Highcharts);
-HCRounded(Highcharts);
 addExportingModule(Highcharts);
 addOfflineExportingModule(Highcharts);
 addExportData(Highcharts);
@@ -31,57 +29,7 @@ HighchartsHeatmap(Highcharts);
 highchartsMore(Highcharts);
 addSolidGauge(Highcharts);
 addPatternFill(Highcharts);
-
-const propTypes = {
-    /**
-     * The default decimal point used in the Highcharts.numberFormat method unless otherwise specified in the function arguments.
-     */
-    decimalPoint: PropTypes.string,
-    /**
-     * The default thousands separator used in the Highcharts.numberFormat method unless otherwise specified in the function arguments. Defaults to a single space character, which is recommended in ISO 31-0 and works across Anglo-American and continental European languages
-     */
-    thousandsSep: PropTypes.string,
-    /**
-     * Metric prefixes used to shorten high numbers in axis labels. Replacing any of the positions with null causes the full number to be written. Setting numericSymbols to null disables shortening altogether
-     */
-    numericSymbols: PropTypes.arrayOf(PropTypes.string),
-    /**
-     * An array containing the months names. Corresponds to the %B format in Highcharts.dateFormat()
-     */
-    months: PropTypes.arrayOf(PropTypes.string),
-    /**
-     * Short week days, starting Sunday. If not specified, Highcharts uses the first three letters of the lang.weekdays option
-     */
-    shortMonths: PropTypes.arrayOf(PropTypes.string),
-    /**
-     * An array containing the weekday names
-     */
-    weekdays: PropTypes.arrayOf(PropTypes.string),
-    /**
-     * All the highcharts options you can see on the <a href="https://api.highcharts.com/highcharts/chart">documentation</a>
-     */
-    options: PropTypes.shape({}),
-    /**
-     * Call a function when the charts is mounted, helpful when use multiple ref
-     */
-    callback: PropTypes.func,
-    /**
-     * State to show/hide loading
-     */
-    isLoading: PropTypes.bool,
-    /**
-     * State to show/hide error
-     */
-    showError: PropTypes.bool,
-    /**
-     * The content of the error normally will be a Result component
-     */
-    errorContent: PropTypes.node,
-    /**
-     * data-id attribute to identfy the element in DOM
-     */
-    dataId: PropTypes.string,
-};
+accessibility(Highcharts);
 
 const defaultProps = {
     decimalPoint: '.',
@@ -92,7 +40,6 @@ const defaultProps = {
     weekdays: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
     showError: false,
     isLoading: false,
-    theme: theme,
     dataId: 'chart',
 };
 
@@ -146,112 +93,111 @@ type ChartProps = {
     weekdays?: string[];
 };
 
-export const Chart = React.forwardRef((props: ChartProps, ref: ForwardedRef<HTMLDivElement>) => {
-    const { options, isLoading, showError, errorContent, dataId, 'data-testid': dataTestId, decimalPoint, thousandsSep, numericSymbols, months, shortMonths, weekdays } = props;
-    const th = useContext(ThemeContext) || theme;
-    const loading = isLoading && !showError;
-    const error = !isLoading && showError && errorContent;
-    const showChart = !loading && !error && options;
-    const [aggregateOptions, setAggregateOptions] = useState();
-    const { fontFamily, backgroundColor } = useContext(ThemeContext) || theme;
-    const highchartsReactProps = omit(props, [
-        'isLoading',
-        'showError',
-        'dataId',
-        'data-testid',
-        'decimalPoint',
-        'thousandsSep',
-        'thousandsSeparator',
-        'numericSymbols',
-        'months',
-        'options',
-        'shortMonths',
-        'weekdays',
-        'options',
-        'theme',
-    ]);
+export const Chart = withDataId(
+    React.forwardRef((props: ChartProps, ref: ForwardedRef<HTMLDivElement>) => {
+        const { options, isLoading, showError, errorContent, dataId, 'data-testid': dataTestId, decimalPoint, thousandsSep, numericSymbols, months, shortMonths, weekdays } = props;
+        const th = useContext(ThemeContext) || theme;
+        const loading = isLoading && !showError;
+        const error = !isLoading && showError && errorContent;
+        const showChart = !loading && !error && options;
+        const [aggregateOptions, setAggregateOptions] = useState();
+        const { fontFamily, backgroundColor } = useContext(ThemeContext) || theme;
+        const highchartsReactProps = omit(props, [
+            'isLoading',
+            'showError',
+            'dataId',
+            'data-testid',
+            'decimalPoint',
+            'thousandsSep',
+            'thousandsSeparator',
+            'numericSymbols',
+            'months',
+            'options',
+            'shortMonths',
+            'weekdays',
+            'options',
+            'theme',
+        ]);
 
-    // NOTE: this setOptions is global to all Charts so everytime it is called these values
-    // will be overwritten and the last one will prevail on all rendered charts
-    Highcharts.setOptions({
-        lang: {
-            decimalPoint,
-            thousandsSep,
-            numericSymbols,
-            months,
-            shortMonths,
-            weekdays,
-        },
-    });
-
-    useEffect(() => {
-        const currentOptions = { ...options };
-
-        if (!currentOptions.chart) {
-            currentOptions.chart = { style: {} };
-        } else if (!currentOptions.chart.style) {
-            currentOptions.chart.style = {};
-        }
-        if (!currentOptions.legend) {
-            currentOptions.legend = {};
-        }
-        if (!currentOptions.tooltip) {
-            currentOptions.tooltip = {};
-        }
-        if (!currentOptions.title) {
-            currentOptions.title = { text: '' };
-        } else if (!currentOptions.title.style) {
-            currentOptions.title.style = {};
-        }
-
-        setAggregateOptions({
-            ...options,
-            title: {
-                ...currentOptions.title,
-                style: {
-                    ...currentOptions.title.style,
-                    fontWeight: 'bold',
-                },
-            },
-            tooltip: {
-                ...currentOptions.tooltip,
-                backgroundColor: backgroundColor,
-                shadow: false,
-            },
-            legend: {
-                ...currentOptions.legend,
-                backgroundColor: backgroundColor,
-                itemStyle: {},
-            },
-            credits: {
-                enabled: false,
-            },
-            exporting: {
-                enabled: false,
-            },
-            chart: {
-                ...currentOptions.chart,
-                backgroundColor: backgroundColor,
-                style: {
-                    ...currentOptions.chart.style,
-                    fontFamily: fontFamily,
-                },
+        // NOTE: this setOptions is global to all Charts so everytime it is called these values
+        // will be overwritten and the last one will prevail on all rendered charts
+        Highcharts.setOptions({
+            lang: {
+                decimalPoint,
+                thousandsSep,
+                numericSymbols,
+                months,
+                shortMonths,
+                weekdays,
             },
         });
-    }, [options, fontFamily, backgroundColor]);
 
-    return (
-        <StyledChart data-id={dataId} data-testid={dataTestId} theme={th}>
-            {(loading || !aggregateOptions) && <ChartLoading />}
-            {error && <ChartError>{errorContent}</ChartError>}
-            {showChart && aggregateOptions && (
-                <HighchartsReact highcharts={Highcharts} ref={ref as Ref<HighchartsReactRefObject>} {...highchartsReactProps} options={aggregateOptions} />
-            )}
-        </StyledChart>
-    );
-});
+        useEffect(() => {
+            const currentOptions = { ...options };
 
-// Chart.propTypes = propTypes;
+            if (!currentOptions.chart) {
+                currentOptions.chart = { style: {} };
+            } else if (!currentOptions.chart.style) {
+                currentOptions.chart.style = {};
+            }
+            if (!currentOptions.legend) {
+                currentOptions.legend = {};
+            }
+            if (!currentOptions.tooltip) {
+                currentOptions.tooltip = {};
+            }
+            if (!currentOptions.title) {
+                currentOptions.title = { text: '' };
+            } else if (!currentOptions.title.style) {
+                currentOptions.title.style = {};
+            }
+
+            setAggregateOptions({
+                ...options,
+                title: {
+                    ...currentOptions.title,
+                    style: {
+                        ...currentOptions.title.style,
+                        fontWeight: 'bold',
+                    },
+                },
+                tooltip: {
+                    ...currentOptions.tooltip,
+                    backgroundColor: backgroundColor,
+                    shadow: false,
+                },
+                legend: {
+                    ...currentOptions.legend,
+                    backgroundColor: backgroundColor,
+                    itemStyle: {},
+                },
+                credits: {
+                    enabled: false,
+                },
+                exporting: {
+                    enabled: false,
+                },
+                chart: {
+                    ...currentOptions.chart,
+                    backgroundColor: backgroundColor,
+                    style: {
+                        ...currentOptions.chart.style,
+                        fontFamily: fontFamily,
+                    },
+                },
+            });
+        }, [options, fontFamily, backgroundColor]);
+
+        return (
+            <StyledChart data-id={dataId} data-testid={dataTestId} theme={th}>
+                {(loading || !aggregateOptions) && <ChartLoading />}
+                {error && <ChartError>{errorContent}</ChartError>}
+                {showChart && aggregateOptions && (
+                    <HighchartsReact highcharts={Highcharts} ref={ref as Ref<HighchartsReactRefObject>} {...highchartsReactProps} options={aggregateOptions} />
+                )}
+            </StyledChart>
+        );
+    })
+);
+
 Chart.defaultProps = defaultProps;
-
-export default withDataId(Chart);

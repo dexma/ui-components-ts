@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-import { backgroundColor, primaryColor, gray200, gray500, gray700, white, fontWeightNormal, fontWeightBold, tabFontSize } from '@/utils/selectors';
-import { Theme } from '@/utils/theme';
+import { Theme } from '@utils/theme';
+import { backgroundColor, primaryColor, gray200, gray500, gray700, white, fontWeightNormal, fontWeightBold, tabFontSize } from '@utils/selectors';
 
 type StyledTabsProps = {
     theme: Theme;

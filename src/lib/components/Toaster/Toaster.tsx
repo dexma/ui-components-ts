@@ -1,19 +1,7 @@
-import React, { PureComponent, useState } from 'react';
-import PropTypes from 'prop-types';
-import { withTheme } from 'styled-components';
+import React, { useState } from 'react';
 
-import ToasterContext from './ToasterContext';
-import { Toast, ToastType } from './Toast';
-import theme from '@/utils/theme';
-
-const propTypes = {
-    theme: PropTypes.shape({}),
-    children: PropTypes.node,
-};
-
-const defaultProps = {
-    theme: theme,
-};
+import { Toast, ToastType } from '@components/Toaster/Toast';
+import ToasterContext from '@components/Toaster/ToasterContext';
 
 type ToasterProps = {
     children: any;
@@ -27,15 +15,17 @@ type ToastConfig = {
 export const Toaster = (props: ToasterProps) => {
     const [visible, setVisible] = useState<boolean>();
     const [toastConfig, setToastConfig] = useState<ToastConfig>({ text: '', type: ToastType.INFO });
-    const [timeoutState, setTimeoutState] = useState();
+    const [timeoutState, setTimeoutState] = useState<NodeJS.Timeout>();
 
     const showToast = ({ text, type }: ToastConfig) => {
         timeoutState ? clearTimeout(timeoutState) : undefined;
         setVisible(true);
         setToastConfig({ text: text, type: type });
-        setTimeout(() => {
-            setVisible(true);
-        }, 5000);
+        setTimeoutState(
+            setTimeout(() => {
+                setVisible(true);
+            }, 5000)
+        );
     };
 
     return (
@@ -48,7 +38,4 @@ export const Toaster = (props: ToasterProps) => {
     );
 };
 
-Toaster.propTypes = propTypes;
-Toaster.defaultProps = defaultProps;
-
-export default withTheme(Toaster);
+export default Toaster;

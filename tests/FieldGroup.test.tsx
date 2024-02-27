@@ -1,9 +1,9 @@
 import React from 'react';
-
 import { describe, expect, it, vi } from 'vitest';
-import { mockRadioGroup, mockRadioCustomGroup, mockCheckboxGroup, mockSelectedRadioItem, mockSelectedCheckboxItem } from './mock/FieldGroup';
-import { FieldGroup } from '@/components/FieldGroup';
 import { render, screen, fireEvent } from '@testing-library/react';
+
+import { FieldGroup, FieldGroupItem } from '@components';
+import { mockRadioGroup, mockCheckboxGroup, mockSelectedRadioItem, mockSelectedCheckboxItem } from './mock/FieldGroup';
 
 describe('<FieldGroup>', () => {
     it('Should render correct input and label elements', () => {
@@ -83,7 +83,7 @@ describe('<FieldGroup>', () => {
 
     it('Should run changeFunction when change input', () => {
         const mockCallBack = vi.fn();
-        render(<FieldGroup values={mockRadioGroup} selectedValues={mockSelectedCheckboxItem} type='checkbox' onChange={(value) => mockCallBack(value)} />);
+        render(<FieldGroup values={mockRadioGroup} selectedValues={mockSelectedCheckboxItem} type='checkbox' onChange={(value: FieldGroupItem) => mockCallBack(value)} />);
 
         fireEvent.click(screen.getByText('m'));
         expect(mockCallBack).toHaveBeenCalled();
@@ -94,8 +94,8 @@ describe('<FieldGroup>', () => {
         const mockCallBackSecond = vi.fn();
         const { container } = render(
             <>
-                <FieldGroup values={mockCheckboxGroup} selectedValues={mockSelectedCheckboxItem} type='checkbox' onChange={(value) => mockCallBackFirst(value)} />
-                <FieldGroup values={mockCheckboxGroup} selectedValues={mockSelectedCheckboxItem} type='checkbox' onChange={(value) => mockCallBackSecond(value)} />
+                <FieldGroup values={mockCheckboxGroup} selectedValues={mockSelectedCheckboxItem} type='checkbox' onChange={(value: FieldGroupItem) => mockCallBackFirst(value)} />
+                <FieldGroup values={mockCheckboxGroup} selectedValues={mockSelectedCheckboxItem} type='checkbox' onChange={(value: FieldGroupItem) => mockCallBackSecond(value)} />
             </>
         );
         expect(container.querySelectorAll('.item-hdd input').length).toBe(2);

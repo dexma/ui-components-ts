@@ -1,4 +1,4 @@
-import { Theme } from '@/utils/theme';
+import { Theme } from '@utils/theme';
 
 export const padding = (theme: Theme) => theme.padding;
 export const margin = (theme: Theme) => theme.padding;

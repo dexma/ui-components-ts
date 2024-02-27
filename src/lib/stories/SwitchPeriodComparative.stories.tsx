@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
 
-import { startDate, endDate, previousPeriodText, samePeriodLastYearText } from '../../../tests/mock/SwitchPeriodComparative';
+import { Grid, Row, Cell, Paragraph, SwitchPeriodComparative, SelectedPeriodType } from '@components';
 
-import { Grid } from '@/components/Grid';
-import Row from 'antd/es/row';
-import Cell from '@/components/Cell/Cell';
-import { Paragraph } from '@/components/Paragraph';
-import SwitchPeriodComparative from '@/components/SwitchPeriodComparative/SwitchPeriodComparative';
+import { startDate, endDate, previousPeriodText, samePeriodLastYearText } from '../../../tests/mock/SwitchPeriodComparative';
 
 export default {
     title: 'SwitchPeriodComparative',
@@ -14,7 +10,13 @@ export default {
 };
 
 export const switchPeriodComparative = () => {
-    const [stateNoText, setStateNoText] = useState({
+    const [stateNoText, setStateNoText] = useState<{
+        period: SelectedPeriodType;
+        date: {
+            startDate: moment.Moment;
+            endDate: moment.Moment;
+        } | null;
+    }>({
         period: 'previous_period',
         date: null,
     });
@@ -42,7 +44,16 @@ export const switchPeriodComparative = () => {
 };
 
 export const switchPeriodComparativeWitText = () => {
-    const [state, setState] = useState({ period: 'previous_period', date: null });
+    const [state, setState] = useState<{
+        period: SelectedPeriodType;
+        date: {
+            startDate: moment.Moment;
+            endDate: moment.Moment;
+        } | null;
+    }>({
+        period: 'previous_period',
+        date: null,
+    });
     const { period } = state;
     return (
         <Grid fluid>

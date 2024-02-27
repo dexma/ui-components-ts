@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { StyledIcon } from '@/styles/Icon/StyledIcon';
+import { StyledIcon } from '@styles/Icon/StyledIcon';
 
 import {
     alertMessageFontSize,
@@ -18,30 +18,30 @@ import {
     fontWeightSemiBold,
     fontWeightNormal,
     borderRadius,
-} from '@/utils/selectors';
-import { Theme } from '@/utils/theme';
+} from '@utils/selectors';
+import { Theme } from '@utils/theme';
 
 const getAlertTypeColor = (theme: Theme, $type: string) => {
     let bgColor = '';
     switch ($type) {
         case 'outline':
-            bgColor = white(theme) as unknown as string;
+            bgColor = white(theme);
             break;
         case 'success':
-            bgColor = successColor(theme) as unknown as string;
+            bgColor = successColor(theme);
             break;
         case 'info':
-            bgColor = infoColor(theme) as unknown as string;
+            bgColor = infoColor(theme);
             break;
         case 'warning':
-            bgColor = warningColor(theme) as unknown as string;
+            bgColor = warningColor(theme);
             break;
         case 'error':
-            bgColor = errorColor(theme) as unknown as string;
+            bgColor = errorColor(theme);
             break;
         case 'basic':
         default:
-            bgColor = gray100(theme) as unknown as string;
+            bgColor = gray100(theme);
             break;
     }
     return css`
@@ -52,7 +52,7 @@ const getAlertTypeColor = (theme: Theme, $type: string) => {
 type StyledAlertProps = {
     $type: string;
     $description?: string;
-    $message?: string | JSX.Element;
+    $message: string | JSX.Element;
     $showIcon?: boolean;
     theme: Theme;
 };

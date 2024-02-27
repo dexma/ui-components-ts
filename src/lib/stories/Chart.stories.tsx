@@ -1,13 +1,7 @@
 import React from 'react';
-import { Grid } from '../components/Grid';
-import { Row } from '../components/Row';
-import { Paragraph } from '../components/Paragraph';
-import { Cell } from '../components/Cell';
-import { Chart } from '../components/Chart';
-import { Result } from '../components/Result';
 
+import { Grid, Cell, Result, Row, Paragraph, Chart, ResultVariants } from '@components';
 import { mockBasicArea, mockStackedBar, mockStackedBarNegative, mockMixed, mockHeatmap } from '../../../tests/mock/Chart';
-
 import mvConsumptionDiscreteChart from '../../../tests/mock/mvConsumptionDiscreteChart';
 import mvConsumptionAccumulatedTotalChart from '../../../tests/mock/mvConsumptionAccumulatedTotalChart';
 import mvSavingsAccumulatedPercentageChart from '../../../tests/mock/mvSavingsAccumulatedPercentageChart';
@@ -87,7 +81,7 @@ export const chartError = () => (
                     showError
                     errorContent={
                         <Result
-                            variant='error'
+                            variant={ResultVariants.ERROR}
                             title='Submission Failed'
                             info='Please check and modify the following information before resubmitting.'
                             content={<button>"Cancel"</button>}
@@ -104,7 +98,9 @@ export const chartError = () => (
                 <Chart
                     options={mockBasicArea}
                     showError
-                    errorContent={<Result variant='success' title='Submission Success' info='Please check and modify the following information before resubmitting.' />}
+                    errorContent={
+                        <Result variant={ResultVariants.SUCCESS} title='Submission Success' info='Please check and modify the following information before resubmitting.' />
+                    }
                 />
             </Cell>
         </Row>

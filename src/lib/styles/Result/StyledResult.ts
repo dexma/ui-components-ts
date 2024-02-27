@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import { Grid } from '@/components/Grid';
+import { Grid } from '@components/Grid';
 
-import { fontWeightSemiBold, fontWeightNormal, gray700, gray900 } from '@/utils/selectors';
-import { Theme } from '@/utils/theme';
+import { Theme } from '@utils/theme';
+import { fontWeightSemiBold, fontWeightNormal, gray700, gray900 } from '@utils/selectors';
 
 const StyledResult = styled(Grid)<{ theme: Theme }>`
     margin: 70px auto;

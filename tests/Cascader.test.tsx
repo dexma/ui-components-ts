@@ -1,9 +1,9 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
 import { describe, expect, it, vitest } from 'vitest';
+import { render, fireEvent } from '@testing-library/react';
 
-import theme from '@/utils/theme';
-import { Cascader, tagRender } from '@/components/index';
+import theme from '@utils/theme';
+import { Cascader, tagRender } from '@components';
 
 describe('Cascader', () => {
     describe('tagRender', () => {
@@ -77,7 +77,7 @@ describe('Cascader', () => {
         const { container, getByText, getAllByText } = render(<Cascader options={options} onChange={onChange} open />);
         const cascader = container.querySelector("[data-testid='cascader'] > .ant-select-selector");
         expect(cascader).not.toBeNull();
-        const regex = /Option/g;
+        const regex = /Option/;
         expect(getAllByText(regex).length === 2).toBeTruthy();
         const option1 = getByText('Option 1');
         fireEvent.click(option1);

@@ -1,10 +1,10 @@
 import styled, { css } from 'styled-components';
 import { darken, saturate } from 'polished';
 
-import { gray50, gray200, gray300, primaryColor, borderRadius, white } from '@/utils/selectors';
-import { StyledIcon } from '../Icon/StyledIcon';
-import { Theme } from '@/utils/theme';
-import { ButtonVariantProps, getButtonBase, getButtonSize, getButtonVariantPrimary, getButtonVariantSecondary, getIconSize, StyledButtonProps } from '../Button/StyledButton';
+import { Theme } from '@utils/theme';
+import { gray50, gray200, gray300, primaryColor, borderRadius, white } from '@utils/selectors';
+import { StyledIcon } from '@styles/Icon/StyledIcon';
+import { ButtonVariantProps, StyledButtonProps, getButtonBase, getButtonSize, getButtonVariantPrimary, getButtonVariantSecondary, getIconSize } from '@styles/Button/StyledButton';
 
 export const getSplitVariant = (props: any) => css`
     label {
@@ -109,7 +109,7 @@ export const getHorizontal = () => css`
     }
 `;
 type StyledFieldGroupProps = {
-    vertical?: boolean;
+    $vertical?: boolean;
     size?: string;
     variant?: string;
     theme: Theme;
@@ -117,15 +117,15 @@ type StyledFieldGroupProps = {
 const StyledFieldGroup = styled.div<StyledFieldGroupProps>`
     position: relative;
     vertical-align: middle;
-    ${(props) => (props.vertical ? getVertical() : getHorizontal())}
+    ${(props) => (props.$vertical ? getVertical() : getHorizontal())}
     label {
         ${(props) => getButtonBase(props.theme)};
         ${(props) => props.size && getButtonSize({ $size: props.size, theme: props.theme })}
-        ${(props) => getIconSize(props as unknown as StyledButtonProps)};
-        ${(props) => getButtonVariantSecondary(props as unknown as ButtonVariantProps)};
+        ${(props) => getIconSize(props as StyledButtonProps)};
+        ${(props) => getButtonVariantSecondary(props as ButtonVariantProps)};
         margin: 0;
         &.active {
-            ${(props) => getButtonVariantPrimary(props as unknown as ButtonVariantProps)};
+            ${(props) => getButtonVariantPrimary(props as ButtonVariantProps)};
         }
         &.disabled {
             cursor: not-allowed;

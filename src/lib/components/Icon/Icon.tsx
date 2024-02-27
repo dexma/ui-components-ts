@@ -1,13 +1,11 @@
-/* eslint-disable import/no-cycle */
 import React, { forwardRef, useContext } from 'react';
 import { ThemeContext } from 'styled-components';
-import get from 'lodash/get';
 import isNumber from 'lodash/isNumber';
 import omit from 'lodash/omit';
 
-import { icons } from '@/config/index';
-import theme from '@/utils/theme';
-import { StyledIcon } from '@/styles/Icon/StyledIcon';
+import { icons } from '@config';
+import theme from '@utils/theme';
+import { StyledIcon } from '@styles/Icon/StyledIcon';
 
 export enum IconSize {
     SMALL = 'small',
@@ -58,13 +56,13 @@ type IconProps = {
 };
 
 const getColor = (color?: string | keyof typeof theme.color) => {
-    if (!color) return theme.color.gray500;
+    const th = useContext(ThemeContext) || theme;
+    if (!color) return th.color.gray500;
     if (isHexColor(color)) return color;
-    return theme.color[color as keyof typeof theme.color];
+    return th.color[color as keyof typeof th.color];
 };
 
 export const Icon = forwardRef((props: IconProps, ref) => {
-    const th = useContext(ThemeContext) || theme;
     const { name, color, size, className, onClick } = props;
     const fillColor = getColor(color);
     const pathElements = getIconPaths(name);
@@ -95,7 +93,6 @@ const defaultProps = {
     name: 'vader',
     color: 'gray500',
     size: IconSize.LARGE,
-    theme: theme,
 };
 
 Icon.defaultProps = defaultProps;

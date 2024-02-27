@@ -1,10 +1,5 @@
 import React from 'react';
-import Grid from '../components/Grid/Grid';
-import Row from '../components/Row/Row';
-import Cell from '../components/Cell/Cell';
-import Paragraph from '../components/Paragraph/Paragraph';
-
-import { Alert } from '../components/Alert';
+import { Grid, Row, Cell, Paragraph, Alert } from '@components';
 
 export default {
     title: 'Alert',

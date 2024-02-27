@@ -1,8 +1,8 @@
 import { useContext } from 'react';
 import { ThemeContext } from 'styled-components';
 
-import { StyledDot, StyledDots } from '@/styles/Dots/StyledDots';
-import theme from '@/utils/theme';
+import { StyledDot, StyledDots } from '@styles/Dots/StyledDots';
+import theme from '@utils/theme';
 
 export type DotsProps = {
     steps: number;

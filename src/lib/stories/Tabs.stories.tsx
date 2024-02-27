@@ -5,7 +5,7 @@ import { Cell } from '../components/Cell';
 import { Paragraph } from '../components/Paragraph';
 import { Button } from '../components/Button';
 
-import { Tabs, TabPane } from '@/components/Tabs';
+import { Tabs, TabPane } from '@components/Tabs';
 
 export default {
     title: 'Tabs',

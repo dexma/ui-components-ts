@@ -1,10 +1,6 @@
 import React, { useState } from 'react';
-import { Modal } from '../components/Modal';
-import { Grid } from '../components/Grid';
-import { Row } from '../components/Row';
-import { Cell } from '../components/Cell';
-import { Paragraph } from '../components/Paragraph';
-import Button from '../components/Button/Button';
+
+import { Button, Modal, Grid, Row, Cell, Paragraph } from '@components';
 
 const ModalView = (props: { withFooter?: boolean }) => {
     const [showModal, setShowModal] = useState(false);

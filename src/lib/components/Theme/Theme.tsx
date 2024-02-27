@@ -1,6 +1,6 @@
 import React from 'react';
 import { DefaultTheme, ThemeProvider } from 'styled-components';
-import theme from '@/utils/theme';
+import theme from '@utils/theme';
 
 export const Theme = ({ children, options }: { children?: React.ReactNode; theme: DefaultTheme; options?: DefaultTheme }) => {
     if (!children) return null;

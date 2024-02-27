@@ -1,8 +1,9 @@
 import React from 'react';
 
-import { Loading } from '@/components/Loading';
-import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
+import { render, screen } from '@testing-library/react';
+
+import { Loading } from '@components';
 
 describe('<Loading>', () => {
     it('Should render the classNamePrefix component', () => {

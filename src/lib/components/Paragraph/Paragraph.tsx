@@ -1,24 +1,8 @@
 import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
 import { ThemeContext } from 'styled-components';
 
-import { StyledParagraph } from '@/styles/Paragraph/StyledParagraph';
-import theme from '@/utils/theme';
-
-const propTypes = {
-    /**
-     * Set the color name for the paragraph, it will be a <a href="https://dexma.github.io/ui-components/?path=/docs/colors--colors">color</a>
-     */
-    color: PropTypes.string,
-    /**
-     * Set margin like css
-     */
-    margin: PropTypes.string,
-    /**
-     * Set the size of button
-     */
-    size: PropTypes.oneOf(['small', 'medium', 'large', 'xlarge']).isRequired,
-};
+import theme from '@utils/theme';
+import { StyledParagraph } from '@styles/Paragraph/StyledParagraph';
 
 const defaultProps = {
     color: 'gray700',
@@ -37,7 +21,6 @@ export const Paragraph = (props: { margin: string; color: string; size: 'small' 
 
 StyledParagraph.displayName = 'StyledParagraph';
 
-Paragraph.propTypes = propTypes;
 Paragraph.defaultProps = defaultProps;
 
 export default Paragraph;

@@ -1,9 +1,6 @@
 import React from 'react';
-import { Divider } from '../components/Divider';
-import { Grid } from '../components/Grid';
-import { Row } from '../components/Row';
-import { Cell } from '../components/Cell';
-import { Paragraph } from '../components/Paragraph';
+
+import { Divider, Grid, Row, Cell, Paragraph } from '@components';
 
 export default {
     title: 'Divider',

@@ -1,11 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Heading } from '../components/Heading';
-import { Grid } from '../components/Grid';
-import { Row } from '../components/Row';
-import { Cell } from '../components/Cell';
-import { Paragraph } from '../components/Paragraph';
-import { Divider } from '../components/Divider';
+
+import { Heading, Grid, Row, Cell, Paragraph, Divider } from '@components';
 
 export default {
     title: 'Heading',

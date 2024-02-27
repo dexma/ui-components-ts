@@ -1,8 +1,8 @@
-import { Button } from '@/components/Button';
-import Popover from '@/components/Popover/Popover';
-import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
-import { expect, describe, test, vitest } from 'vitest';
+import { expect, describe, test } from 'vitest';
+import { fireEvent, render, screen } from '@testing-library/react';
+
+import { Button, Popover } from '@components';
 
 describe('Popover', () => {
     test('should open a popover with a title and content', () => {

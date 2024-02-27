@@ -1,7 +1,8 @@
 import styled, { createGlobalStyle } from 'styled-components';
 import { Modal as ModalAntDesign, ModalProps as AntDModalProps } from 'antd';
-import { backgroundColor, borderRadius, boxShadow, fontColor, fontSize, fontWeightSemiBold, gray900 } from '@/utils/selectors';
-import { Theme, color } from '@/utils/theme';
+
+import { Theme, color } from '@utils/theme';
+import { backgroundColor, borderRadius, boxShadow, fontColor, fontSize, fontWeightSemiBold, gray900 } from '@utils/selectors';
 
 type ModalProps = AntDModalProps & {
     theme: Theme;

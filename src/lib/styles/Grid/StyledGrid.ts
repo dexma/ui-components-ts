@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
-import { gridOuterPadding, gridContainerSm, gridContainerMd, gridContainerLg } from '@/utils/selectors';
-import { Theme } from '@/utils/theme';
+import { Theme } from '@utils/theme';
+import { gridOuterPadding, gridContainerSm, gridContainerMd, gridContainerLg } from '@utils/selectors';
 
 const getWidthContainer = (props: { theme: Theme }) => {
     return css`

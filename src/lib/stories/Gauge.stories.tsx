@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { Grid } from '@/components/Grid';
-import { Row } from '@/components/Row';
-import { Paragraph } from '@/components/Paragraph';
-import { Cell } from '@/components/Cell';
-import { Gauge } from '@/components/Gauge';
+import { Grid } from '@components/Grid';
+import { Row } from '@components/Row';
+import { Paragraph } from '@components/Paragraph';
+import { Cell } from '@components/Cell';
+import { Gauge } from '@components/Gauge';
 import { mockCheckpointSeries, mockRangeSeries, mockSingleCheckpointSeries, mockSingleRangeSerie } from '../../../tests/mock/Gauge';
 
 export default {

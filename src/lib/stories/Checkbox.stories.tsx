@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
-import { Checkbox } from '../components/Checkbox';
-import { Grid } from '@/components/Grid';
-import { Row } from '@/components/Row';
-import { Cell } from '@/components/Cell';
-import { Paragraph } from '@/components/Paragraph';
+
+import { Checkbox, Grid, Row, Cell, Paragraph } from '@components';
 
 export default {
     title: 'Checkbox',

@@ -1,7 +1,8 @@
 import React from 'react';
-import { fireEvent, render } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
-import { SwitchPeriodComparative, getPreviousDate, getSamePeriodLastYear } from '@/components/SwitchPeriodComparative';
+import { fireEvent, render } from '@testing-library/react';
+
+import { SwitchPeriodComparative, getPreviousDate, getSamePeriodLastYear } from '@components';
 import { endDate, startDate } from './mock/SwitchPeriodComparative';
 
 describe('<SwitchPeriodComparative>', () => {

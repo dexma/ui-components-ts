@@ -1,11 +1,7 @@
-import { Grid } from '../components/Grid';
-import { Row } from '../components/Row';
-import { Cell } from '../components/Cell';
-import { Button } from '../components/Button';
-import { Paragraph } from '../components/Paragraph';
 import React, { useState } from 'react';
-import Popover from '../components/Popover/Popover';
 import { JSX } from 'react/jsx-runtime';
+
+import { Grid, Row, Cell, Button, Paragraph, Popover } from '@components';
 
 export default {
     title: 'Popover',

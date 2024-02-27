@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Cascader, Grid, Row, Cell, Paragraph } from '@/components/index';
+import { Cascader, Grid, Row, Cell, Paragraph } from '@components';
 
 export default {
     title: 'Cascader',

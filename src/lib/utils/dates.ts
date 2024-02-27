@@ -1,4 +1,4 @@
-import moment from 'moment';
+import moment, { Moment } from 'moment';
 
 const ISO_FORMAT = 'DD/MM/YY';
 const NUMBER_OF_MONTHS = 3;
@@ -6,42 +6,44 @@ const START_DATE = 'startDate';
 const END_DATE = 'endDate';
 const DAY_SIZE = 25;
 
+export type Parser = (start: Moment, end: Moment) => string;
+
 const day = (number = 0) => {
     const date = new Date();
     date.setDate(date.getDate() - number);
     return moment(date, ISO_FORMAT);
 };
 
-const today = (parser) => {
+const today = (parser: Parser) => {
     const dayNumber = 0;
     return parser(day(dayNumber).startOf('day'), day(dayNumber).endOf('day'));
 };
 
-const yesterday = (parser) => {
+const yesterday = (parser: Parser) => {
     const dayNumber = 1;
     return parser(day(dayNumber).startOf('day'), day(dayNumber).endOf('day'));
 };
 
-const last7Days = (parser) => {
+const last7Days = (parser: Parser) => {
     const dayStartNumber = 6;
     const dayEndNumber = 0;
     return parser(day(dayStartNumber).startOf('day'), day(dayEndNumber).endOf('day'));
 };
 
-const last28Days = (parser) => {
+const last28Days = (parser: Parser) => {
     const dayStartNumber = 27;
     const dayEndNumber = 0;
     return parser(day(dayStartNumber).startOf('day'), day(dayEndNumber).endOf('day'));
 };
 
-const currentMonth = (parser) => {
+const currentMonth = (parser: Parser) => {
     const startDay = day(0).startOf('day');
     const endDay = day(0).endOf('day');
     const startOfMonth = startDay.startOf('month');
     return parser(startOfMonth, endDay);
 };
 
-const lastMonth = (parser) => {
+const lastMonth = (parser: Parser) => {
     const startDay = day(1).startOf('day');
     const endDay = day(1).endOf('day');
     const startOfMonth = startDay.subtract(1, 'months').startOf('month');
@@ -49,14 +51,14 @@ const lastMonth = (parser) => {
     return parser(startOfMonth, endOfMonth);
 };
 
-const yearToDate = (parser) => {
+const yearToDate = (parser: Parser) => {
     const startDay = day().startOf('day');
     const endDay = day(0).endOf('day');
     const startOfMonth = startDay.startOf('year');
     return parser(startOfMonth, endDay);
 };
 
-const previousYear = (parser) => {
+const previousYear = (parser: Parser) => {
     const startDay = day().startOf('day');
     const endDay = day().endOf('day');
     startDay.startOf('year');

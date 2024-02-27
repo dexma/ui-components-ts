@@ -1,20 +1,9 @@
 import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
 import { ThemeContext } from 'styled-components';
+import omit from 'lodash/omit';
 
-import { StyledSpinner } from '@/styles/Spinner/StyledSpinner';
-import theme from '@/utils/theme';
-
-const propTypes = {
-    /**
-     * Set the color name for the spinner, it will be a <a href="https://dexma.github.io/ui-components/?path=/docs/colors--colors">color</a>
-     */
-    color: PropTypes.string,
-    /**
-     * Size base on the theme
-     */
-    size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-};
+import theme from '@utils/theme';
+import { StyledSpinner } from '@styles/Spinner/StyledSpinner';
 
 const defaultProps = {
     color: 'gray400',
@@ -23,10 +12,10 @@ const defaultProps = {
 
 export const Spinner = (props: { color?: string; size: number }) => {
     const th = useContext(ThemeContext) || theme;
-    return <StyledSpinner data-testid='spinner' $size={props.size} color={props.color || 'gray400'} theme={th} />;
+    const gridProps = omit(props, ['size', 'color']);
+    return <StyledSpinner data-testid='spinner' $size={props.size} color={props.color || 'gray400'} theme={th} {...gridProps} />;
 };
 
 StyledSpinner.displayName = 'StyledSpinner';
 
-Spinner.propTypes = propTypes;
 Spinner.defaultProps = defaultProps;

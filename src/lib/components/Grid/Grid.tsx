@@ -1,28 +1,18 @@
-import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
+import React, { ReactNode, useContext } from 'react';
+import omit from 'lodash/omit';
 import { ThemeContext } from 'styled-components';
 
-import theme, { Theme } from '@/utils/theme';
-import { StyledGrid } from '@/styles/Grid/StyledGrid';
+import theme from '@utils/theme';
+import { StyledGrid } from '@styles/Grid/StyledGrid';
 
-const propTypes = {
-    /**
-     * Fluid grid means full grid
-     */
-    fluid: PropTypes.bool,
-};
-
-export const Grid = (props: { fluid?: boolean; className?: string; children: JSX.Element | JSX.Element[] }) => {
+export const Grid = (props: { fluid?: boolean; className?: string; children: ReactNode | ReactNode[] | string }) => {
+    const gridProps = omit(props, ['fluid', 'children']);
     const th = useContext(ThemeContext) || theme;
     return (
-        <StyledGrid className={props.className} $fluid={props.fluid} theme={th}>
+        <StyledGrid data-testid='grid' $fluid={props.fluid} theme={th} {...gridProps}>
             {props.children}
         </StyledGrid>
     );
 };
 
 StyledGrid.displayName = 'StyledGrid';
-
-Grid.propTypes = propTypes;
-
-export default Grid;

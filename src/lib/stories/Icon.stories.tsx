@@ -1,6 +1,6 @@
 import React, { Component, useState } from 'react';
 import styled from 'styled-components';
-import icon from '@/config/Icon';
+import icon from '@config/Icon';
 import { Icon as IconComponent } from '../components/Icon';
 import { Grid } from '../components/Grid';
 import { Row } from '../components/Row';

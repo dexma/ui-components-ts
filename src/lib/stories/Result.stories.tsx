@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { Result } from '@/components/Result';
-import { Grid } from '@/components/Grid';
-import { Row } from '@/components/Row';
-import { Cell } from '@/components/Cell';
-import { Paragraph } from '@/components/Paragraph';
+import { Result, ResultVariants } from '@components/Result';
+import { Grid } from '@components/Grid';
+import { Row } from '@components/Row';
+import { Cell } from '@components/Cell';
+import { Paragraph } from '@components/Paragraph';
 
 export default {
     title: 'Result',
@@ -25,24 +25,28 @@ export const result = () => (
                 <Paragraph margin='1rem 0 1rem 0'>Result component presents a straightforward way to inform the user of different state situations.</Paragraph>
             </Cell>
             <Result
-                variant='default'
+                variant={ResultVariants.DEFAULT}
                 title='Something went wrong'
                 info='We´ve been notified of the problem and are doing our best to ensure it does not happen again.'
                 icon='bot-dead'
             />
             <Result
-                variant='success'
+                variant={ResultVariants.SUCCESS}
                 title='Successfully Purchased Cloud Server ECS!'
                 info='Order number: 2017182818828182881 Cloud server configuration takes 1-5 minutes, please wait.'
             />
-            <Result variant='info' title='Your operation has been executed' info='Order number: 2017182818828182881 Cloud server configuration takes 1-5 minutes, please wait.' />
             <Result
-                variant='warning'
+                variant={ResultVariants.INFO}
+                title='Your operation has been executed'
+                info='Order number: 2017182818828182881 Cloud server configuration takes 1-5 minutes, please wait.'
+            />
+            <Result
+                variant={ResultVariants.WARNING}
                 title='There are some problems with your operation.'
                 info='Order number: 2017182818828182881 Cloud server configuration takes 1-5 minutes, please wait.'
             />
-            <Result variant='error' title='Submission Failed' info='Please check and modify the following information before resubmitting.' />
-            <Result variant='deleted' title='Submission Failed' info='Please check and modify the following information before resubmitting.' />
+            <Result variant={ResultVariants.ERROR} title='Submission Failed' info='Please check and modify the following information before resubmitting.' />
+            <Result variant={ResultVariants.DELETED} title='Submission Failed' info='Please check and modify the following information before resubmitting.' />
         </Row>
     </Grid>
 );
@@ -54,7 +58,7 @@ export const content = () => (
                 <Paragraph margin='1rem 0 1rem 0'>Result with content</Paragraph>
             </Cell>
             <Result
-                variant='deleted'
+                variant={ResultVariants.DELETED}
                 title='Are you sure you want to delete?'
                 content={
                     <>
@@ -64,12 +68,17 @@ export const content = () => (
                 }
             />
             <Result
-                variant='success'
+                variant={ResultVariants.SUCCESS}
                 title='Successfully Purchased Cloud Server ECS!'
                 info='Order number: 2017182818828182881 Cloud server configuration takes 1-5 minutes, please wait.'
                 content={<button>Ok</button>}
             />
-            <Result variant='error' title='Submission Failed' info='Please check and modify the following information before resubmitting.' content={<button>Cancel</button>} />
+            <Result
+                variant={ResultVariants.ERROR}
+                title='Submission Failed'
+                info='Please check and modify the following information before resubmitting.'
+                content={<button>Cancel</button>}
+            />
         </Row>
     </Grid>
 );
@@ -81,7 +90,7 @@ export const customElement = () => (
                 <Paragraph margin='1rem 0 1rem 0'>Result with element</Paragraph>
             </Cell>
             <Result
-                variant='success'
+                variant={ResultVariants.SUCCESS}
                 title='React – A JavaScript library for building user interfaces'
                 info='React is an open-source, front end, JavaScript library for building user interfaces or UI components. It is maintained by Facebook and a community of individual developers and companies. React can be used as a base in the development of single-page or mobile applications.'
                 icon='vader'
@@ -107,14 +116,14 @@ export const customIcon = () => (
                 <Paragraph margin='1rem 0 1rem 0'>Result with content and icon</Paragraph>
             </Cell>
             <Result
-                variant='success'
+                variant={ResultVariants.SUCCESS}
                 title='Successfully Purchased Cloud Server ECS!'
                 info='Order number: 2017182818828182881 Cloud server configuration takes 1-5 minutes, please wait.'
                 content={<button>Ok</button>}
                 icon='vader'
             />
             <Result
-                variant='error'
+                variant={ResultVariants.ERROR}
                 title='Submission Failed'
                 info='Please check and modify the following information before resubmitting.'
                 content={<button>Cancel</button>}

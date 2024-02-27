@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { ThemeProvider } from 'styled-components';
-import { Dots } from '../components/Dots/Dots';
-import theme from '../utils/theme';
+
+import theme from '@utils/theme';
+import { Dots } from '@components';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction
 const meta = {

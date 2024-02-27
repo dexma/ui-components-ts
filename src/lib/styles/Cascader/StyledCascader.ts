@@ -1,8 +1,8 @@
 import styled, { createGlobalStyle, css } from 'styled-components';
 
-import { white, gray } from '@/utils/selectors';
-import { StyledIcon } from '@/styles/Icon/StyledIcon';
-import { Theme } from '@/utils/theme';
+import { white, gray } from '@utils/selectors';
+import { StyledIcon } from '@styles/Icon/StyledIcon';
+import { Theme } from '@utils/theme';
 
 type StyledTagSelectedProps = {
     theme: Theme;

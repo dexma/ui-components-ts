@@ -1,11 +1,10 @@
 import React from 'react';
 import { describe, expect, it } from 'vitest';
-
-import { Toaster } from '@/components/Toaster';
-import ToasterContext from '@/components/Toaster/ToasterContext';
-import { ToastType } from '@/components/Toaster/Toast';
 import { fireEvent, render, screen } from '@testing-library/react';
-import { Button } from '@/components/Button';
+
+import { Button, Toaster } from '@components';
+import { ToastType } from '@components/Toaster/Toast';
+import ToasterContext from '@components/Toaster/ToasterContext';
 
 describe('<Toaster>', () => {
     it('Should render a toast element when call toast', () => {

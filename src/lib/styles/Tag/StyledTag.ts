@@ -1,10 +1,10 @@
+import get from 'lodash/get';
 import styled, { css } from 'styled-components';
 import { darken, transparentize } from 'polished';
-import get from 'lodash/get';
-import { tagLineHeight, tagFontSize, tagPaddingX, tagPaddingY, white, fontWeightSemiBold, border, borderRadius } from '@/utils/selectors';
 
-import { StyledIcon } from '@/styles/Icon/StyledIcon';
-import { Theme } from '@/utils/theme';
+import { Theme } from '@utils/theme';
+import { tagLineHeight, tagFontSize, tagPaddingX, tagPaddingY, white, fontWeightSemiBold, border, borderRadius } from '@utils/selectors';
+import { StyledIcon } from '@styles/Icon/StyledIcon';
 
 export const getTagPrimary = (props: StyledTagProps) => {
     const themeColor = getTagColor(props.theme, props.$color);

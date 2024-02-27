@@ -1,16 +1,16 @@
-import FieldGroup from '@/components/FieldGroup/FieldGroup';
 import React, { useState } from 'react';
+
+import { FieldGroup, Grid, Row, Cell, Paragraph, FieldGroupItem } from '@components';
 import { mockRadioGroup, mockRadioCustomGroup, mockCheckboxGroup, mockSelectedRadioItem, mockSelectedCheckboxItem } from '../../../tests/mock/FieldGroup';
-import { Cell, Grid, Paragraph, Row } from '../components';
 
 export default {
     title: 'FieldGroup',
     component: FieldGroup,
 };
 
-const RadioGroup = (props) => {
+const RadioGroup = () => {
     const [selectedValues, setSelectedValue] = useState(mockSelectedRadioItem);
-    const handleChange = ({ value }) => {
+    const handleChange = ({ value }: FieldGroupItem) => {
         setSelectedValue(value);
     };
     return <FieldGroup values={mockRadioGroup} selectedValues={selectedValues} type='radio' onChange={handleChange} />;
@@ -18,7 +18,7 @@ const RadioGroup = (props) => {
 
 const RadioCustomGroup = (props: { size: string }) => {
     const [selectedValues, setSelectedValue] = useState(mockSelectedRadioItem);
-    const handleChange = ({ value }) => {
+    const handleChange = ({ value }: FieldGroupItem) => {
         setSelectedValue(value);
     };
     return (
@@ -28,9 +28,9 @@ const RadioCustomGroup = (props: { size: string }) => {
     );
 };
 
-const RadioSplitGroup = (props) => {
+const RadioSplitGroup = (props: {}) => {
     const [selectedValues, setSelectedValue] = useState(mockSelectedRadioItem);
-    const handleChange = ({ value }) => {
+    const handleChange = ({ value }: FieldGroupItem) => {
         setSelectedValue(value);
     };
     return (
@@ -42,7 +42,7 @@ const RadioSplitGroup = (props) => {
 
 const CheckboxGroup = (props: { horizontal?: boolean; vertical?: boolean }) => {
     const [selectedValues, setSelectedValue] = useState(mockSelectedCheckboxItem);
-    const handleChange = ({ value }) => {
+    const handleChange = ({ value }: FieldGroupItem) => {
         const cloneValues = selectedValues;
         const indexValue = cloneValues.indexOf(value);
         if (indexValue >= 0) {
