@@ -98,6 +98,4 @@ export const Button = withDataId((props: ButtonProps) => {
     return tooltip ? <Tooltip title={tooltip}>{getStyledButton()}</Tooltip> : getStyledButton();
 });
 
-StyledButton.displayName = 'StyledButton';
-
 Button.defaultProps = defaultProps;

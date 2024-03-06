@@ -107,8 +107,6 @@ export const Card = (props: CardProps) => {
     );
 };
 
-StyledCard.displayName = 'StyledCard';
-
 Card.defaultProps = defaultProps;
 
 export default Card;

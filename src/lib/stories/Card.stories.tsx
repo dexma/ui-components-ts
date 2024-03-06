@@ -8,13 +8,7 @@ import { mockCards } from '../../../tests/mock/Card';
 export default {
     title: 'Card',
     component: Card,
-    argTypes: {
-        theme: {
-            control: {
-                disable: true,
-            },
-        },
-    },
+    tags: ['autodocs'],
 };
 
 const StyledCustomGrid = styled(Grid)`
