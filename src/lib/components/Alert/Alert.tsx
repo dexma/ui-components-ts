@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { ReactNode, useContext, useState } from 'react';
 import { ThemeContext } from 'styled-components';
 import get from 'lodash/get';
 
@@ -13,7 +13,7 @@ const defaultProps = {
 };
 
 type AlertProps = {
-    message: string | JSX.Element;
+    message: ReactNode;
     type: 'basic' | 'outline' | 'warning' | 'info' | 'success' | 'error';
     onClose?: (e: any) => void;
     description?: string;
@@ -71,7 +71,5 @@ export const Alert = (props: AlertProps) => {
         </StyledAlert>
     );
 };
-
-StyledAlert.displayName = 'StyledAlert';
 
 Alert.defaultProps = defaultProps;

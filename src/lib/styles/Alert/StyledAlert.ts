@@ -20,6 +20,7 @@ import {
     borderRadius,
 } from '@utils/selectors';
 import { Theme } from '@utils/theme';
+import { ReactNode } from 'react';
 
 const getAlertTypeColor = (theme: Theme, $type: string) => {
     let bgColor = '';
@@ -52,7 +53,7 @@ const getAlertTypeColor = (theme: Theme, $type: string) => {
 type StyledAlertProps = {
     $type: string;
     $description?: string;
-    $message: string | JSX.Element;
+    $message: ReactNode;
     $showIcon?: boolean;
     theme: Theme;
 };

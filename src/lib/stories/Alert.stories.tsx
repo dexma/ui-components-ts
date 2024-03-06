@@ -5,18 +5,6 @@ export default {
     title: 'Alert',
     component: Alert,
     tags: ['autodocs'],
-    argTypes: {
-        theme: {
-            control: {
-                disable: true,
-            },
-        },
-        onClose: {
-            control: {
-                disable: true,
-            },
-        },
-    },
 };
 
 export const alert = () => (
