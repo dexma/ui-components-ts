@@ -9,6 +9,7 @@ import mvSavingsAccumulatedPercentageChart from '../../../tests/mock/mvSavingsAc
 export default {
     title: 'Chart',
     component: Chart,
+    tags: ['autodocs'],
     argTypes: {
         dataId: {
             control: {
