@@ -1,3 +1,4 @@
+export * from './Icon';
 export * from './Alert';
 export * from './Button';
 export * from './Card';
@@ -14,7 +15,6 @@ export * from './Heading';
 export * from './Gauge';
 export * from './Grid';
 export * from './Heading';
-export * from './Icon';
 export * from './Input';
 export * from './Loading';
 export * from './Modal';
@@ -36,3 +36,5 @@ export * from './Tooltip';
 export * from './Switch';
 export * from './SwitchPeriodComparative';
 export { DataIdProvider } from '../components/DataId/DataIdProvider';
+export * from './AntdSelect';
+export * from './AntdPicker';

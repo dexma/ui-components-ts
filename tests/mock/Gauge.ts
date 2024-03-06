@@ -331,11 +331,17 @@ export const mockExpectedSingleCheckpointSeries = {
     type: 'gauge',
     dial: {
         backgroundColor: '#000000',
+        borderColor: '#000000',
+        baseWidth: 1,
+        borderWidth: 1,
+        topWidth: 1,
+        baseLength: '90%',
+        rearLength: '-90%',
     },
     zIndex: 2,
 };
 
 export const mockCheckpointSeries = [
-    { color: '#000000', tooltip: 'Basic tooltip: 55kWh', value: 55 },
-    { color: '#000000', tooltip: 'Basic tooltip 2: 76kWh', value: 76 },
+    { color: '#00FFFF', tooltip: 'Basic tooltip: 55kWh', value: 55 },
+    { color: '#000FFF', tooltip: 'Basic tooltip 2: 76kWh', value: 76 },
 ];

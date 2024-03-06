@@ -11,7 +11,7 @@ const defaultProps = {
 };
 
 export const Spinner = (props: { color?: string; size: number }) => {
-    const th = useContext(ThemeContext) || theme;
+    const th = useContext(ThemeContext) ?? theme;
     const gridProps = omit(props, ['size', 'color']);
     return <StyledSpinner data-testid='spinner' $size={props.size} color={props.color || 'gray400'} theme={th} {...gridProps} />;
 };

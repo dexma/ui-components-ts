@@ -1,4 +1,5 @@
 import { Theme } from '@utils/theme';
+import { DefaultTheme } from 'styled-components';
 
 export const padding = (theme: Theme) => theme.padding;
 export const margin = (theme: Theme) => theme.padding;
@@ -59,7 +60,7 @@ export const gray = (theme: Theme) => theme.color.gray;
 export const white = (theme: Theme) => theme.color.white;
 export const black = (theme: Theme) => theme.color.black;
 export const error = (theme: Theme) => theme.error;
-export const primaryColor = (theme: Theme) => theme.primary;
+export const primaryColor = (theme: DefaultTheme | Theme) => theme.primary;
 export const primaryColorSvg = (theme: Theme) => {
     const newPrimaryColor = theme.primary;
     return newPrimaryColor ? (newPrimaryColor as String).replace('#', '') : '';

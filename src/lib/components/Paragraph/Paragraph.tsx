@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { ReactNode, useContext } from 'react';
 import { ThemeContext } from 'styled-components';
 
 import theme from '@utils/theme';
@@ -10,7 +10,7 @@ const defaultProps = {
     size: 'medium',
 };
 
-export const Paragraph = (props: { margin: string; color: string; size: 'small' | 'medium' | 'large' | 'xlarge'; children: JSX.Element | JSX.Element[] | string }) => {
+export const Paragraph = (props: { margin: string; color: string; size: 'small' | 'medium' | 'large' | 'xlarge'; children: ReactNode | string }) => {
     const th = useContext(ThemeContext) || theme;
     return (
         <StyledParagraph $margin={props.margin} color={props.color} size={props.size} theme={th}>

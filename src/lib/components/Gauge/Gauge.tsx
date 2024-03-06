@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Highcharts from 'highcharts';
+import Highcharts, { SeriesOptionsRegistry } from 'highcharts';
 import { Chart } from '@components/Chart';
 import { applyScientific, numberFormatter } from '@utils/formatter';
 import { color } from '@utils/theme';
@@ -63,10 +63,10 @@ Highcharts.wrap(Highcharts.Tooltip.prototype, 'refresh', (p, point, mouseEvent) 
     p.call(current, point, mouseEvent);
 
     if (!current.isHidden && !current.shared && !current.split) {
-        const pointTooltipBorderColor = point && point.options.tooltip && point.options.tooltip.borderColor;
-        const seriesTooltipBorderColor = point && point.series && point.series.options.tooltip && point.series.options.tooltip.borderColor;
-        const borderColor = pointTooltipBorderColor || seriesTooltipBorderColor;
-        const label = current.label;
+        const pointTooltipBorderColor = point && point.options.tooltip && point.options.tooltip.borderColor,
+            seriesTooltipBorderColor = point && point.series && point.series.options.tooltip && point.series.options.tooltip.borderColor,
+            borderColor = pointTooltipBorderColor || seriesTooltipBorderColor,
+            label = current.label;
 
         if (label && borderColor) {
             label.attr({
@@ -195,6 +195,12 @@ export const getCheckpointSeries = (checkpoints: Checkpoint[], max: number, min:
             type: 'gauge',
             dial: {
                 backgroundColor: cp.color,
+                borderColor: cp.color,
+                baseWidth: 1,
+                borderWidth: 1,
+                topWidth: 1,
+                baseLength: '90%',
+                rearLength: '-90%',
             },
             zIndex: 2,
         }));
@@ -483,6 +489,7 @@ export const Gauge = (props: GaugeProps) => {
                     useHTML: true,
                     followPointer: true,
                     backgroundColor: 'transparent',
+                    borderWidth: 1,
                     ...options?.tooltip,
                 },
             };

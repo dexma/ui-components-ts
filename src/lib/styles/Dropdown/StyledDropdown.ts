@@ -1,9 +1,4 @@
-import { Button } from '@components/Button';
 import styled, { createGlobalStyle, css } from 'styled-components';
-
-export const StyledDropdownButton = styled(Button)`
-    width: 100%;
-`;
 
 const getDropdownStyle = css`
     .dropdown-button {

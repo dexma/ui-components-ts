@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { ReactNode, useContext } from 'react';
 import { ThemeContext } from 'styled-components';
 
 import theme from '@utils/theme';
@@ -14,16 +14,17 @@ type CellProps = {
     mdOffset?: number;
     lgOffset?: number;
     direction?: string;
-    children?: JSX.Element | JSX.Element[];
+    children?: ReactNode;
     className?: string;
     style?: React.CSSProperties;
+    onClick?: () => void;
+    ['data-testid']?: string;
 };
 
 export const Cell = (props: CellProps) => {
     const th = useContext(ThemeContext) || theme;
     return (
         <StyledCell
-            data-testid='cell'
             $xs={props.xs}
             $sm={props.sm}
             $md={props.md}
@@ -36,6 +37,8 @@ export const Cell = (props: CellProps) => {
             className={props.className}
             theme={th}
             style={props.style}
+            onClick={props.onClick}
+            data-testid={props['data-testid'] ?? 'cell'}
         >
             {props.children}
         </StyledCell>
