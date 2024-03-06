@@ -10,8 +10,8 @@ const meta = {
     component: Dots,
     tags: ['autodocs'],
     argTypes: {
-        size: { control: 'number' },
-        steps: { control: 'number' },
+        size: { control: 'number', defaultValue: 8 },
+        steps: { control: 'number', defaultValue: 3 },
     },
     decorators: [
         (Story) => (

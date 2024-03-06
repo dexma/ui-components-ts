@@ -6,13 +6,7 @@ import { Grid, Row, Cell, Button, Paragraph, Popover } from '@components';
 export default {
     title: 'Popover',
     component: Popover,
-    argTypes: {
-        theme: {
-            control: {
-                disable: true,
-            },
-        },
-    },
+    tags: ['autodocs'],
 };
 
 export const popover = () => (

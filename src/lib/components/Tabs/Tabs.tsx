@@ -5,15 +5,17 @@ import theme from '@utils/theme';
 import { StyledTabs } from '@styles/Tabs/StyledTabs';
 import { ThemeContext } from 'styled-components';
 
-type TabsProps = TabsPropsAntDesign & {
-    variant?: 'default' | 'scrollable';
-};
+export enum TabsVariant {
+    DEFAULT = 'default',
+    SCROLLABLE = 'scrollable',
+}
+type TabsProps = { variant?: TabsVariant } & TabsPropsAntDesign;
 
 export const Tabs = (props: TabsProps) => {
     const { variant, ...tabsProps } = props;
     const th = useContext(ThemeContext);
     return (
-        <StyledTabs $variant={variant || 'default'} theme={th} data-testid='tabs'>
+        <StyledTabs $variant={variant || TabsVariant.DEFAULT} theme={th} data-testid='tabs'>
             <TabsAntDesign animated={{ inkBar: false, tabPane: false }} {...tabsProps} />
         </StyledTabs>
     );

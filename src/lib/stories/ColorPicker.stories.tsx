@@ -5,24 +5,7 @@ import { ColorPicker, Grid, Row, Cell, Paragraph } from '@components';
 export default {
     title: 'ColorPicker',
     component: ColorPicker,
-    argTypes: {
-        theme: {
-            control: {
-                disable: true,
-            },
-        },
-
-        dataId: {
-            control: {
-                disable: true,
-            },
-        },
-        options: {
-            control: {
-                disable: true,
-            },
-        },
-    },
+    tags: ['autodocs'],
 };
 
 export const colorPicker = () => (

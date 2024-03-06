@@ -5,13 +5,7 @@ import { Divider, Grid, Row, Cell, Paragraph } from '@components';
 export default {
     title: 'Divider',
     component: Divider,
-    argTypes: {
-        theme: {
-            control: {
-                disable: true,
-            },
-        },
-    },
+    tags: ['autodocs'],
 };
 
 export const divider = (args: any) => (

@@ -6,6 +6,7 @@ import { mockRadioGroup, mockRadioCustomGroup, mockCheckboxGroup, mockSelectedRa
 export default {
     title: 'FieldGroup',
     component: FieldGroup,
+    tags: ['autodocs'],
 };
 
 const RadioGroup = () => {

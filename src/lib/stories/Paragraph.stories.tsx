@@ -1,12 +1,10 @@
 import React from 'react';
-import { Grid } from '../components/Grid';
-import { Row } from '../components/Row';
-import { Cell } from '../components/Cell';
-import { Paragraph } from '../components/Paragraph';
+import { Grid, Row, Cell, Paragraph } from '@components';
 
 export default {
     title: 'Paragraph',
     component: Paragraph,
+    tags: ['autodocs'],
 };
 
 export const paragraph = () => (

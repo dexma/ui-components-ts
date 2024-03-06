@@ -3,7 +3,7 @@ import { ThemeContext } from 'styled-components';
 import omit from 'lodash/omit';
 
 import theme from '@utils/theme';
-import { Spinner } from '@components/Spinner/Spinner';
+import { Spinner } from '@components';
 import { StyledLoading } from '@styles/Loading/StyledLoading';
 
 const defaultProps = {
@@ -32,8 +32,6 @@ export const Loading = (props: LoadingProps) => {
         children
     );
 };
-
-StyledLoading.displayName = 'StyledLoading';
 
 Loading.defaultProps = defaultProps;
 

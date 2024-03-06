@@ -124,6 +124,4 @@ export const SwitchPeriodComparative = (props: SwitchPeriodComparativeProps) => 
     );
 };
 
-StyledSwitchPeriodComparative.displayName = 'StyledSwitchPeriodComparative';
-
 SwitchPeriodComparative.defaultProps = defaultProps;

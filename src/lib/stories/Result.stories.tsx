@@ -1,21 +1,11 @@
 import React from 'react';
 
-import { Result, ResultVariants } from '@components/Result';
-import { Grid } from '@components/Grid';
-import { Row } from '@components/Row';
-import { Cell } from '@components/Cell';
-import { Paragraph } from '@components/Paragraph';
+import { Result, ResultVariants, Grid, Row, Cell, Paragraph, Button } from '@components';
 
 export default {
     title: 'Result',
     component: Result,
-    argTypes: {
-        theme: {
-            control: {
-                disable: true,
-            },
-        },
-    },
+    tags: ['autodocs'],
 };
 
 export const result = () => (
@@ -62,8 +52,8 @@ export const content = () => (
                 title='Are you sure you want to delete?'
                 content={
                     <>
-                        <button>Yes</button>
-                        <button>No</button>
+                        <Button variant='destructive' text='Yes' />
+                        <Button variant='secondary' text='No' />
                     </>
                 }
             />
@@ -71,13 +61,13 @@ export const content = () => (
                 variant={ResultVariants.SUCCESS}
                 title='Successfully Purchased Cloud Server ECS!'
                 info='Order number: 2017182818828182881 Cloud server configuration takes 1-5 minutes, please wait.'
-                content={<button>Ok</button>}
+                content={<Button variant='primary' text='Ok' />}
             />
             <Result
                 variant={ResultVariants.ERROR}
                 title='Submission Failed'
                 info='Please check and modify the following information before resubmitting.'
-                content={<button>Cancel</button>}
+                content={<Button variant='destructive' text='Cancel' />}
             />
         </Row>
     </Grid>
@@ -119,14 +109,14 @@ export const customIcon = () => (
                 variant={ResultVariants.SUCCESS}
                 title='Successfully Purchased Cloud Server ECS!'
                 info='Order number: 2017182818828182881 Cloud server configuration takes 1-5 minutes, please wait.'
-                content={<button>Ok</button>}
+                content={<Button variant='primary' text='Ok' />}
                 icon='vader'
             />
             <Result
                 variant={ResultVariants.ERROR}
                 title='Submission Failed'
                 info='Please check and modify the following information before resubmitting.'
-                content={<button>Cancel</button>}
+                content={<Button variant='destructive' text='Cancel' />}
                 size={140}
                 icon='vader'
             />

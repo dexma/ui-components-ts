@@ -22,13 +22,7 @@ const content = [
 export default {
     title: 'Dropdown',
     component: Dropdown,
-    argTypes: {
-        theme: {
-            control: {
-                disable: true,
-            },
-        },
-    },
+    tags: ['autodocs'],
 };
 
 export const dropdown = () => (

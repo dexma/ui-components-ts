@@ -7,6 +7,7 @@ import { startDate, endDate, previousPeriodText, samePeriodLastYearText } from '
 export default {
     title: 'SwitchPeriodComparative',
     component: SwitchPeriodComparative,
+    tags: ['autodocs'],
 };
 
 export const switchPeriodComparative = () => {

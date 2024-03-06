@@ -1,31 +1,10 @@
 import dayjs from 'dayjs';
-import { Cell } from '@components/Cell';
-import { Grid } from '@components/Grid';
-import { Paragraph } from '@components/Paragraph';
-import { Row } from '@components/Row';
-import { DatePicker } from '@components/AntdPicker';
+import { Cell, Grid, Paragraph, Row, DatePicker } from '@components';
 
 export default {
     title: 'DatePicker',
     component: DatePicker,
-    argTypes: {
-        theme: {
-            control: {
-                disable: true,
-            },
-        },
-
-        dataId: {
-            control: {
-                disable: true,
-            },
-        },
-        options: {
-            control: {
-                disable: true,
-            },
-        },
-    },
+    tags: ['autodocs'],
 };
 
 export const antdDatePicker = () => (

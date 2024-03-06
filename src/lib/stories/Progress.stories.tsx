@@ -1,20 +1,10 @@
 import React from 'react';
-import { Progress } from '../components/Progress';
-import { Grid } from '../components/Grid';
-import { Row } from '../components/Row';
-import { Cell } from '../components/Cell';
-import { Paragraph } from '../components/Paragraph';
+import { Progress, Grid, Row, Cell, Paragraph } from '@components';
 
 export default {
     title: 'Progress',
     component: Progress,
-    argTypes: {
-        theme: {
-            control: {
-                disable: true,
-            },
-        },
-    },
+    tags: ['autodocs'],
 };
 
 export const progress = () => (

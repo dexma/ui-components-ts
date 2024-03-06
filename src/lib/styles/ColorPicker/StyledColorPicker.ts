@@ -1,7 +1,6 @@
 import { SketchPicker } from 'react-color';
 import styled from 'styled-components';
-import { Input } from '@components/Input';
-import { Spinner } from '@components/Spinner/Spinner';
+import { Input, Spinner } from '@components';
 import { Theme } from '@utils/theme';
 
 const StyledColorPickerLayout = styled.div`
@@ -11,7 +10,7 @@ const StyledColorPickerLayout = styled.div`
 
 const StyledColorPickerInput = styled(Input)`
     margin-left: 8px;
-    width: 96px;
+    width: 96px !important;
 `;
 
 const StyledSpinnerColorPicker = styled(Spinner)<{ $showInput: boolean; theme: Theme }>`

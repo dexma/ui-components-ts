@@ -6,6 +6,7 @@ import { columnsTable, dataTable } from '../../../tests/mock/Table';
 export default {
     title: 'Table',
     component: Table,
+    tags: ['autodocs'],
 };
 
 const Selection = () => {

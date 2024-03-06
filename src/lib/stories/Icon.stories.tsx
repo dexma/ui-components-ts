@@ -1,12 +1,7 @@
 import React, { Component, useState } from 'react';
 import styled from 'styled-components';
 import icon from '@config/Icon';
-import { Icon as IconComponent } from '../components/Icon';
-import { Grid } from '../components/Grid';
-import { Row } from '../components/Row';
-import { Cell } from '../components/Cell';
-import { Paragraph } from '../components/Paragraph';
-// import { Input } from '../components/Input';
+import { Icon as IconComponent, Grid, Row, Cell, Paragraph, Input } from '@components';
 
 const StyledBoxSearch = styled.div`
     width: 100%;
@@ -26,12 +21,8 @@ const StyledBoxSearch = styled.div`
 export default {
     title: 'Icon',
     component: IconComponent,
+    tags: ['autodocs'],
     argTypes: {
-        theme: {
-            control: {
-                disable: true,
-            },
-        },
         size: {
             control: {
                 type: 'number',
@@ -108,7 +99,7 @@ const SearchIcons = () => {
         <StyledBoxSearch>
             <Row>
                 <Cell xs={12} className='search'>
-                    <input type='text' placeholder='Search icon' onChange={handleChange} />
+                    <Input type='text' placeholder='Search icon' onChange={handleChange} icon='search' />
                 </Cell>
                 {getIcons(value)}
             </Row>

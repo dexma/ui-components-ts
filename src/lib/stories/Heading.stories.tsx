@@ -1,18 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Heading, Grid, Row, Cell, Paragraph, Divider } from '@components';
+import { Heading, Grid, Row, Cell, Paragraph, Divider, Button } from '@components';
 
 export default {
     title: 'Heading',
     component: Heading,
-    argTypes: {
-        theme: {
-            control: {
-                disable: true,
-            },
-        },
-    },
+    tags: ['autodocs'],
 };
 
 export const headings = () => (
@@ -49,15 +43,15 @@ export const childrens = () => (
             <StyledBox>
                 <Cell xs={12}>
                     <Heading text='Heading'>
-                        <button>hello 1</button>
+                        <Button size='small' variant='primary' iconAfter='add' isCircle />
                     </Heading>
                     <Divider />
                 </Cell>
                 <br />
                 <Cell xs={12}>
                     <Heading text='Heading'>
-                        <button>hello 2</button>
-                        <button>hello 3</button>
+                        <Button size='small' variant='primary' text='Settings' iconBefore='settings' />
+                        <Button size='small' variant='primary' iconAfter='add' isCircle />
                     </Heading>
                     <Divider />
                 </Cell>

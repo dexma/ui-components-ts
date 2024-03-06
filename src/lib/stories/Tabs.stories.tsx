@@ -1,15 +1,10 @@
 import React from 'react';
-import { Grid } from '../components/Grid';
-import { Row } from '../components/Row';
-import { Cell } from '../components/Cell';
-import { Paragraph } from '../components/Paragraph';
-import { Button } from '../components/Button';
-
-import { Tabs, TabPane } from '@components/Tabs';
+import { Tabs, TabPane, Grid, Row, Cell, Paragraph, Button, TabsVariant } from '@components';
 
 export default {
     title: 'Tabs',
     component: Tabs,
+    tags: ['autodocs'],
 };
 
 const callback = (key: any) => console.log(key);
@@ -77,7 +72,7 @@ export const ScrollableVariant = () => (
                 </Paragraph>
             </Cell>
             <div style={{ height: '200px' }}>
-                <Tabs variant='scrollable'>
+                <Tabs variant={TabsVariant.SCROLLABLE}>
                     <TabPane tab='Tab 1' key='1'>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec et malesuada justo. Etiam sed urna sit amet eros sagittis laoreet id ultrices libero. Proin
                         quis condimentum metus. Pellentesque in elementum ante, ac volutpat lacus. Vivamus viverra luctus tempus. Aenean non ligula id augue pulvinar fringilla a

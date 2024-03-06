@@ -1,25 +1,10 @@
 import React from 'react';
-import { Grid } from '../components/Grid';
-import { Row } from '../components/Row';
-import { Cell } from '../components/Cell';
-import { Paragraph } from '../components/Paragraph';
-import { Switch } from '../components/Switch';
+import { Grid, Row, Cell, Paragraph, Switch } from '@components';
 
 export default {
     title: 'Switch',
     component: Switch,
-    argTypes: {
-        theme: {
-            control: {
-                disable: true,
-            },
-        },
-        dataId: {
-            control: {
-                disable: true,
-            },
-        },
-    },
+    tags: ['autodocs'],
 };
 
 export const defaultSwitch = () => (

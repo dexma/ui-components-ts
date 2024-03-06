@@ -28,6 +28,7 @@ const ModalView = (props: { withFooter?: boolean }) => {
 export default {
     title: 'Modal',
     component: Modal,
+    tags: ['autodocs'],
 };
 
 export const modals = () => (

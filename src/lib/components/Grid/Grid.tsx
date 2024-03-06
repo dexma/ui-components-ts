@@ -14,5 +14,3 @@ export const Grid = (props: { fluid?: boolean; className?: string; children: Rea
         </StyledGrid>
     );
 };
-
-StyledGrid.displayName = 'StyledGrid';

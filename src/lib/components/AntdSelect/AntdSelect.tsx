@@ -1,6 +1,5 @@
 import { Select, SelectProps } from 'antd';
-import { Icon } from '../Icon';
-import { Tooltip } from '../Tooltip';
+import { Icon, Tooltip } from '@components';
 import { SelectOptionStyle, StyledAntdSelectDropdown, StyledSpanOption, StyledSpanOptionSelected } from '@styles/AntdSelect/StyledAntdSelect';
 import theme, { Theme } from '@utils/theme';
 import { useCallback, useContext, useEffect, useRef, useState } from 'react';

@@ -1,15 +1,12 @@
 import React from 'react';
 
-import { Grid } from '@components/Grid';
-import { Row } from '@components/Row';
-import { Paragraph } from '@components/Paragraph';
-import { Cell } from '@components/Cell';
-import { Gauge } from '@components/Gauge';
+import { Grid, Row, Paragraph, Cell, Gauge } from '@components';
 import { mockCheckpointSeries, mockRangeSeries, mockSingleCheckpointSeries, mockSingleRangeSerie } from '../../../tests/mock/Gauge';
 
 export default {
     title: 'Gauge',
     component: Gauge,
+    tags: ['autodocs'],
 };
 
 export const gauge = () => (

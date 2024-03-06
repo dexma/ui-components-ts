@@ -19,8 +19,6 @@ export const Paragraph = (props: { margin: string; color: string; size: 'small' 
     );
 };
 
-StyledParagraph.displayName = 'StyledParagraph';
-
 Paragraph.defaultProps = defaultProps;
 
 export default Paragraph;

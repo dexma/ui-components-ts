@@ -85,6 +85,4 @@ export const Result = (props: ResultProps) => {
     );
 };
 
-// StyledResult.displayName = 'StyledResult';
-
 Result.defaultProps = defaultProps;

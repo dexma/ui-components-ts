@@ -80,7 +80,7 @@ AntdRangePicker.defaultProps = {
     locale: 'en',
 };
 
-type DatePicker = (AntdDatePickerProps | AntdRangePickerProps) & { type: 'date' | 'range' };
+type DatePicker = { type: 'date' | 'range' } & (AntdDatePickerProps | AntdRangePickerProps);
 
 export const DatePicker = (props: DatePicker) => {
     const { type, ...rest } = props;

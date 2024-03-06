@@ -5,6 +5,7 @@ import { Checkbox, Grid, Row, Cell, Paragraph } from '@components';
 export default {
     title: 'Checkbox',
     component: Checkbox,
+    tags: ['autodocs'],
 };
 
 const CheckboxBasic = ({ text }: { text?: string }) => {

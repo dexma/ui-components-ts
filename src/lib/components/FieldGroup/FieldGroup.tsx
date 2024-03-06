@@ -145,6 +145,4 @@ export const FieldGroup = withDataId((props: FieldGroupProps) => {
     );
 });
 
-StyledFieldGroup.displayName = 'StyledFieldGroup';
-
 FieldGroup.defaultProps = defaultProps;

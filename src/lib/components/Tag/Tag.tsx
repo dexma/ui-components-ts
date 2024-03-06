@@ -43,6 +43,4 @@ export const Tag: FC<TagProps> = (props: TagProps) => {
     );
 };
 
-StyledTag.displayName = 'StyledTag';
-
 (Tag as any).defaultProps = defaultProps;

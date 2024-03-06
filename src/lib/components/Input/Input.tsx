@@ -56,6 +56,4 @@ export const Input = withDataId(
     })
 );
 
-StyledInput.displayName = 'StyledInput';
-
 Input.defaultProps = defaultProps;

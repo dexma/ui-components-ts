@@ -1,22 +1,10 @@
 import React from 'react';
-import { Grid } from '../components/Grid';
-import { Row } from '../components/Row';
-import { Cell } from '../components/Cell';
-import { Paragraph } from '../components/Paragraph';
-
-import { Tooltip } from '../components/Tooltip';
-import { Button } from '../components/Button';
+import { Grid, Row, Cell, Paragraph, Tooltip, Button } from '@components';
 
 export default {
     title: 'Tooltip',
     component: Tooltip,
-    argTypes: {
-        theme: {
-            control: {
-                disable: true,
-            },
-        },
-    },
+    tags: ['autodocs'],
 };
 
 export const tooltip = () => (

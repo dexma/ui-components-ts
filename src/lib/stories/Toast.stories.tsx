@@ -1,14 +1,13 @@
 import React from 'react';
 
-import { Button } from '../components/Button';
-import { Toaster } from '../components/Toaster/Toaster';
+import { Button, Cell, Grid, Paragraph, Row, Toaster } from '@components';
 import ToasterContext from '../components/Toaster/ToasterContext';
 import { ToastType } from '../components/Toaster/Toast';
-import { Cell, Grid, Paragraph, Row } from '../components';
 
 export default {
     title: 'Toaster',
     component: Toaster,
+    tags: ['autodocs'],
 };
 
 export const toaster = () => (

@@ -1,13 +1,10 @@
 import React from 'react';
-import { Input } from '../components/Input';
-import { Grid } from '../components/Grid';
-import { Row } from '../components/Row';
-import { Cell } from '../components/Cell';
-import { Paragraph } from '../components/Paragraph';
+import { Input, Grid, Row, Cell, Paragraph } from '@components';
 
 export default {
     title: 'Input',
     component: Input,
+    tags: ['autodocs'],
 };
 
 export const input = () => (
@@ -47,6 +44,23 @@ export const loading = () => (
             </Cell>
             <Cell xs={8} xsOffset={2}>
                 <Input type='text' placeholder='Search text' icon='search' isLoading />
+            </Cell>
+        </Row>
+    </Grid>
+);
+
+export const disabled = () => (
+    <Grid fluid>
+        <Row>
+            <Cell xs={12}>
+                <Paragraph margin='1rem 0 1rem 0'>Disabled input, both placeholders and values</Paragraph>
+            </Cell>
+            <Cell xs={12}>
+                <Input type='text' value='Value Text' disabled />
+            </Cell>
+
+            <Cell xs={12}>
+                <Input type='text' placeholder='Placeholder text' disabled />
             </Cell>
         </Row>
     </Grid>

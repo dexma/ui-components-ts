@@ -1,14 +1,10 @@
 import React from 'react';
-import { Tag } from '../components/Tag';
-import { TagGroup } from '../components/TagGroup';
-import { Grid } from '../components/Grid';
-import { Row } from '../components/Row';
-import { Cell } from '../components/Cell';
-import { Paragraph } from '../components/Paragraph';
+import { Tag, TagGroup, Grid, Row, Cell, Paragraph } from '@components';
 
 export default {
     title: 'Tag',
     component: Tag,
+    tags: ['autodocs'],
 };
 
 export const tags = () => (

@@ -13,6 +13,4 @@ export const Divider = (props: { vertical: boolean }) => {
     return <StyledDivider data-testid='divider' $vertical={props.vertical} theme={th} />;
 };
 
-StyledDivider.displayName = 'StyledDivider';
-
 Divider.defaultProps = defaultProps;

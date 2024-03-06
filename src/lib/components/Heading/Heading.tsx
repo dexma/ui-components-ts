@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { ReactNode, useContext } from 'react';
 import { ThemeContext } from 'styled-components';
 
 import theme from '@utils/theme';
@@ -13,7 +13,7 @@ type HeadingProps = {
     text: string;
     color: string;
     type?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
-    children?: JSX.Element | JSX.Element[] | string;
+    children?: ReactNode;
 };
 
 export const Heading = (props: HeadingProps) => {
@@ -26,8 +26,6 @@ export const Heading = (props: HeadingProps) => {
         </StyledHeading>
     );
 };
-
-StyledHeading.displayName = 'StyledHeading';
 
 Heading.defaultProps = defaultProps;
 

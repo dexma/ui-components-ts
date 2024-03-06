@@ -1,20 +1,10 @@
 import React from 'react';
-import { Loading } from '../components/Loading';
-import { Grid } from '../components/Grid';
-import { Row } from '../components/Row';
-import { Cell } from '../components/Cell';
-import { Paragraph } from '../components/Paragraph';
+import { Loading, Grid, Row, Cell, Paragraph } from '@components';
 
 export default {
     title: 'Loading',
     component: Loading,
-    argTypes: {
-        theme: {
-            control: {
-                disable: true,
-            },
-        },
-    },
+    tags: ['autodocs'],
 };
 
 export const loading = () => (

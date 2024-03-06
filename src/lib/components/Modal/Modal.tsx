@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import { ModalProps } from 'antd';
-import { ThemeContext, withTheme } from 'styled-components';
+import { ThemeContext } from 'styled-components';
 
 import theme from '@utils/theme';
-import { Icon } from '@components/Icon';
+import { Icon } from '@components';
 import { StyledModal, StyledModalGlobal } from '@styles/Modal/StyledModal';
 
 export const Modal = (props: ModalProps) => {
@@ -16,6 +16,4 @@ export const Modal = (props: ModalProps) => {
     );
 };
 
-StyledModal.displayName = 'StyledModal';
-
-export default withTheme(Modal);
+export default Modal;

@@ -18,11 +18,13 @@ const preview: Preview = {
         (Story: any) => {
             return (
                 <>
-                    <GlobalStyle />
-                    <StorybookStyles />
-                    <ThemeProvider theme={theme}>
-                        <Story />
-                    </ThemeProvider>
+                    <div style={{ minHeight: '300px' }}>
+                        <GlobalStyle />
+                        <StorybookStyles />
+                        <ThemeProvider theme={theme}>
+                            <Story />
+                        </ThemeProvider>
+                    </div>
                 </>
             );
         },

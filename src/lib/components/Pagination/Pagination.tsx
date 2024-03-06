@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Pagination as PaginationAntDesign, PaginationProps as PaginationAntProps } from 'antd';
 import { ThemeContext } from 'styled-components';
-import { Icon } from '@components/Icon';
+import { Icon } from '@components';
 import { StyledPagination } from '@styles/Pagination/StyledPagination';
 import theme from '@utils/theme';
 
@@ -23,5 +23,3 @@ export const Pagination = (props: PaginationAntProps) => {
         </StyledPagination>
     );
 };
-
-export default Pagination;

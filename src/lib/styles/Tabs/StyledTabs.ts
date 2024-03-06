@@ -2,10 +2,11 @@ import styled from 'styled-components';
 
 import { Theme } from '@utils/theme';
 import { backgroundColor, primaryColor, gray200, gray500, gray700, white, fontWeightNormal, fontWeightBold, tabFontSize } from '@utils/selectors';
+import { TabsVariant } from '@components/Tabs';
 
 type StyledTabsProps = {
     theme: Theme;
-    $variant: 'default' | 'scrollable';
+    $variant: TabsVariant;
 };
 
 const StyledTabs = styled.div<StyledTabsProps>`
