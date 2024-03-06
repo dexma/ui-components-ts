@@ -1,5 +1,5 @@
 /* eslint-disable import/no-cycle */
-import React, { MouseEventHandler, useContext } from 'react';
+import React, { MouseEventHandler, ReactNode, useContext } from 'react';
 import classNames from 'classnames';
 import debounce from 'lodash/debounce';
 import { ThemeContext } from 'styled-components';
@@ -55,7 +55,7 @@ export type ButtonProps = {
     isCircle?: boolean;
     isExpanded?: boolean;
     debounceTime?: number;
-    children?: any;
+    children?: ReactNode;
     dataId?: string;
     onMouseEnter?: MouseEventHandler<HTMLButtonElement>;
     onMouseLeave?: MouseEventHandler<HTMLButtonElement>;

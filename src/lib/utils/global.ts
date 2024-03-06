@@ -1,5 +1,5 @@
 import { createGlobalStyle, css } from 'styled-components';
-// import { StyledButton } from '@styles/Button/StyledButton';
+import { StyledButton } from '@styles/Button/StyledButton';
 
 const getUIComponentsStyle = css`
     input::-ms-clear,
@@ -270,6 +270,9 @@ const getUIComponentsStyle = css`
     }
 `;
 const getStorybookStyles = css`
+    ${StyledButton} {
+        margin-right: 5px;
+    }
     .css-1tb5rpz,
     .css-h1ypda {
         overflow: visible !important;

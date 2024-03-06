@@ -4,33 +4,7 @@ import { Button, ButtonGroup, Cell, Grid, Row, Paragraph } from '@components';
 export default {
     title: 'Button',
     component: Button,
-    argTypes: {
-        theme: {
-            control: {
-                disable: true,
-            },
-        },
-        onClose: {
-            control: {
-                disable: true,
-            },
-        },
-        dataId: {
-            control: {
-                disable: true,
-            },
-        },
-        onClick: {
-            control: {
-                disable: true,
-            },
-        },
-        onFocus: {
-            control: {
-                disable: true,
-            },
-        },
-    },
+    tags: ['autodocs'],
 };
 
 export const buttons = () => (
@@ -87,6 +61,21 @@ export const icons = () => (
             </Cell>
             <Cell xs={12} style={{ marginBottom: '10px' }}>
                 <Button text='Primary' variant='primary' iconBefore='add' />
+                <Button text='Secondary' variant='secondary' iconBefore='image' />
+                <Button text='Outline' variant='outline' iconAfter='gas' />
+                <Button text='Destructive' variant='destructive' iconBefore='delete' />
+                <Button text='Link' variant='link' iconBefore='world' />
+            </Cell>
+            <Cell xs={12}>
+                <Button variant='primary' iconBefore='add' isCircle />
+                <Button variant='secondary' iconBefore='image' isCircle />
+                <Button variant='outline' iconBefore='gas' isCircle />
+                <Button variant='destructive' iconBefore='delete' isCircle />
+                <Button variant='link' iconBefore='world' isCircle />
+                <Button iconAfter='circle_add' variant='icon' isCircle />
+                <Button iconAfter='vader' variant='icon-secondary' isCircle />
+                <Button iconAfter='search' variant='icon-outline' isCircle />
+                <Button iconAfter='star' iconColor='amber' variant='icon-secondary' isCircle size='large' />
             </Cell>
         </Row>
     </Grid>
