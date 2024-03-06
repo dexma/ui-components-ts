@@ -1,5 +1,5 @@
 import React, { MouseEvent, ReactNode, useContext, useRef, useState } from 'react';
-import { Cascader as CascaderAntd, ConfigProvider } from 'antd';
+import { Cascader as CascaderAntd, ConfigProvider, CascaderProps as CascaderAntdProps } from 'antd';
 import { CascaderRef, DefaultOptionType } from 'antd/es/cascader';
 import { DefaultTheme, ThemeContext } from 'styled-components';
 
@@ -8,11 +8,9 @@ import { Icon } from '@components/Icon';
 import { CascaderOptionStyle, StyledTagSelected } from '@styles/Cascader/StyledCascader';
 
 type Value = (string | number)[];
-type CascaderProps<OptionType extends DefaultOptionType> = {
-    multiple: boolean;
+type CascaderProps<OptionType extends DefaultOptionType> = CascaderAntdProps & {
     open: boolean;
     options: OptionType[];
-    maxTagCount?: number | 'responsive';
     onChange?: (value: Value | Value[]) => void;
 };
 

@@ -6,16 +6,34 @@ export default {
     title: 'Cascader',
     component: Cascader,
     tags: ['autodocs'],
-    argTypes: {
-        theme: {
+    argtypes: {
+        options: {
+            description: 'Options for cascader',
             control: {
-                disable: true,
+                type: 'object',
             },
         },
-        onClose: {
+        multiple: {
+            description: 'Whether support multiple or not.',
             control: {
-                disable: true,
+                type: 'boolean',
             },
+        },
+        maxTagCount: {
+            description: 'Max tag count',
+            control: {
+                type: 'number',
+            },
+        },
+        open: {
+            description: 'Starts the cascader with the dropdown opened.',
+            control: {
+                type: 'boolean',
+            },
+        },
+        onChange: {
+            description: 'Change event',
+            action: 'changed',
         },
     },
 };
@@ -81,6 +99,7 @@ export const cascaderMultiple = () => (
             <Cell xs={12}>
                 <Paragraph margin='1rem 0 1rem 0'>The cascader allows to make a single or multiple selection from a set of associated data set.</Paragraph>
                 <Cascader
+                    style={{ width: '100%' }}
                     multiple
                     maxTagCount='responsive'
                     options={[
