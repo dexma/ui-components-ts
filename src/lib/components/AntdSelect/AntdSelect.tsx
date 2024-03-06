@@ -20,16 +20,21 @@ type CustomTagProps = {
     closable: boolean;
 };
 
-export const tagRenderButtonPagination = (
-    props: CustomTagProps,
-    options: {
-        value: string | number;
-        label: string;
-        color: string;
-    }[],
-    maxTagLength: number,
-    theme: Theme
-) => {
+type Option = {
+    value: string | number;
+    label: string;
+    color: string;
+};
+
+type DisplayValue = {
+    key?: React.Key;
+    value?: string | number;
+    label?: any;
+    title?: string | number;
+    disabled?: boolean;
+};
+
+export const tagRenderButtonPagination = (props: CustomTagProps, options: Option[], maxTagLength: number, theme: Theme) => {
     const { value, closable, onClose } = props;
     const onPreventMouseDown = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
         event.preventDefault();
@@ -61,20 +66,9 @@ export const tagRenderButtonPagination = (
 export const dropdownRenderSelectAntd = (
     menu: React.ReactElement,
     currentPage: number,
-    options: {
-        value: string | number;
-        label: string;
-        color: string;
-    }[],
+    options: Option[],
     handleChangePage: (page: number) => void,
-    handleSelectAll: (
-        cp: number,
-        ops: {
-            value: string | number;
-            label: string;
-            color: string;
-        }[]
-    ) => void,
+    handleSelectAll: () => void,
     text: SelectTextProps,
     searchValue: string,
     showDropdown: boolean,
@@ -133,25 +127,13 @@ export const renderUnselectedOption = (option: any, searchValue: string) => {
     );
 };
 
-export const optionsRenderer = (
-    options: {
-        value: string | number;
-        label: string;
-        color: string;
-    }[],
-    selectedValues: (string | number)[],
-    searchValue: string,
-    theme: Theme,
-    pageSize?: number
-) => {
-    const optionsToRender =
-        searchValue !== ''
-            ? options
-            : (getOptionsBySearch(options, searchValue) as {
-                  value: string | number;
-                  label: string;
-                  color: string;
-              }[]);
+const isDisabledOption = (option: Option, selectedValues: (string | number)[], pageSize?: number) => {
+    if (pageSize !== undefined) return selectedValues.length >= pageSize && !selectedValues.includes(option.value);
+    return false;
+};
+
+export const optionsRenderer = (options: Option[], selectedValues: (string | number)[], searchValue: string, theme: Theme, pageSize?: number) => {
+    const optionsToRender = searchValue !== '' ? options : (getOptionsBySearch(options, searchValue) as Option[]);
     return (
         <>
             {optionsToRender.map((option) => {
@@ -161,7 +143,7 @@ export const optionsRenderer = (
                         id={option.value}
                         className='option-select'
                         key={option.value}
-                        disabled={selectedValues.length >= (pageSize ?? 1) && !selectedValues.includes(option.value)}
+                        disabled={isDisabledOption(option, selectedValues, pageSize)}
                         value={option.value}
                         theme={theme}
                         color={option.color}
@@ -183,14 +165,6 @@ export const optionsRenderer = (
             })}
         </>
     );
-};
-
-type DisplayValue = {
-    key?: React.Key;
-    value?: string | number;
-    label?: any;
-    title?: string | number;
-    disabled?: boolean;
 };
 
 export type SelectTextProps = {
@@ -277,14 +251,7 @@ export const AntdSelect = (props: AntdSelectProps) => {
         setCurrentPage(page);
     }, []);
 
-    const handleSelectAll = (
-        cp: number,
-        ops: {
-            value: string | number;
-            label: string;
-            color: string;
-        }[]
-    ) => {
+    const handleSelectAll = () => {
         const actualPage = currentPage;
         const selectedOptions = searchValue !== '' ? getOptionsBySearch(options, searchValue) : options;
         const startIndex = (actualPage - 1) * (pageSize ?? 1);
@@ -484,7 +451,7 @@ export const AntdSelect = (props: AntdSelectProps) => {
                     }}
                     onInputKeyDown={(e) => {
                         if (['multiple', 'tags'].includes(mode) && e.key === ENTER_CHARACTER && sValue.current.includes(ALL_CHARACTER)) {
-                            handleSelectAll(currentPage, options);
+                            handleSelectAll();
                             e.stopPropagation();
                         }
                     }}

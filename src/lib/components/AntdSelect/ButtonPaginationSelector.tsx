@@ -31,7 +31,7 @@ export const getTotalPages = (pageSize: number, searchValue: string, options: an
 };
 
 type ButtonPaginationSelectorProps = {
-    handleSelectAll: (currentPage: number, options: any[]) => void;
+    handleSelectAll: () => void;
     pageSize: number;
     currentPage: number;
     options: any[];
@@ -124,7 +124,7 @@ export const ButtonPaginationSelector = ({
                         variant='outline'
                         data-testid='button-select-all'
                         onClick={() => {
-                            handleSelectAll(currentPage, options);
+                            handleSelectAll();
                             if (ref !== null && ref.current !== null) (ref.current as HTMLElement).blur();
                         }}
                         theme={theme}
