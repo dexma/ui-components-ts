@@ -95,11 +95,20 @@ export const Card = (props: CardProps) => {
     return (
         <>
             {link ? (
-                <StyledCardLink href={link} className={classes} theme={th} $hasFooter={footer !== null} data-testid='card' onClick={onClick} onFocus={onFocus}>
+                <StyledCardLink
+                    href={link}
+                    className={classes}
+                    theme={th}
+                    $hasFooter={footer !== null}
+                    $isHorizontal={isHorizontal}
+                    data-testid='card'
+                    onClick={onClick}
+                    onFocus={onFocus}
+                >
                     <CardContent title={title} subtitle={subtitle} description={description} icon={icon} image={image} footer={footer} isHorizontal={isHorizontal} />
                 </StyledCardLink>
             ) : (
-                <StyledCard className={classes} theme={th} $hasFooter={footer !== null} data-testid='card' onClick={onClick} onFocus={onFocus}>
+                <StyledCard className={classes} theme={th} $hasFooter={footer !== null} $isHorizontal={isHorizontal} data-testid='card' onClick={onClick} onFocus={onFocus}>
                     <CardContent title={title} subtitle={subtitle} description={description} icon={icon} image={image} footer={footer} isHorizontal={isHorizontal} />
                 </StyledCard>
             )}
