@@ -17,7 +17,7 @@ import addPatternFill from 'highcharts/modules/pattern-fill';
 import accessibility from 'highcharts/modules/accessibility';
 
 import theme from '@utils/theme';
-import withDataId from '@components/DataId/withDataId';
+import { withDataId } from '@components/DataId/withDataId';
 import { StyledChart, StyledChartError, StyledChartLoading } from '@styles/Chart/StyledChart';
 
 if (import.meta.env.MODE !== 'test') boost(Highcharts);
@@ -79,7 +79,7 @@ const ChartLoading = () => (
 const ChartError = (props: any) => <StyledChartError data-testid='chart-error' {...props} />;
 
 type ChartProps = {
-    options?: any;
+    options?: Highcharts.Options;
     isLoading?: boolean;
     showError?: boolean;
     errorContent?: any;
@@ -100,7 +100,7 @@ export const Chart = withDataId(
         const loading = isLoading && !showError;
         const error = !isLoading && showError && errorContent;
         const showChart = !loading && !error && options;
-        const [aggregateOptions, setAggregateOptions] = useState();
+        const [aggregateOptions, setAggregateOptions] = useState<Highcharts.Options>();
         const { fontFamily, backgroundColor } = useContext(ThemeContext) || theme;
         const highchartsReactProps = omit(props, [
             'isLoading',

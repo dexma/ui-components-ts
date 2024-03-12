@@ -6,7 +6,7 @@ import set from 'lodash/set';
 import { ThemeContext } from 'styled-components';
 
 import theme from '@utils/theme';
-import withDataId from '@components/DataId/withDataId';
+import { withDataId } from '@components/DataId/withDataId';
 import { StyledFieldGroup } from '@styles/Fieldgroup/StyledFieldGroup';
 import { ButtonSize, Icon, Tooltip } from '@components';
 

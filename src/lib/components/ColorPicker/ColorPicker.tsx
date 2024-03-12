@@ -11,7 +11,7 @@ import {
     StyledSketchPicker,
     StyledSpinnerColorPicker,
 } from '@styles/ColorPicker/StyledColorPicker';
-import withDataId from '@components/DataId/withDataId';
+import { withDataId } from '@components/DataId/withDataId';
 
 type ColorPickerProps = {
     dataId?: string;

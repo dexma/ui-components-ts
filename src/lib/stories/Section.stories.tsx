@@ -6,11 +6,8 @@ import { columnsTable, dataTable } from '../../../tests/mock/Table';
 
 export default {
     title: 'Section',
-    component: null,
+    component: Section,
     tags: ['autodocs'],
-    subcomponents: {
-        Section,
-    },
 };
 
 export const sectionDataChart = () => (

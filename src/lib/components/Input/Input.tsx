@@ -5,7 +5,7 @@ import omit from 'lodash/omit';
 import { StyledInput } from '@styles/Input/StyledInput';
 import theme from '@utils/theme';
 import { Icon, Spinner } from '@components';
-import withDataId from '@components/DataId/withDataId';
+import { withDataId } from '@components/DataId/withDataId';
 
 const defaultProps = {
     dataId: 'input',

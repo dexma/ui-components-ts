@@ -5,7 +5,7 @@ import { Table as TableAntDesign, ConfigProvider, TableProps as AntDTableProps }
 
 import theme from '@utils/theme';
 import { Button, itemRender } from '@components';
-import withDataId from '@components/DataId/withDataId';
+import { withDataId } from '@components/DataId/withDataId';
 import { StyledResult } from '@styles/Result/StyledResult';
 import { StyledTable } from '@styles/Table/StyledTable';
 
@@ -115,7 +115,7 @@ type TableProps = {
     isLoading?: boolean;
     isExpanded?: boolean;
     showError?: boolean;
-    dataId: string;
+    dataId?: string;
     errorContent?: React.ReactNode;
 };
 

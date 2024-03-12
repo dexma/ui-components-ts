@@ -3,11 +3,11 @@ import { describe, expect, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
 
 import { DataIdProvider, Button, Chart, Input, Table, Checkbox, Section } from '@components';
-import withDataId from '@components/DataId/withDataId';
+import { withDataId } from '@components/DataId/withDataId';
 
 describe('Data Id', () => {
     it('withDataId should not build data-id', () => {
-        const Example = (props: { dataId: string }) => {
+        const Example = (props: { dataId?: string }) => {
             return <div data-id={props.dataId}>Example</div>;
         };
 
@@ -19,7 +19,7 @@ describe('Data Id', () => {
     });
 
     it('withDataId should build data-id as default value', () => {
-        const Example = (props: { dataId: string }) => {
+        const Example = (props: { dataId?: string }) => {
             return <div data-id={props.dataId}>Example</div>;
         };
 
@@ -51,7 +51,7 @@ describe('Data Id', () => {
     });
 
     it('withDataId should build data-id as context + default value', () => {
-        const Example = (props: { dataId: string }) => {
+        const Example = (props: { dataId?: string }) => {
             return <div data-id={props.dataId}>Example</div>;
         };
 
@@ -94,7 +94,7 @@ describe('Data Id', () => {
         const { container } = render(
             <Section>
                 <>
-                    <Button />
+                    <Button variant='primary' />
                     <Chart />
                     {/* <DatePicker />
           <DatePicker variant="legacy" /> */}
@@ -126,7 +126,7 @@ describe('Data Id', () => {
         const { container } = render(
             <Section dataId='section-data.test'>
                 <>
-                    <Button dataId='button.test' />
+                    <Button variant='primary' dataId='button.test' />
                     <Chart dataId='chart.test' />
                     {/* <DatePicker dataId="datepicker.test" />
           <DatePicker variant="legacy" dataId="datepicker.test" /> */}
@@ -159,7 +159,7 @@ describe('Data Id', () => {
             <DataIdProvider dataId='page.section'>
                 <Section>
                     <>
-                        <Button />
+                        <Button variant='primary' />
                         <Chart />
                         {/* <DatePicker />
             <DatePicker variant="legacy" /> */}
@@ -193,7 +193,7 @@ describe('Data Id', () => {
             <DataIdProvider dataId='page.section'>
                 <Section dataId='section-data.test'>
                     <>
-                        <Button dataId='button.test' />
+                        <Button variant='primary' dataId='button.test' />
                         <Chart dataId='chart.test' />
                         {/* <DatePicker dataId="datepicker.test" />
             <DatePicker variant="legacy" dataId="datepicker.test" /> */}

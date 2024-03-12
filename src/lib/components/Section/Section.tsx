@@ -2,7 +2,7 @@ import React from 'react';
 
 import theme from '@utils/theme';
 import { Cell, Heading, Button } from '@components';
-import withDataId from '@components/DataId/withDataId';
+import { withDataId } from '@components/DataId/withDataId';
 import { StyledSection } from '@styles/Section/StyledSection';
 
 const defaultProps = {
@@ -11,7 +11,7 @@ const defaultProps = {
 };
 
 type SectionProps = {
-    dataId: string;
+    dataId?: string;
     children: JSX.Element;
     title?: string;
     isLoading?: boolean;

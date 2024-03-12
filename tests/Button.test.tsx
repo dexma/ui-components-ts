@@ -7,39 +7,43 @@ import { Button } from '@components';
 
 describe('<Button>', () => {
     it('Should render the button component', () => {
-        const { getByRole } = render(<Button />);
+        const { getByRole } = render(<Button variant='primary' />);
         expect(getByRole('button')).toBeTruthy();
     });
     it('Should render the spinner if isLoading is passed', () => {
-        const { getByTestId } = render(<Button isLoading />);
+        const { getByTestId } = render(<Button variant='primary' isLoading />);
         expect(getByTestId('button-loading')).toBeTruthy();
     });
     it('Should render the icon before', () => {
-        const { getByTestId } = render(<Button iconBefore='vader' />);
+        const { getByTestId } = render(<Button variant='primary' iconBefore='vader' />);
         expect(getByTestId('button-icon-before')).toBeTruthy();
     });
     it('Should render the icon after', () => {
-        const { getByTestId } = render(<Button iconAfter='vader' />);
+        const { getByTestId } = render(<Button variant='primary' iconAfter='vader' />);
         expect(getByTestId('button-icon-after')).toBeTruthy();
     });
     it.skip('Should render the icon before with overriden color', () => {
-        const { getByTestId } = render(<Button iconBefore='vader' iconColor={color.amber} />);
+        const { getByTestId } = render(<Button variant='primary' iconBefore='vader' iconColor={color.amber} />);
         expect(getByTestId('button-icon-before')).toHaveStyle(`fill: ${color.amber}`);
     });
     it.skip('Should render the icon after with overriden color', () => {
-        render(<Button iconAfter='vader' iconColor={color.amber} />);
+        render(<Button variant='primary' iconAfter='vader' iconColor={color.amber} />);
         expect(screen.getByTestId('button-icon-after')).toHaveStyle(`fill: ${color.amber}`);
     });
     it('Should render the children correctly', () => {
         const testDiv = <div data-testid='test'>test</div>;
-        render(<Button iconAfter='vader'>{testDiv}</Button>);
+        render(
+            <Button variant='primary' iconAfter='vader'>
+                {testDiv}
+            </Button>
+        );
         expect(screen.getByTestId('button-icon-after')).toBeTruthy();
     });
     it('Should call mock function on click', () => {
         const mockCallBack = vitest.fn();
         const testDiv = <div data-testid='test'>test</div>;
         const { getByRole } = render(
-            <Button iconAfter='vader' onClick={mockCallBack}>
+            <Button variant='primary' iconAfter='vader' onClick={mockCallBack}>
                 {testDiv}
             </Button>
         );

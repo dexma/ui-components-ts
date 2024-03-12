@@ -5,7 +5,7 @@ import { SwitchProps as AntdSwitchProps, SwitchSize } from 'antd/es/switch';
 import { ThemeContext } from 'styled-components';
 
 import theme from '@utils/theme';
-import withDataId from '@components/DataId/withDataId';
+import { withDataId } from '@components/DataId/withDataId';
 import { StyledSwitch } from '@styles/Switch/StyledSwitch';
 
 const defaultProps = {

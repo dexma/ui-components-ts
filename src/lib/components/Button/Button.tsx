@@ -6,7 +6,7 @@ import { ThemeContext } from 'styled-components';
 
 import theme from '@utils/theme';
 import { Tooltip, Spinner, Icon, getIconSize } from '@components';
-import withDataId from '@components/DataId/withDataId';
+import { withDataId } from '@components/DataId/withDataId';
 import { StyledButton, StyledButtonGroup } from '@styles/Button/StyledButton';
 
 export enum ButtonSize {
@@ -62,7 +62,7 @@ export type ButtonProps = {
     'data-testid'?: string;
 };
 
-export const Button = withDataId((props: ButtonProps) => {
+const ButtonBase = (props: ButtonProps) => {
     const { className, text, iconBefore, iconAfter, iconColor, tooltip, onClick, isDisabled, isExpanded, isLoading, size, debounceTime, children, dataId, variant } = props;
     const th = useContext(ThemeContext) || theme;
     const classes = classNames(isExpanded && 'expanded', className);
@@ -96,6 +96,7 @@ export const Button = withDataId((props: ButtonProps) => {
         </StyledButton>
     );
     return tooltip ? <Tooltip title={tooltip}>{getStyledButton()}</Tooltip> : getStyledButton();
-});
+};
+ButtonBase.defaultProps = defaultProps;
 
-Button.defaultProps = defaultProps;
+export const Button = withDataId(ButtonBase);

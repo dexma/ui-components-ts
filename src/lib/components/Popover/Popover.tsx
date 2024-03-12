@@ -1,9 +1,9 @@
 import React from 'react';
 import { Popover as AntDPopover, PopoverProps as AntDPopoverProps } from 'antd';
 
-import withDataId from '@components/DataId/withDataId';
+import { withDataId } from '@components/DataId/withDataId';
 
-export const Popover = withDataId((props: AntDPopoverProps) => {
+export const Popover = withDataId((props: AntDPopoverProps & { dataId?: string }) => {
     const { arrow, children, content, title, trigger, ...rest } = props;
 
     return (
