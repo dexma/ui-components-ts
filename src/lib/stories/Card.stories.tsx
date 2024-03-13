@@ -76,7 +76,7 @@ export const footer = () => (
                         subtitle='With supporting text below as a natural lead-in to additional content.'
                         footer={
                             <>
-                                <Button variant='primary' iconBefore='add' text='Button' /> <Button variant='destructive' iconBefore='delete' isCircle />{' '}
+                                <Button iconBefore='add' text='Button' /> <Button variant='destructive' iconBefore='delete' isCircle />{' '}
                             </>
                         }
                     />
@@ -131,7 +131,7 @@ export const horizontalFooter = () => (
                         isHorizontal
                         footer={
                             <>
-                                <Button variant='primary' iconBefore='add' text='Button' /> <Button variant='destructive' iconBefore='delete' isCircle />{' '}
+                                <Button iconBefore='add' text='Button' /> <Button variant='destructive' iconBefore='delete' isCircle />{' '}
                             </>
                         }
                     />

@@ -94,7 +94,7 @@ describe('Data Id', () => {
         const { container } = render(
             <Section>
                 <>
-                    <Button variant='primary' />
+                    <Button />
                     <Chart />
                     {/* <DatePicker />
           <DatePicker variant="legacy" /> */}
@@ -126,7 +126,7 @@ describe('Data Id', () => {
         const { container } = render(
             <Section dataId='section-data.test'>
                 <>
-                    <Button variant='primary' dataId='button.test' />
+                    <Button dataId='button.test' />
                     <Chart dataId='chart.test' />
                     {/* <DatePicker dataId="datepicker.test" />
           <DatePicker variant="legacy" dataId="datepicker.test" /> */}
@@ -159,7 +159,7 @@ describe('Data Id', () => {
             <DataIdProvider dataId='page.section'>
                 <Section>
                     <>
-                        <Button variant='primary' />
+                        <Button />
                         <Chart />
                         {/* <DatePicker />
             <DatePicker variant="legacy" /> */}
@@ -193,7 +193,7 @@ describe('Data Id', () => {
             <DataIdProvider dataId='page.section'>
                 <Section dataId='section-data.test'>
                     <>
-                        <Button variant='primary' dataId='button.test' />
+                        <Button dataId='button.test' />
                         <Chart dataId='chart.test' />
                         {/* <DatePicker dataId="datepicker.test" />
             <DatePicker variant="legacy" dataId="datepicker.test" /> */}

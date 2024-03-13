@@ -61,7 +61,7 @@ export const content = () => (
                 variant={ResultVariants.SUCCESS}
                 title='Successfully Purchased Cloud Server ECS!'
                 info='Order number: 2017182818828182881 Cloud server configuration takes 1-5 minutes, please wait.'
-                content={<Button variant='primary' text='Ok' />}
+                content={<Button text='Ok' />}
             />
             <Result
                 variant={ResultVariants.ERROR}
@@ -109,7 +109,7 @@ export const customIcon = () => (
                 variant={ResultVariants.SUCCESS}
                 title='Successfully Purchased Cloud Server ECS!'
                 info='Order number: 2017182818828182881 Cloud server configuration takes 1-5 minutes, please wait.'
-                content={<Button variant='primary' text='Ok' />}
+                content={<Button text='Ok' />}
                 icon='vader'
             />
             <Result

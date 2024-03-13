@@ -20,6 +20,7 @@ type InputProps = {
     isLoading?: boolean;
     type?: string;
     name?: string;
+    disabled?: boolean;
     onFocus?: (e: React.FocusEvent<HTMLInputElement>) => void;
     onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;

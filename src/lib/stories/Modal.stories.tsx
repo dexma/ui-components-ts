@@ -17,7 +17,7 @@ const ModalView = (props: { withFooter?: boolean }) => {
         : false;
     return (
         <div>
-            <Button variant='primary' text='Open modal' onClick={() => setShowModal(true)} />
+            <Button text='Open modal' onClick={() => setShowModal(true)} />
             <Modal open={showModal} onCancel={() => setShowModal(false)} title='Unsaved changes' width={400} footer={footer}>
                 <Paragraph>Are you sure you want to discard your changes?</Paragraph>
             </Modal>

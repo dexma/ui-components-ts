@@ -43,7 +43,7 @@ export type ButtonProps = {
     className?: string;
     text?: string;
     size?: string | ButtonSize;
-    variant: string;
+    variant?: string;
     iconBefore?: string;
     iconAfter?: string;
     iconColor?: string;
@@ -79,7 +79,7 @@ const ButtonBase = (props: ButtonProps) => {
             $size={size || 'medium'}
             $iconColor={iconColor}
             $iconAfter={iconAfter}
-            $variant={variant}
+            $variant={variant ?? 'primary'}
             $text={text}
             theme={th}
             onClick={handleClick}

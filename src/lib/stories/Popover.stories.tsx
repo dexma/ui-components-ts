@@ -71,7 +71,7 @@ export const popoverClickHover = () => {
                 open={clicked}
                 onOpenChange={handleClickChange}
             >
-                <Button>Hover and click</Button>
+                <Button variant='primary'>Hover and click</Button>
             </Popover>
         </Popover>
     );
