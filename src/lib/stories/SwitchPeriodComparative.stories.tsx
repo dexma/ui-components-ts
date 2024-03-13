@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { Grid, Row, Cell, Paragraph, SwitchPeriodComparative, SelectedPeriodType } from '@components';
-
+import { Dayjs } from 'dayjs';
 import { startDate, endDate, previousPeriodText, samePeriodLastYearText } from '../../../tests/mock/SwitchPeriodComparative';
 
 export default {
@@ -14,11 +14,11 @@ export const switchPeriodComparative = () => {
     const [stateNoText, setStateNoText] = useState<{
         period: SelectedPeriodType;
         date: {
-            startDate: moment.Moment;
-            endDate: moment.Moment;
+            startDate: Dayjs;
+            endDate: Dayjs;
         } | null;
     }>({
-        period: 'previous_period',
+        period: SelectedPeriodType.PREVIOUS_PERIOD,
         date: null,
     });
     return (
@@ -35,7 +35,7 @@ export const switchPeriodComparative = () => {
                         startDate={startDate}
                         endDate={endDate}
                         onPeriodSelect={({ period, date }) => {
-                            setStateNoText({ period, date });
+                            setStateNoText({ period: period as SelectedPeriodType, date });
                         }}
                     />
                 </Cell>
@@ -48,11 +48,11 @@ export const switchPeriodComparativeWitText = () => {
     const [state, setState] = useState<{
         period: SelectedPeriodType;
         date: {
-            startDate: moment.Moment;
-            endDate: moment.Moment;
+            startDate: Dayjs;
+            endDate: Dayjs;
         } | null;
     }>({
-        period: 'previous_period',
+        period: SelectedPeriodType.PREVIOUS_PERIOD,
         date: null,
     });
     const { period } = state;
@@ -71,7 +71,7 @@ export const switchPeriodComparativeWitText = () => {
                         endDate={endDate}
                         previousPeriodText={previousPeriodText}
                         samePeriodLastYearText={samePeriodLastYearText}
-                        onPeriodSelect={({ period, date }) => setState({ period, date })}
+                        onPeriodSelect={({ period, date }) => setState({ period: period as SelectedPeriodType, date })}
                     />
                 </Cell>
             </Row>

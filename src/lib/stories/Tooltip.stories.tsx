@@ -18,16 +18,16 @@ export const tooltip = () => (
             </Cell>
             <Cell>
                 <Tooltip title='Tooltip' trigger='click'>
-                    <Button text='Click me'></Button>
+                    <Button variant='primary' text='Click me'></Button>
                 </Tooltip>
                 <Tooltip title='Tooltip'>
-                    <Button text='Test' iconBefore='vader'></Button>
+                    <Button variant='primary' text='Test' iconBefore='vader'></Button>
                 </Tooltip>
                 <Tooltip title='Tooltip top' position='top'>
                     <Button text='Test top' iconBefore='vader' variant='secondary'></Button>
                 </Tooltip>
                 <Tooltip title='Tooltip right' position='right'>
-                    <Button iconBefore='help' isCircle></Button>
+                    <Button variant='primary' iconBefore='help' isCircle></Button>
                 </Tooltip>
             </Cell>
         </Row>

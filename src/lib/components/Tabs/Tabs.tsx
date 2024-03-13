@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Tabs as TabsAntDesign, TabsProps as TabsPropsAntDesign } from 'antd';
+import { Tabs as TabsAntDesign, TabsProps as TabsPropsAntDesign, TabPaneProps } from 'antd';
 
 import theme from '@utils/theme';
 import { StyledTabs } from '@styles/Tabs/StyledTabs';
@@ -21,6 +21,6 @@ export const Tabs = (props: TabsProps) => {
     );
 };
 
-export const TabPane = (props: any) => {
+export const TabPane = (props: TabPaneProps) => {
     return <TabsAntDesign.TabPane {...props} />;
 };

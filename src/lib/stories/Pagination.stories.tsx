@@ -6,6 +6,11 @@ export default {
     title: 'Pagination',
     component: Pagination,
     tags: ['autodocs'],
+    argTypes: {
+        total: { control: 'number' },
+        pageSize: { control: 'number' },
+        defaultCurrent: { control: 'number' },
+    },
 };
 
 export const paginations = () => (

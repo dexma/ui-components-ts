@@ -1,9 +1,8 @@
 import { ButtonPaginationSelector, getButtonText } from '@components/AntdSelect/ButtonPaginationSelector';
 import { tagRenderButtonPagination, dropdownRenderSelectAntd, renderUnselectedOption, AntdSelect } from '@components/AntdSelect/AntdSelect';
 import { filterOption, getOptionsBySearch } from '@components/AntdSelect/selectUtils';
-import { Tooltip } from '@components/Tooltip';
 import { act, fireEvent, render, screen } from '@testing-library/react';
-import { beforeEach, describe, expect, it, vitest } from 'vitest';
+import { describe, expect, it, vitest } from 'vitest';
 import theme from '@utils/theme';
 
 const text = {

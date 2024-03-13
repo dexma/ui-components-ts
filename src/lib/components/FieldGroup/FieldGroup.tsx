@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { ReactNode, useContext } from 'react';
 import classNames from 'classnames';
 import { uniqueId } from 'lodash';
 import find from 'lodash/find';
@@ -69,7 +69,7 @@ type FieldGroupProps = RadioOrCheckboxFieldGroup & {
 
 export type FieldGroupItem = {
     id: string;
-    label: string;
+    label: ReactNode;
     name: string;
     uniqueId?: string;
     value: string;

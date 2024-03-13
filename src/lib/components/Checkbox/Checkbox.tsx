@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { ReactNode, useContext } from 'react';
 import omit from 'lodash/omit';
 import { Checkbox as CheckboxAntd, ConfigProvider } from 'antd';
 import { ThemeContext } from 'styled-components';
@@ -10,7 +10,7 @@ const defaultProps: CheckboxProps = {};
 type CheckboxProps = {
     checked?: boolean;
     disabled?: boolean;
-    children?: JSX.Element | JSX.Element[] | string;
+    children?: ReactNode;
     className?: string;
     onChange?: () => void;
 };

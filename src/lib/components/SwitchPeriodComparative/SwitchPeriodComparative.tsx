@@ -1,23 +1,26 @@
 import React, { useContext } from 'react';
-import moment, { Moment } from 'moment';
 import { ThemeContext } from 'styled-components';
 import omit from 'lodash/omit';
 import { uniqueId } from 'lodash';
-
+import dayjs, { Dayjs } from 'dayjs';
+import { PluginFunc } from 'dayjs';
 import theme from '@utils/theme';
 import { ISO_FORMAT } from '@utils/dates';
-import { FieldGroup } from '@components';
+import { FieldGroup, FieldGroupItem } from '@components';
 import { StyledSwitchPeriodComparative } from '@styles/SwitchPeriodComparative/StyledSwitchPeriodComparative';
+import duration from 'dayjs/plugin/duration';
+
+dayjs.extend(duration);
 
 const getRangeDaysBetweenTwoDates = (startDate: string, endDate: string) => {
-    const start = moment(new Date(startDate)).startOf('day');
-    const end = moment(new Date(endDate)).startOf('day');
-    const duration = moment.duration(end.diff(start));
+    const start = dayjs(new Date(startDate)).startOf('day');
+    const end = dayjs(new Date(endDate)).startOf('day');
+    const duration = dayjs.duration(end.diff(start));
     return duration.asDays();
 };
 
-const getDayBefore = (date: string, days: number) => moment(new Date(date)).subtract(days, 'd');
-const getYearBefore = (date: string, years: number) => moment(new Date(date)).subtract(years, 'y');
+const getDayBefore = (date: string, days: number) => dayjs(new Date(date)).subtract(days, 'd');
+const getYearBefore = (date: string, years: number) => dayjs(new Date(date)).subtract(years, 'y');
 
 export const getPreviousDate = (startDate: string, endDate: string): [string, string] => {
     const rangeDaysBetweenTwoDates = getRangeDaysBetweenTwoDates(startDate, endDate);
@@ -27,8 +30,8 @@ export const getPreviousDate = (startDate: string, endDate: string): [string, st
 };
 
 export const getSamePeriodLastYear = (startDate: string, endDate: string): [string, string] => {
-    const start = moment(new Date(startDate)).startOf('day').toString();
-    const end = moment(new Date(endDate)).startOf('day').toString();
+    const start = dayjs(new Date(startDate)).startOf('day').toString();
+    const end = dayjs(new Date(endDate)).startOf('day').toString();
     const startYearBefore = getYearBefore(start, 1);
     const endYearBefore = getYearBefore(end, 1);
     return [startYearBefore.format(ISO_FORMAT), endYearBefore.format(ISO_FORMAT)];
@@ -38,12 +41,10 @@ const defaultProps = {
     selectedPeriod: 'previous_period',
 };
 
-enum SelectedPeriod {
+export enum SelectedPeriodType {
     PREVIOUS_PERIOD = 'previous_period',
     LAST_PERIOD = 'last_period',
 }
-
-export type SelectedPeriodType = 'previous_period' | 'last_period';
 
 type SwitchPeriodComparativeProps = {
     selectedPeriod: SelectedPeriodType;
@@ -51,15 +52,15 @@ type SwitchPeriodComparativeProps = {
     endDate: string;
     previousPeriodText?: string;
     samePeriodLastYearText?: string;
-    onPeriodSelect?: ({ period, date }: { period: SelectedPeriodType; date: { startDate: Moment; endDate: Moment } }) => void;
+    onPeriodSelect?: ({ period, date }: { period: string; date: { startDate: Dayjs; endDate: Dayjs } }) => void;
 };
 export const SwitchPeriodComparative = (props: SwitchPeriodComparativeProps) => {
     const { selectedPeriod, startDate, endDate, previousPeriodText, samePeriodLastYearText, onPeriodSelect } = props;
     const th = useContext(ThemeContext) || theme;
     const switchPeriodComparativeProps = omit(props, ['selectedPeriod', 'startDate', 'endDate', 'previousPeriodText', 'samePeriodLastYearText', 'onPeriodSelect']);
-    const formatDate = (start: string, end: string): { startDate: Moment; endDate: Moment } => {
-        const newStartDate = moment(start, ISO_FORMAT).startOf('day');
-        const newEndDate = moment(end, ISO_FORMAT).endOf('day');
+    const formatDate = (start: string, end: string): { startDate: Dayjs; endDate: Dayjs } => {
+        const newStartDate = dayjs(start, ISO_FORMAT).startOf('day');
+        const newEndDate = dayjs(end, ISO_FORMAT).endOf('day');
         return {
             startDate: newStartDate,
             endDate: newEndDate,
@@ -83,11 +84,11 @@ export const SwitchPeriodComparative = (props: SwitchPeriodComparativeProps) => 
     const [lastYearStartDate, lastYearEndDate] = getSamePeriodLastYear(startDate, endDate);
 
     const getActivePeriod = (value: string) => {
-        return value === SelectedPeriod.PREVIOUS_PERIOD ? formatDate(previousStartDate, previousEndDate) : formatDate(lastYearStartDate, lastYearEndDate);
+        return value === SelectedPeriodType.PREVIOUS_PERIOD ? formatDate(previousStartDate, previousEndDate) : formatDate(lastYearStartDate, lastYearEndDate);
     };
 
-    const onPeriodChange = (value: SelectedPeriodType) => {
-        onPeriodSelect && onPeriodSelect({ period: value, date: getActivePeriod(value) });
+    const onPeriodChange = (value: FieldGroupItem) => {
+        onPeriodSelect && onPeriodSelect({ period: value.value, date: getActivePeriod(value.value) });
     };
     const previousPeriod = `${previousStartDate} - ${previousEndDate}`;
     const samePeriodLastYear = `${lastYearStartDate} - ${lastYearEndDate}`;
@@ -116,7 +117,7 @@ export const SwitchPeriodComparative = (props: SwitchPeriodComparativeProps) => 
                         ]}
                         selectedValues={selectedPeriod}
                         type='radio'
-                        onChange={(item: { value: SelectedPeriodType }) => onPeriodChange(item.value)}
+                        onChange={(item) => onPeriodChange(item)}
                     />
                 </div>
             </div>

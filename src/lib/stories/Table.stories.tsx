@@ -148,7 +148,7 @@ export const nestedTable = () => {
         <Grid fluid>
             <Row>
                 <Cell xs={12}>
-                    <Table isExpanded className='components-table-demo-nested' columns={columns} expandedRowRender={expandedRowRender} dataSource={data} pagination={false} />
+                    <Table isExpanded className='components-table-demo-nested' columns={columns} expandable={{ expandedRowRender }} dataSource={data} pagination={false} />
                 </Cell>
             </Row>
         </Grid>

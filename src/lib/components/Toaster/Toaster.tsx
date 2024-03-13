@@ -23,7 +23,7 @@ export const Toaster = (props: ToasterProps) => {
         setToastConfig({ text: text, type: type });
         setTimeoutState(
             setTimeout(() => {
-                setVisible(true);
+                setVisible(false);
             }, 5000)
         );
     };

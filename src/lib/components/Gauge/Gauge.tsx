@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Highcharts, { SeriesOptionsRegistry } from 'highcharts';
+import Highcharts from 'highcharts';
 import { Chart } from '@components/Chart';
 import { applyScientific, numberFormatter } from '@utils/formatter';
 import { color } from '@utils/theme';
@@ -36,16 +36,32 @@ enum GaugeType {
 }
 
 type GaugeProps = {
-    checkpoints?: Checkpoint[];
-    comparison?: Comparison;
+    checkpoints?: { color: string; tooltip: string; value: number }[];
+    comparison?: {
+        enabled: boolean;
+        period: {
+            from: Date | null;
+            to: Date | null;
+            type: string;
+            text: string | null;
+        };
+        color: string;
+        value: number;
+        showAsPercentage: boolean;
+    };
     'data-testid'?: string;
     decimalPoint?: string;
     hasData?: boolean;
-    indicator: Indicator;
+    indicator: { color: string; tooltip: string; value: number };
     max: number;
     min: number;
     options?: Highcharts.Options;
-    ranges?: Range[];
+    ranges?: {
+        color: string;
+        tooltip: string;
+        from: number;
+        to: number;
+    }[];
     showAsPercentage?: boolean;
     thousandsSep?: string;
     title?: string;
@@ -62,7 +78,7 @@ Highcharts.wrap(Highcharts.Tooltip.prototype, 'refresh', (p, point, mouseEvent) 
     const current = this as unknown as any;
     p.call(current, point, mouseEvent);
 
-    if (!current.isHidden && !current.shared && !current.split) {
+    if (current && !current.isHidden && !current.shared && !current.split) {
         const pointTooltipBorderColor = point && point.options.tooltip && point.options.tooltip.borderColor,
             seriesTooltipBorderColor = point && point.series && point.series.options.tooltip && point.series.options.tooltip.borderColor,
             borderColor = pointTooltipBorderColor || seriesTooltipBorderColor,

@@ -6,7 +6,7 @@ export default {
     title: 'Cascader',
     component: Cascader,
     tags: ['autodocs'],
-    argtypes: {
+    argTypes: {
         options: {
             description: 'Options for cascader',
             control: {

@@ -161,6 +161,4 @@ export const Table = withDataId(<T extends object>(props: AntDTableProps<T> & Ta
     );
 });
 
-StyledTable.displayName = 'StyledTable';
-
 Table.defaultProps = defaultProps;
