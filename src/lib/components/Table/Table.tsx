@@ -121,7 +121,7 @@ type TableProps = {
 
 export const Table = withDataId(<T extends object>(props: AntDTableProps<T> & TableProps) => {
     const { isExpanded, expandable, columns, dataSource, isLoading, showError, errorContent, dataId } = props;
-    const tableProps = omit(props, ['theme', 'columns', 'dataId']);
+    const tableProps = omit(props, ['theme', 'columns', 'dataId', 'expandable']);
     const th = useContext(ThemeContext) || theme;
     const getColumnsExpanded = () => {
         const newFirstColumn = columns && {
@@ -134,7 +134,7 @@ export const Table = withDataId(<T extends object>(props: AntDTableProps<T> & Ta
     const loading = isLoading && !showError;
     const error = !isLoading && showError && errorContent;
     const showTable = !loading && !error && columns && dataSource;
-
+    const expandIcon = expandable ? (expandable?.expandIcon ? expandable.expandIcon : getExpandedIcon) : undefined;
     return (
         <ConfigProvider
             theme={{
@@ -149,7 +149,8 @@ export const Table = withDataId(<T extends object>(props: AntDTableProps<T> & Ta
                 {showTable && (
                     <TableAntDesign
                         expandable={{
-                            expandIcon: expandable?.expandedRowRender && getExpandedIcon,
+                            expandedRowRender: expandable?.expandedRowRender,
+                            expandIcon,
                         }}
                         pagination={{ itemRender: itemRender }}
                         columns={isExpanded ? getColumnsExpanded() : columns}

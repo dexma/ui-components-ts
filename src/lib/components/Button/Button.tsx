@@ -48,7 +48,7 @@ export type ButtonProps = {
     iconAfter?: string;
     iconColor?: string;
     tooltip?: string;
-    onClick?: () => void;
+    onClick?: (e?: any) => void;
     onFocus?: () => void;
     isLoading?: boolean;
     isDisabled?: boolean;
