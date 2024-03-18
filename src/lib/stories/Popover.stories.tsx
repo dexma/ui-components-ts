@@ -25,7 +25,7 @@ export const popover = () => (
                 <Popover title='Popover' content={<Paragraph margin='1rem 0 1rem 0'>A popover content may be a simple text or a more complex component.</Paragraph>}>
                     <Button text='Test' iconBefore='vader'></Button>
                 </Popover>
-                <Popover position='top' content={<Paragraph margin='1rem 0 1rem 0'>A popover may not have a title, but only content to be displayed.</Paragraph>}>
+                <Popover placement='top' content={<Paragraph margin='1rem 0 1rem 0'>A popover may not have a title, but only content to be displayed.</Paragraph>}>
                     <Button text='Test top' iconBefore='vader' variant='secondary'></Button>
                 </Popover>
                 <Popover title='Popover right' placement='right'>

@@ -3,10 +3,9 @@ import { ThemeContext } from 'styled-components';
 import omit from 'lodash/omit';
 import { uniqueId } from 'lodash';
 import dayjs, { Dayjs } from 'dayjs';
-import { PluginFunc } from 'dayjs';
 import theme from '@utils/theme';
 import { ISO_FORMAT } from '@utils/dates';
-import { FieldGroup, FieldGroupItem } from '@components';
+import { RadioFieldGroup, FieldGroupItem } from '@components';
 import { StyledSwitchPeriodComparative } from '@styles/SwitchPeriodComparative/StyledSwitchPeriodComparative';
 import duration from 'dayjs/plugin/duration';
 
@@ -100,7 +99,7 @@ export const SwitchPeriodComparative = (props: SwitchPeriodComparativeProps) => 
         <StyledSwitchPeriodComparative data-testid='switch-period-comparative' {...switchPeriodComparativeProps} theme={th}>
             <div className='compare-period'>
                 <div className='compare-period-container'>
-                    <FieldGroup
+                    <RadioFieldGroup
                         values={[
                             {
                                 value: 'previous_period',
@@ -116,7 +115,6 @@ export const SwitchPeriodComparative = (props: SwitchPeriodComparativeProps) => 
                             },
                         ]}
                         selectedValues={selectedPeriod}
-                        type='radio'
                         onChange={(item) => onPeriodChange(item)}
                     />
                 </div>

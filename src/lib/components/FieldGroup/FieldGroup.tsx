@@ -10,21 +10,31 @@ import { withDataId } from '@components/DataId/withDataId';
 import { StyledFieldGroup } from '@styles/Fieldgroup/StyledFieldGroup';
 import { ButtonSize, Icon, Tooltip } from '@components';
 
+export enum FieldGroupType {
+    RADIO = 'radio',
+    CHECKBOX = 'checkbox',
+}
+
+export enum FieldGroupVariant {
+    JOINED = 'joined',
+    SPLIT = 'split',
+    CUSTOM = 'custom',
+}
+
 const defaultProps = {
-    variant: 'joined',
-    type: 'radio',
+    variant: FieldGroupVariant.JOINED,
     vertical: false,
-    size: 'medium',
+    size: 'medium' as ButtonSize,
     dataId: 'field-group',
 };
 
-const getSelectedField = (type: 'radio' | 'checkbox', selectedValues: string | number | (string | number)[], allValues: FieldGroupItem[], selectedProp: string) => {
+const getSelectedField = <V,>(type: FieldGroupType, selectedValues: V, allValues: FieldGroupItem[], selectedProp: string) => {
     let selectedItem;
-    if (type === 'radio') {
+    if (type === FieldGroupType.RADIO) {
         const objectToSelect = set({}, selectedProp, selectedValues);
         selectedItem = find(allValues, objectToSelect);
     }
-    if (type === 'checkbox') {
+    if (type === FieldGroupType.CHECKBOX) {
         selectedItem = (selectedValues as [string | number]).map((item: string | number) => {
             const objectToSelect = set({}, selectedProp, item);
             return find(allValues, objectToSelect);
@@ -33,43 +43,37 @@ const getSelectedField = (type: 'radio' | 'checkbox', selectedValues: string | n
     return selectedItem;
 };
 
-const isFieldSelected = (group: RadioOrCheckboxFieldGroup, selectedField: any) => {
+const isFieldSelected = <T extends FieldGroupType, V>(group: Pick<GenericFieldGroupProps<T, V>, 'type' | 'selectedValues'>, selectedField: any) => {
     let isEqual = false;
-    if (group.type === 'radio') {
+    if (group.type === FieldGroupType.RADIO) {
         isEqual = !!(group.selectedValues === selectedField);
     }
-    if (group.type === 'checkbox') {
-        isEqual = !!find(selectedField, group.selectedValues);
+    if (group.type === FieldGroupType.CHECKBOX) {
+        isEqual = !!find(selectedField, group.selectedValues as []);
     }
     return isEqual;
 };
 
-type RadioFieldGroup = {
-    type: 'radio';
-    selectedValues: string | number;
-};
+type GenericFieldGroupProps<T extends FieldGroupType, V> = {
+    type: T;
+} & FieldGroupProps<V>;
 
-type CheckboxFieldGroup = {
-    type: 'checkbox';
-    selectedValues: (string | number)[];
-};
-
-type RadioOrCheckboxFieldGroup = RadioFieldGroup | CheckboxFieldGroup;
-
-type FieldGroupProps = RadioOrCheckboxFieldGroup & {
-    variant?: 'joined' | 'split' | 'custom';
+type FieldGroupProps<V> = {
+    selectedValues: V;
+    variant?: FieldGroupVariant;
     values: FieldGroupItem[];
     size?: ButtonSize;
     name?: string;
     vertical?: boolean;
-    onChange: (e: FieldGroupItem) => void;
+    onChange?: (e: FieldGroupItem) => void;
     onFieldClick?: (e: FieldGroupItem) => void;
     dataId?: string;
 };
 
 export type FieldGroupItem = {
     id: string;
-    label: ReactNode;
+    label?: ReactNode;
+    icon?: string;
     name: string;
     uniqueId?: string;
     value: string;
@@ -77,7 +81,10 @@ export type FieldGroupItem = {
     isDisabled?: boolean;
 };
 
-export const FieldGroup = withDataId((props: FieldGroupProps) => {
+export const RadioFieldGroup = withDataId((props: FieldGroupProps<string | number>) => FieldGroup({ ...props, type: FieldGroupType.RADIO }));
+export const CheckboxFieldGroup = withDataId((props: FieldGroupProps<(string | number)[]>) => FieldGroup({ ...props, type: FieldGroupType.CHECKBOX }));
+
+const FieldGroup = <T extends FieldGroupType, V>(props: GenericFieldGroupProps<T, V>) => {
     const { type, variant, values, selectedValues, size, name, vertical, onChange, onFieldClick, dataId } = props;
     const th = useContext(ThemeContext) || theme;
     const uniqueValues =
@@ -100,14 +107,14 @@ export const FieldGroup = withDataId((props: FieldGroupProps) => {
 
     const handleOnChange = (item: FieldGroupItem) => {
         const { uniqueId, ...itemRest } = item;
-        onChange(itemRest);
+        if (onChange) onChange(itemRest);
     };
 
     return (
         <StyledFieldGroup theme={th} size={size} data-testid='field-group' $vertical={!!vertical} variant={variant} data-id={dataId}>
-            {uniqueValues.map((item: any) => {
+            {uniqueValues.map((item: FieldGroupItem) => {
                 const { uniqueId, value, label, icon, tooltip, isDisabled } = item;
-                const isSelected = isFieldSelected({ type, selectedValues: item } as RadioOrCheckboxFieldGroup, selectedField);
+                const isSelected = isFieldSelected({ type, selectedValues: item }, selectedField);
                 const classesItem = classNames('item', `item-${label}`, isSelected && 'active', isDisabled && 'disabled');
                 const getLabel = () => (
                     // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
@@ -143,6 +150,7 @@ export const FieldGroup = withDataId((props: FieldGroupProps) => {
             })}
         </StyledFieldGroup>
     );
-});
+};
 
-FieldGroup.defaultProps = defaultProps;
+RadioFieldGroup.defaultProps = defaultProps;
+CheckboxFieldGroup.defaultProps = defaultProps;

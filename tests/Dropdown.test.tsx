@@ -31,7 +31,7 @@ describe('<Dropdown>', () => {
         const { getByText } = render(
             <Dropdown
                 text={textTest}
-                trigger='click'
+                trigger={['click']}
                 content={[
                     {
                         text: 'Edit',
@@ -49,7 +49,7 @@ describe('<Dropdown>', () => {
         const { getByText } = render(
             <Dropdown
                 text={textTest}
-                trigger='click'
+                trigger={['click']}
                 content={[
                     {
                         text: 'Edit',
@@ -71,7 +71,7 @@ describe('<Dropdown>', () => {
         const { getByText } = render(
             <Dropdown
                 text={textTest}
-                trigger='click'
+                trigger={['click']}
                 content={[
                     {
                         text: 'Edit',
@@ -100,7 +100,7 @@ describe('<Dropdown>', () => {
         const { getByText } = render(
             <Dropdown
                 text={textTest}
-                trigger='click'
+                trigger={['click']}
                 content={[
                     {
                         text: 'Edit',

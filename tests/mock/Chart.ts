@@ -1,6 +1,8 @@
 import Highcharts from 'highcharts';
 
-export const mockBasicArea = {
+import { ChartOptions } from '@components/Chart/types';
+
+export const mockBasicArea: ChartOptions = {
     chart: {
         type: 'area',
     },
@@ -27,6 +29,7 @@ export const mockBasicArea = {
         },
     },
     yAxis: {
+        type: 'datetime',
         title: {
             text: 'Nuclear weapon states',
         },
@@ -57,6 +60,7 @@ export const mockBasicArea = {
     },
     series: [
         {
+            type: 'area',
             name: 'USA',
             data: [
                 null,
@@ -140,6 +144,7 @@ export const mockBasicArea = {
             ],
         },
         {
+            type: 'area',
             name: 'USSR/Russia',
             data: [
                 null,
@@ -224,7 +229,7 @@ export const mockBasicArea = {
         },
     ],
 };
-export const mockStackedBar = {
+export const mockStackedBar: ChartOptions = {
     chart: {
         type: 'bar',
     },
@@ -250,19 +255,23 @@ export const mockStackedBar = {
     },
     series: [
         {
+            type: 'bar',
             name: 'John',
             data: [5, 3, 4, 7, 2],
         },
         {
+            type: 'bar',
             name: 'Jane',
             data: [2, 2, 3, 2, 1],
         },
         {
+            type: 'bar',
             name: 'Joe',
             data: [3, 4, 4, 2, 5],
         },
     ],
 };
+
 const categories = [
     '0-4',
     '5-9',
@@ -286,7 +295,8 @@ const categories = [
     '95-99',
     '100 + ',
 ];
-export const mockStackedBarNegative = {
+
+export const mockStackedBarNegative: ChartOptions = {
     chart: {
         type: 'bar',
     },
@@ -342,19 +352,21 @@ export const mockStackedBarNegative = {
 
     series: [
         {
+            type: 'bar',
             name: 'Male',
             data: [-2.2, -2.1, -2.2, -2.4, -2.7, -3.0, -3.3, -3.2, -2.9, -3.5, -4.4, -4.1, -3.4, -2.7, -2.3, -2.2, -1.6, -0.6, -0.3, -0.0, -0.0],
         },
         {
+            type: 'bar',
             name: 'Female',
             data: [2.1, 2.0, 2.1, 2.3, 2.6, 2.9, 3.2, 3.1, 2.9, 3.4, 4.3, 4.0, 3.5, 2.9, 2.5, 2.7, 2.2, 1.1, 0.6, 0.2, 0.0],
         },
     ],
 };
 
-export const mockMixed = {
+export const mockMixed: ChartOptions = {
     chart: {
-        zoomType: 'xy',
+        zooming: { type: 'xy' },
     },
     title: {
         text: 'Average Monthly Temperature and Rainfall in Tokyo',
@@ -418,7 +430,7 @@ export const mockMixed = {
     ],
 };
 
-export const mockHeatmap = {
+export const mockHeatmap: ChartOptions = {
     chart: {
         type: 'heatmap',
         marginTop: 40,
@@ -436,7 +448,7 @@ export const mockHeatmap = {
 
     yAxis: {
         categories: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-        title: null,
+        title: undefined,
         reversed: true,
     },
 
@@ -457,6 +469,7 @@ export const mockHeatmap = {
 
     series: [
         {
+            type: 'heatmap',
             name: 'Sales per employee',
             borderWidth: 1,
             data: [

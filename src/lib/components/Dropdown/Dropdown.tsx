@@ -7,7 +7,7 @@ const getContent = (
     menu?: {
         text: string;
         icon: string;
-        onClick: (e: any) => void;
+        onClick?: (e: any) => void;
     }[]
 ) => {
     if (!menu) return null;
@@ -40,7 +40,7 @@ export type DropdownProps = DropDownProps & {
     content?: {
         text: string;
         icon: string;
-        onClick: (e: any) => void;
+        onClick?: (e: any) => void;
     }[];
 };
 

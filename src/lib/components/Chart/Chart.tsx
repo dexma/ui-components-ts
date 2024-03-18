@@ -91,6 +91,7 @@ type ChartProps = {
     months?: string[];
     shortMonths?: string[];
     weekdays?: string[];
+    callback?: () => void;
 };
 
 export const Chart = withDataId(

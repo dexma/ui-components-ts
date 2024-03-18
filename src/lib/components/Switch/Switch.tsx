@@ -10,7 +10,7 @@ import { StyledSwitch } from '@styles/Switch/StyledSwitch';
 
 const defaultProps = {
     disabled: false,
-    size: 'default',
+    size: 'default' as SwitchSize,
     dataId: 'switch',
 };
 

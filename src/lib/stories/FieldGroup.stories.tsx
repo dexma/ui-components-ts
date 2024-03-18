@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 
-import { FieldGroup, Grid, Row, Cell, Paragraph, FieldGroupItem } from '@components';
+import { RadioFieldGroup, CheckboxFieldGroup, Grid, Row, Cell, Paragraph, FieldGroupItem, FieldGroupVariant, ButtonSize } from '@components';
 import { mockRadioGroup, mockRadioCustomGroup, mockCheckboxGroup, mockSelectedRadioItem, mockSelectedCheckboxItem } from '../../../tests/mock/FieldGroup';
 
 export default {
     title: 'FieldGroup',
-    component: FieldGroup,
+    component: RadioFieldGroup,
     tags: ['autodocs'],
 };
 
@@ -14,17 +14,17 @@ const RadioGroup = () => {
     const handleChange = ({ value }: FieldGroupItem) => {
         setSelectedValue(value);
     };
-    return <FieldGroup values={mockRadioGroup} selectedValues={selectedValues} type='radio' onChange={handleChange} />;
+    return <RadioFieldGroup values={mockRadioGroup} selectedValues={selectedValues} onChange={handleChange} />;
 };
 
-const RadioCustomGroup = (props: { size: string }) => {
+const RadioCustomGroup = (props: { size: ButtonSize }) => {
     const [selectedValues, setSelectedValue] = useState(mockSelectedRadioItem);
     const handleChange = ({ value }: FieldGroupItem) => {
         setSelectedValue(value);
     };
     return (
         <>
-            <FieldGroup variant='custom' values={mockRadioCustomGroup} oselectedValues={selectedValues} type='radio' onChange={handleChange} {...props} />
+            <RadioFieldGroup variant={FieldGroupVariant.CUSTOM} values={mockRadioCustomGroup} selectedValues={selectedValues} onChange={handleChange} {...props} />
         </>
     );
 };
@@ -36,7 +36,7 @@ const RadioSplitGroup = (props: {}) => {
     };
     return (
         <>
-            <FieldGroup variant='split' values={mockRadioGroup} selectedValues={selectedValues} type='radio' onChange={handleChange} {...props} />
+            <RadioFieldGroup variant={FieldGroupVariant.SPLIT} values={mockRadioGroup} selectedValues={selectedValues} onChange={handleChange} {...props} />
         </>
     );
 };
@@ -53,7 +53,7 @@ const CheckboxGroup = (props: { horizontal?: boolean; vertical?: boolean }) => {
         }
         setSelectedValue([...cloneValues]);
     };
-    return <FieldGroup values={mockCheckboxGroup} selectedValues={selectedValues} type='checkbox' onChange={handleChange} {...props} />;
+    return <CheckboxFieldGroup values={mockCheckboxGroup} selectedValues={selectedValues} onChange={handleChange} {...props} />;
 };
 
 export const fieldJoinedVariantGroupRadio = () => (
@@ -73,7 +73,7 @@ export const fieldCustomVariantGroupRadio = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
-                <RadioCustomGroup size='large' />
+                <RadioCustomGroup size={ButtonSize.LARGE} />
             </Cell>
         </Row>
     </Grid>
