@@ -1,5 +1,5 @@
 /* eslint-disable import/no-cycle */
-import React, { MouseEventHandler, ReactNode, useContext } from 'react';
+import React, { CSSProperties, MouseEventHandler, ReactNode, useContext } from 'react';
 import classNames from 'classnames';
 import debounce from 'lodash/debounce';
 import { ThemeContext } from 'styled-components';
@@ -60,10 +60,11 @@ export type ButtonProps = {
     onMouseEnter?: MouseEventHandler<HTMLButtonElement>;
     onMouseLeave?: MouseEventHandler<HTMLButtonElement>;
     'data-testid'?: string;
+    style?: CSSProperties;
 };
 
 const ButtonBase = (props: ButtonProps) => {
-    const { className, text, iconBefore, iconAfter, iconColor, tooltip, onClick, isDisabled, isExpanded, isLoading, size, debounceTime, children, dataId, variant } = props;
+    const { className, text, iconBefore, iconAfter, iconColor, tooltip, onClick, isDisabled, isExpanded, isLoading, size, debounceTime, children, dataId, variant, style } = props;
     const th = useContext(ThemeContext) || theme;
     const classes = classNames(isExpanded && 'expanded', className);
     const handleClick = debounceTime && debounceTime > 0 && onClick ? debounce(onClick, debounceTime) : onClick;
@@ -87,6 +88,7 @@ const ButtonBase = (props: ButtonProps) => {
             onMouseLeave={props.onMouseLeave}
             data-id={dataId}
             data-testid={props['data-testid']}
+            style={style}
         >
             {isLoading ? <Spinner size={spinnerSize} data-testid='button-loading' /> : null}
             {!isLoading && iconBefore ? <Icon name={iconBefore} size={iconSize} color={iconColor} data-testid='button-icon-before' /> : null}

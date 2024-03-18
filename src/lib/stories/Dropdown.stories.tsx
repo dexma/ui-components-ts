@@ -46,7 +46,7 @@ export const dropdownWithText = () => (
                 <Paragraph margin='1rem 0 1rem 0'>The text prop allows the dropdown to be more descriptive.</Paragraph>
             </Cell>
             <Cell xs={12}>
-                <Dropdown icon='add' content={content} text='Dropdown' trigger='click' />
+                <Dropdown icon='add' content={content} text='Dropdown' trigger={['click']} />
             </Cell>
         </Row>
     </Grid>

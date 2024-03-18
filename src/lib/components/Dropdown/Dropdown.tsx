@@ -1,51 +1,56 @@
 import React from 'react';
-import { Dropdown as DropdownAntd } from 'antd';
-
+import { Dropdown as DropdownAntd, DropDownProps, MenuProps } from 'antd';
 import { Button } from '@components';
 import { StyledGlobalDropdown } from '@styles/Dropdown/StyledDropdown';
 
-const defaultProps: DropdownProps = {
-    placement: 'bottomRight',
-    trigger: 'hover',
-};
-
-type DropdownMenuItem = {
-    text: string;
-    icon?: string;
-    onClick?: (element?: any) => void;
-};
-
-export type DropdownProps = {
-    trigger: 'click' | 'hover';
-    text?: string;
-    placement: 'top' | 'bottom' | 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight' | 'topCenter' | 'bottomCenter';
-    content?: DropdownMenuItem[];
-    icon?: string;
-};
-
 const getContent = (
-    content: DropdownMenuItem[]
-): {
-    type: 'group';
-    label: JSX.Element;
-}[] => {
-    return content.map((props: DropdownMenuItem, i: number) => {
-        const { icon, onClick, ...rest } = props;
-        return {
-            type: 'group',
-            label: <Button key={i} className='dropdown-button-item' variant='icon' iconBefore={icon} onClick={onClick} {...rest} />,
-        };
-    });
+    menu?: {
+        text: string;
+        icon: string;
+        onClick: (e: any) => void;
+    }[]
+) => {
+    if (!menu) return null;
+    const items = menu
+        ? menu.map((item) => {
+              return {
+                  label: (
+                      <Button
+                          className='dropdown-button-item'
+                          style={{ width: '100%', padding: '0px 1rem' }}
+                          variant='icon'
+                          iconBefore={item.icon}
+                          onClick={item.onClick}
+                          text={item.text}
+                      />
+                  ),
+                  onClick: item.onClick,
+              };
+          })
+        : undefined;
+    return {
+        items,
+        onClick: () => {},
+    };
+};
+
+export type DropdownProps = DropDownProps & {
+    text?: string;
+    icon?: string;
+    content?: {
+        text: string;
+        icon: string;
+        onClick: (e: any) => void;
+    }[];
 };
 
 export const Dropdown = (props: DropdownProps) => {
-    const { trigger, text, placement, content, icon } = props;
-    const renderContent = content ? getContent(content) : undefined;
-
+    const { trigger, text, placement, menu, icon, content } = props;
+    const menuItems = menu ? menu : (getContent(content) as unknown as MenuProps);
     return (
         <>
-            <StyledGlobalDropdown {...props} />
-            <DropdownAntd menu={{ items: renderContent }} placement={placement} trigger={[trigger]}>
+            <StyledGlobalDropdown />
+            <DropdownAntd menu={menuItems} placement={placement} trigger={trigger}>
                 <Button
                     data-testid={text ? 'dropdown-button-text' : 'dropdown-button-icon'}
                     className='dropdown-button'
@@ -53,10 +58,15 @@ export const Dropdown = (props: DropdownProps) => {
                     iconBefore={icon}
                     text={text}
                     isCircle={!text}
-                ></Button>
+                />
             </DropdownAntd>
         </>
     );
+};
+
+const defaultProps = {
+    placement: 'bottomRight',
+    trigger: ['hover'],
 };
 
 Dropdown.defaultProps = defaultProps;

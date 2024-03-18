@@ -55,7 +55,7 @@ type IconProps = {
     onClick?: (e: any) => void;
 };
 
-const getColor = (color?: string | keyof typeof theme.color) => {
+const getColor = (color?: string | typeof theme.color) => {
     const th = useContext(ThemeContext) || theme;
     if (!color) return th.color.gray500;
     if (isHexColor(color)) return color;

@@ -16,7 +16,7 @@ type LoadingProps = {
     size: number;
     type: 'spinner';
     isLoading: boolean;
-    color?: keyof typeof theme.color;
+    color?: typeof theme.color;
     children?: React.ReactNode;
 };
 
@@ -25,7 +25,7 @@ export const Loading = (props: LoadingProps) => {
     const th = useContext(ThemeContext) || theme;
     const loadingProps = omit(props, ['isLoading', 'children', 'size', 'color']);
     return isLoading ? (
-        <StyledLoading data-testid='loading' {...loadingProps}>
+        <StyledLoading data-testid='loading' theme={th} {...loadingProps}>
             {type === 'spinner' && <Spinner color={color} size={size} />}
         </StyledLoading>
     ) : (
