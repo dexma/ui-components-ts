@@ -1,6 +1,6 @@
 import type { ColumnsType } from 'antd/es/table';
 
-type User = {
+export type User = {
     key: number;
     name: string;
     age: number;

@@ -1,13 +1,15 @@
 import React from 'react';
 import { ConfigProvider, DatePickerProps } from 'antd';
-import * as datePickerUtils from './datePickerUtils';
-import { DropdownDatePickerStyles, StyledAntdDatePicker, StyledAntdRangePicker } from '@styles/AntdPicker/StyledAntdPicker';
-import defaultTheme, { Theme } from '@utils/theme';
-import { Icon } from '@components/Icon';
 import { RangePickerProps } from 'antd/lib/date-picker';
 
+import defaultTheme, { Theme } from '@utils/theme';
+import { Icon } from '@components/Icon';
+import { withDataId } from '@components/DataId/withDataId';
+import { DropdownDatePickerStyles, StyledAntdDatePicker, StyledAntdRangePicker } from '@styles/AntdPicker/StyledAntdPicker';
+import * as datePickerUtils from './datePickerUtils';
+
 type CommonProps = {
-    locale?: 'en' | 'bg' | 'br' | 'be' | 'ca' | 'da' | 'de' | 'el' | 'es' | 'fi' | 'fr' | 'it' | 'nl' | 'pl' | 'pt' | 'sl' | 'sv' | 'tr' | 'us' | 'zh';
+    lang?: 'en' | 'bg' | 'br' | 'be' | 'ca' | 'da' | 'de' | 'el' | 'es' | 'fi' | 'fr' | 'it' | 'nl' | 'pl' | 'pt' | 'sl' | 'sv' | 'tr' | 'us' | 'zh';
     dataId?: string;
     'data-testid'?: string;
     theme?: Theme;
@@ -15,13 +17,13 @@ type CommonProps = {
 
 type AntdDatePickerProps = DatePickerProps & CommonProps;
 
-export const AntdDatePicker = (props: AntdDatePickerProps) => {
-    const { locale, theme } = props;
+export const AntdDatePicker = withDataId((props: AntdDatePickerProps) => {
+    const { lang, theme, dataId } = props;
     const th = theme ?? defaultTheme;
 
     return (
         <ConfigProvider
-            locale={datePickerUtils.getLocale(locale ?? 'en')}
+            locale={datePickerUtils.getLocale(lang ?? 'en')}
             theme={{
                 token: {
                     colorPrimary: th.primary,
@@ -31,6 +33,7 @@ export const AntdDatePicker = (props: AntdDatePickerProps) => {
             <DropdownDatePickerStyles theme={th} />
             <StyledAntdDatePicker
                 {...props}
+                data-id={dataId}
                 data-testid='antd-date-picker'
                 nextIcon={<Icon name='chevron_right_l' size={10} color='gray600' />}
                 prevIcon={<Icon name='chevron_left_l' size={10} color='gray600' />}
@@ -38,23 +41,23 @@ export const AntdDatePicker = (props: AntdDatePickerProps) => {
             />
         </ConfigProvider>
     );
-};
+});
 
 AntdDatePicker.defaultProps = {
     theme: defaultTheme,
     dataId: 'datepicker',
-    locale: 'en',
+    lang: 'en',
 };
 
 export type AntdRangePickerProps = RangePickerProps & CommonProps;
 
-export const AntdRangePicker = (props: AntdRangePickerProps) => {
-    const { dataId, locale, theme, ...rest } = props; // Antd Props
+export const AntdRangePicker = withDataId((props: AntdRangePickerProps) => {
+    const { dataId, lang, theme, ...rest } = props; // Antd Props
     const th = theme ?? defaultTheme;
 
     return (
         <ConfigProvider
-            locale={datePickerUtils.getLocale(locale ?? 'en')}
+            locale={datePickerUtils.getLocale(lang ?? 'en')}
             theme={{
                 token: {
                     colorPrimary: th.primary,
@@ -72,12 +75,12 @@ export const AntdRangePicker = (props: AntdRangePickerProps) => {
             />
         </ConfigProvider>
     );
-};
+});
 
 AntdRangePicker.defaultProps = {
     theme: defaultTheme,
     dataId: 'rangepicker',
-    locale: 'en',
+    lang: 'en',
 };
 
 type DatePicker = { type: 'date' | 'range' } & (AntdDatePickerProps | AntdRangePickerProps);

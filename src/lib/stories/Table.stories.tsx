@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-import { Result, ResultVariants, Grid, Row, Cell, Paragraph, Table } from '@components';
-import { columnsTable, dataTable } from '../../../tests/mock/Table';
+import { Result, ResultVariants, Grid, Row, Cell, Paragraph, Table, getTableWithDataId } from '@components';
+import { User, columnsTable, dataTable } from '../../../tests/mock/Table';
 
 export default {
     title: 'Table',
@@ -22,9 +22,10 @@ const Selection = () => {
         onChange: onSelectChange,
     };
 
+    const TableWithDataId = getTableWithDataId<User>();
     return (
         <div>
-            <Table rowSelection={rowSelection} columns={columnsTable} dataSource={dataTable} />
+            <TableWithDataId rowSelection={rowSelection} columns={columnsTable} dataSource={dataTable} />
         </div>
     );
 };

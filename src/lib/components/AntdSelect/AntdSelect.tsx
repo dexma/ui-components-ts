@@ -1,11 +1,13 @@
 import { Select, SelectProps } from 'antd';
-import { Icon, Tooltip } from '@components';
-import { SelectOptionStyle, StyledAntdSelectDropdown, StyledSpanOption, StyledSpanOptionSelected } from '@styles/AntdSelect/StyledAntdSelect';
 import theme, { Theme } from '@utils/theme';
 import { useCallback, useContext, useEffect, useRef, useState } from 'react';
-import { filterOption, findSubstringIndices, getOptionsBySearch, getRegExpBasedOnInput, singleOptionFilter } from '../AntdSelect/selectUtils';
 import { get, omit } from 'lodash';
 import { ThemeContext } from 'styled-components';
+
+import { Icon, Tooltip } from '@components';
+import { withDataId } from '@components/DataId/withDataId';
+import { SelectOptionStyle, StyledAntdSelectDropdown, StyledSpanOption, StyledSpanOptionSelected } from '@styles/AntdSelect/StyledAntdSelect';
+import { filterOption, findSubstringIndices, getOptionsBySearch, getRegExpBasedOnInput, singleOptionFilter } from '../AntdSelect/selectUtils';
 import { ButtonPaginationSelector } from '../AntdSelect/ButtonPaginationSelector';
 
 const ALL_CHARACTER = '*';
@@ -176,18 +178,18 @@ export type SelectTextProps = {
 
 type AntdSelectProps = Omit<SelectProps, 'options'> & {
     dataId?: string;
-    defaultValues: any[];
+    defaultValues?: any[];
     pageSize?: number;
-    text: SelectTextProps;
-    options: {
+    text?: SelectTextProps;
+    options?: {
         value: string;
         label: string;
         color: string;
     }[];
     theme?: Theme;
     isLoading?: boolean;
-    maxTagLength: number;
-    overflowLength: number;
+    maxTagLength?: number;
+    overflowLength?: number;
     handleButtonSelectAll?: (values: any[]) => void;
     handleClearAll?: () => void;
 };
@@ -197,7 +199,7 @@ interface BaseSelectRef {
     blur: () => void;
 }
 
-export const AntdSelect = (props: AntdSelectProps) => {
+export const AntdSelect = withDataId((props: AntdSelectProps) => {
     const {
         dataId,
         defaultValues,
@@ -243,7 +245,9 @@ export const AntdSelect = (props: AntdSelectProps) => {
     }, [searchValue]);
 
     useEffect(() => {
-        setSelectedValues(defaultValues);
+        if (defaultValues) {
+            setSelectedValues(defaultValues);
+        }
     }, [defaultValues]);
 
     const handleChangePage = useCallback((page: number) => {
@@ -291,7 +295,7 @@ export const AntdSelect = (props: AntdSelectProps) => {
                 }>
                     autoClearSearchValue
                     removeIcon={<Icon color='gray' name='close' size='small' />}
-                    data-testid={`${dataId}`}
+                    data-id={dataId}
                     defaultValue={defaultValues}
                     optionFilterProp='children'
                     filterOption={singleOptionFilter}
@@ -364,16 +368,19 @@ export const AntdSelect = (props: AntdSelectProps) => {
                 <Select
                     autoClearSearchValue={false}
                     removeIcon={<Icon color='gray' name='close' size='small' />}
-                    data-testid={`${dataId}`}
+                    data-id={dataId}
                     defaultValue={defaultValues}
-                    dropdownRender={(menu: React.ReactElement) =>
-                        dropdownRenderSelectAntd(menu, currentPage, options, handleChangePage, handleSelectAll, text, searchValue, showDropdown, mode, theme, pageSize)
+                    dropdownRender={
+                        text
+                            ? (menu: React.ReactElement) =>
+                                  dropdownRenderSelectAntd(menu, currentPage, options, handleChangePage, handleSelectAll, text, searchValue, showDropdown, mode, theme, pageSize)
+                            : undefined
                     }
                     optionFilterProp='children'
                     filterOption={filterOption}
                     maxTagCount='responsive'
                     maxTagPlaceholder={(props: DisplayValue[]) => {
-                        const textOverflow = overflowLength && props.length > overflowLength ? ` ${text.overflow}` : '';
+                        const textOverflow = overflowLength && props.length > overflowLength ? ` ${text?.overflow}` : '';
                         const valuesToRender = `${props.slice(0, overflowLength).map((value) => ` ${value?.label.props.value}`)}${textOverflow}`;
                         return <Tooltip title={valuesToRender}>{`+${props.length}`}</Tooltip>;
                     }}
@@ -433,7 +440,7 @@ export const AntdSelect = (props: AntdSelectProps) => {
                             }
                         }
                     }}
-                    tagRender={(props: CustomTagProps) => tagRenderButtonPagination(props, options, maxTagLength, theme)}
+                    tagRender={maxTagLength ? (props: CustomTagProps) => tagRenderButtonPagination(props, options, maxTagLength, theme) : undefined}
                     value={selectedValues}
                     dropdownAlign={{ offset: [0, 3] }}
                     onChange={(values, options) => {
@@ -461,7 +468,7 @@ export const AntdSelect = (props: AntdSelectProps) => {
             )}
         </>
     );
-};
+});
 
 AntdSelect.defaultProps = {
     options: [],

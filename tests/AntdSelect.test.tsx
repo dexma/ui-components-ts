@@ -376,14 +376,14 @@ describe('Ancillary functions', () => {
 
 describe('Select', () => {
     it('should render AntdSelect successfully', () => {
-        render(<AntdSelect mode='multiple' style={{ width: '100%' }} />);
+        render(<AntdSelect mode='multiple' data-testid='select' style={{ width: '100%' }} />);
 
         const select = screen.getByTestId('select');
         expect(select).toBeTruthy();
     });
 
     it('should open dropDown when input is clicked', () => {
-        const { container } = render(<AntdSelect mode='multiple' style={{ width: '100%' }} options={[{ color: 'blue', value: 'Test', label: 'Test' }]} />);
+        const { container } = render(<AntdSelect mode='multiple' data-testid='select' style={{ width: '100%' }} options={[{ color: 'blue', value: 'Test', label: 'Test' }]} />);
         // When
         const select = container.querySelector("[data-testid='select'] > .ant-select-selector");
         expect(select).not.toBeNull();
@@ -398,6 +398,7 @@ describe('Select', () => {
     it('should show icon clearAll when a value is selected and allowClear is enabled', () => {
         const { container } = render(
             <AntdSelect
+                data-testid='select'
                 allowClear
                 defaultValues={['Test']}
                 mode='multiple'
@@ -425,6 +426,7 @@ describe('Select', () => {
         const onChange = vitest.fn();
         const { container } = render(
             <AntdSelect
+                data-testid='select'
                 mode='multiple'
                 style={{ width: '100%' }}
                 options={[
@@ -459,6 +461,7 @@ describe('Select', () => {
         const onChange = vitest.fn();
         const { container } = render(
             <AntdSelect
+                data-testid='select'
                 mode='multiple'
                 style={{ width: '100%' }}
                 options={[
@@ -498,6 +501,7 @@ describe('Select', () => {
     it('should render pagination elements when pageSize is smaller than the options total', () => {
         const { container } = render(
             <AntdSelect
+                data-testid='select'
                 mode='multiple'
                 style={{ width: '100%' }}
                 options={[
@@ -528,6 +532,7 @@ describe('Select', () => {
     it('should not render pagination, except select all button, when pageSize is bigger than the options total', () => {
         const { container } = render(
             <AntdSelect
+                data-testid='select'
                 mode='multiple'
                 style={{ width: '100%' }}
                 options={[
@@ -557,6 +562,7 @@ describe('Select', () => {
     it('should not render pagination elements when pageSize is undefined', () => {
         const { container } = render(
             <AntdSelect
+                data-testid='select'
                 mode='multiple'
                 style={{ width: '100%' }}
                 options={[
@@ -585,6 +591,7 @@ describe('Select', () => {
     it('should filter rendered options by the search value when there is a search value', () => {
         const { container } = render(
             <AntdSelect
+                data-testid='select'
                 mode='multiple'
                 style={{ width: '100%' }}
                 options={[

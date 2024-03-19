@@ -120,16 +120,20 @@ type TableProps = {
     errorContent?: React.ReactNode;
 };
 
-export const Table = withDataId(<T extends AnyObject = AnyObject>(props: React.PropsWithChildren<AntDTableProps<T>> & TableProps) => {
+export const buildTableWithDataId = <RecordType extends AnyObject>() => withDataId(Table<RecordType>);
+
+export const Table = <RecordType extends AnyObject>(props: AntDTableProps<RecordType> & TableProps) => {
     const { isExpanded, expandable, columns, dataSource, isLoading, showError, errorContent, dataId } = props;
     const tableProps = omit(props, ['theme', 'columns', 'dataId', 'expandable']);
     const th = useContext(ThemeContext) || theme;
     const getColumnsExpanded = () => {
-        const newFirstColumn = columns && {
-            className: 'expanded-first-column',
-            ...columns[0],
-        };
-        return Object.assign([], columns, { 0: newFirstColumn });
+        if (columns) {
+            const newFirstColumn = {
+                className: 'expanded-first-column',
+                ...columns[0],
+            };
+            return [newFirstColumn, ...columns];
+        }
     };
 
     const loading = isLoading && !showError;
@@ -161,6 +165,6 @@ export const Table = withDataId(<T extends AnyObject = AnyObject>(props: React.P
             </StyledTable>
         </ConfigProvider>
     );
-});
+};
 
 Table.defaultProps = defaultProps;
