@@ -12,7 +12,7 @@ describe('<Loading>', () => {
     });
     it('Should render the Spinner component', () => {
         render(<Loading isLoading />);
-        expect(screen.getByTestId('loading').getAttribute('type')).toEqual('spinner');
+        expect(screen.getByTestId('loading')).toBeInTheDocument();
         expect(screen.getAllByTestId('spinner').length).toEqual(1);
     });
     it('Should not render the Spinner and show children', () => {

@@ -10,7 +10,7 @@ export const Modal = (props: ModalProps) => {
     const th = useContext(ThemeContext) || theme;
     return (
         <>
-            <StyledModal data-testid='modal' closeIcon={<Icon name='close' color='gray300' size='medium' />} footer={false} transitionName='' maskTransitionName='' {...props} />
+            <StyledModal data-testid='modal' closeIcon={<Icon name='close' color='gray300' size='medium' />} transitionName='' maskTransitionName='' {...props} />
             <StyledModalGlobal theme={th} />
         </>
     );

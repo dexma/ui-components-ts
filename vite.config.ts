@@ -6,6 +6,7 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 import { defineConfig } from 'vitest/config';
 import { name } from './package.json';
 
+const packageName = name.split('/')[1];
 const resolvePath = (str: string) => path.resolve(__dirname, str);
 
 const app = async (): Promise<UserConfigExport> => {
@@ -13,9 +14,9 @@ const app = async (): Promise<UserConfigExport> => {
         build: {
             lib: {
                 entry: resolvePath('src/lib/index.ts'),
-                name,
+                name: packageName,
                 formats: ['es', 'umd'],
-                fileName: (format) => `${name}.${format}.js`,
+                fileName: (format) => `${packageName}.${format}.js`,
             },
             rollupOptions: {
                 external: ['react', 'react/jsx-runtime', 'react-dom', 'moment'],
@@ -27,6 +28,7 @@ const app = async (): Promise<UserConfigExport> => {
                     },
                 },
             },
+            outDir: 'dist',
         },
         test: {
             globals: true,
@@ -41,12 +43,10 @@ const app = async (): Promise<UserConfigExport> => {
             react(),
             dts({
                 insertTypesEntry: true,
-                include: [resolvePath('src')],
-                outDir: resolvePath('dist/@dexma'),
+                include: [resolvePath('src/lib')],
             }),
             tsconfigPaths(),
         ],
     });
 };
-// https://vitejs.dev/config/
 export default app;

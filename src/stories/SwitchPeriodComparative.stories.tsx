@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { Grid, Row, Cell, Paragraph, SwitchPeriodComparative, SelectedPeriodType } from '@components';
 import { Dayjs } from 'dayjs';
-import { startDate, endDate, previousPeriodText, samePeriodLastYearText } from '../../../tests/mock/SwitchPeriodComparative';
+import { startDate, endDate, previousPeriodText, samePeriodLastYearText } from '../../tests/mock/SwitchPeriodComparative';
 
 export default {
     title: 'SwitchPeriodComparative',

@@ -80,7 +80,6 @@ const StyledModal = styled(ModalAntDesign)<ModalProps>`
         color: ${(props) => fontColor(props.theme)};
     }
     .ant-modal-footer {
-        padding: 10px 16px 24px 16px;
         text-align: right;
         background: transparent;
         border-radius: 0 0 ${(props) => borderRadius(props.theme)} ${(props) => borderRadius(props.theme)};

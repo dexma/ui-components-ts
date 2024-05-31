@@ -20,7 +20,7 @@ type Comparison = {
         text: string | null;
     };
     color: string;
-    value: number;
+    value?: number;
     showAsPercentage: boolean;
 };
 
@@ -46,7 +46,7 @@ type GaugeProps = {
             text: string | null;
         };
         color: string;
-        value: number;
+        value?: number;
         showAsPercentage: boolean;
     };
     'data-testid'?: string;
@@ -324,25 +324,25 @@ const renderSuffix = (chart: any, mainSize: number, suffixSize: number, units?: 
 
 export const getPercentageComparisonValue = (comparativeValue: number, initialValue: number) => ((initialValue - comparativeValue) / Math.abs(comparativeValue)) * 100;
 
-export const getSymbolElement = (difference: number) => {
-    if (difference >= 0 && difference !== Number.POSITIVE_INFINITY) return '↑';
-    if (difference < 0 && difference !== Number.NEGATIVE_INFINITY) return '↓';
+export const getSymbolElement = (value?: number) => {
+    if (value && value >= 0 && value !== Number.POSITIVE_INFINITY) return '↑';
+    if (value && value < 0 && value !== Number.NEGATIVE_INFINITY) return '↓';
     return '-';
 };
 
 export const getPercentageElement = (comparison: Comparison, value: number, decimalSeparator?: string, thousandSeparator?: string) => {
-    const percentage = getPercentageComparisonValue(comparison.value, value);
+    const percentage = comparison.value ? getPercentageComparisonValue(comparison.value, value) : undefined;
     return `<span style="font-size: 1.2em; font-weight: bold; color: ${comparison.color};">${getSymbolElement(percentage)}</span><span style="color: ${comparison.color};"> ${
-        !Number.isNaN(percentage) && percentage !== Number.POSITIVE_INFINITY && percentage !== Number.NEGATIVE_INFINITY
+        percentage && !Number.isNaN(percentage) && percentage !== Number.POSITIVE_INFINITY && percentage !== Number.NEGATIVE_INFINITY
             ? numberFormatter(Math.abs(percentage), decimalSeparator || ',', thousandSeparator || '.')
             : ''
     }%</span>`;
 };
 
 export const getDifferenceElement = (comparison: Comparison, value: number, units?: string, decimalSeparator?: string, thousandSeparator?: string) => {
-    const difference = value - comparison.value;
+    const difference = comparison.value ? value - comparison.value : undefined;
     return `<span style="font-size: 1.2em; font-weight: bold; color: ${comparison.color};">${getSymbolElement(difference)}</span><span style="color: ${comparison.color};"> ${
-        !Number.isNaN(difference) ? numberFormatter(Math.abs(difference), decimalSeparator || ',', thousandSeparator || '.') : ''
+        difference && !Number.isNaN(difference) ? numberFormatter(Math.abs(difference), decimalSeparator || ',', thousandSeparator || '.') : ''
     } ${units}</span>`;
 };
 

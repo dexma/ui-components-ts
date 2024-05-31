@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { RadioFieldGroup, CheckboxFieldGroup, Grid, Row, Cell, Paragraph, FieldGroupItem, FieldGroupVariant, ButtonSize } from '@components';
-import { mockRadioGroup, mockRadioCustomGroup, mockCheckboxGroup, mockSelectedRadioItem, mockSelectedCheckboxItem } from '../../../tests/mock/FieldGroup';
+import { mockRadioGroup, mockRadioCustomGroup, mockCheckboxGroup, mockSelectedRadioItem, mockSelectedCheckboxItem } from '../../tests/mock/FieldGroup';
 
 export default {
     title: 'FieldGroup',

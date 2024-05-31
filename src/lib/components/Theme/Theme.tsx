@@ -2,7 +2,7 @@ import React from 'react';
 import { DefaultTheme, ThemeProvider } from 'styled-components';
 import theme from '@utils/theme';
 
-export const Theme = ({ children, options }: { children?: React.ReactNode; theme: DefaultTheme; options?: DefaultTheme }) => {
+export const Theme = ({ children, options }: { children?: React.ReactNode; options?: DefaultTheme }) => {
     if (!children) return null;
     const defaultTheme = theme;
     let themeProviderOptions;

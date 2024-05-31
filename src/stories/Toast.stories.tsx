@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { Button, Cell, Grid, Paragraph, Row, Toaster } from '@components';
-import ToasterContext from '../components/Toaster/ToasterContext';
-import { ToastType } from '../components/Toaster/Toast';
+import ToasterContext from '../lib/components/Toaster/ToasterContext';
+import { ToastType } from '../lib/components/Toaster/Toast';
 
 export default {
     title: 'Toaster',

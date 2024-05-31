@@ -1,7 +1,6 @@
-import React, { forwardRef, useContext } from 'react';
+import React, { CSSProperties, forwardRef, useContext } from 'react';
 import { ThemeContext } from 'styled-components';
 import isNumber from 'lodash/isNumber';
-import omit from 'lodash/omit';
 
 import { icons } from '@config';
 import theme from '@utils/theme';
@@ -52,6 +51,7 @@ type IconProps = {
     color?: string | keyof typeof theme.color;
     size?: number | string | IconSize;
     className?: string;
+    style?: CSSProperties;
     onClick?: (e: any) => void;
 };
 
@@ -63,14 +63,13 @@ const getColor = (color?: string | typeof theme.color) => {
 };
 
 export const Icon = forwardRef((props: IconProps, ref) => {
-    const { name, color, size, className, onClick } = props;
+    const { name, color, size, className, onClick, ...rest } = props;
     const fillColor = getColor(color);
     const pathElements = getIconPaths(name);
     const iconSize = getIconSize(size);
-    const iconProps = omit(props, ['name', 'className', 'color', 'size', 'onClick']);
-    // ref={ref} is necessary to forward the ref to the styled component, which type?
     return (
         <StyledIcon
+            ref={ref}
             className={className}
             width={iconSize}
             height={iconSize}
@@ -82,7 +81,7 @@ export const Icon = forwardRef((props: IconProps, ref) => {
             $fillColor={fillColor}
             data-testid='icon'
             onClick={onClick}
-            {...iconProps}
+            {...rest}
         >
             {pathElements}
         </StyledIcon>

@@ -81,10 +81,10 @@ export type FieldGroupItem = {
     isDisabled?: boolean;
 };
 
-export const RadioFieldGroup = withDataId((props: FieldGroupProps<string | number>) => FieldGroup({ ...props, type: FieldGroupType.RADIO }));
-export const CheckboxFieldGroup = withDataId((props: FieldGroupProps<(string | number)[]>) => FieldGroup({ ...props, type: FieldGroupType.CHECKBOX }));
+export const RadioFieldGroup = withDataId((props: FieldGroupProps<string | number>) => GenericFieldGroup({ ...props, type: FieldGroupType.RADIO }));
+export const CheckboxFieldGroup = withDataId((props: FieldGroupProps<(string | number)[]>) => GenericFieldGroup({ ...props, type: FieldGroupType.CHECKBOX }));
 
-const FieldGroup = <T extends FieldGroupType, V>(props: GenericFieldGroupProps<T, V>) => {
+const GenericFieldGroup = <T extends FieldGroupType, V>(props: GenericFieldGroupProps<T, V>) => {
     const { type, variant, values, selectedValues, size, name, vertical, onChange, onFieldClick, dataId } = props;
     const th = useContext(ThemeContext) || theme;
     const uniqueValues =
@@ -127,7 +127,7 @@ const FieldGroup = <T extends FieldGroupType, V>(props: GenericFieldGroupProps<T
                         data-testid='field-group-label'
                     >
                         {!icon && label ? label : null}
-                        {icon ? <Icon name={icon} size={variant === 'custom' && size === 'large' ? 'xlarge' : size} color='white' /> : null}
+                        {icon ? <Icon name={icon} size={variant === 'custom' && size === 'large' ? 'xlarge' : size} /> : null}
                         <input
                             id={`${uniqueId}_${value}`}
                             onChange={() => handleOnChange(item)}

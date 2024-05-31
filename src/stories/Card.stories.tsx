@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { Grid, Cell, Button, Row, Paragraph, Card } from '@components';
 import { StyledCell } from '@styles/Cell/StyledCell';
-import { mockCards } from '../../../tests/mock/Card';
+import { mockCards } from '../../tests/mock/Card';
 
 export default {
     title: 'Card',

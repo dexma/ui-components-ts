@@ -293,6 +293,7 @@ export const AntdSelect = withDataId((props: AntdSelectProps) => {
                     label: string;
                     color: string;
                 }>
+                    data-testid='select'
                     autoClearSearchValue
                     removeIcon={<Icon color='gray' name='close' size='small' />}
                     data-id={dataId}
@@ -369,6 +370,7 @@ export const AntdSelect = withDataId((props: AntdSelectProps) => {
                     autoClearSearchValue={false}
                     removeIcon={<Icon color='gray' name='close' size='small' />}
                     data-id={dataId}
+                    data-testid='select'
                     defaultValue={defaultValues}
                     dropdownRender={
                         text

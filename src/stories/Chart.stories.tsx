@@ -1,10 +1,10 @@
 import React from 'react';
 
 import { Grid, Cell, Result, Row, Paragraph, Chart, ResultVariants } from '@components';
-import { mockBasicArea, mockStackedBar, mockStackedBarNegative, mockMixed, mockHeatmap } from '../../../tests/mock/Chart';
-import mvConsumptionDiscreteChart from '../../../tests/mock/mvConsumptionDiscreteChart';
-import mvConsumptionAccumulatedTotalChart from '../../../tests/mock/mvConsumptionAccumulatedTotalChart';
-import mvSavingsAccumulatedPercentageChart from '../../../tests/mock/mvSavingsAccumulatedPercentageChart';
+import { mockBasicArea, mockStackedBar, mockStackedBarNegative, mockMixed, mockHeatmap } from '../../tests/mock/Chart';
+import mvConsumptionDiscreteChart from '../../tests/mock/mvConsumptionDiscreteChart';
+import mvConsumptionAccumulatedTotalChart from '../../tests/mock/mvConsumptionAccumulatedTotalChart';
+import mvSavingsAccumulatedPercentageChart from '../../tests/mock/mvSavingsAccumulatedPercentageChart';
 
 export default {
     title: 'Chart',

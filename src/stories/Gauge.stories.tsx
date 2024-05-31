@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Grid, Row, Paragraph, Cell, Gauge } from '@components';
-import { mockCheckpointSeries, mockRangeSeries, mockSingleCheckpointSeries, mockSingleRangeSerie } from '../../../tests/mock/Gauge';
+import { mockCheckpointSeries, mockRangeSeries, mockSingleCheckpointSeries, mockSingleRangeSerie } from '../../tests/mock/Gauge';
 
 export default {
     title: 'Gauge',

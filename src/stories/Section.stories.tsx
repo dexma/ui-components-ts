@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { Section, Cell, Chart, Grid, Row, Paragraph, Table } from '@components';
-import { mockBasicArea } from '../../../tests/mock/Chart';
-import { columnsTable, dataTable } from '../../../tests/mock/Table';
+import { mockBasicArea } from '../../tests/mock/Chart';
+import { columnsTable, dataTable } from '../../tests/mock/Table';
 
 export default {
     title: 'Section',
