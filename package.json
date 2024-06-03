@@ -1,68 +1,68 @@
 {
-    "name": "@dexma/ui-components-ts",
-    "private": false,
-    "version": "0.0.14",
-    "main": "./dist/ui-components-ts.umd.js",
-    "module": "./dist/ui-components-ts.es.js",
-    "types": "./dist/index.d.ts",
-    "exports": {
-        ".": {
-            "types": "./dist/index.d.ts",
-            "import": "./dist/ui-components-ts.es.js",
-            "require": "./dist/ui-components-ts.umd.js"
-        }
-    },
-    "engines": {
-        "node": "18"
-    },
-    "scripts": {
-        "build": "npm run build-icons && tsc && vite build",
-        "build-storybook": "npm run build-icons && storybook build",
-        "build-icons": "node scripts/buildIconConfig.js",
-        "coverage": "vitest run --coverage && serve coverage",
-        "lint": "eslint --ext .js,.jsx,.ts,.tsx --fix",
-        "prettier": "prettier --write \"src/**/*.{ts,tsx,js,mdx}\"",
-        "test": "npm run build-icons && vitest",
-        "test:ui": "npm run build-icons && vitest --ui --config vitest-ui.config.ts",
-        "prepare": "husky install",
-        "prepack": "json -f package.json -I -e \"delete this.devDependencies; delete this.dependencies\"",
-        "semantic-release": "semantic-release",
-        "storybook": "npm run build-icons && storybook dev -p 6006"
-    },
-    "publishConfig": {
-        "tag": "latest"
-    },
-    "release": {
-        "branch": "master",
-        "tagFormat": "v${version}",
-        "plugins": [
-            "@semantic-release/commit-analyzer",
-            "@semantic-release/release-notes-generator",
-            "@semantic-release/npm",
-            "@semantic-release/github",
-            "@semantic-release/changelog",
-            [
-                "@semantic-release/git",
-                {
-                    "message": "release (${nextRelease.version})"
-                }
-            ]
-        ]
-    },
-    "peerDependencies": {
-        "react": "18.2.0",
-        "react-dom": "18.2.0"
-    },
-    "volta": {
-        "node": "18.17.0",
-        "npm": "9.6.7"
-    },
-    "files": [
-        "dist"
-    ],
-    "lint-staged": {
-        "*.{ts,tsx,js,jsx,json,css,md}": [
-            "prettier -w"
-        ]
+  "name": "@dexma/ui-components-ts",
+  "private": false,
+  "version": "0.0.21",
+  "main": "./dist/ui-components-ts.umd.js",
+  "module": "./dist/ui-components-ts.es.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/ui-components-ts.es.js",
+      "require": "./dist/ui-components-ts.umd.js"
     }
+  },
+  "engines": {
+    "node": "18"
+  },
+  "scripts": {
+    "build": "npm run build-icons && tsc && vite build",
+    "build-storybook": "npm run build-icons && storybook build",
+    "build-icons": "node scripts/buildIconConfig.js",
+    "coverage": "vitest run --coverage && serve coverage",
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx --fix",
+    "prettier": "prettier --write \"src/**/*.{ts,tsx,js,mdx}\"",
+    "test": "npm run build-icons && vitest",
+    "test:ui": "npm run build-icons && vitest --ui --config vitest-ui.config.ts",
+    "prepare": "husky install",
+    "prepack": "json -f package.json -I -e \"delete this.devDependencies; delete this.dependencies\"",
+    "semantic-release": "semantic-release",
+    "storybook": "npm run build-icons && storybook dev -p 6006"
+  },
+  "publishConfig": {
+    "tag": "latest"
+  },
+  "release": {
+    "branch": "master",
+    "tagFormat": "v${version}",
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/npm",
+      "@semantic-release/github",
+      "@semantic-release/changelog",
+      [
+        "@semantic-release/git",
+        {
+          "message": "release (${nextRelease.version})"
+        }
+      ]
+    ]
+  },
+  "peerDependencies": {
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "volta": {
+    "node": "18.17.0",
+    "npm": "9.6.7"
+  },
+  "files": [
+    "dist"
+  ],
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx,json,css,md}": [
+      "prettier -w"
+    ]
+  }
 }

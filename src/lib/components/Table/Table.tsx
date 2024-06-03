@@ -157,7 +157,7 @@ export const Table = <RecordType extends AnyObject>(props: AntDTableProps<Record
                             expandedRowRender: expandable?.expandedRowRender,
                             expandIcon,
                         }}
-                        pagination={{ itemRender: itemRender }}
+                        pagination={{ itemRender }}
                         columns={isExpanded ? getColumnsExpanded() : columns}
                         {...tableProps}
                     />

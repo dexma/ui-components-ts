@@ -9,6 +9,7 @@ import theme from '@utils/theme';
 import { withDataId } from '@components/DataId/withDataId';
 import { StyledFieldGroup } from '@styles/Fieldgroup/StyledFieldGroup';
 import { ButtonSize, Icon, Tooltip } from '@components';
+import { colors } from 'index';
 
 export enum FieldGroupType {
     RADIO = 'radio',
@@ -85,7 +86,7 @@ export const RadioFieldGroup = withDataId((props: FieldGroupProps<string | numbe
 export const CheckboxFieldGroup = withDataId((props: FieldGroupProps<(string | number)[]>) => GenericFieldGroup({ ...props, type: FieldGroupType.CHECKBOX }));
 
 const GenericFieldGroup = <T extends FieldGroupType, V>(props: GenericFieldGroupProps<T, V>) => {
-    const { type, variant, values, selectedValues, size, name, vertical, onChange, onFieldClick, dataId } = props;
+    const { type, variant, values, selectedValues, size, name, vertical, onChange, onFieldClick, dataId, ...rest } = props;
     const th = useContext(ThemeContext) || theme;
     const uniqueValues =
         values.length > 0
@@ -111,13 +112,12 @@ const GenericFieldGroup = <T extends FieldGroupType, V>(props: GenericFieldGroup
     };
 
     return (
-        <StyledFieldGroup theme={th} size={size} data-testid='field-group' $vertical={!!vertical} variant={variant} data-id={dataId}>
+        <StyledFieldGroup theme={th} size={size} data-testid='field-group' $vertical={!!vertical} variant={variant} data-id={dataId} {...rest}>
             {uniqueValues.map((item: FieldGroupItem) => {
                 const { uniqueId, value, label, icon, tooltip, isDisabled } = item;
                 const isSelected = isFieldSelected({ type, selectedValues: item }, selectedField);
-                const classesItem = classNames('item', `item-${label}`, isSelected && 'active', isDisabled && 'disabled');
+                const classesItem = classNames('item', label ? `item-${label}` : null, isSelected && 'active', isDisabled && 'disabled');
                 const getLabel = () => (
-                    // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
                     <label
                         className={classesItem}
                         data-tooltip={tooltip}
@@ -127,7 +127,7 @@ const GenericFieldGroup = <T extends FieldGroupType, V>(props: GenericFieldGroup
                         data-testid='field-group-label'
                     >
                         {!icon && label ? label : null}
-                        {icon ? <Icon name={icon} size={variant === 'custom' && size === 'large' ? 'xlarge' : size} /> : null}
+                        {icon ? <Icon name={icon} size={variant === 'custom' && size === 'large' ? 'xlarge' : size} color={colors.red} /> : null}
                         <input
                             id={`${uniqueId}_${value}`}
                             onChange={() => handleOnChange(item)}

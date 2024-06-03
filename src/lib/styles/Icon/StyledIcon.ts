@@ -7,7 +7,7 @@ type StyledIconProps = {
 };
 
 const StyledIcon = styled.svg<StyledIconProps>`
-    fill: ${(props) => props.$fillColor} !important;
+    fill: ${(props) => props.$fillColor};
 `;
 
 export { StyledIcon };

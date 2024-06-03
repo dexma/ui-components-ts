@@ -9,6 +9,7 @@ import { withDataId } from '@components/DataId/withDataId';
 import { SelectOptionStyle, StyledAntdSelectDropdown, StyledSpanOption, StyledSpanOptionSelected } from '@styles/AntdSelect/StyledAntdSelect';
 import { filterOption, findSubstringIndices, getOptionsBySearch, getRegExpBasedOnInput, singleOptionFilter } from '../AntdSelect/selectUtils';
 import { ButtonPaginationSelector } from '../AntdSelect/ButtonPaginationSelector';
+import { colors } from 'index';
 
 const ALL_CHARACTER = '*';
 const ENTER_CHARACTER = 'Enter';
@@ -58,7 +59,7 @@ export const tagRenderButtonPagination = (props: CustomTagProps, options: Option
                 theme={theme}
             >
                 {parsedLabel}
-                {closable && <Icon className='icon-close' name='close' size='small' onClick={onClose} color={theme.color.white} />}
+                {closable && <Icon className='icon-close' name='close' size='small' onClick={onClose} color={colors.white} />}
             </StyledSpanOptionSelected>
         </Tooltip>
     );
@@ -176,7 +177,7 @@ export type SelectTextProps = {
     overflow: string;
 };
 
-type AntdSelectProps = Omit<SelectProps, 'options'> & {
+type AntdSelectProps = Omit<SelectProps, 'options' | 'mode'> & {
     dataId?: string;
     defaultValues?: any[];
     pageSize?: number;
@@ -192,6 +193,7 @@ type AntdSelectProps = Omit<SelectProps, 'options'> & {
     overflowLength?: number;
     handleButtonSelectAll?: (values: any[]) => void;
     handleClearAll?: () => void;
+    mode?: 'multiple' | 'single';
 };
 
 interface BaseSelectRef {
@@ -287,7 +289,7 @@ export const AntdSelect = withDataId((props: AntdSelectProps) => {
     return (
         <>
             <SelectOptionStyle $theme={th} />
-            {mode === undefined ? (
+            {mode === undefined || mode === 'single' ? (
                 <Select<{
                     value: string | number;
                     label: string;

@@ -6,6 +6,7 @@ import { DefaultTheme, ThemeContext } from 'styled-components';
 import theme from '@utils/theme';
 import { Icon } from '@components/Icon';
 import { CascaderOptionStyle, StyledTagSelected } from '@styles/Cascader/StyledCascader';
+import { colors } from 'index';
 
 type Value = (string | number)[];
 type CascaderProps<OptionType extends DefaultOptionType> = CascaderAntdProps & {
@@ -24,7 +25,7 @@ export const tagRender = (theme: DefaultTheme) => (props: { label: ReactNode; va
     return (
         <StyledTagSelected onMouseDown={onPreventMouseDown} $closable={closable} style={{ marginRight: 4 }} data-testid={`tag-option-selected-${value}`} theme={theme}>
             {label}
-            {closable && <Icon className='icon-close' name='close' size='small' onClick={onClose} color={theme.color.white} />}
+            {closable && <Icon className='icon-close' name='close' size='small' onClick={onClose} color={colors.white} />}
         </StyledTagSelected>
     );
 };

@@ -1,4 +1,4 @@
-import React, { FC, useContext } from 'react';
+import React, { useContext } from 'react';
 import { ThemeContext } from 'styled-components';
 
 import theme from '@utils/theme';
@@ -22,8 +22,8 @@ export type TagProps = {
     children?: React.ReactNode;
 };
 
-export const Tag: FC<TagProps> = (props: TagProps) => {
-    const { icon, color, closable, children, type, onClose, onClick, variant } = props;
+export const Tag = (props: TagProps) => {
+    const { icon, color, closable, children, type, onClose, onClick, variant, ...rest } = props;
     const th = useContext(ThemeContext) || theme;
     return (
         <StyledTag
@@ -35,6 +35,7 @@ export const Tag: FC<TagProps> = (props: TagProps) => {
             $closable={closable}
             onClick={onClick}
             theme={th}
+            {...rest}
         >
             {icon && <Icon className='icon' name={icon} size='small' />}
             {children && children}
@@ -43,4 +44,4 @@ export const Tag: FC<TagProps> = (props: TagProps) => {
     );
 };
 
-(Tag as any).defaultProps = defaultProps;
+Tag.defaultProps = defaultProps;

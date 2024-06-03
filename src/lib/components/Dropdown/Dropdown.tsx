@@ -21,16 +21,15 @@ const getContent = (
                           variant='icon'
                           iconBefore={item.icon}
                           onClick={item.onClick}
+                          {...item}
                           text={item.text}
                       />
-                  ),
-                  onClick: item.onClick,
+                  )
               };
           })
         : undefined;
     return {
         items,
-        onClick: () => {},
     };
 };
 
@@ -46,7 +45,7 @@ export type DropdownProps = DropDownProps & {
 
 export const Dropdown = (props: DropdownProps) => {
     const { trigger, text, placement, menu, icon, content } = props;
-    const menuItems = menu ? menu : (getContent(content) as unknown as MenuProps);
+    const menuItems = menu ? menu : (getContent(content) as MenuProps);
     return (
         <>
             <StyledGlobalDropdown />

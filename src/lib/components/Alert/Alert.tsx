@@ -13,7 +13,7 @@ const defaultProps = {
 };
 
 type AlertProps = {
-    message: ReactNode;
+    message?: ReactNode;
     type: 'basic' | 'outline' | 'warning' | 'info' | 'success' | 'error';
     onClose?: (e: any) => void;
     description?: string;

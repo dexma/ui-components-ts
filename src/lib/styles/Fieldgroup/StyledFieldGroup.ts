@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 import { darken, saturate } from 'polished';
 
 import { Theme } from '@utils/theme';
-import { gray50, gray200, gray300, primaryColor, borderRadius, white } from '@utils/selectors';
+import { gray50, gray200, gray300, gray500, primaryColor, borderRadius, white } from '@utils/selectors';
 import { StyledIcon } from '@styles/Icon/StyledIcon';
 import { ButtonVariantProps, StyledButtonProps, getButtonBase, getButtonSize, getButtonVariantPrimary, getButtonVariantSecondary, getIconSize } from '@styles/Button/StyledButton';
 
@@ -122,7 +122,7 @@ const StyledFieldGroup = styled.div<StyledFieldGroupProps>`
         ${(props) => getButtonBase(props.theme)};
         ${(props) => props.size && getButtonSize({ $size: props.size, theme: props.theme })}
         ${(props) => getIconSize(props as StyledButtonProps)};
-        ${(props) => getButtonVariantSecondary(props as ButtonVariantProps)};
+        ${(props) => getButtonVariantSecondary({ ...(props as ButtonVariantProps), $iconColor: gray500(props.theme) })};
         margin: 0;
         &.active {
             ${(props) => getButtonVariantPrimary(props as ButtonVariantProps)};

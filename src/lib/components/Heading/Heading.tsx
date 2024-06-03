@@ -17,10 +17,10 @@ type HeadingProps = {
 };
 
 export const Heading = (props: HeadingProps) => {
-    const { color, type, text, children } = props;
+    const { color, type, text, children, ...rest } = props;
     const th = useContext(ThemeContext) || theme;
     return (
-        <StyledHeading data-testid='heading' as={type} $color={color} theme={th}>
+        <StyledHeading data-testid='heading' as={type} $color={color} theme={th} {...rest}>
             {text}
             {children && children}
         </StyledHeading>
