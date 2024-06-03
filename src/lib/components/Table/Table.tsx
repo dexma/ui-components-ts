@@ -8,7 +8,7 @@ import { Button, itemRender } from '@components';
 import { withDataId } from '@components/DataId/withDataId';
 import { StyledResult } from '@styles/Result/StyledResult';
 import { StyledTable } from '@styles/Table/StyledTable';
-import { AnyObject } from 'antd/es/_util/type';
+import { AnyObject } from 'antd/lib/table/Table';
 
 const defaultProps = {
     isExpanded: false,
