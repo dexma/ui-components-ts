@@ -10,10 +10,11 @@ const defaultProps = {
 };
 
 export const Row = (props: { className?: string; reverse?: boolean; alignItems?: string; children: ReactNode; style?: CSSProperties }) => {
+    const {className, style, alignItems, reverse, children, ...rest} = props;
     const th = useContext(ThemeContext) || theme;
     return (
-        <StyledRow className={props.className} style={{ ...props.style }} $alignItems={props.alignItems} $reverse={props.reverse} theme={th}>
-            {props.children}
+        <StyledRow className={className} style={{ ...style }} $alignItems={alignItems} $reverse={reverse} theme={th} {...rest}>
+            {children}
         </StyledRow>
     );
 };

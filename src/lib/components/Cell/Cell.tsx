@@ -22,25 +22,27 @@ type CellProps = {
 };
 
 export const Cell = (props: CellProps) => {
+    const { xs, sm, md, lg, xsOffset, smOffset, mdOffset, lgOffset, direction, children, onClick, className, style, ...rest} = props;
     const th = useContext(ThemeContext) || theme;
     return (
         <StyledCell
-            $xs={props.xs}
-            $sm={props.sm}
-            $md={props.md}
-            $lg={props.lg}
-            $xsOffset={props.xsOffset}
-            $smOffset={props.smOffset}
-            $mdOffset={props.mdOffset}
-            $lgOffset={props.lgOffset}
-            $direction={props.direction}
-            className={props.className}
+            $xs={xs}
+            $sm={sm}
+            $md={md}
+            $lg={lg}
+            $xsOffset={xsOffset}
+            $smOffset={smOffset}
+            $mdOffset={mdOffset}
+            $lgOffset={lgOffset}
+            $direction={direction}
+            className={className}
             theme={th}
-            style={props.style}
-            onClick={props.onClick}
+            style={style}
+            onClick={onClick}
+            {...rest}
             data-testid={props['data-testid'] ?? 'cell'}
         >
-            {props.children}
+            {children}
         </StyledCell>
     );
 };
