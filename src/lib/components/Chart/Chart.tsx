@@ -31,16 +31,8 @@ addSolidGauge(Highcharts);
 addPatternFill(Highcharts);
 accessibility(Highcharts);
 
-const defaultProps = {
-    decimalPoint: '.',
-    thousandsSep: ' ',
-    numericSymbols: ['k', 'M', 'G', 'T', 'P', 'E'],
-    months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-    shortMonths: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-    weekdays: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-    showError: false,
-    isLoading: false,
-    dataId: 'chart',
+Highcharts.SVGRenderer.prototype.symbols.cross = function (x: string, y: string, w: string, h: string) {
+    return ['M', x, y, 'L', x + w, y + h, 'M', x + w, y, 'L', x, y + h, 'z'];
 };
 
 const ChartLoading = () => (
@@ -200,5 +192,3 @@ export const Chart = withDataId(
         );
     })
 );
-
-Chart.defaultProps = defaultProps;
