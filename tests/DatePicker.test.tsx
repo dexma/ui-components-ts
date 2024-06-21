@@ -27,7 +27,7 @@ describe('<AntPicker>', () => {
             it('should execute onChange function once when "Today" preset is clicked', () => {
                 const onChangeFunction = vitest.fn();
                 // Given
-                render(<DatePicker type='date' format='DD-MM-yyyy' onChange={onChangeFunction} />);
+                render(<DatePicker type='date' format='DD/MM/YYYY' onChange={onChangeFunction} />);
                 const dateInput = screen.getByTestId('antd-date-picker');
                 // When
                 fireEvent.mouseDown(dateInput);
@@ -40,7 +40,7 @@ describe('<AntPicker>', () => {
                 const onChangeFunction = vitest.fn();
                 const daySelected = 15;
                 // Given
-                render(<DatePicker type='date' format='DD-MM-yyyy' onChange={onChangeFunction} />);
+                render(<DatePicker type='date' format='DD/MM/YYYY' onChange={onChangeFunction} />);
                 const dateInput = screen.getByTestId('antd-date-picker');
                 // When
                 fireEvent.mouseDown(dateInput);
@@ -54,7 +54,7 @@ describe('<AntPicker>', () => {
             const monthValue = '05-2022';
             it('should change Date input value when a value is entered', () => {
                 // Given
-                render(<DatePicker type='date' picker='month' format='MM/yyyy' />);
+                render(<DatePicker type='date' picker='month' format='MM/YYYY' />);
                 const dateInput = screen.getByTestId('antd-date-picker');
                 // When
                 fireEvent.mouseDown(dateInput);
@@ -66,7 +66,7 @@ describe('<AntPicker>', () => {
                 const onChangeFunction = vitest.fn();
                 const currentMonthValue = dayjs().format('MMM');
                 // Given
-                render(<DatePicker type='date' picker='month' onChange={onChangeFunction} format='MM/yyyy' />);
+                render(<DatePicker type='date' picker='month' onChange={onChangeFunction} format='MM/YYYY' />);
                 const dateInput = screen.getByTestId('antd-date-picker');
                 // When
                 fireEvent.mouseDown(dateInput);
@@ -80,7 +80,7 @@ describe('<AntPicker>', () => {
             it('should change Date input value when a value is entered', () => {
                 const yearValue = '2022';
                 // Given
-                render(<DatePicker type='date' picker='year' format='yyyy' />);
+                render(<DatePicker type='date' picker='year' format='YYYY' />);
                 const dateInput = screen.getByTestId('antd-date-picker');
                 // When
                 fireEvent.mouseDown(dateInput);
@@ -92,7 +92,7 @@ describe('<AntPicker>', () => {
                 const onChangeFunction = vitest.fn();
                 const currentYearValue = dayjs().format('YYYY');
                 // Given
-                render(<DatePicker type='date' picker='year' onChange={onChangeFunction} format='yyyy' />);
+                render(<DatePicker type='date' picker='year' onChange={onChangeFunction} format='YYYY' />);
                 const dateInput = screen.getByTestId('antd-date-picker');
                 // When
                 fireEvent.mouseDown(dateInput);
@@ -268,7 +268,7 @@ describe('<AntPicker>', () => {
                 // Given
                 const startDateValue = '10-05-2022 10:30';
                 const endDateValue = '13-05-2022 11:30';
-                render(<DatePicker type='range' format='DD/MM/yyyy HH:mm' />);
+                render(<DatePicker type='range' format='DD/MM/YYYY HH:mm' />);
                 // When
                 const startDateInput = screen.getByPlaceholderText('Start date');
                 const endDateInput = screen.getByPlaceholderText('End date');

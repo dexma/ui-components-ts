@@ -6,12 +6,6 @@ import theme from '@utils/theme';
 import { StyledAlert } from '@styles/Alert/StyledAlert';
 import { Icon, IconSize } from '@components/Icon';
 
-const defaultProps = {
-    closable: false,
-    showIcon: false,
-    type: 'warning',
-};
-
 type AlertProps = {
     message?: ReactNode;
     type: 'basic' | 'outline' | 'warning' | 'info' | 'success' | 'error';
@@ -23,8 +17,7 @@ type AlertProps = {
     style?: CSSProperties;
 };
 
-export const Alert = (props: AlertProps) => {
-    const { type, closable, message, description, showIcon, onClose, ...rest } = props;
+export const Alert = ({ type = 'warning', closable = false, message, description, showIcon = false, onClose, ...props }: AlertProps) => {
     const th = useContext(ThemeContext) || theme;
     const [closed, setClosed] = useState(false);
     let renderIcon = null;
@@ -60,7 +53,7 @@ export const Alert = (props: AlertProps) => {
     );
 
     return closed ? null : (
-        <StyledAlert data-testid='alert' role='alert' $showIcon={props.showIcon} $type={type} $description={description} $message={message} theme={th} {...rest}>
+        <StyledAlert data-testid='alert' role='alert' $showIcon={showIcon} $type={type} $description={description} $message={message} theme={th} {...props}>
             <span data-testid='alert-message' className='message'>
                 {showIcon && <Icon color={get(th.color, 'color')} name={renderIcon} size={IconSize.MEDIUM} className='icon' data-testid={`alert-icon-${type}`} />}
                 {message}
@@ -73,5 +66,3 @@ export const Alert = (props: AlertProps) => {
         </StyledAlert>
     );
 };
-
-Alert.defaultProps = defaultProps;

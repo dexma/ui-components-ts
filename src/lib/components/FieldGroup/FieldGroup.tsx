@@ -22,13 +22,6 @@ export enum FieldGroupVariant {
     CUSTOM = 'custom',
 }
 
-const defaultProps = {
-    variant: FieldGroupVariant.JOINED,
-    vertical: false,
-    size: 'medium' as ButtonSize,
-    dataId: 'field-group',
-};
-
 const getSelectedField = <V,>(type: FieldGroupType, selectedValues: V, allValues: FieldGroupItem[], selectedProp: string) => {
     let selectedItem;
     if (type === FieldGroupType.RADIO) {
@@ -82,11 +75,10 @@ export type FieldGroupItem = {
     isDisabled?: boolean;
 };
 
-export const RadioFieldGroup = withDataId((props: FieldGroupProps<string | number>) => GenericFieldGroup({ ...props, type: FieldGroupType.RADIO }));
-export const CheckboxFieldGroup = withDataId((props: FieldGroupProps<(string | number)[]>) => GenericFieldGroup({ ...props, type: FieldGroupType.CHECKBOX }));
+export const RadioFieldGroup = withDataId((props: FieldGroupProps<string | number>) => GenericFieldGroup({ ...props, type: FieldGroupType.RADIO }), 'radio-field-group');
+export const CheckboxFieldGroup = withDataId((props: FieldGroupProps<(string | number)[]>) => GenericFieldGroup({ ...props, type: FieldGroupType.CHECKBOX }), 'checkbox-field-group');
 
-const GenericFieldGroup = <T extends FieldGroupType, V>(props: GenericFieldGroupProps<T, V>) => {
-    const { type, variant, values, selectedValues, size, name, vertical, onChange, onFieldClick, dataId, ...rest } = props;
+const GenericFieldGroup = <T extends FieldGroupType, V>({ type, variant = FieldGroupVariant.JOINED, values, selectedValues, size = ButtonSize.MEDIUM, name, vertical, onChange, onFieldClick, dataId, ...props }: GenericFieldGroupProps<T, V>) => {
     const th = useContext(ThemeContext) || theme;
     const uniqueValues =
         values.length > 0
@@ -112,7 +104,7 @@ const GenericFieldGroup = <T extends FieldGroupType, V>(props: GenericFieldGroup
     };
 
     return (
-        <StyledFieldGroup theme={th} size={size} data-testid='field-group' $vertical={!!vertical} variant={variant} data-id={dataId} {...rest}>
+        <StyledFieldGroup theme={th} size={size} data-testid='field-group' $vertical={!!vertical} variant={variant} data-id={dataId} {...props}>
             {uniqueValues.map((item: FieldGroupItem) => {
                 const { uniqueId, value, label, icon, tooltip, isDisabled } = item;
                 const isSelected = isFieldSelected({ type, selectedValues: item }, selectedField);
@@ -151,6 +143,3 @@ const GenericFieldGroup = <T extends FieldGroupType, V>(props: GenericFieldGroup
         </StyledFieldGroup>
     );
 };
-
-RadioFieldGroup.defaultProps = defaultProps;
-CheckboxFieldGroup.defaultProps = defaultProps;

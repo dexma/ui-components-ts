@@ -12,11 +12,6 @@ import { AntdSelect } from '@components/AntdSelect';
 import { withDataId } from '@components/DataId/withDataId';
 import { StyledFormControl } from '@styles/FromControl/StyledFormControl';
 
-const defaultProps = {
-    error: false,
-    success: false,
-};
-
 type FormControlProps = {
     dataId?: string;
     control: 'Input' | 'Checkbox' | 'Textarea' | 'Select' | 'ColorPicker' | 'DatePicker';
@@ -58,9 +53,7 @@ export const FormControl = withDataId(
                 {message && <span className='form-control-message'>{message}</span>}
             </StyledFormControl>
         );
-    })
+    }), 'form-control'
 );
 
 StyledFormControl.displayName = 'StyledFormControl';
-
-FormControl.defaultProps = defaultProps;

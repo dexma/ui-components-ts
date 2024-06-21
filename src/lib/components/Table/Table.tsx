@@ -10,11 +10,6 @@ import { StyledResult } from '@styles/Result/StyledResult';
 import { StyledTable } from '@styles/Table/StyledTable';
 import { AnyObject } from 'antd/lib/table/Table';
 
-const defaultProps = {
-    isExpanded: false,
-    dataId: 'table',
-};
-
 const StyledTableLoading = styled.div`
     display: flex;
     margin: 0 auto;
@@ -120,7 +115,7 @@ type TableProps = {
     errorContent?: React.ReactNode;
 };
 
-export const buildTableWithDataId = <RecordType extends AnyObject>() => withDataId(Table<RecordType>);
+export const buildTableWithDataId = <RecordType extends AnyObject>() => withDataId(Table<RecordType>, 'table');
 
 export const Table = <RecordType extends AnyObject>(props: AntDTableProps<RecordType> & TableProps) => {
     const { isExpanded, expandable, columns, dataSource, isLoading, showError, errorContent, dataId } = props;
@@ -166,5 +161,3 @@ export const Table = <RecordType extends AnyObject>(props: AntDTableProps<Record
         </ConfigProvider>
     );
 };
-
-Table.defaultProps = defaultProps;

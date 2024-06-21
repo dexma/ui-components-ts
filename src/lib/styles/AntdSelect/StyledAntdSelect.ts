@@ -1,9 +1,6 @@
 import styled, { DefaultTheme, createGlobalStyle, css } from 'styled-components';
 import { get } from 'lodash';
-import { Button } from '../../components/Button';
-import { Cell } from '../../components/Cell';
-import { Icon } from '../../components/Icon';
-import { Row } from '../../components/Row';
+import { Button, Cell, Icon, Row } from '@components';
 import { Theme, color, primary } from '@utils/theme';
 import { primaryColor, white } from '@utils/selectors';
 import { StyledIcon } from '../Icon/StyledIcon';
@@ -86,10 +83,7 @@ export const StyledAntdSelectDropdown = styled.div`
     }
 `;
 
-const getSpanColor = (props: any) => {
-    const { theme, color } = props;
-    return get(theme.color, color);
-};
+const getSpanColor = (theme: Theme, color: string) => get(theme.color, color);
 
 export const StyledSpanOptionSelected = styled.span<{ theme: Theme; icon?: any; closable?: any; onClose?: any; value: string }>`
     display: flex;
@@ -103,7 +97,7 @@ export const StyledSpanOptionSelected = styled.span<{ theme: Theme; icon?: any; 
     margin: 0px;
     font-size: 14px;
     line-height: 14px;
-    background: ${(props) => props.color && getSpanColor(props)};
+    background: ${(props) => props.color && getSpanColor(props.theme, props.color)};
     color: ${(props) => white(props.theme)};
     ${StyledIcon} {
         ${(props) =>

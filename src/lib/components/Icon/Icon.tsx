@@ -62,8 +62,7 @@ const getColor = (color?: string | typeof theme.color) => {
     return th.color[color as keyof typeof th.color];
 };
 
-export const Icon = forwardRef((props: IconProps, ref) => {
-    const { name, color, size, className, onClick, ...rest } = props;
+export const Icon = forwardRef(({ name = 'vader', color = 'gray500', size = IconSize.LARGE, className, onClick, ...props }: IconProps, ref) => {
     const fillColor = getColor(color);
     const pathElements = getIconPaths(name);
     const iconSize = getIconSize(size);
@@ -81,19 +80,11 @@ export const Icon = forwardRef((props: IconProps, ref) => {
             $fillColor={fillColor}
             data-testid='icon'
             onClick={onClick}
-            {...rest}
+            {...props}
         >
             {pathElements}
         </StyledIcon>
     );
 });
-
-const defaultProps = {
-    name: 'vader',
-    color: 'gray500',
-    size: IconSize.LARGE,
-};
-
-Icon.defaultProps = defaultProps;
 
 export default Icon;

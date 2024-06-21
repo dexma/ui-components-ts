@@ -25,8 +25,7 @@ type ColorPickerProps = {
 };
 
 export const ColorPicker = withDataId(
-    forwardRef((props: ColorPickerProps, ref: ForwardedRef<HTMLInputElement>) => {
-        const { dataId, isLoading, placeholder, presetColors, onChangePicker, onChangeInput, showInput, value } = props;
+    forwardRef(({ dataId, isLoading, placeholder = '#FFFFFF', presetColors = [] , onChangePicker, onChangeInput, showInput, value = '#FFFFFF'}: ColorPickerProps, ref: ForwardedRef<HTMLInputElement>) => {
         const th = useContext(ThemeContext) || theme;
         const [showColorPicker, setShowColorPicker] = useState(false);
         const [color, setColor] = useState(value);
@@ -74,12 +73,6 @@ export const ColorPicker = withDataId(
                 )}
             </>
         );
-    })
+    }),
+    'colorpicker'
 );
-
-ColorPicker.defaultProps = {
-    dataId: 'colorpicker',
-    value: '#FFFFFF',
-    placeholder: '#FFFFFF',
-    presetColors: [],
-};

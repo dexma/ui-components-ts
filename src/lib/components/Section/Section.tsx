@@ -5,11 +5,6 @@ import { Cell, Heading, Button } from '@components';
 import { withDataId } from '@components/DataId/withDataId';
 import { StyledSection } from '@styles/Section/StyledSection';
 
-const defaultProps = {
-    isLoading: false,
-    dataId: 'section-data',
-};
-
 type SectionProps = {
     dataId?: string;
     children: JSX.Element;
@@ -26,7 +21,7 @@ export const Section = withDataId((props: SectionProps) => {
     const hasAddReport = !!onAddReport;
     const hasButtons = hasExportExcel || hasExportImage || hasAddReport;
     return (
-        <StyledSection theme={theme} $title={!!title} hasButtons={!!hasButtons}>
+        <StyledSection theme={theme} $title={!!title} $hasButtons={!!hasButtons}>
             <div className='section-top' data-testid='section-data' data-id={dataId}>
                 {title && (
                     <Cell className='section-title'>
@@ -48,8 +43,6 @@ export const Section = withDataId((props: SectionProps) => {
             <Cell xs={12}>{children && children}</Cell>
         </StyledSection>
     );
-});
+}, 'section-data');
 
 StyledSection.displayName = 'StyledSectionData';
-
-Section.defaultProps = defaultProps;

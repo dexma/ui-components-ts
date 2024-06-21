@@ -19,12 +19,13 @@ const app = async (): Promise<UserConfigExport> => {
                 fileName: (format) => `${packageName}.${format}.js`,
             },
             rollupOptions: {
-                external: ['react', 'react/jsx-runtime', 'react-dom', 'moment'],
+                external: ['react', 'react/jsx-runtime', 'react-dom', 'highcharts', 'moment'],
                 output: {
                     globals: {
                         react: 'React',
                         'react/jsx-runtime': 'react/jsx-runtime',
                         'react-dom': 'ReactDOM',
+                        highcharts: 'highcharts',
                     },
                 },
             },

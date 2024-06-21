@@ -6,14 +6,6 @@ import theme from '@utils/theme';
 import { Icon, Paragraph } from '@components';
 import { StyledCard, StyledCardLink } from '@styles/Card/StyledCard';
 
-const defaultProps = {
-    titleTruncated: false,
-    isActive: false,
-    isWhite: false,
-    isLoading: false,
-    isHorizontal: false,
-};
-
 const CardHeader = ({ image, icon }: { image?: string; icon?: string }) => {
     if (!image && !icon) return null;
     return (
@@ -115,7 +107,5 @@ export const Card = (props: CardProps) => {
         </>
     );
 };
-
-Card.defaultProps = defaultProps;
 
 export default Card;

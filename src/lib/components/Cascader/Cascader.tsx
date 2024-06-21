@@ -10,8 +10,8 @@ import { colors } from 'index';
 
 type Value = (string | number)[];
 type CascaderProps<OptionType extends DefaultOptionType> = CascaderAntdProps & {
-    open: boolean;
-    options: OptionType[];
+    open?: boolean;
+    options?: OptionType[];
     onChange?: (value: Value | Value[]) => void;
 };
 
@@ -30,8 +30,7 @@ export const tagRender = (theme: DefaultTheme) => (props: { label: ReactNode; va
     );
 };
 
-export const Cascader = <OptionType extends DefaultOptionType>(props: CascaderProps<OptionType>) => {
-    const { multiple, options, maxTagCount, onChange, open, ...rest } = props;
+export const Cascader = <OptionType extends DefaultOptionType>({ multiple, options = [], maxTagCount, onChange, open, ...props }: CascaderProps<OptionType>) => {
     const th = useContext(ThemeContext) || theme;
     const [currentOpen, setCurrentOpen] = useState(open || false);
     const ref = useRef<CascaderRef>();
@@ -71,17 +70,9 @@ export const Cascader = <OptionType extends DefaultOptionType>(props: CascaderPr
                     tagRender={tagRender(theme)}
                     maxTagPlaceholder={(values) => `+${values.length}`}
                     open={currentOpen}
-                    {...rest}
+                    {...props}
                 />
             </ConfigProvider>
         </>
     );
 };
-
-const defaultProps = {
-    open: false,
-    multiple: false,
-    options: [],
-};
-
-Cascader.defaultProps = defaultProps;

@@ -6,13 +6,11 @@ type WithDataIdProps = {
     dataId?: string;
 };
 
-export function withDataId<T extends WithDataIdProps>(Component: React.ComponentType<T>) {
+export function withDataId<T extends WithDataIdProps>(Component: React.ComponentType<T>, defaultValue: string) {
     const withData = React.forwardRef((props: T, ref) => {
         const namespace = useContext(DataIdContext);
-        const { defaultProps } = Component;
-        const { dataId: oldId, ...rest } = props;
 
-        let dataId = defaultProps?.dataId;
+        let dataId = defaultValue;
 
         if (namespace && props.dataId) {
             dataId = `${namespace}.${props.dataId}`;

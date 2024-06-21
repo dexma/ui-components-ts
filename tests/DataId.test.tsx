@@ -2,7 +2,7 @@ import React from 'react';
 import { describe, expect, it } from 'vitest';
 import { render } from '@testing-library/react';
 
-import { DataIdProvider, Button, Chart, Input, Checkbox, Section, DatePicker, AntdSelect, buildTableWithDataId } from '@components';
+import { DataIdProvider, Button, Chart, Input, Checkbox, Section, DatePicker, AntdSelect, buildTableWithDataId, Tag, Dropdown } from '@components';
 import { withDataId } from '@components/DataId/withDataId';
 import { User } from './mock/Table';
 
@@ -12,7 +12,7 @@ describe('Data Id', () => {
             return <div data-id={props.dataId}>Example</div>;
         };
 
-        const ExampleWithId = withDataId(Example);
+        const ExampleWithId = withDataId(Example, '');
 
         const { container } = render(<ExampleWithId />);
         const example = container.querySelectorAll("[data-id='example']");
@@ -24,11 +24,7 @@ describe('Data Id', () => {
             return <div data-id={props.dataId}>Example</div>;
         };
 
-        Example.defaultProps = {
-            dataId: 'example',
-        };
-
-        const ExampleWithId = withDataId(Example);
+        const ExampleWithId = withDataId(Example, 'example');
 
         const { container } = render(<ExampleWithId />);
         const example = container.querySelectorAll("[data-id='example']");
@@ -40,11 +36,7 @@ describe('Data Id', () => {
             return <div data-id={props.dataId}>Example</div>;
         };
 
-        Example.defaultProps = {
-            dataId: 'example',
-        };
-
-        const ExampleWithId = withDataId(Example);
+        const ExampleWithId = withDataId(Example, 'example');
 
         const { container } = render(<ExampleWithId dataId='example.test' />);
         const example = container.querySelectorAll("[data-id='example.test']");
@@ -56,11 +48,7 @@ describe('Data Id', () => {
             return <div data-id={props.dataId}>Example</div>;
         };
 
-        Example.defaultProps = {
-            dataId: 'example',
-        };
-
-        const ExampleWithId = withDataId(Example);
+        const ExampleWithId = withDataId(Example, 'example');
 
         const { container } = render(
             <DataIdProvider dataId='page.section'>
@@ -76,11 +64,7 @@ describe('Data Id', () => {
             return <div data-id={props.dataId}>Example</div>;
         };
 
-        Example.defaultProps = {
-            dataId: 'example',
-        };
-
-        const ExampleWithId = withDataId(Example);
+        const ExampleWithId = withDataId(Example, 'example');
 
         const { container } = render(
             <DataIdProvider dataId='page.section'>
@@ -102,6 +86,8 @@ describe('Data Id', () => {
                     <Input />
                     <AntdSelect />
                     <TableWithDataId />
+                    <Tag />
+                    <Dropdown />
                 </>
             </Section>
         );
@@ -113,6 +99,8 @@ describe('Data Id', () => {
         const input = container.querySelectorAll("[data-id='input']");
         const select = container.querySelectorAll("[data-id='select']");
         const table = container.querySelectorAll("[data-id='table']");
+        const tag = container.querySelectorAll("[data-id='tag']");
+        const dropdown = container.querySelectorAll("[data-id='dropdown-button']");
 
         expect(Array.from(sectionData)).toHaveLength(1);
         expect(Array.from(button)).toHaveLength(1);
@@ -121,6 +109,8 @@ describe('Data Id', () => {
         expect(Array.from(input)).toHaveLength(1);
         expect(Array.from(select)).toHaveLength(1);
         expect(Array.from(table)).toHaveLength(1);
+        expect(Array.from(tag)).toHaveLength(1);
+        expect(Array.from(dropdown)).toHaveLength(1);
     });
 
     it('components should have data-id as specific value', () => {
@@ -134,6 +124,8 @@ describe('Data Id', () => {
                     <Input dataId='input.test' />
                     <AntdSelect dataId='select.test' />
                     <TableWithDataId dataId='table.test' />
+                    <Tag dataId='tag.test' />
+                    <Dropdown dataId='dropdown.test' />
                 </>
             </Section>
         );
@@ -145,6 +137,8 @@ describe('Data Id', () => {
         const input = container.querySelectorAll("[data-id='input.test']");
         const select = container.querySelectorAll("[data-id='select.test']");
         const table = container.querySelectorAll("[data-id='table.test']");
+        const tag = container.querySelectorAll("[data-id='tag.test']");
+        const dropdown = container.querySelectorAll("[data-id='dropdown.test']");
 
         expect(Array.from(sectionData)).toHaveLength(1);
         expect(Array.from(button)).toHaveLength(1);
@@ -153,6 +147,8 @@ describe('Data Id', () => {
         expect(Array.from(input)).toHaveLength(1);
         expect(Array.from(select)).toHaveLength(1);
         expect(Array.from(table)).toHaveLength(1);
+        expect(Array.from(tag)).toHaveLength(1);
+        expect(Array.from(dropdown)).toHaveLength(1);
     });
 
     it('components should have data-id as context + default value', () => {
@@ -167,6 +163,8 @@ describe('Data Id', () => {
                         <Input />
                         <AntdSelect />
                         <TableWithDataId />
+                        <Tag />
+                        <Dropdown />
                     </>
                 </Section>
             </DataIdProvider>
@@ -179,6 +177,8 @@ describe('Data Id', () => {
         const input = container.querySelectorAll("[data-id='page.section.input']");
         const select = container.querySelectorAll("[data-id='page.section.select']");
         const table = container.querySelectorAll("[data-id='page.section.table']");
+        const tag = container.querySelectorAll("[data-id='page.section.tag']");
+        const dropdown = container.querySelectorAll("[data-id='page.section.dropdown-button']");
 
         expect(Array.from(sectionData)).toHaveLength(1);
         expect(Array.from(button)).toHaveLength(1);
@@ -187,6 +187,8 @@ describe('Data Id', () => {
         expect(Array.from(input)).toHaveLength(1);
         expect(Array.from(select)).toHaveLength(1);
         expect(Array.from(table)).toHaveLength(1);
+        expect(Array.from(tag)).toHaveLength(1);
+        expect(Array.from(dropdown)).toHaveLength(1);
     });
 
     it('components should have data-id as context + specific value', () => {
@@ -201,6 +203,8 @@ describe('Data Id', () => {
                         <Input dataId='input.test' />
                         <AntdSelect dataId='select.test' />
                         <TableWithDataId dataId='table.test' />
+                        <Tag dataId='tag.test' />
+                        <Dropdown dataId='dropdown.test'/>
                     </>
                 </Section>
             </DataIdProvider>
@@ -213,6 +217,8 @@ describe('Data Id', () => {
         const input = container.querySelectorAll("[data-id='page.section.input.test']");
         const select = container.querySelectorAll("[data-id='page.section.select.test']");
         const table = container.querySelectorAll("[data-id='page.section.table.test']");
+        const tag = container.querySelectorAll("[data-id='page.section.tag.test']");
+        const dropdown = container.querySelectorAll("[data-id='page.section.dropdown.test']");
 
         expect(Array.from(sectionData)).toHaveLength(1);
         expect(Array.from(button)).toHaveLength(1);
@@ -221,6 +227,8 @@ describe('Data Id', () => {
         expect(Array.from(input)).toHaveLength(1);
         expect(Array.from(select)).toHaveLength(1);
         expect(Array.from(table)).toHaveLength(1);
+        expect(Array.from(tag)).toHaveLength(1);
+        expect(Array.from(dropdown)).toHaveLength(1);
     });
 
     it('<Checkbox> should not have data-id', () => {

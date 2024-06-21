@@ -1,14 +1,8 @@
 import React, { useContext } from 'react';
-import { ThemeContext, withTheme } from 'styled-components';
-import omit from 'lodash/omit';
+import { ThemeContext } from 'styled-components';
 
 import theme from '@utils/theme';
 import { StyledProgress, StyledMark } from '@styles/Progress/StyledProgress';
-
-const defaultProps = {
-    isTransparent: false,
-    color: 'green',
-};
 
 type ProgressProps = {
     percent: number;
@@ -17,16 +11,14 @@ type ProgressProps = {
         color: string;
     }>;
     text?: string;
-    isTransparent: boolean;
+    isTransparent?: boolean;
     color: string;
 };
 
-export const Progress = (props: ProgressProps) => {
-    const { text, marks, percent, color, isTransparent } = props;
+export const Progress = ({ text, marks, percent, color = 'green', isTransparent, ...props }: ProgressProps) => {
     const th = useContext(ThemeContext) || theme;
-    const progressProps = omit(props, ['text', 'marks']);
     return (
-        <StyledProgress data-testid='progress' $color={color} $percent={percent} $isTransparent={isTransparent} theme={th}>
+        <StyledProgress data-testid='progress' $color={color} $percent={percent} $isTransparent={isTransparent} theme={th} {...props}>
             <div className='outer'>
                 <div className='inner'>
                     <div className='background' />
@@ -38,6 +30,4 @@ export const Progress = (props: ProgressProps) => {
     );
 };
 
-Progress.defaultProps = defaultProps;
-
-export default withTheme(Progress);
+export default Progress;

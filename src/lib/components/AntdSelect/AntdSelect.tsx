@@ -1,7 +1,7 @@
 import { Select, SelectProps } from 'antd';
 import theme, { Theme } from '@utils/theme';
 import { useCallback, useContext, useEffect, useRef, useState } from 'react';
-import { get, omit } from 'lodash';
+import { get } from 'lodash';
 import { ThemeContext } from 'styled-components';
 
 import { Icon, Tooltip } from '@components';
@@ -100,12 +100,12 @@ export const dropdownRenderSelectAntd = (
     );
 };
 
-export const renderUnselectedOption = (option: any, searchValue: string) => {
+export const renderUnselectedOption = (option: any, searchValue: string, dataId: string) => {
     if (searchValue !== '' && (![...searchValue].every((char) => char === '*' || char === ' ') || !searchValue.includes(ALL_CHARACTER))) {
         const regex = getRegExpBasedOnInput(searchValue);
         if (regex === false) {
             return (
-                <StyledSpanOption data-testid={`option-span-${option}`} value={option as string}>
+                <StyledSpanOption data-testid={`option-span-${option}`} data-id={`${dataId}.option-span-${option.value}`} value={option as string}>
                     {option}
                 </StyledSpanOption>
             );
@@ -113,7 +113,7 @@ export const renderUnselectedOption = (option: any, searchValue: string) => {
         const indices = findSubstringIndices(option as string, regex);
         if (indices.start !== -1 && indices.end !== -1) {
             return (
-                <StyledSpanOption data-testid={`option-span-${option}-bold`} value={option as string}>
+                <StyledSpanOption data-testid={`option-span-${option}-bold`} data-id={`${dataId}.option-span-${option.value}-bold`} value={option as string}>
                     {[...option].map((letter, index) => {
                         const isBold = searchValue.includes(ALL_CHARACTER) ? index === indices.start || index === indices.end : index >= indices.start && index <= indices.end;
                         return isBold ? <b key={index}>{letter}</b> : letter;
@@ -134,7 +134,7 @@ const isDisabledOption = (option: Option, selectedValues: (string | number)[], p
     return false;
 };
 
-export const optionsRenderer = (options: Option[], selectedValues: (string | number)[], searchValue: string, theme: Theme, pageSize?: number) => {
+export const optionsRenderer = (options: Option[], selectedValues: (string | number)[], searchValue: string, theme: Theme, dataId: string, pageSize?: number) => {
     const optionsToRender = searchValue !== '' ? options : (getOptionsBySearch(options, searchValue) as Option[]);
     return (
         <>
@@ -154,13 +154,14 @@ export const optionsRenderer = (options: Option[], selectedValues: (string | num
                         }}
                         selected={selectedValues.includes(option.value)}
                         data-testid={`select-option-${option.value}`}
+                        data-id={`${dataId}.select-option-${option.value}`}
                     >
                         {selectedValues.includes(option.value) ? (
                             <StyledSpanOptionSelected value={option.label} theme={theme}>
                                 {option.label}
                             </StyledSpanOptionSelected>
                         ) : (
-                            renderUnselectedOption(option.label, searchValue)
+                            renderUnselectedOption(option.label, searchValue, dataId)
                         )}
                     </Select.Option>
                 );
@@ -201,292 +202,286 @@ interface BaseSelectRef {
     blur: () => void;
 }
 
-export const AntdSelect = withDataId((props: AntdSelectProps) => {
-    const {
-        dataId,
-        defaultValues,
+export const AntdSelect = withDataId(
+    ({
+        dataId = 'select',
+        defaultValues = [],
         mode,
-        options: originalOptions,
+        options: originalOptions = [],
         pageSize,
-        text,
-        placeholder,
+        text = {
+            select: 'Select',
+            all: 'all',
+            connector: 'of',
+            content: '"All items"',
+            overflow: 'and more...',
+        },
+        placeholder = 'Select',
         isLoading,
         onChange,
-        maxTagLength,
-        overflowLength,
+        maxTagLength = 20,
+        overflowLength = 5,
         handleButtonSelectAll,
         handleClearAll,
-        allowClear,
-    } = props;
-    const [showDropdown, setShowDropdown] = useState(false);
-    const [selectedValues, setSelectedValues] = useState<any[]>([]);
-    const antdSelectProps = omit(props, [
-        'allowClear',
-        'dataId',
-        'defaultValues',
-        'mode',
-        'options',
-        'pageSize',
-        'text',
-        'isLoading',
-        'onChange',
-        'handleButtonSelectAll',
-        'handleClearAll',
-        'overflowLength',
-        'maxTagLength',
-    ]);
-    const [currentPage, setCurrentPage] = useState<number>(1);
-    const [searchValue, setSearchValue] = useState('');
-    const ref = useRef<BaseSelectRef | null>(null);
-    const sValue = useRef('');
-    const th = useContext(ThemeContext) || theme;
-    const options = originalOptions || [];
+        allowClear = true,
+        ...props
+    }: AntdSelectProps) => {
+        const [showDropdown, setShowDropdown] = useState(false);
+        const [selectedValues, setSelectedValues] = useState<any[]>([]);
+        const [currentPage, setCurrentPage] = useState<number>(1);
+        const [searchValue, setSearchValue] = useState('');
+        const ref = useRef<BaseSelectRef | null>(null);
+        const sValue = useRef('');
+        const th = useContext(ThemeContext) || theme;
+        const options = originalOptions || [];
 
-    useEffect(() => {
-        setCurrentPage(1);
-    }, [searchValue]);
+        useEffect(() => {
+            setCurrentPage(1);
+        }, [searchValue]);
 
-    useEffect(() => {
-        if (defaultValues) {
-            setSelectedValues(defaultValues);
-        }
-    }, [defaultValues]);
+        useEffect(() => {
+            if (defaultValues) {
+                setSelectedValues(defaultValues);
+            }
+        }, [defaultValues]);
 
-    const handleChangePage = useCallback((page: number) => {
-        setCurrentPage(page);
-    }, []);
+        const handleChangePage = useCallback((page: number) => {
+            setCurrentPage(page);
+        }, []);
 
-    const handleSelectAll = () => {
-        const actualPage = currentPage;
-        const selectedOptions = searchValue !== '' ? getOptionsBySearch(options, searchValue) : options;
-        const startIndex = (actualPage - 1) * (pageSize ?? 1);
-        const endIndex = startIndex + (pageSize ?? 1);
-        const slicedOptions = selectedOptions.slice(startIndex, endIndex);
-        const allValues = slicedOptions.map((option) => option.value);
+        const handleSelectAll = () => {
+            const actualPage = currentPage;
+            const selectedOptions = searchValue !== '' ? getOptionsBySearch(options, searchValue) : options;
+            const startIndex = (actualPage - 1) * (pageSize ?? 1);
+            const endIndex = startIndex + (pageSize ?? 1);
+            const slicedOptions = selectedOptions.slice(startIndex, endIndex);
+            const allValues = slicedOptions.map((option) => option.value);
 
-        setSelectedValues(() => allValues);
-        handleButtonSelectAll && handleButtonSelectAll(allValues);
-    };
+            setSelectedValues(() => allValues);
+            handleButtonSelectAll && handleButtonSelectAll(allValues);
+        };
 
-    const closeDropdown = () => {
-        setCurrentPage(1);
-        sValue.current = '';
-        setSearchValue('');
-        if (ref !== null && ref.current !== null) (ref.current as HTMLElement).blur();
-        setShowDropdown(false);
-    };
+        const closeDropdown = () => {
+            setCurrentPage(1);
+            sValue.current = '';
+            setSearchValue('');
+            if (ref !== null && ref.current !== null) (ref.current as HTMLElement).blur();
+            setShowDropdown(false);
+        };
 
-    const reset = () => {
-        handleClearAll && handleClearAll();
-        setCurrentPage(1);
-        sValue.current = '';
-        setSearchValue('');
-        setSelectedValues([]);
-        if (ref !== null && ref.current !== null) (ref.current as HTMLElement).blur();
-        setShowDropdown(false);
-    };
+        const reset = () => {
+            handleClearAll && handleClearAll();
+            setCurrentPage(1);
+            sValue.current = '';
+            setSearchValue('');
+            setSelectedValues([]);
+            if (ref !== null && ref.current !== null) (ref.current as HTMLElement).blur();
+            setShowDropdown(false);
+        };
 
-    return (
-        <>
-            <SelectOptionStyle $theme={th} />
-            {mode === undefined || mode === 'single' ? (
-                <Select<{
-                    value: string | number;
-                    label: string;
-                    color: string;
-                }>
-                    data-testid='select'
-                    autoClearSearchValue
-                    removeIcon={<Icon color='gray' name='close' size='small' />}
-                    data-id={dataId}
-                    defaultValue={defaultValues}
-                    optionFilterProp='children'
-                    filterOption={singleOptionFilter}
-                    loading={isLoading}
-                    placeholder={placeholder}
-                    open={showDropdown}
-                    ref={(r) => {
-                        ref.current = r;
-                    }}
-                    searchValue={sValue.current}
-                    showSearch
-                    style={{ width: '100%' }}
-                    suffixIcon={
-                        showDropdown ? (
-                            <>
-                                {allowClear && (searchValue !== '' || selectedValues.length > 0) && (
+        return (
+            <>
+                <SelectOptionStyle $theme={th} />
+                {mode === undefined || mode === 'single' ? (
+                    <Select<{
+                        value: string | number;
+                        label: string;
+                        color: string;
+                    }>
+                        data-testid='select'
+                        autoClearSearchValue
+                        removeIcon={<Icon color='gray' name='close' size='small' />}
+                        data-id={dataId}
+                        defaultValue={defaultValues}
+                        optionFilterProp='children'
+                        filterOption={singleOptionFilter}
+                        loading={isLoading}
+                        placeholder={placeholder}
+                        open={showDropdown}
+                        ref={(r) => {
+                            ref.current = r;
+                        }}
+                        searchValue={sValue.current}
+                        showSearch
+                        style={{ width: '100%' }}
+                        suffixIcon={
+                            showDropdown ? (
+                                <>
+                                    {allowClear && (searchValue !== '' || selectedValues.length > 0) && (
+                                        <Icon
+                                            color='gray'
+                                            name='close'
+                                            size='small'
+                                            onClick={() => {
+                                                reset();
+                                            }}
+                                        />
+                                    )}
                                     <Icon
                                         color='gray'
-                                        name='close'
+                                        name='chevron_up'
                                         size='small'
-                                        onClick={() => {
-                                            reset();
+                                        onClick={(e) => {
+                                            closeDropdown();
+                                            e.stopPropagation();
                                         }}
                                     />
-                                )}
-                                <Icon
-                                    color='gray'
-                                    name='chevron_up'
-                                    size='small'
-                                    onClick={(e) => {
-                                        closeDropdown();
-                                        e.stopPropagation();
-                                    }}
-                                />
-                            </>
-                        ) : (
-                            <Icon
-                                className='selectable-icon'
-                                color='gray'
-                                name='chevron_down'
-                                size='small'
-                                onClick={() => {
-                                    setShowDropdown(true);
-                                }}
-                            />
-                        )
-                    }
-                    onSelect={(value, option) => {
-                        onChange !== undefined && onChange(value, option);
-                        setSelectedValues([value]);
-                        closeDropdown();
-                    }}
-                    onDropdownVisibleChange={(e) => {
-                        if (e !== showDropdown) {
-                            setShowDropdown(e);
-                        }
-                    }}
-                    onFocus={() => {
-                        setShowDropdown(true);
-                    }}
-                    onSearch={(searchText) => {
-                        setSearchValue(searchText);
-                        sValue.current = searchText;
-                        return searchText;
-                    }}
-                    options={options}
-                    {...antdSelectProps}
-                />
-            ) : (
-                <Select
-                    autoClearSearchValue={false}
-                    removeIcon={<Icon color='gray' name='close' size='small' />}
-                    data-id={dataId}
-                    data-testid='select'
-                    defaultValue={defaultValues}
-                    dropdownRender={
-                        text
-                            ? (menu: React.ReactElement) =>
-                                  dropdownRenderSelectAntd(menu, currentPage, options, handleChangePage, handleSelectAll, text, searchValue, showDropdown, mode, theme, pageSize)
-                            : undefined
-                    }
-                    optionFilterProp='children'
-                    filterOption={filterOption}
-                    maxTagCount='responsive'
-                    maxTagPlaceholder={(props: DisplayValue[]) => {
-                        const textOverflow = overflowLength && props.length > overflowLength ? ` ${text?.overflow}` : '';
-                        const valuesToRender = `${props.slice(0, overflowLength).map((value) => ` ${value?.label.props.value}`)}${textOverflow}`;
-                        return <Tooltip title={valuesToRender}>{`+${props.length}`}</Tooltip>;
-                    }}
-                    menuItemSelectedIcon={<Icon color='white' name='close' size='small' />}
-                    mode={mode}
-                    open={showDropdown}
-                    placeholder={placeholder}
-                    searchValue={sValue.current}
-                    style={{ width: '100%' }}
-                    showSearch
-                    suffixIcon={
-                        showDropdown ? (
-                            <>
-                                {allowClear && (searchValue !== '' || selectedValues.length > 0) && (
-                                    <Icon
-                                        className='selectable-icon'
-                                        color='gray'
-                                        name='close'
-                                        size='small'
-                                        onClick={() => {
-                                            reset();
-                                        }}
-                                    />
-                                )}
+                                </>
+                            ) : (
                                 <Icon
                                     className='selectable-icon'
                                     color='gray'
-                                    name='chevron_up'
+                                    name='chevron_down'
                                     size='small'
-                                    onClick={(e) => {
-                                        closeDropdown();
-                                        e.stopPropagation();
+                                    onClick={() => {
+                                        setShowDropdown(true);
                                     }}
                                 />
-                            </>
-                        ) : (
-                            <Icon
-                                className='selectable-icon'
-                                color='gray'
-                                name='chevron_down'
-                                size='small'
-                                onClick={() => {
-                                    setShowDropdown(true);
-                                }}
-                            />
-                        )
-                    }
-                    ref={(r) => {
-                        if (ref !== null && r !== null) ref.current = r;
-                    }}
-                    onDropdownVisibleChange={(e) => {
-                        if (e !== showDropdown) {
-                            setShowDropdown(e);
-                            if (e === false) {
-                                setCurrentPage(1);
-                                setSearchValue('');
+                            )
+                        }
+                        onSelect={(value, option) => {
+                            onChange !== undefined && onChange(value, option);
+                            setSelectedValues([value]);
+                            closeDropdown();
+                        }}
+                        onDropdownVisibleChange={(e) => {
+                            if (e !== showDropdown) {
+                                setShowDropdown(e);
                             }
+                        }}
+                        onFocus={() => {
+                            setShowDropdown(true);
+                        }}
+                        onSearch={(searchText) => {
+                            setSearchValue(searchText);
+                            sValue.current = searchText;
+                            return searchText;
+                        }}
+                        options={options}
+                        {...props}
+                    />
+                ) : (
+                    <Select
+                        autoClearSearchValue={false}
+                        removeIcon={<Icon color='gray' name='close' size='small' />}
+                        data-id={dataId}
+                        data-testid='select'
+                        defaultValue={defaultValues}
+                        dropdownRender={
+                            text
+                                ? (menu: React.ReactElement) =>
+                                      dropdownRenderSelectAntd(
+                                          menu,
+                                          currentPage,
+                                          options,
+                                          handleChangePage,
+                                          handleSelectAll,
+                                          text,
+                                          searchValue,
+                                          showDropdown,
+                                          mode,
+                                          theme,
+                                          pageSize
+                                      )
+                                : undefined
                         }
-                    }}
-                    tagRender={maxTagLength ? (props: CustomTagProps) => tagRenderButtonPagination(props, options, maxTagLength, theme) : undefined}
-                    value={selectedValues}
-                    dropdownAlign={{ offset: [0, 3] }}
-                    onChange={(values, options) => {
-                        onChange !== undefined && onChange(values, options);
-                        setSelectedValues(values);
-                    }}
-                    onFocus={() => {
-                        setShowDropdown(true);
-                    }}
-                    onSearch={(searchText) => {
-                        setSearchValue(searchText);
-                        sValue.current = searchText;
-                        return searchText;
-                    }}
-                    onInputKeyDown={(e) => {
-                        if (['multiple', 'tags'].includes(mode) && e.key === ENTER_CHARACTER && sValue.current.includes(ALL_CHARACTER)) {
-                            handleSelectAll();
-                            e.stopPropagation();
+                        optionFilterProp='children'
+                        filterOption={filterOption}
+                        maxTagCount='responsive'
+                        maxTagPlaceholder={(props: DisplayValue[]) => {
+                            const textOverflow = overflowLength && props.length > overflowLength ? ` ${text?.overflow}` : '';
+                            const valuesToRender = `${props.slice(0, overflowLength).map((value) => ` ${value?.label.props.value}`)}${textOverflow}`;
+                            return <Tooltip title={valuesToRender}>{`+${props.length}`}</Tooltip>;
+                        }}
+                        menuItemSelectedIcon={<Icon color='white' name='close' size='small' />}
+                        mode={mode}
+                        open={showDropdown}
+                        placeholder={placeholder}
+                        searchValue={sValue.current}
+                        style={{ width: '100%' }}
+                        showSearch
+                        suffixIcon={
+                            showDropdown ? (
+                                <>
+                                    {allowClear && (searchValue !== '' || selectedValues.length > 0) && (
+                                        <Icon
+                                            className='selectable-icon'
+                                            color='gray'
+                                            name='close'
+                                            size='small'
+                                            onClick={() => {
+                                                reset();
+                                            }}
+                                        />
+                                    )}
+                                    <Icon
+                                        className='selectable-icon'
+                                        color='gray'
+                                        name='chevron_up'
+                                        size='small'
+                                        onClick={(e) => {
+                                            closeDropdown();
+                                            e.stopPropagation();
+                                        }}
+                                    />
+                                </>
+                            ) : (
+                                <Icon
+                                    className='selectable-icon'
+                                    color='gray'
+                                    name='chevron_down'
+                                    size='small'
+                                    onClick={() => {
+                                        setShowDropdown(true);
+                                    }}
+                                />
+                            )
                         }
-                    }}
-                    {...antdSelectProps}
-                >
-                    {optionsRenderer(options, selectedValues, searchValue, theme, pageSize)}
-                </Select>
-            )}
-        </>
-    );
-});
-
-AntdSelect.defaultProps = {
-    options: [],
-    allowClear: true,
-    dataId: 'select',
-    defaultValues: [],
-    placeholder: 'Select',
-    text: {
-        select: 'Select',
-        all: 'all',
-        connector: 'of',
-        content: '"All items"',
-        overflow: 'and more...',
+                        ref={(r) => {
+                            if (ref !== null && r !== null) ref.current = r;
+                        }}
+                        onDropdownVisibleChange={(e) => {
+                            if (e !== showDropdown) {
+                                setShowDropdown(e);
+                                if (e === false) {
+                                    setCurrentPage(1);
+                                    setSearchValue('');
+                                }
+                            }
+                        }}
+                        tagRender={maxTagLength ? (props: CustomTagProps) => tagRenderButtonPagination(props, options, maxTagLength, theme) : undefined}
+                        value={selectedValues}
+                        dropdownAlign={{ offset: [0, 3] }}
+                        onChange={(values, options) => {
+                            onChange !== undefined && onChange(values, options);
+                            setSelectedValues(values);
+                        }}
+                        onFocus={() => {
+                            setShowDropdown(true);
+                        }}
+                        onSearch={(searchText) => {
+                            setSearchValue(searchText);
+                            sValue.current = searchText;
+                            return searchText;
+                        }}
+                        onInputKeyDown={(e) => {
+                            if (['multiple', 'tags'].includes(mode) && e.key === ENTER_CHARACTER && sValue.current.includes(ALL_CHARACTER)) {
+                                handleSelectAll();
+                                e.stopPropagation();
+                            }
+                        }}
+                        {...props}
+                    >
+                        {optionsRenderer(options, selectedValues, searchValue, theme, dataId, pageSize)}
+                    </Select>
+                )}
+            </>
+        );
     },
-    maxTagLength: 20,
-    overflowLength: 5,
+    'select'
+);
+
+// DO NOT REMOVE, NOT WORKING W/O THIS LINE (UNKNOWN REASON)
+AntdSelect.defaultProps = {
+    defaultValues: [],
 };

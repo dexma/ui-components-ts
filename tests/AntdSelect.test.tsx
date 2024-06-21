@@ -361,13 +361,13 @@ describe('Ancillary functions', () => {
     describe('renderUnselectedOption', () => {
         it('should render an simple option when no search value', () => {
             const option = 'Test 1';
-            render(renderUnselectedOption(option, ''));
+            render(renderUnselectedOption(option, '', 'dataId'));
             const optionWrapper = screen.getByTestId('option-span-Test 1');
             expect(optionWrapper).toBeTruthy();
         });
         it('should render an bold option when search value matches', () => {
             const option = 'Test 1';
-            render(renderUnselectedOption(option, 'Test'));
+            render(renderUnselectedOption(option, 'Test', 'dataId'));
             const optionWrapper = screen.getByTestId('option-span-Test 1-bold');
             expect(optionWrapper).toBeTruthy();
         });
@@ -448,7 +448,7 @@ describe('Select', () => {
         act(() => {
             if (select !== null) fireEvent.focus(select);
         });
-        const regex = /Test/g;
+        const regex = /Test/;
         expect(screen.getAllByText(regex).length > 0);
         // When
         act(() => {
@@ -483,7 +483,7 @@ describe('Select', () => {
         act(() => {
             if (select !== null) fireEvent.focus(select);
         });
-        const regex = /Test/g;
+        const regex = /Test/;
         expect(screen.getAllByText(regex).length > 0);
         // When
         act(() => {

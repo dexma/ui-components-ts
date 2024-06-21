@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Highcharts from 'highcharts';
+
 import { Chart } from '@components/Chart';
 import { applyScientific, numberFormatter } from '@utils/formatter';
 import { color } from '@utils/theme';
@@ -447,25 +448,24 @@ const plotOptions = {
     },
 };
 
-export const Gauge = (props: GaugeProps) => {
-    const {
-        checkpoints,
-        comparison,
-        decimalPoint,
-        hasData,
-        indicator,
-        max,
-        min,
-        title,
-        options,
-        ranges,
-        showAsPercentage,
-        thousandsSep,
-        type,
-        units,
-        'data-testid': dataTestId,
-    } = props;
-
+export const Gauge = ({
+    checkpoints,
+    comparison,
+    decimalPoint = ',',
+    hasData = true,
+    indicator,
+    max,
+    min,
+    title,
+    options,
+    ranges,
+    showAsPercentage,
+    thousandsSep = '.',
+    type = 'DIAL',
+    units,
+    'data-testid': dataTestId,
+    ...props
+}: GaugeProps) => {
     const [gaugeOptions, setGaugeOptions] = useState<any>();
 
     useEffect(() => {
@@ -536,13 +536,3 @@ const defaultOptions = {
         backgroundColor: 'transparent',
     },
 };
-
-const defaultProps = {
-    type: 'DIAL',
-    showAsPercentage: false,
-    decimalPoint: ',',
-    thousandsSep: '.',
-    hasData: true,
-};
-
-Gauge.defaultProps = defaultProps;

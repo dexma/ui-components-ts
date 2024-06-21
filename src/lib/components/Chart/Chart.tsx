@@ -1,6 +1,5 @@
 import React, { ForwardedRef, Ref, useContext, useEffect, useState } from 'react';
 import { ThemeContext } from 'styled-components';
-import omit from 'lodash/omit';
 
 import Highcharts from 'highcharts';
 import HighchartsReact, { HighchartsReactRefObject } from 'highcharts-react-official';
@@ -20,7 +19,7 @@ import theme from '@utils/theme';
 import { withDataId } from '@components/DataId/withDataId';
 import { StyledChart, StyledChartError, StyledChartLoading } from '@styles/Chart/StyledChart';
 
-if (import.meta.env.MODE !== 'test') boost(Highcharts);
+if (import.meta.env.MODE !== 'test' && process.env.NODE_ENV !== 'test') boost(Highcharts);
 addSankeyModule(Highcharts);
 addExportingModule(Highcharts);
 addOfflineExportingModule(Highcharts);
@@ -87,108 +86,109 @@ type ChartProps = {
 };
 
 export const Chart = withDataId(
-    React.forwardRef((props: ChartProps, ref: ForwardedRef<HTMLDivElement>) => {
-        const { options, isLoading, showError, errorContent, dataId, 'data-testid': dataTestId, decimalPoint, thousandsSep, numericSymbols, months, shortMonths, weekdays } = props;
-        const th = useContext(ThemeContext) || theme;
-        const loading = isLoading && !showError;
-        const error = !isLoading && showError && errorContent;
-        const showChart = !loading && !error && options;
-        const [aggregateOptions, setAggregateOptions] = useState<Highcharts.Options>();
-        const { fontFamily, backgroundColor } = useContext(ThemeContext) || theme;
-        const highchartsReactProps = omit(props, [
-            'isLoading',
-            'showError',
-            'dataId',
-            'data-testid',
-            'decimalPoint',
-            'thousandsSep',
-            'thousandsSeparator',
-            'numericSymbols',
-            'months',
-            'options',
-            'shortMonths',
-            'weekdays',
-            'options',
-            'theme',
-        ]);
-
-        // NOTE: this setOptions is global to all Charts so everytime it is called these values
-        // will be overwritten and the last one will prevail on all rendered charts
-        Highcharts.setOptions({
-            lang: {
+    React.forwardRef(
+        (
+            {
+                options,
+                isLoading,
+                showError,
+                errorContent,
+                dataId,
+                'data-testid': dataTestId,
                 decimalPoint,
                 thousandsSep,
                 numericSymbols,
-                months,
-                shortMonths,
-                weekdays,
-            },
-        });
+                months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                shortMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+                ...props
+            }: ChartProps,
+            ref: ForwardedRef<HTMLDivElement>
+        ) => {
+            const th = useContext(ThemeContext) || theme;
+            const loading = isLoading && !showError;
+            const error = !isLoading && showError && errorContent;
+            const showChart = !loading && !error && options;
+            const [aggregateOptions, setAggregateOptions] = useState<Highcharts.Options>();
+            const { fontFamily, backgroundColor } = useContext(ThemeContext) || theme;
 
-        useEffect(() => {
-            const currentOptions = { ...options };
-
-            if (!currentOptions.chart) {
-                currentOptions.chart = { style: {} };
-            } else if (!currentOptions.chart.style) {
-                currentOptions.chart.style = {};
-            }
-            if (!currentOptions.legend) {
-                currentOptions.legend = {};
-            }
-            if (!currentOptions.tooltip) {
-                currentOptions.tooltip = {};
-            }
-            if (!currentOptions.title) {
-                currentOptions.title = { text: '' };
-            } else if (!currentOptions.title.style) {
-                currentOptions.title.style = {};
-            }
-
-            setAggregateOptions({
-                ...options,
-                title: {
-                    ...currentOptions.title,
-                    style: {
-                        ...currentOptions.title.style,
-                        fontWeight: 'bold',
-                    },
-                },
-                tooltip: {
-                    ...currentOptions.tooltip,
-                    backgroundColor: backgroundColor,
-                    shadow: false,
-                },
-                legend: {
-                    ...currentOptions.legend,
-                    backgroundColor: backgroundColor,
-                    itemStyle: {},
-                },
-                credits: {
-                    enabled: false,
-                },
-                exporting: {
-                    enabled: false,
-                },
-                chart: {
-                    ...currentOptions.chart,
-                    backgroundColor: backgroundColor,
-                    style: {
-                        ...currentOptions.chart.style,
-                        fontFamily: fontFamily,
-                    },
+            // NOTE: this setOptions is global to all Charts so everytime it is called these values
+            // will be overwritten and the last one will prevail on all rendered charts
+            Highcharts.setOptions({
+                lang: {
+                    decimalPoint,
+                    thousandsSep,
+                    numericSymbols,
+                    months,
+                    shortMonths,
+                    weekdays,
                 },
             });
-        }, [options, fontFamily, backgroundColor]);
 
-        return (
-            <StyledChart data-id={dataId} data-testid={dataTestId} theme={th}>
-                {(loading || !aggregateOptions) && <ChartLoading />}
-                {error && <ChartError>{errorContent}</ChartError>}
-                {showChart && aggregateOptions && (
-                    <HighchartsReact highcharts={Highcharts} ref={ref as Ref<HighchartsReactRefObject>} {...highchartsReactProps} options={aggregateOptions} />
-                )}
-            </StyledChart>
-        );
-    })
+            useEffect(() => {
+                const currentOptions = { ...options };
+
+                if (!currentOptions.chart) {
+                    currentOptions.chart = { style: {} };
+                } else if (!currentOptions.chart.style) {
+                    currentOptions.chart.style = {};
+                }
+                if (!currentOptions.legend) {
+                    currentOptions.legend = {};
+                }
+                if (!currentOptions.tooltip) {
+                    currentOptions.tooltip = {};
+                }
+                if (!currentOptions.title) {
+                    currentOptions.title = { text: '' };
+                } else if (!currentOptions.title.style) {
+                    currentOptions.title.style = {};
+                }
+
+                setAggregateOptions({
+                    ...options,
+                    title: {
+                        ...currentOptions.title,
+                        style: {
+                            ...currentOptions.title.style,
+                            fontWeight: 'bold',
+                        },
+                    },
+                    tooltip: {
+                        ...currentOptions.tooltip,
+                        backgroundColor: backgroundColor,
+                        shadow: false,
+                    },
+                    legend: {
+                        ...currentOptions.legend,
+                        backgroundColor: backgroundColor,
+                        itemStyle: {},
+                    },
+                    credits: {
+                        enabled: false,
+                    },
+                    exporting: {
+                        enabled: false,
+                    },
+                    chart: {
+                        ...currentOptions.chart,
+                        backgroundColor: backgroundColor,
+                        style: {
+                            ...currentOptions.chart.style,
+                            fontFamily: fontFamily,
+                        },
+                    },
+                });
+            }, [options, fontFamily, backgroundColor]);
+
+            return (
+                <StyledChart data-id={dataId} data-testid={dataTestId} theme={th}>
+                    {(loading || !aggregateOptions) && <ChartLoading />}
+                    {error && <ChartError>{errorContent}</ChartError>}
+                    {showChart && aggregateOptions && <HighchartsReact highcharts={Highcharts} ref={ref as Ref<HighchartsReactRefObject>} {...props} options={aggregateOptions} />}
+                </StyledChart>
+            );
+        }
+    ),
+    'chart'
 );

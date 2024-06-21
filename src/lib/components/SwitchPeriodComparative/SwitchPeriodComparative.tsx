@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import { ThemeContext } from 'styled-components';
-import omit from 'lodash/omit';
 import { uniqueId } from 'lodash';
 import dayjs, { Dayjs } from 'dayjs';
 import theme from '@utils/theme';
@@ -36,10 +35,6 @@ export const getSamePeriodLastYear = (startDate: string, endDate: string): [stri
     return [startYearBefore.format(ISO_FORMAT), endYearBefore.format(ISO_FORMAT)];
 };
 
-const defaultProps = {
-    selectedPeriod: 'previous_period',
-};
-
 export enum SelectedPeriodType {
     PREVIOUS_PERIOD = 'previous_period',
     LAST_PERIOD = 'last_period',
@@ -53,10 +48,16 @@ type SwitchPeriodComparativeProps = {
     samePeriodLastYearText?: string;
     onPeriodSelect?: ({ period, date }: { period: string; date: { startDate: Dayjs; endDate: Dayjs } }) => void;
 };
-export const SwitchPeriodComparative = (props: SwitchPeriodComparativeProps) => {
-    const { selectedPeriod, startDate, endDate, previousPeriodText, samePeriodLastYearText, onPeriodSelect } = props;
+export const SwitchPeriodComparative = ({
+    selectedPeriod = SelectedPeriodType.PREVIOUS_PERIOD,
+    startDate,
+    endDate,
+    previousPeriodText,
+    samePeriodLastYearText,
+    onPeriodSelect,
+    ...props
+}: SwitchPeriodComparativeProps) => {
     const th = useContext(ThemeContext) || theme;
-    const switchPeriodComparativeProps = omit(props, ['selectedPeriod', 'startDate', 'endDate', 'previousPeriodText', 'samePeriodLastYearText', 'onPeriodSelect']);
     const formatDate = (start: string, end: string): { startDate: Dayjs; endDate: Dayjs } => {
         const newStartDate = dayjs(start, ISO_FORMAT).startOf('day');
         const newEndDate = dayjs(end, ISO_FORMAT).endOf('day');
@@ -96,7 +97,7 @@ export const SwitchPeriodComparative = (props: SwitchPeriodComparativeProps) => 
     const lastId = uniqueId();
 
     return (
-        <StyledSwitchPeriodComparative data-testid='switch-period-comparative' {...switchPeriodComparativeProps} theme={th}>
+        <StyledSwitchPeriodComparative data-testid='switch-period-comparative' {...props} theme={th}>
             <div className='compare-period'>
                 <div className='compare-period-container'>
                     <RadioFieldGroup
@@ -122,5 +123,3 @@ export const SwitchPeriodComparative = (props: SwitchPeriodComparativeProps) => 
         </StyledSwitchPeriodComparative>
     );
 };
-
-SwitchPeriodComparative.defaultProps = defaultProps;

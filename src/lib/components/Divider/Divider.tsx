@@ -1,16 +1,10 @@
-import React, { useContext } from 'react';
+import React, { HTMLAttributes, useContext } from 'react';
 import { ThemeContext } from 'styled-components';
 
 import theme from '@utils/theme';
 import { StyledDivider } from '@styles/Divider/StyledDivider';
 
-const defaultProps = {
-    vertical: false,
-};
-
-export const Divider = (props: { vertical: boolean }) => {
+export const Divider = ({ vertical, ...props }: { vertical?: boolean } & HTMLAttributes<HTMLHRElement>) => {
     const th = useContext(ThemeContext) || theme;
-    return <StyledDivider data-testid='divider' $vertical={props.vertical} theme={th} />;
+    return <StyledDivider data-testid='divider' $vertical={vertical} theme={th} {...props} />;
 };
-
-Divider.defaultProps = defaultProps;

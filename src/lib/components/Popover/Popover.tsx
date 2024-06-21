@@ -11,8 +11,4 @@ export const Popover = withDataId((props: AntDPopoverProps & { dataId?: string }
             {children}
         </AntDPopover>
     );
-});
-
-Popover.defaultProps = {
-    arrow: false,
-};
+}, 'popover');

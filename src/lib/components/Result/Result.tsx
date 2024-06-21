@@ -14,11 +14,6 @@ export enum ResultVariants {
     DEFAULT = 'default',
 }
 
-const defaultProps = {
-    variant: ResultVariants.DEFAULT,
-    size: 72,
-};
-
 const getIcon = (variant: string) => {
     let iconName = undefined;
     let iconColor = undefined;
@@ -63,8 +58,7 @@ type ResultProps = {
     iconElement?: ReactNode;
 };
 
-export const Result = (props: ResultProps) => {
-    const { title, info, variant, content, size, icon, iconElement } = props;
+export const Result = ({ title, info, variant = ResultVariants.DEFAULT, content, size = 72, icon, iconElement }: ResultProps) => {
     const th = useContext(ThemeContext) || theme;
     const { iconName, iconColor } = getIcon(variant);
     return (
@@ -84,5 +78,3 @@ export const Result = (props: ResultProps) => {
         </StyledResult>
     );
 };
-
-Result.defaultProps = defaultProps;

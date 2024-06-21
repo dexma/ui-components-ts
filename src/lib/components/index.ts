@@ -31,6 +31,7 @@ export * from './Tag';
 export * from './Tabs';
 export * from './TagGroup';
 export * from './Table';
+export { buildTableWithDataId } from './Table';
 export * from './Theme';
 export * from './Toaster';
 export { default as ToasterContext } from './Toaster/ToasterContext';

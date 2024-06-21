@@ -1,6 +1,6 @@
 import React from 'react';
 import { describe, expect, it, vitest } from 'vitest';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, act, waitFor } from '@testing-library/react';
 
 import { Dropdown } from '@components';
 

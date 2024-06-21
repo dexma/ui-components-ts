@@ -8,12 +8,6 @@ import theme from '@utils/theme';
 import { withDataId } from '@components/DataId/withDataId';
 import { StyledSwitch } from '@styles/Switch/StyledSwitch';
 
-const defaultProps = {
-    disabled: false,
-    size: 'default' as SwitchSize,
-    dataId: 'switch',
-};
-
 type SwitchProps = {
     disabled?: boolean;
     size?: SwitchSize;
@@ -22,16 +16,12 @@ type SwitchProps = {
     onClick?: () => void;
 } & AntdSwitchProps;
 
-export const Switch = withDataId((props: SwitchProps) => {
-    const { disabled, size, onChange, onClick, dataId } = props;
-    const switchProps = omit(props, ['dataId']);
+export const Switch = withDataId(({ disabled, size = 'default', onChange, onClick, dataId, ...props }: SwitchProps) => {
     const th = useContext(ThemeContext) || theme;
 
     return (
-        <StyledSwitch {...switchProps} theme={th}>
-            <SwitchAntDesign {...switchProps} data-testid='switch' disabled={disabled} onChange={onChange} onClick={onClick} size={size} data-id={dataId} />
+        <StyledSwitch {...props} theme={th}>
+            <SwitchAntDesign {...props} data-testid='switch' disabled={disabled} onChange={onChange} onClick={onClick} size={size} data-id={dataId} />
         </StyledSwitch>
     );
-});
-
-Switch.defaultProps = defaultProps;
+}, 'switch');

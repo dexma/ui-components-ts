@@ -3,15 +3,11 @@ import { ThemeContext } from 'styled-components';
 
 import theme from '@utils/theme';
 import { Icon } from '@components';
+import { withDataId } from '@components/DataId/withDataId';
 import { StyledTag } from '@styles/Tag/StyledTag';
 
-const defaultProps = {
-    closable: false,
-    type: 'normal',
-    variant: 'primary',
-};
-
 export type TagProps = {
+    dataId?: string;
     color?: string;
     icon?: string;
     closable?: boolean;
@@ -22,12 +18,12 @@ export type TagProps = {
     children?: React.ReactNode;
 };
 
-export const Tag = (props: TagProps) => {
-    const { icon, color, closable, children, type, onClose, onClick, variant, ...rest } = props;
+export const Tag = withDataId(({ icon, color, closable, children, type = 'normal', onClose, onClick, variant = 'primary', dataId, ...props }: TagProps) => {
     const th = useContext(ThemeContext) || theme;
     return (
         <StyledTag
             data-testid='tag'
+            data-id={dataId}
             $variant={variant || 'primary'}
             $type={type || 'normal'}
             $icon={icon}
@@ -35,13 +31,11 @@ export const Tag = (props: TagProps) => {
             $closable={closable}
             onClick={onClick}
             theme={th}
-            {...rest}
+            {...props}
         >
             {icon && <Icon className='icon' name={icon} size='small' />}
             {children && children}
             {closable && <Icon className='icon-close' name='close' size='small' onClick={onClose} />}
         </StyledTag>
     );
-};
-
-Tag.defaultProps = defaultProps;
+}, 'tag');

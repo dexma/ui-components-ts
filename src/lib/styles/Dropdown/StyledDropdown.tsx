@@ -1,10 +1,7 @@
+import { Button, ButtonProps } from '@components';
 import styled, { createGlobalStyle, css } from 'styled-components';
 
 const getDropdownStyle = css`
-    .dropdown-button {
-        padding: 0;
-        margin: 0;
-    }
     .ant-dropdown {
         box-sizing: border-box;
         margin: 0;
@@ -213,5 +210,13 @@ const getDropdownStyle = css`
 `;
 
 const StyledGlobalDropdown = createGlobalStyle`${getDropdownStyle}`;
+
+export const StyledDropdownInnerButton = styled((props: ButtonProps) => <Button {...props} />)`
+    width: 100%;
+`;
+
+export const StyledDropdownButton = styled((props: ButtonProps) => <Button {...props} />)`
+    ${(props) => ((!props.variant && props.variant !== '') || props.variant === 'icon' || props.variant === 'icon-secondary' ? 'padding: 0; margin: 0;' : '')}
+`;
 
 export { StyledGlobalDropdown };

@@ -5,8 +5,6 @@ import { ThemeContext } from 'styled-components';
 
 import theme from '@utils/theme';
 
-const defaultProps: CheckboxProps = {};
-
 type CheckboxProps = {
     checked?: boolean;
     disabled?: boolean;
@@ -34,5 +32,3 @@ export const Checkbox = (props: CheckboxProps) => {
         </ConfigProvider>
     );
 };
-
-Checkbox.defaultProps = defaultProps;

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 type SectionProps = {
     $title?: boolean;
-    hasButtons: boolean;
+    $hasButtons: boolean;
 };
 
 const StyledSection = styled(Row)<SectionProps>`

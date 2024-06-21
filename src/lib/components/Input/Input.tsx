@@ -7,10 +7,6 @@ import theme from '@utils/theme';
 import { Icon, Spinner } from '@components';
 import { withDataId } from '@components/DataId/withDataId';
 
-const defaultProps = {
-    dataId: 'input',
-};
-
 type InputProps = {
     placeholder?: string;
     id?: string;
@@ -66,7 +62,6 @@ export const Input = withDataId(
                 {children && children}
             </StyledInput>
         );
-    })
+    }),
+    'input'
 );
-
-Input.defaultProps = defaultProps;

@@ -5,13 +5,8 @@ import theme from '@utils/theme';
 import { Spinner } from '@components';
 import { StyledLoading } from '@styles/Loading/StyledLoading';
 
-const defaultProps = {
-    size: 24,
-    isLoading: false,
-};
-
 type LoadingProps = {
-    size: number;
+    size?: number;
     isLoading: boolean;
     color?: typeof theme.color;
     children?: ReactNode;
@@ -19,18 +14,15 @@ type LoadingProps = {
     style?: CSSProperties;
 };
 
-export const Loading = (props: LoadingProps) => {
-    const { color, size, isLoading, children, ...rest } = props;
+export const Loading = ({ color, size = 24, isLoading, children, ...props }: LoadingProps) => {
     const th = useContext(ThemeContext) || theme;
     return isLoading ? (
-        <StyledLoading data-testid='loading' theme={th} {...rest}>
+        <StyledLoading data-testid='loading' theme={th} {...props}>
             <Spinner color={color} size={size} />
         </StyledLoading>
     ) : (
         children
     );
 };
-
-Loading.defaultProps = defaultProps;
 
 export default Loading;
