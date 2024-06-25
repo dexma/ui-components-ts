@@ -25,54 +25,59 @@ type ColorPickerProps = {
 };
 
 export const ColorPicker = withDataId(
-    forwardRef(({ dataId, isLoading, placeholder = '#FFFFFF', presetColors = [] , onChangePicker, onChangeInput, showInput, value = '#FFFFFF'}: ColorPickerProps, ref: ForwardedRef<HTMLInputElement>) => {
-        const th = useContext(ThemeContext) || theme;
-        const [showColorPicker, setShowColorPicker] = useState(false);
-        const [color, setColor] = useState(value);
+    forwardRef(
+        (
+            { dataId, isLoading, placeholder = '#FFFFFF', presetColors = [], onChangePicker, onChangeInput, showInput, value = '#FFFFFF' }: ColorPickerProps,
+            ref: ForwardedRef<HTMLInputElement>
+        ) => {
+            const th = useContext(ThemeContext) || theme;
+            const [showColorPicker, setShowColorPicker] = useState(false);
+            const [color, setColor] = useState(value);
 
-        useEffect(() => {
-            setColor(value);
-        }, [value]);
+            useEffect(() => {
+                setColor(value);
+            }, [value]);
 
-        const handleClick = () => {
-            setShowColorPicker((status) => !status);
-        };
-        const handleClose = () => {
-            setShowColorPicker(false);
-        };
+            const handleClick = () => {
+                setShowColorPicker((status) => !status);
+            };
+            const handleClose = () => {
+                setShowColorPicker(false);
+            };
 
-        const handleChangePicker = (color: { hex: string }) => {
-            setColor(color.hex);
-            onChangePicker && onChangePicker(color);
-        };
-        const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-            setColor(e.target.value);
-            onChangeInput && onChangeInput(e);
-        };
+            const handleChangePicker = (color: { hex: string }) => {
+                setColor(color.hex);
+                onChangePicker && onChangePicker(color);
+            };
+            const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+                setColor(e.target.value);
+                onChangeInput && onChangeInput(e);
+            };
 
-        return (
-            <>
-                <StyledColorPickerLayout>
-                    <StyledColorPanel data-testid='color-picker' data-id={dataId} color={color} onClick={handleClick} />
-                    {showInput && (
-                        <StyledColorPickerInput
-                            data-testid='input-color-picker'
-                            value={!isLoading ? color : ''}
-                            ref={ref}
-                            placeholder={!isLoading ? placeholder : ''}
-                            onChange={handleChangeInput}
-                        />
+            return (
+                <>
+                    <StyledColorPickerLayout>
+                        <StyledColorPanel data-testid='color-picker' data-id={dataId} color={color} onClick={handleClick} />
+                        {showInput && (
+                            <StyledColorPickerInput
+                                data-testid='input-color-picker'
+                                value={!isLoading ? color : ''}
+                                ref={ref}
+                                placeholder={!isLoading ? placeholder : ''}
+                                onChange={handleChangeInput}
+                            />
+                        )}
+                        {isLoading && <StyledSpinnerColorPicker $showInput={showInput !== undefined ? showInput : false} size={20} theme={th} />}
+                    </StyledColorPickerLayout>
+                    {showColorPicker && (
+                        <StyledColorPickerPopover data-testid='popover-color-picker'>
+                            <StyledColorPickerSwatch onClick={handleClose} />
+                            <StyledSketchPicker color={color} onChangeComplete={handleChangePicker} presetColors={presetColors} disableAlpha />
+                        </StyledColorPickerPopover>
                     )}
-                    {isLoading && <StyledSpinnerColorPicker $showInput={showInput !== undefined ? showInput : false} size={20} theme={th} />}
-                </StyledColorPickerLayout>
-                {showColorPicker && (
-                    <StyledColorPickerPopover data-testid='popover-color-picker'>
-                        <StyledColorPickerSwatch onClick={handleClose} />
-                        <StyledSketchPicker color={color} onChangeComplete={handleChangePicker} presetColors={presetColors} disableAlpha />
-                    </StyledColorPickerPopover>
-                )}
-            </>
-        );
-    }),
+                </>
+            );
+        }
+    ),
     'colorpicker'
 );

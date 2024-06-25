@@ -1,6 +1,7 @@
 import styled, { DefaultTheme, createGlobalStyle, css } from 'styled-components';
 import { get } from 'lodash';
-import { Button, Cell, Icon, Row } from '@components';
+import { Button, Cell, Icon } from '@components';
+import { Row } from '@components/Row';
 import { Theme, color, primary } from '@utils/theme';
 import { primaryColor, white } from '@utils/selectors';
 import { StyledIcon } from '../Icon/StyledIcon';

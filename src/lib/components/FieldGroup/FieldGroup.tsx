@@ -76,9 +76,24 @@ export type FieldGroupItem = {
 };
 
 export const RadioFieldGroup = withDataId((props: FieldGroupProps<string | number>) => GenericFieldGroup({ ...props, type: FieldGroupType.RADIO }), 'radio-field-group');
-export const CheckboxFieldGroup = withDataId((props: FieldGroupProps<(string | number)[]>) => GenericFieldGroup({ ...props, type: FieldGroupType.CHECKBOX }), 'checkbox-field-group');
+export const CheckboxFieldGroup = withDataId(
+    (props: FieldGroupProps<(string | number)[]>) => GenericFieldGroup({ ...props, type: FieldGroupType.CHECKBOX }),
+    'checkbox-field-group'
+);
 
-const GenericFieldGroup = <T extends FieldGroupType, V>({ type, variant = FieldGroupVariant.JOINED, values, selectedValues, size = ButtonSize.MEDIUM, name, vertical, onChange, onFieldClick, dataId, ...props }: GenericFieldGroupProps<T, V>) => {
+const GenericFieldGroup = <T extends FieldGroupType, V>({
+    type,
+    variant = FieldGroupVariant.JOINED,
+    values,
+    selectedValues,
+    size = ButtonSize.MEDIUM,
+    name,
+    vertical,
+    onChange,
+    onFieldClick,
+    dataId,
+    ...props
+}: GenericFieldGroupProps<T, V>) => {
     const th = useContext(ThemeContext) || theme;
     const uniqueValues =
         values.length > 0

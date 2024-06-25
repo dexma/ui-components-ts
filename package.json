@@ -24,6 +24,7 @@
         "prettier": "prettier --write \"src/**/*.{ts,tsx,js,mdx}\"",
         "test": "npm run build-icons && vitest",
         "test:ui": "npm run build-icons && vitest --ui --config vitest-ui.config.ts",
+        "prettier": "prettier --write \"{src,test}/**/*.+(ts|tsx|json|mdx)\"",
         "prepare": "husky install",
         "prepack": "json -f package.json -I -e \"delete this.devDependencies; delete this.dependencies\"",
         "semantic-release": "semantic-release",

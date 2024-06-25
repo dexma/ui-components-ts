@@ -11,7 +11,7 @@ type HeadingProps = {
     children?: ReactNode;
 };
 
-export const Heading = ({ color = 'gray900', type = 'h3', text, children, ...props } : HeadingProps) => {
+export const Heading = ({ color = 'gray900', type = 'h3', text, children, ...props }: HeadingProps) => {
     const th = useContext(ThemeContext) || theme;
     return (
         <StyledHeading data-testid='heading' as={type} $color={color} theme={th} {...props}>

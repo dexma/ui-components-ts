@@ -22,7 +22,7 @@ type CellProps = {
 };
 
 export const Cell = (props: CellProps) => {
-    const { xs, sm, md, lg, xsOffset, smOffset, mdOffset, lgOffset, direction, children, onClick, className, style, ...rest} = props;
+    const { xs, sm, md, lg, xsOffset, smOffset, mdOffset, lgOffset, direction, children, onClick, className, style, ...rest } = props;
     const th = useContext(ThemeContext) || theme;
     return (
         <StyledCell

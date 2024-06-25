@@ -53,7 +53,8 @@ export const FormControl = withDataId(
                 {message && <span className='form-control-message'>{message}</span>}
             </StyledFormControl>
         );
-    }), 'form-control'
+    }),
+    'form-control'
 );
 
 StyledFormControl.displayName = 'StyledFormControl';
