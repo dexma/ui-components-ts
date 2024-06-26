@@ -1,4 +1,4 @@
-/* eslint-disable camelcase */
+import { type Locale } from 'antd/lib/locale';
 import 'moment/locale/ca';
 import ca_ES from 'antd/locale/ca_ES';
 import 'moment/locale/de';
@@ -42,7 +42,7 @@ import 'moment/locale/en-gb';
 import en_GB from 'antd/locale/en_GB';
 
 // i18n
-export const getLocale = (language: string) => {
+export const getLocale = (language: string): Locale => {
     switch (language) {
         case 'bg':
             return bg_BG;

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { Key, useState } from 'react';
 
 import { Result, ResultVariants, Grid, Row, Cell, Paragraph, Table, buildTableWithDataId } from '@components';
-import { User, columnsTable, dataTable } from '../../tests/mock/Table';
+import { type User, columnsTable, dataTable } from '../../tests/mock/Table';
 
 export default {
     title: 'Table',
@@ -10,9 +10,9 @@ export default {
 };
 
 const Selection = () => {
-    const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+    const [selectedRowKeys, setSelectedRowKeys] = useState<Key[]>([]);
 
-    const onSelectChange = (newSelectedRowKeys: any) => {
+    const onSelectChange = (newSelectedRowKeys: Key[]) => {
         setSelectedRowKeys(newSelectedRowKeys);
     };
 
@@ -29,7 +29,7 @@ const Selection = () => {
     );
 };
 
-export const table = () => (
+export const Basic = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
@@ -44,7 +44,7 @@ export const table = () => (
     </Grid>
 );
 
-export const loading = () => (
+export const Loading = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
@@ -57,7 +57,7 @@ export const loading = () => (
     </Grid>
 );
 
-export const error = () => (
+export const Error = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
@@ -75,7 +75,7 @@ export const error = () => (
     </Grid>
 );
 
-export const selection = () => (
+export const TableSelection = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
@@ -105,7 +105,7 @@ const expandedRowRender = () => {
     ];
 
     const data = [];
-    for (let i = 0; i < 6; ++i) {
+    for (let i = 0; i < 6; i += 1) {
         data.push({
             key: i,
             project_details: i,
@@ -118,7 +118,7 @@ const expandedRowRender = () => {
     return <Table isExpanded columns={columns} dataSource={data} pagination={false} bordered={false} />;
 };
 
-export const nestedTable = () => {
+export const NestedTable = () => {
     const columns = [
         {
             title: 'Group details',
@@ -133,7 +133,7 @@ export const nestedTable = () => {
     ];
 
     const data = [];
-    for (let i = 0; i < 3; ++i) {
+    for (let i = 0; i < 3; i += 1) {
         data.push({
             key: i,
             group_details: 'School',

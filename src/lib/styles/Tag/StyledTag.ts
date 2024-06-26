@@ -2,9 +2,11 @@ import get from 'lodash/get';
 import styled, { css } from 'styled-components';
 import { darken, transparentize } from 'polished';
 
-import { Theme } from '@utils/theme';
+import { type Theme } from '@utils/theme';
 import { tagLineHeight, tagFontSize, tagPaddingX, tagPaddingY, white, fontWeightSemiBold, border, borderRadius } from '@utils/selectors';
 import { StyledIcon } from '@styles/Icon/StyledIcon';
+
+const getTagColor = (theme: Theme, color: string) => get(theme.color, color);
 
 export const getTagPrimary = (props: StyledTagProps) => {
     const themeColor = getTagColor(props.theme, props.$color);
@@ -17,8 +19,6 @@ export const getTagPrimary = (props: StyledTagProps) => {
         }
     `;
 };
-
-const getTagColor = (theme: Theme, color: string) => get(theme.color, color);
 
 export const getTagOutline = (props: StyledTagProps) => {
     const themeColor = props.$color.startsWith('#') ? props.$color : getTagColor(props.theme, props.$color);

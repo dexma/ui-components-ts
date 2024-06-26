@@ -4,27 +4,25 @@ import { fireEvent, render, screen } from '@testing-library/react';
 
 import { Button, Toaster } from '@components';
 import { ToastType } from '@components/Toaster/Toast';
-import ToasterContext from '@components/Toaster/ToasterContext';
+import { ToasterContext } from '@components/Toaster/ToasterContext';
 
 describe('<Toaster>', () => {
     it('Should render a toast element when call toast', () => {
         render(
             <Toaster>
                 <ToasterContext.Consumer>
-                    {(context) => {
-                        return (
-                            <Button
-                                variant='outline'
-                                text='Information'
-                                onClick={() => {
-                                    context.toast({
-                                        text: 'INFORMATION TOAST! This is an example of a notification message toast.',
-                                        type: ToastType.INFO,
-                                    });
-                                }}
-                            />
-                        );
-                    }}
+                    {(context) => (
+                        <Button
+                            variant='outline'
+                            text='Information'
+                            onClick={() => {
+                                context.toast({
+                                    text: 'INFORMATION TOAST! This is an example of a notification message toast.',
+                                    type: ToastType.INFO,
+                                });
+                            }}
+                        />
+                    )}
                 </ToasterContext.Consumer>
             </Toaster>
         );
@@ -35,20 +33,18 @@ describe('<Toaster>', () => {
         render(
             <Toaster>
                 <ToasterContext.Consumer>
-                    {(context) => {
-                        return (
-                            <Button
-                                variant='outline'
-                                text='Information'
-                                onClick={() => {
-                                    context.toast({
-                                        text: 'INFORMATION TOAST! This is an example of a notification message toast.',
-                                        type: ToastType.INFO,
-                                    });
-                                }}
-                            />
-                        );
-                    }}
+                    {(context) => (
+                        <Button
+                            variant='outline'
+                            text='Information'
+                            onClick={() => {
+                                context.toast({
+                                    text: 'INFORMATION TOAST! This is an example of a notification message toast.',
+                                    type: ToastType.INFO,
+                                });
+                            }}
+                        />
+                    )}
                 </ToasterContext.Consumer>
             </Toaster>
         );

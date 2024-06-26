@@ -1,9 +1,9 @@
-import React, { useState, forwardRef, ForwardedRef, useContext } from 'react';
+import React, { useState, forwardRef, type ForwardedRef, useContext, ReactNode, FocusEvent, ChangeEvent } from 'react';
 import { ThemeContext } from 'styled-components';
 import omit from 'lodash/omit';
 
 import { StyledInput } from '@styles/Input/StyledInput';
-import theme from '@utils/theme';
+import defaultTheme from '@utils/theme';
 import { Icon, Spinner } from '@components';
 import { withDataId } from '@components/DataId/withDataId';
 
@@ -11,18 +11,18 @@ type InputProps = {
     placeholder?: string;
     id?: string;
     icon?: string;
-    label?: string | React.ReactNode;
+    label?: string | ReactNode;
     title?: string;
     value?: string;
     isLoading?: boolean;
     type?: string;
     name?: string;
     disabled?: boolean;
-    onFocus?: (e: React.FocusEvent<HTMLInputElement>) => void;
-    onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
-    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onFocus?: (e: FocusEvent<HTMLInputElement>) => void;
+    onBlur?: (e: FocusEvent<HTMLInputElement>) => void;
+    onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
     dataId?: string;
-    children?: React.ReactNode;
+    children?: ReactNode;
     className?: string;
 };
 
@@ -30,16 +30,16 @@ export const Input = withDataId(
     forwardRef((props: InputProps, ref: ForwardedRef<HTMLInputElement>) => {
         const [focused, setFocused] = useState(false);
         const { icon, isLoading, onFocus, onBlur, children, dataId, className } = props;
-        const th = useContext(ThemeContext) || theme;
-        const newProps = omit(props, ['placeholder', 'id', 'label', 'value', 'type', 'name', 'onChange', 'onFocus', 'onBlur', 'dataId']);
-        const inputProps = omit(props, ['icon', 'isLoading', 'theme', 'children', 'onFocus', 'onBlur', 'dataId']);
-        const handleOnFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+        const th = useContext(ThemeContext) || defaultTheme;
+        const newProps = omit(props, ['placeholder', 'id', 'label', 'value', 'type', 'name', 'onChange', 'onFocus', 'onBlur', 'dataId', 'isLoading']);
+        const inputProps = omit(props, ['icon', 'isLoading', 'theme', 'children', 'onFocus', 'onBlur', 'dataId', 'isLoading']);
+        const handleOnFocus = (e: FocusEvent<HTMLInputElement>) => {
             setFocused(true);
-            onFocus && onFocus(e);
+            if (onFocus) onFocus(e);
         };
-        const handleOnBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+        const handleOnBlur = (e: FocusEvent<HTMLInputElement>) => {
             setFocused(false);
-            onBlur && onBlur(e);
+            if (onBlur) onBlur(e);
         };
         return (
             <StyledInput

@@ -16,7 +16,7 @@ describe('<Loading>', () => {
         expect(screen.getAllByTestId('spinner').length).toEqual(1);
     });
     it('Should not render the Spinner and show children', () => {
-        const loadDiv = <div datatest-id='children'>someText</div>;
+        const loadDiv = <div data-testid='children'>someText</div>;
         render(<Loading isLoading={false}>{loadDiv}</Loading>);
         expect(screen.findByTestId('children')).toBeTruthy();
     });

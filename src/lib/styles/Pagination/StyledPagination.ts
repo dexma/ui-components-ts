@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import { gray300, backgroundColor, primaryColor, fontColor, borderRadius, paginationHeight, paginationFontSize } from '@utils/selectors';
 
-import { Theme } from '@utils/theme';
+import { type Theme } from '@utils/theme';
 import { StyledIcon } from '@styles/Icon/StyledIcon';
 
 export const getStyledPagination = (theme: Theme) => css`

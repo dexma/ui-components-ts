@@ -1,16 +1,14 @@
-import React, { ReactNode, useContext } from 'react';
-import omit from 'lodash/omit';
+import React, { HTMLAttributes, useContext } from 'react';
 import { ThemeContext } from 'styled-components';
 
-import theme from '@utils/theme';
+import defaultTheme from '@utils/theme';
 import { StyledGrid } from '@styles/Grid/StyledGrid';
 
-export const Grid = (props: { fluid?: boolean; className?: string; children: ReactNode | ReactNode[] | string }) => {
-    const gridProps = omit(props, ['fluid', 'children']);
-    const th = useContext(ThemeContext) || theme;
+export const Grid = ({ fluid, children, ...props }: { fluid?: boolean } & HTMLAttributes<HTMLDivElement>) => {
+    const th = useContext(ThemeContext) || defaultTheme;
     return (
-        <StyledGrid data-testid='grid' $fluid={props.fluid} theme={th} {...gridProps}>
-            {props.children}
+        <StyledGrid data-testid='grid' $fluid={fluid} theme={th} {...props}>
+            {children}
         </StyledGrid>
     );
 };

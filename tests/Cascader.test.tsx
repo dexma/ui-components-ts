@@ -2,7 +2,7 @@ import React from 'react';
 import { describe, expect, it, vitest } from 'vitest';
 import { render, fireEvent } from '@testing-library/react';
 
-import theme from '@utils/theme';
+import defaultTheme from '@utils/theme';
 import { Cascader, tagRender } from '@components';
 
 describe('Cascader', () => {
@@ -14,7 +14,7 @@ describe('Cascader', () => {
                 closable: true,
                 onClose: vitest.fn(),
             };
-            const { getByTestId } = render(tagRender(theme)(props));
+            const { getByTestId } = render(tagRender(defaultTheme)(props));
             const tag = getByTestId('tag-option-selected-Test 1');
             expect(tag).toBeTruthy();
         });
@@ -26,7 +26,7 @@ describe('Cascader', () => {
                 closable: true,
                 onClose,
             };
-            const { getByTestId } = render(tagRender(theme)(props));
+            const { getByTestId } = render(tagRender(defaultTheme)(props));
             const tag = getByTestId('tag-option-selected-Test 1');
             expect(tag).toBeTruthy();
             const closeIcon = getByTestId('icon');
@@ -40,7 +40,7 @@ describe('Cascader', () => {
                 closable: false,
                 onClose: vitest.fn(),
             };
-            const { getByTestId, queryByTestId } = render(tagRender(theme)(props));
+            const { getByTestId, queryByTestId } = render(tagRender(defaultTheme)(props));
             const tag = getByTestId('tag-option-selected-Test 1');
             expect(tag).toBeTruthy();
             const closeIcon = queryByTestId('icon');

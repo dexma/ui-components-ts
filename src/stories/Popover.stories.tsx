@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { JSX } from 'react/jsx-runtime';
+import { type JSX } from 'react/jsx-runtime';
 
 import { Grid, Row, Cell, Button, Paragraph, Popover } from '@components';
 
@@ -9,7 +9,7 @@ export default {
     tags: ['autodocs'],
 };
 
-export const popover = () => (
+export const Basic = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
@@ -20,23 +20,23 @@ export const popover = () => (
             </Cell>
             <Cell>
                 <Popover title='Popover' trigger='click'>
-                    <Button text='Click me'></Button>
+                    <Button text='Click me' />
                 </Popover>
                 <Popover title='Popover' content={<Paragraph margin='1rem 0 1rem 0'>A popover content may be a simple text or a more complex component.</Paragraph>}>
-                    <Button text='Test' iconBefore='vader'></Button>
+                    <Button text='Test' iconBefore='vader' />
                 </Popover>
                 <Popover placement='top' content={<Paragraph margin='1rem 0 1rem 0'>A popover may not have a title, but only content to be displayed.</Paragraph>}>
-                    <Button text='Test top' iconBefore='vader' variant='secondary'></Button>
+                    <Button text='Test top' iconBefore='vader' variant='secondary' />
                 </Popover>
                 <Popover title='Popover right' placement='right'>
-                    <Button iconBefore='help' isCircle></Button>
+                    <Button iconBefore='help' isCircle />
                 </Popover>
             </Cell>
         </Row>
     </Grid>
 );
 
-export const popoverClickHover = () => {
+export const PopoverClickHover = () => {
     const [clicked, setClicked] = useState(false);
     const [hovered, setHovered] = useState(false);
 
@@ -63,7 +63,9 @@ export const popoverClickHover = () => {
                 content={
                     <div>
                         {clickContent}
-                        <button onClick={hide}>Close</button>
+                        <button type='button' onClick={hide}>
+                            Close
+                        </button>
                     </div>
                 }
                 title='Click title'
@@ -77,7 +79,7 @@ export const popoverClickHover = () => {
     );
 };
 
-export const playground = (args: JSX.IntrinsicAttributes) => (
+export const Playground = (args: JSX.IntrinsicAttributes) => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>

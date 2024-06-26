@@ -1,9 +1,10 @@
-import React, { CSSProperties, forwardRef, useContext } from 'react';
+import React, { type CSSProperties, forwardRef, useContext } from 'react';
 import { ThemeContext } from 'styled-components';
 import isNumber from 'lodash/isNumber';
+import { v4 as uuidv4 } from 'uuid';
 
 import { icons } from '@config';
-import theme from '@utils/theme';
+import defaultTheme, { type Theme } from '@utils/theme';
 import { StyledIcon } from '@styles/Icon/StyledIcon';
 
 export enum IconSize {
@@ -24,20 +25,19 @@ export const getIconSize = (size?: number | string | IconSize) => {
 
 const getIconPaths = (name?: string) => {
     let config: any = [];
-    (icons as unknown as any[]).forEach((item: { name: string; icon: string }) => {
+    icons.forEach((item) => {
         if (item.name === name) {
             config = item.icon;
         }
     });
-    return config.map((itemConfig: any, i: number) => {
+    return config.map((itemConfig: any) => {
         const { tag, transform } = itemConfig;
+        const { d, opacity, clipRule, fillRule, cx, cy, r } = itemConfig;
         switch (tag) {
             case 'path':
-                const { d, opacity, clipRule, fillRule } = itemConfig;
-                return <path key={i} d={d} opacity={opacity} clipRule={clipRule} fillRule={fillRule} transform={transform} />;
+                return <path key={uuidv4()} d={d} opacity={opacity} clipRule={clipRule} fillRule={fillRule} transform={transform} />;
             case 'circle':
-                const { cx, cy, r } = itemConfig;
-                return <circle key={i} cx={cx} cy={cy} r={r} transform={transform} />;
+                return <circle key={uuidv4()} cx={cx} cy={cy} r={r} transform={transform} />;
             default:
                 return null;
         }
@@ -46,24 +46,24 @@ const getIconPaths = (name?: string) => {
 
 const isHexColor = (hex?: string) => (hex ? /^#[0-9A-F]{6}$/i.test(hex) || /^#[0-9A-F]{3}$/i.test(hex) : false);
 
-type IconProps = {
+export type IconProps = {
     name?: string;
-    color?: string | keyof typeof theme.color;
+    color?: string | keyof typeof defaultTheme.color;
     size?: number | string | IconSize;
     className?: string;
     style?: CSSProperties;
     onClick?: (e: any) => void;
 };
 
-const getColor = (color?: string | typeof theme.color) => {
-    const th = useContext(ThemeContext) || theme;
+const getColor = (th: Theme, color?: string | typeof defaultTheme.color) => {
     if (!color) return th.color.gray500;
     if (isHexColor(color)) return color;
     return th.color[color as keyof typeof th.color];
 };
 
 export const Icon = forwardRef(({ name = 'vader', color = 'gray500', size = IconSize.LARGE, className, onClick, ...props }: IconProps, ref) => {
-    const fillColor = getColor(color);
+    const th = useContext(ThemeContext) || defaultTheme;
+    const fillColor = getColor(th, color);
     const pathElements = getIconPaths(name);
     const iconSize = getIconSize(size);
     return (

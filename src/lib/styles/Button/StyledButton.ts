@@ -2,8 +2,8 @@ import styled, { css } from 'styled-components';
 import { darken, saturate, transparentize, rgba } from 'polished';
 import get from 'lodash/get';
 
-import { Theme } from '@utils/theme';
-import { white, gray300, gray400, gray500, gray700, gray900, red, primaryColor, backgroundColor, buttonSize, borderRadius, iconColor } from '@utils/selectors';
+import { type Theme } from '@utils/theme';
+import { white, gray300, gray400, gray500, gray700, gray900, red, primaryColor, backgroundColor, buttonSize, borderRadius } from '@utils/selectors';
 import { StyledIcon } from '@styles/Icon/StyledIcon';
 import { StyledSpinner } from '@styles/Spinner/StyledSpinner';
 
@@ -120,7 +120,6 @@ export const getButtonVariantSecondary = (props: ButtonVariantProps) => {
     const backgroundHover = props.disabled || props.$isLoading ? background : gray400(props.theme);
     const color = gray900(props.theme);
     const colorHover = props.disabled || props.$isLoading ? color : white(props.theme);
-    const colorIcon = iconColor(props.theme);
     const newFocusColor = transparentize(0.3, borderColor);
     return css`
         color: ${color};
@@ -279,27 +278,21 @@ export const getButtonVariantIconOutline = (props: ButtonVariantProps) => {
         }
     `;
 };
-export const getButtonExpanded = () => {
-    return css`
-        display: block;
-        width: 100%;
-    `;
-};
-export const getButtonDisabled = () => {
-    return css`
-        cursor: not-allowed;
-        opacity: 0.65;
-    `;
-};
+export const getButtonExpanded = () => css`
+    display: block;
+    width: 100%;
+`;
+export const getButtonDisabled = () => css`
+    cursor: not-allowed;
+    opacity: 0.65;
+`;
 
-export const getButtonLoading = (props: StyledButtonProps) => {
-    return css`
-        cursor: wait;
-        ${StyledSpinner} {
-            ${props.$text && `margin-right: .25rem`};
-        }
-    `;
-};
+export const getButtonLoading = (props: StyledButtonProps) => css`
+    cursor: wait;
+    ${StyledSpinner} {
+        ${props.$text && `margin-right: .25rem`};
+    }
+`;
 
 export const getButtonCircle = (props: StyledButtonProps) => {
     const sizeProps = get(buttonSize(props.theme), props.$size);
@@ -313,6 +306,24 @@ export const getButtonCircle = (props: StyledButtonProps) => {
         }
     `;
 };
+
+const StyledButton = styled.button<StyledButtonProps>`
+    ${(props) => getButtonBase(props.theme)};
+    ${(props) => props.$size && getButtonSize}
+    ${getIconSize};
+    ${(props) => props.$variant === 'primary' && getButtonVariantPrimary};
+    ${(props) => props.$variant === 'secondary' && getButtonVariantSecondary};
+    ${(props) => props.$variant === 'outline' && getButtonVariantOutline};
+    ${(props) => props.$variant === 'destructive' && getButtonVariantDestructive};
+    ${(props) => props.$variant === 'link' && getButtonVariantLink};
+    ${(props) => props.$variant === 'icon' && getButtonVariantIcon};
+    ${(props) => props.$variant === 'icon-secondary' && getButtonVariantIconSecondary};
+    ${(props) => props.$variant === 'icon-outline' && getButtonVariantIconOutline};
+    ${(props) => props.$isCircle && getButtonCircle};
+    ${(props) => props.disabled && getButtonDisabled};
+    ${(props) => props.$isLoading && getButtonLoading};
+    ${(props) => props.$isExpanded && getButtonExpanded};
+`;
 
 export const getButtonGroupBase = () => css`
     ${StyledButton} {
@@ -352,23 +363,4 @@ export type StyledButtonProps = {
     theme: Theme;
 };
 
-const StyledButton2 = styled.button;
-
-const StyledButton = styled.button<StyledButtonProps>`
-    ${(props) => getButtonBase(props.theme)};
-    ${(props) => props.$size && getButtonSize}
-    ${getIconSize};
-    ${(props) => props.$variant === 'primary' && getButtonVariantPrimary};
-    ${(props) => props.$variant === 'secondary' && getButtonVariantSecondary};
-    ${(props) => props.$variant === 'outline' && getButtonVariantOutline};
-    ${(props) => props.$variant === 'destructive' && getButtonVariantDestructive};
-    ${(props) => props.$variant === 'link' && getButtonVariantLink};
-    ${(props) => props.$variant === 'icon' && getButtonVariantIcon};
-    ${(props) => props.$variant === 'icon-secondary' && getButtonVariantIconSecondary};
-    ${(props) => props.$variant === 'icon-outline' && getButtonVariantIconOutline};
-    ${(props) => props.$isCircle && getButtonCircle};
-    ${(props) => props.disabled && getButtonDisabled};
-    ${(props) => props.$isLoading && getButtonLoading};
-    ${(props) => props.$isExpanded && getButtonExpanded};
-`;
-export { StyledButton, StyledButton2, StyledButtonGroup };
+export { StyledButton, StyledButtonGroup };

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { ThemeContext } from 'styled-components';
 
-import theme from '@utils/theme';
+import defaultTheme from '@utils/theme';
 import { Alert } from '@components';
 import { StyledToast } from '@styles/Toast/StyledToast';
 
@@ -26,7 +26,7 @@ type ToastProps = {
 
 export const Toast = ({ text, type }: ToastProps) => {
     const alertTypeValue = alertType[type];
-    const th = useContext(ThemeContext) || theme;
+    const th = useContext(ThemeContext) || defaultTheme;
 
     return (
         <StyledToast theme={th}>

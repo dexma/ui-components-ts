@@ -1,20 +1,20 @@
-import { Grid, Row, Cell, Paragraph, AntdSelect } from '@components';
+import { Grid, Row, Cell, Paragraph, Select } from '@components';
 import { useState } from 'react';
 
 export default {
-    title: 'AntdSelect',
-    component: AntdSelect,
+    title: 'Select',
+    component: Select,
     tags: ['autodocs'],
 };
 
-export const select = () => (
+export const Basic = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
                 <Paragraph margin='1rem 0 1rem 0'>Select is a form control for selecting a value from a set of options.</Paragraph>
             </Cell>
             <Cell xs={12}>
-                <AntdSelect
+                <Select
                     mode='multiple'
                     style={{ width: '100%' }}
                     pageSize={10}
@@ -75,14 +75,15 @@ export const select = () => (
         </Row>
     </Grid>
 );
-export const selectNoButton = () => (
+
+export const SelectNoButton = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
                 <Paragraph margin='1rem 0 1rem 0'>When pageSize prop is not set, the select will not have a button to select all options.</Paragraph>
             </Cell>
             <Cell xs={12}>
-                <AntdSelect
+                <Select
                     mode='multiple'
                     style={{ width: '100%' }}
                     options={[
@@ -141,13 +142,13 @@ export const selectNoButton = () => (
     </Grid>
 );
 
-const SingleSelect = (props: any) => {
+const SingleSelectComponent = (props: any) => {
     const [selectedValues, setSelectedValue] = useState([]);
     const handleChange = (value: any) => {
         setSelectedValue(value);
     };
     return (
-        <AntdSelect
+        <Select
             onChange={handleChange}
             value={selectedValues}
             handleClearAll={() => {
@@ -158,14 +159,14 @@ const SingleSelect = (props: any) => {
     );
 };
 
-export const singleSelect = () => (
+export const SingleSelect = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
                 <Paragraph margin='1rem 0 1rem 0'>Based on the mode prop, the select can be single or multiple.</Paragraph>
             </Cell>
             <Cell xs={12}>
-                <SingleSelect
+                <SingleSelectComponent
                     options={[
                         { value: '1', label: '1st Floor', color: 'blue' },
                         {

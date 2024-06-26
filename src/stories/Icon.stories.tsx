@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
-import icon from '@config/Icon';
-import { Icon, Grid, Row, Cell, Paragraph, Input } from '@components';
+import icon from '@config/icon';
+import { Icon, Grid, Row, Cell, Paragraph, Input, IconProps } from '@components';
 
 const StyledBoxSearch = styled.div`
     width: 100%;
@@ -31,7 +31,7 @@ export default {
     },
 };
 
-export const sizes = () => (
+export const Sizes = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
@@ -59,41 +59,21 @@ export const sizes = () => (
     </Grid>
 );
 
-export const icons = () => (
-    <Grid fluid>
-        <Row>
-            <Cell xs={12}>
-                <Paragraph margin='1rem 0 1rem 0'>An icon is a svg used to represent something else</Paragraph>
-            </Cell>
-            <SearchIcons />
-        </Row>
-    </Grid>
-);
-
-export const playground = (args: any) => (
-    <Grid fluid>
-        <Row>
-            <Cell xs={12}>
-                <Paragraph margin='1rem 0 1rem 0'>An icon is a svg used to represent something else</Paragraph>
-            </Cell>
-            <Icon {...args} />
-        </Row>
-    </Grid>
-);
-
 const SearchIcons = () => {
     const [value, setValue] = useState('');
-    const handleChange = (e: any) => setValue(e.target.value);
-
-    const getIcons = (searchValue: any) => {
-        const iconsFilter = icon.filter((i: any) => i.name.includes(searchValue));
-        return iconsFilter.map((iconItem: any, i: any) => (
-            <Cell key={i} xs={2} className='box-icon'>
-                <Icon name={iconItem.name} size={40} />
-                <Paragraph margin='.6rem'>{iconItem.name}</Paragraph>
-            </Cell>
-        ));
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setValue(e.target.value);
     };
+
+    const getIcons = (searchValue: string) =>
+        icon
+            .filter((i: { name: string }) => i.name.includes(searchValue))
+            .map((iconItem: { name: string }) => (
+                <Cell key={iconItem.name} xs={2} className='box-icon'>
+                    <Icon name={iconItem.name} size={40} />
+                    <Paragraph margin='.6rem'>{iconItem.name}</Paragraph>
+                </Cell>
+            ));
 
     return (
         <StyledBoxSearch>
@@ -106,3 +86,25 @@ const SearchIcons = () => {
         </StyledBoxSearch>
     );
 };
+
+export const Icons = () => (
+    <Grid fluid>
+        <Row>
+            <Cell xs={12}>
+                <Paragraph margin='1rem 0 1rem 0'>An icon is a svg used to represent something else</Paragraph>
+            </Cell>
+            <SearchIcons />
+        </Row>
+    </Grid>
+);
+
+export const Playground = (args: IconProps) => (
+    <Grid fluid>
+        <Row>
+            <Cell xs={12}>
+                <Paragraph margin='1rem 0 1rem 0'>An icon is a svg used to represent something else</Paragraph>
+            </Cell>
+            <Icon {...args} />
+        </Row>
+    </Grid>
+);

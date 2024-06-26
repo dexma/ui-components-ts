@@ -7,7 +7,7 @@ export default {
     tags: ['autodocs'],
 };
 
-export const input = () => (
+export const Basic = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
@@ -20,7 +20,7 @@ export const input = () => (
     </Grid>
 );
 
-export const search = () => (
+export const Search = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
@@ -36,7 +36,7 @@ export const search = () => (
     </Grid>
 );
 
-export const loading = () => (
+export const Loading = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
@@ -49,7 +49,7 @@ export const loading = () => (
     </Grid>
 );
 
-export const disabled = () => (
+export const Disabled = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>

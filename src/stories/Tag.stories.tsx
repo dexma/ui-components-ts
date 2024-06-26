@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tag, TagGroup, Grid, Row, Cell, Paragraph } from '@components';
+import { Tag, TagGroup, Grid, Row, Cell, Paragraph, ParagraphProps } from '@components';
 
 export default {
     title: 'Tag',
@@ -7,7 +7,7 @@ export default {
     tags: ['autodocs'],
 };
 
-export const tags = () => (
+export const Basic = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
@@ -15,7 +15,12 @@ export const tags = () => (
             </Cell>
             <Cell xs={12}>
                 <TagGroup>
-                    <Tag color='teal' onClick={() => alert('Click')}>
+                    <Tag
+                        color='teal'
+                        onClick={() => {
+                            alert('Click');
+                        }}
+                    >
                         Tag click
                     </Tag>
                     <Tag color='blue'>Tag</Tag>
@@ -88,7 +93,7 @@ export const tags = () => (
     </Grid>
 );
 
-export const icons = () => (
+export const Icons = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
@@ -147,17 +152,30 @@ export const icons = () => (
     </Grid>
 );
 
-export const closable = () => (
+export const Closable = () => (
     <Grid fluid>
         <Row>
             <Cell>
                 <Paragraph margin='1rem 0 1rem 0'>Use the Controls on the section below to add your own props to this Tags.</Paragraph>
             </Cell>
             <TagGroup>
-                <Tag color='blue' icon='alert' closable onClose={() => alert('Close me!')}>
+                <Tag
+                    color='blue'
+                    icon='alert'
+                    closable
+                    onClose={() => {
+                        alert('Close me!');
+                    }}
+                >
                     Tag icon closable
                 </Tag>
-                <Tag color='red' closable onClose={() => alert('Close me!')}>
+                <Tag
+                    color='red'
+                    closable
+                    onClose={() => {
+                        alert('Close me!');
+                    }}
+                >
                     Tag closable
                 </Tag>
             </TagGroup>
@@ -165,7 +183,7 @@ export const closable = () => (
     </Grid>
 );
 
-export const playground = (args: any) => (
+export const Playground = (args: ParagraphProps) => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Grid } from '@components/Grid';
 
-import { Theme } from '@utils/theme';
+import { type Theme } from '@utils/theme';
 import { fontWeightSemiBold, fontWeightNormal, gray700, gray900 } from '@utils/selectors';
 
 const StyledResult = styled(Grid)<{ theme: Theme }>`

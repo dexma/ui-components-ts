@@ -1,6 +1,7 @@
 {
     "compilerOptions": {
         "target": "ESNext",
+        "types": ["vite/client"],
         "useDefineForClassFields": true,
         "lib": ["DOM", "DOM.Iterable", "ESNext"],
         "allowJs": false,
@@ -29,6 +30,6 @@
             "@config": ["./lib/config/index.ts"]
         }
     },
-    "include": ["./src/**/*.ts", "./src/**/*.tsx", "./src/**/*.stories.*", "./tests/**/*.test.*", "./tests/mock/**/*.ts" , "./.storybook/**/*"],
+    "include": ["./src/**/*.ts", "./src/**/*.tsx", "./src/**/*.stories.*", "./tests/**/*.test.*", "./tests/mock/**/*.ts", "./.storybook/**/*"],
     "exclude": ["node_modules", "build", "dist", "coverage", "storybook-static", "./src/lib/config/**/*"]
 }

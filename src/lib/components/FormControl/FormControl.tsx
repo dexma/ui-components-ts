@@ -1,14 +1,13 @@
-import React, { ForwardedRef, ReactNode, forwardRef, useContext } from 'react';
+import React, { type ForwardedRef, type ReactNode, forwardRef, useContext } from 'react';
 import find from 'lodash/find';
-import omit from 'lodash/omit';
 import { ThemeContext } from 'styled-components';
 
-import theme from '@utils/theme';
+import defaultTheme from '@utils/theme';
 import { Input } from '@components/Input';
 import { Checkbox } from '@components/Checkbox';
-import { DatePicker } from '@components/AntdPicker';
+import { DatePicker } from '@components/DatePicker';
 import { ColorPicker } from '@components/ColorPicker';
-import { AntdSelect } from '@components/AntdSelect';
+import { Select } from '@components/Select';
 import { withDataId } from '@components/DataId/withDataId';
 import { StyledFormControl } from '@styles/FromControl/StyledFormControl';
 
@@ -38,18 +37,16 @@ type FormControlProps = {
 };
 
 export const FormControl = withDataId(
-    forwardRef((props: FormControlProps, ref: ForwardedRef<HTMLElement>) => {
-        const { control, value, error, success, message, options, type } = props;
-        const newProps = omit(props, ['control', 'error', 'success', 'helper', 'type']);
-        const th = useContext(ThemeContext) || theme;
+    forwardRef(({ control, value, error, success, message, options, type, ...props }: FormControlProps, ref: ForwardedRef<HTMLElement>) => {
+        const th = useContext(ThemeContext) || defaultTheme;
         return (
             <StyledFormControl theme={th} $error={error} $success={success}>
-                {control === 'Input' && <Input type='text' className='form-control-input' title={value as string} ref={ref} {...newProps} />}
-                {control === 'Checkbox' && <Checkbox className='form-control-checkbox' {...newProps} />}
-                {control === 'Textarea' && <textarea rows={2} className='form-control-textarea' {...newProps} />}
-                {control === 'Select' && <AntdSelect className='form-control-select' ref={ref} {...newProps} value={find(options, { value })} />}
-                {control === 'DatePicker' && <DatePicker className='form-control-date-picker' type={type ?? 'date'} {...newProps} />}
-                {control === 'ColorPicker' && <ColorPicker ref={ref} {...newProps} />}
+                {control === 'Input' && <Input type='text' className='form-control-input' title={value as string} ref={ref} {...props} />}
+                {control === 'Checkbox' && <Checkbox className='form-control-checkbox' {...props} />}
+                {control === 'Textarea' && <textarea rows={2} className='form-control-textarea' {...props} />}
+                {control === 'Select' && <Select className='form-control-select' ref={ref} {...props} value={find(options, { value })} />}
+                {control === 'DatePicker' && <DatePicker className='form-control-date-picker' type={type ?? 'date'} {...props} />}
+                {control === 'ColorPicker' && <ColorPicker ref={ref} {...props} />}
                 {message && <span className='form-control-message'>{message}</span>}
             </StyledFormControl>
         );

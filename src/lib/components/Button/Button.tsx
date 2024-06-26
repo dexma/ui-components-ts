@@ -1,13 +1,14 @@
 /* eslint-disable import/no-cycle */
-import React, { ButtonHTMLAttributes, CSSProperties, MouseEventHandler, ReactNode, useContext } from 'react';
+import React, { type ButtonHTMLAttributes, type CSSProperties, type MouseEventHandler, type ReactNode, useContext } from 'react';
 import classNames from 'classnames';
 import debounce from 'lodash/debounce';
 import { ThemeContext } from 'styled-components';
 
-import theme from '@utils/theme';
+import defaultTheme from '@utils/theme';
 import { Tooltip, Spinner, Icon, getIconSize } from '@components';
 import { withDataId } from '@components/DataId/withDataId';
 import { StyledButton, StyledButtonGroup } from '@styles/Button/StyledButton';
+import { omit } from 'lodash';
 
 export enum ButtonSize {
     SMALL = 'small',
@@ -25,9 +26,7 @@ const getButtonIconSize = (size?: string | ButtonSize) => {
     return 'small';
 };
 
-export const ButtonGroup = (props: any) => {
-    return <StyledButtonGroup {...props} />;
-};
+export const ButtonGroup = (props: any) => <StyledButtonGroup {...props} />;
 
 export type ButtonProps = {
     className?: string;
@@ -76,7 +75,8 @@ export const Button = withDataId(
         style,
         ...props
     }: ButtonProps) => {
-        const th = useContext(ThemeContext) || theme;
+        const th = useContext(ThemeContext) || defaultTheme;
+        const rest = omit(props, ['refs']);
         const classes = classNames(isExpanded && 'expanded', className);
         const handleClick = debounceTime && debounceTime > 0 && onClick ? debounce(onClick, debounceTime) : onClick;
         const spinnerSize = getIconSize(size);
@@ -98,9 +98,9 @@ export const Button = withDataId(
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}
                 data-id={dataId}
-                data-testid={props['data-testid'] ?? 'button'}
+                data-testid={rest['data-testid'] ?? 'button'}
                 style={style}
-                {...props}
+                {...rest}
             >
                 {isLoading ? <Spinner size={spinnerSize} data-testid='button-loading' /> : null}
                 {!isLoading && iconBefore ? <Icon name={iconBefore} size={iconSize} color={iconColor} data-testid='button-icon-before' /> : null}

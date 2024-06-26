@@ -10,15 +10,21 @@ export default {
     tags: ['autodocs'],
 };
 
-export const sectionDataChart = () => (
+export const SectionDataChart = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
                 <Section
                     title='Chart layout title'
-                    onExportExcel={() => console.log('click onExportExcel')}
-                    onExportImage={() => console.log('click onExportImage')}
-                    onAddReport={() => console.log('click onAddReport')}
+                    onExportExcel={() => {
+                        console.log('click onExportExcel');
+                    }}
+                    onExportImage={() => {
+                        console.log('click onExportImage');
+                    }}
+                    onAddReport={() => {
+                        console.log('click onAddReport');
+                    }}
                 >
                     <Chart options={mockBasicArea} />
                 </Section>
@@ -26,7 +32,15 @@ export const sectionDataChart = () => (
         </Row>
         <Row>
             <Cell xs={12}>
-                <Section title='Chart layout title' onExportExcel={() => console.log('click onExportExcel')} onAddReport={() => console.log('click onAddReport')}>
+                <Section
+                    title='Chart layout title'
+                    onExportExcel={() => {
+                        console.log('click onExportExcel');
+                    }}
+                    onAddReport={() => {
+                        console.log('click onAddReport');
+                    }}
+                >
                     <Chart isLoading options={mockBasicArea} />
                 </Section>
             </Cell>
@@ -34,7 +48,7 @@ export const sectionDataChart = () => (
     </Grid>
 );
 
-export const sectionDataTable = () => (
+export const SectionDataTable = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
@@ -43,9 +57,15 @@ export const sectionDataTable = () => (
             <Cell xs={12}>
                 <Section
                     title='Table layout title'
-                    onExportExcel={() => console.log('click onExportExcel')}
-                    onExportImage={() => console.log('click onExportImage')}
-                    onAddReport={() => console.log('click onAddReport')}
+                    onExportExcel={() => {
+                        console.log('click onExportExcel');
+                    }}
+                    onExportImage={() => {
+                        console.log('click onExportImage');
+                    }}
+                    onAddReport={() => {
+                        console.log('click onAddReport');
+                    }}
                     isLoading
                 >
                     <Table dataSource={dataTable} columns={columnsTable} />
@@ -59,9 +79,15 @@ export const sectionDataTable = () => (
             <Cell xs={12}>
                 <Section
                     title='Table layout title'
-                    onExportExcel={() => console.log('click onExportExcel')}
-                    onExportImage={() => console.log('click onExportImage')}
-                    onAddReport={() => console.log('click onAddReport')}
+                    onExportExcel={() => {
+                        console.log('click onExportExcel');
+                    }}
+                    onExportImage={() => {
+                        console.log('click onExportImage');
+                    }}
+                    onAddReport={() => {
+                        console.log('click onAddReport');
+                    }}
                     isLoading
                 >
                     <Table isLoading dataSource={dataTable} columns={columnsTable} />

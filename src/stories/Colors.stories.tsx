@@ -4,12 +4,12 @@ import get from 'lodash/get';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import { Grid, Row, Cell, Paragraph } from '@components';
-import theme, { Theme } from '@utils/theme';
+import defaultTheme, { type Theme } from '@utils/theme';
 
 export default {
     title: 'Colors',
     tags: ['autodocs'],
-    component: <></>,
+    component: <div />,
 };
 
 const StyledColor = styled.div<{ theme: Theme; color: string }>`
@@ -38,28 +38,31 @@ const StyledColor = styled.div<{ theme: Theme; color: string }>`
     }
 `;
 
-const Color = ({ theme, text, color }: { theme: Theme; text: string; color: string }) => {
-    return (
-        <CopyToClipboard text={text} onCopy={() => alert(`Copied ${text} successfully!`)}>
-            <StyledColor color={color}>
-                <span className='background'></span>
-                <span className='text'>
-                    {text} - {get(theme.color, color)}
-                </span>
-            </StyledColor>
-        </CopyToClipboard>
-    );
-};
+const Color = ({ theme, text, color }: { theme: Theme; text: string; color: string }) => (
+    <CopyToClipboard
+        text={text}
+        onCopy={() => {
+            alert(`Copied ${text} successfully!`);
+        }}
+    >
+        <StyledColor color={color}>
+            <span className='background' />
+            <span className='text'>
+                {text} - {get(theme.color, color)}
+            </span>
+        </StyledColor>
+    </CopyToClipboard>
+);
 
-export const colors = () => (
+export const Basic = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
                 <Paragraph margin='1rem 0 1rem 0'>Base color palette</Paragraph>
             </Cell>
-            {Object.keys(theme.color).map((color) => (
+            {Object.keys(defaultTheme.color).map((color) => (
                 <Cell xs={2} key={color}>
-                    <Color color={color} text={color} theme={theme} />{' '}
+                    <Color color={color} text={color} theme={defaultTheme} />{' '}
                 </Cell>
             ))}
         </Row>

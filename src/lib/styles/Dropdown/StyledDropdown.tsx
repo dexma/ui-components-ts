@@ -1,4 +1,4 @@
-import { Button, ButtonProps } from '@components';
+import { Button } from '@components';
 import styled, { createGlobalStyle, css } from 'styled-components';
 
 const getDropdownStyle = css`
@@ -211,11 +211,11 @@ const getDropdownStyle = css`
 
 const StyledGlobalDropdown = createGlobalStyle`${getDropdownStyle}`;
 
-export const StyledDropdownInnerButton = styled((props: ButtonProps) => <Button {...props} />)`
+export const StyledDropdownInnerButton = styled(Button)`
     width: 100%;
 `;
 
-export const StyledDropdownButton = styled((props: ButtonProps) => <Button {...props} />)`
+export const StyledDropdownButton = styled(Button)`
     ${(props) => ((!props.variant && props.variant !== '') || props.variant === 'icon' || props.variant === 'icon-secondary' ? 'padding: 0; margin: 0;' : '')}
 `;
 

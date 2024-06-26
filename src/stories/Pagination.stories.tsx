@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Pagination, Grid, Row, Cell, Paragraph } from '@components';
+import { Pagination, Grid, Row, Cell, Paragraph, PaginationProps } from '@components';
 
 export default {
     title: 'Pagination',
@@ -13,7 +13,7 @@ export default {
     },
 };
 
-export const paginations = () => (
+export const Basic = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
@@ -30,7 +30,7 @@ export const paginations = () => (
     </Grid>
 );
 
-export const playground = (args: any) => (
+export const Playground = (args: PaginationProps) => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>

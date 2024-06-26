@@ -1,5 +1,5 @@
 import React from 'react';
-import { Progress, Grid, Row, Cell, Paragraph } from '@components';
+import { Progress, Grid, Row, Cell, Paragraph, ProgressProps } from '@components';
 
 export default {
     title: 'Progress',
@@ -7,7 +7,7 @@ export default {
     tags: ['autodocs'],
 };
 
-export const progress = () => (
+export const Basic = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
@@ -23,7 +23,7 @@ export const progress = () => (
     </Grid>
 );
 
-export const progressTransparent = () => (
+export const ProgressTransparent = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
@@ -45,7 +45,7 @@ const twoMark = [
     { value: 50, color: 'black' },
 ];
 
-export const marks = () => (
+export const Marks = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
@@ -59,7 +59,7 @@ export const marks = () => (
     </Grid>
 );
 
-export const noText = () => (
+export const NoText = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
@@ -75,7 +75,7 @@ export const noText = () => (
     </Grid>
 );
 
-export const playground = (args: any) => (
+export const Playground = (args: ProgressProps) => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>

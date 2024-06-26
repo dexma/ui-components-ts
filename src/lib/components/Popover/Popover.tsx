@@ -1,5 +1,5 @@
 import React from 'react';
-import { Popover as AntDPopover, PopoverProps as AntDPopoverProps } from 'antd';
+import { Popover as AntDPopover, type PopoverProps as AntDPopoverProps } from 'antd';
 
 import { withDataId } from '@components/DataId/withDataId';
 

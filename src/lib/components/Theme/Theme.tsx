@@ -1,10 +1,9 @@
 import React from 'react';
-import { DefaultTheme, ThemeProvider } from 'styled-components';
-import theme from '@utils/theme';
+import { type DefaultTheme, ThemeProvider } from 'styled-components';
+import defaultTheme from '@utils/theme';
 
 export const Theme = ({ children, options }: { children?: React.ReactNode; options?: DefaultTheme }) => {
     if (!children) return null;
-    const defaultTheme = theme;
     let themeProviderOptions;
     if (options === undefined || (options && Object.entries(options).length === 0)) {
         themeProviderOptions = defaultTheme;

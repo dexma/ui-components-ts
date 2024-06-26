@@ -9,7 +9,7 @@ export default {
     tags: ['autodocs'],
 };
 
-export const gauge = () => (
+export const Basic = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
@@ -68,7 +68,7 @@ export const gauge = () => (
     </Grid>
 );
 
-export const basicGauge = () => (
+export const BasicGauge = () => (
     <Gauge
         type='DIAL'
         indicator={{

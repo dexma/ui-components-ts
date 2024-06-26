@@ -1,12 +1,12 @@
 import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import dayjs from 'dayjs';
-import { DatePicker } from '@components/AntdPicker';
+import { DatePicker } from '@components/DatePicker';
 import { expect, describe, it, vitest } from 'vitest';
-import theme from '@utils/theme';
+import defaultTheme from '@utils/theme';
 
-describe('<AntPicker>', () => {
-    describe('AntdDatePicker', () => {
+describe('<DatePicker>', () => {
+    describe('DatePicker', () => {
         it('should render a basic Date picker', () => {
             render(<DatePicker type='date' />);
             const dateInput = screen.getByTestId('antd-date-picker');
@@ -119,9 +119,9 @@ describe('<AntPicker>', () => {
             });
         });
     });
-    describe('AntdRangePicker', () => {
+    describe('DateRangePicker', () => {
         it('should render a basic Range picker', () => {
-            render(<DatePicker type='range' theme={theme} />);
+            render(<DatePicker type='range' theme={defaultTheme} />);
             const dateInput = screen.getByTestId('antd-range-picker');
             expect(dateInput).toBeTruthy();
         });

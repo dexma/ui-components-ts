@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ColorPicker, Grid, Row, Cell, Paragraph } from '@components';
+import { ColorPicker, Grid, Row, Cell, Paragraph, ColorPickerProps } from '@components';
 
 export default {
     title: 'ColorPicker',
@@ -8,7 +8,7 @@ export default {
     tags: ['autodocs'],
 };
 
-export const colorPicker = () => (
+export const Basic = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
@@ -24,7 +24,7 @@ export const colorPicker = () => (
     </Grid>
 );
 
-export const simpleColorPicker = () => (
+export const Simple = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
@@ -40,7 +40,7 @@ export const simpleColorPicker = () => (
     </Grid>
 );
 
-export const presetColorsOnColorPicker = () => (
+export const PresetColors = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
@@ -53,7 +53,7 @@ export const presetColorsOnColorPicker = () => (
     </Grid>
 );
 
-export const playground = (args: any) => (
+export const Playground = (args: ColorPickerProps) => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>

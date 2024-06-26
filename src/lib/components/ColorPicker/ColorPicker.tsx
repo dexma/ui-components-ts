@@ -1,7 +1,7 @@
-import React, { ForwardedRef, forwardRef, useContext, useEffect, useState } from 'react';
+import React, { ChangeEvent, type ForwardedRef, forwardRef, useContext, useEffect, useState } from 'react';
 import { ThemeContext } from 'styled-components';
 
-import theme from '@utils/theme';
+import defaultTheme from '@utils/theme';
 import {
     StyledColorPanel,
     StyledColorPickerInput,
@@ -13,7 +13,7 @@ import {
 } from '@styles/ColorPicker/StyledColorPicker';
 import { withDataId } from '@components/DataId/withDataId';
 
-type ColorPickerProps = {
+export type ColorPickerProps = {
     dataId?: string;
     isLoading?: boolean;
     placeholder?: string;
@@ -30,7 +30,7 @@ export const ColorPicker = withDataId(
             { dataId, isLoading, placeholder = '#FFFFFF', presetColors = [], onChangePicker, onChangeInput, showInput, value = '#FFFFFF' }: ColorPickerProps,
             ref: ForwardedRef<HTMLInputElement>
         ) => {
-            const th = useContext(ThemeContext) || theme;
+            const th = useContext(ThemeContext) || defaultTheme;
             const [showColorPicker, setShowColorPicker] = useState(false);
             const [color, setColor] = useState(value);
 
@@ -45,13 +45,13 @@ export const ColorPicker = withDataId(
                 setShowColorPicker(false);
             };
 
-            const handleChangePicker = (color: { hex: string }) => {
-                setColor(color.hex);
-                onChangePicker && onChangePicker(color);
+            const handleChangePicker = (_color: { hex: string }) => {
+                setColor(_color.hex);
+                if (onChangePicker) onChangePicker(_color);
             };
-            const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+            const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
                 setColor(e.target.value);
-                onChangeInput && onChangeInput(e);
+                if (onChangeInput) onChangeInput(e);
             };
 
             return (

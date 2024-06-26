@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import get from 'lodash/get';
 
-import { Theme } from '@utils/theme';
+import { type Theme } from '@utils/theme';
 import { paragraphSize } from '@utils/selectors';
 
 const getParagraphSize = (props: { $margin: string; color: string; size: 'small' | 'medium' | 'large' | 'xlarge'; theme: Theme }) => {
@@ -22,7 +22,7 @@ const getParagraphSize = (props: { $margin: string; color: string; size: 'small'
     `;
 };
 
-const StyledParagraph = styled.p<{ $margin: string; color: string; size: 'small' | 'medium' | 'large' | 'xlarge'; theme: Theme }>`
+const StyledParagraph = styled.div<{ $margin: string; color: string; size: 'small' | 'medium' | 'large' | 'xlarge'; theme: Theme }>`
     margin: ${(props) => props.$margin};
     color: ${(props) => get(props.theme.color, props.color)};
     ${(props) => getParagraphSize(props)};

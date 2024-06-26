@@ -1,4 +1,4 @@
-import React, { CSSProperties } from 'react';
+import React, { type CSSProperties } from 'react';
 
 import { Grid, Row, Cell, Paragraph } from '@components';
 
@@ -20,7 +20,7 @@ const CellStyle = {
     borderRadius: '4px',
 } as CSSProperties;
 
-export const grid = () => (
+export const Basic = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
@@ -55,7 +55,7 @@ export const grid = () => (
     </Grid>
 );
 
-export const auto = () => (
+export const Auto = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
@@ -78,7 +78,7 @@ export const auto = () => (
     </Grid>
 );
 
-export const offset = () => (
+export const Offset = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>

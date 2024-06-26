@@ -1,29 +1,5 @@
 import { DefaultOptionType } from 'antd/es/select';
 
-export const getOptionsBySearch = (
-    optionsAvailable: {
-        value: string | number;
-        label: string;
-        color?: string;
-    }[],
-    currentSearchValue: string
-) => {
-    if ([...currentSearchValue].every((char) => char === '*' || char === ' ')) {
-        return optionsAvailable;
-    }
-    if (![...currentSearchValue].every((char) => char === '*' || char === ' ')) {
-        const regex = getRegExpBasedOnInput(currentSearchValue);
-        if (regex === false) return [];
-        return optionsAvailable.filter((option) => {
-            return (option.label as string).match(regex);
-        });
-    }
-    if (currentSearchValue !== '' && !currentSearchValue.includes('*')) {
-        return optionsAvailable.filter((option) => (option.label as string).toLowerCase().includes(currentSearchValue.toLowerCase()));
-    }
-    return optionsAvailable;
-};
-
 export const regExpWithoutAllCharacter = (input: string) => new RegExp(input, 'ig');
 export const regExpWithSubstringsWithAllCharacter = (string: string) => new RegExp(`${string}`, 'ig');
 export const regExpWith2Substrings = (initialString: string, finalString: string) => new RegExp(`${initialString}.*?${finalString}`, 'ig');
@@ -51,6 +27,28 @@ export const getRegExpBasedOnInput = (input: string) => {
     }
 };
 
+export const getOptionsBySearch = (
+    optionsAvailable: Array<{
+        value: string | number;
+        label: string;
+        color?: string;
+    }>,
+    currentSearchValue: string
+) => {
+    if ([...currentSearchValue].every((char) => char === '*' || char === ' ')) {
+        return optionsAvailable;
+    }
+    if (![...currentSearchValue].every((char) => char === '*' || char === ' ')) {
+        const regex = getRegExpBasedOnInput(currentSearchValue);
+        if (regex === false) return [];
+        return optionsAvailable.filter((option) => option.label.match(regex));
+    }
+    if (currentSearchValue !== '' && !currentSearchValue.includes('*')) {
+        return optionsAvailable.filter((option) => option.label.toLowerCase().includes(currentSearchValue.toLowerCase()));
+    }
+    return optionsAvailable;
+};
+
 export const findSubstringIndices = (string: string, regex: RegExp) => {
     const match = regex.exec(string);
     return match !== null
@@ -65,7 +63,7 @@ export const findSubstringIndices = (string: string, regex: RegExp) => {
 };
 
 export const singleOptionFilter = (input: string, option?: any) => {
-    if (option && option.label) {
+    if (option?.label) {
         return (option.label as string).toLowerCase().includes(input.toLowerCase());
     }
     return false;
@@ -76,7 +74,7 @@ export const filterOption = (input: string, option?: DefaultOptionType) => {
         return true;
     }
     if (![...input].every((char) => char === '*' || char === ' ')) {
-        if (option && option.children && (option.children as any).props.value) {
+        if (option?.children && (option.children as any).props.value) {
             const regex = getRegExpBasedOnInput(input);
             if (regex === false) return false;
             return (option.children as any).props.value.match(regex);
@@ -84,7 +82,7 @@ export const filterOption = (input: string, option?: DefaultOptionType) => {
         return false;
     }
     if (input !== '' && !input.includes('*')) {
-        if (option && option.children && (option.children as any).props.value) {
+        if (option?.children && (option.children as any).props.value) {
             return (option.children as any).props.value.toLowerCase().includes(input.toLowerCase());
         }
         return false;

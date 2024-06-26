@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
+import { type Dayjs } from 'dayjs';
 
 import { Grid, Row, Cell, Paragraph, SwitchPeriodComparative, SelectedPeriodType } from '@components';
-import { Dayjs } from 'dayjs';
 import { startDate, endDate, previousPeriodText, samePeriodLastYearText } from '../../tests/mock/SwitchPeriodComparative';
 
 export default {
@@ -10,7 +10,7 @@ export default {
     tags: ['autodocs'],
 };
 
-export const switchPeriodComparative = () => {
+export const Basic = () => {
     const [stateNoText, setStateNoText] = useState<{
         period: SelectedPeriodType;
         date: {
@@ -44,7 +44,7 @@ export const switchPeriodComparative = () => {
     );
 };
 
-export const switchPeriodComparativeWitText = () => {
+export const SwitchPeriodComparativeWitText = () => {
     const [state, setState] = useState<{
         period: SelectedPeriodType;
         date: {
@@ -71,7 +71,9 @@ export const switchPeriodComparativeWitText = () => {
                         endDate={endDate}
                         previousPeriodText={previousPeriodText}
                         samePeriodLastYearText={samePeriodLastYearText}
-                        onPeriodSelect={({ period, date }) => setState({ period: period as SelectedPeriodType, date })}
+                        onPeriodSelect={({ period: _period, date }) => {
+                            setState({ period: _period as SelectedPeriodType, date });
+                        }}
                     />
                 </Cell>
             </Row>

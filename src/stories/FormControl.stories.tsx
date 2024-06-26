@@ -15,7 +15,7 @@ export default {
     component: FormControl,
 };
 
-export const basic = () => (
+export const Basic = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
@@ -47,7 +47,7 @@ export const basic = () => (
     </Grid>
 );
 
-export const input = () => (
+export const Input = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
@@ -79,7 +79,7 @@ export const input = () => (
     </Grid>
 );
 
-export const checkbox = () => (
+export const Checkbox = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
@@ -111,7 +111,7 @@ export const checkbox = () => (
     </Grid>
 );
 
-export const select = () => (
+export const Select = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
@@ -139,7 +139,7 @@ export const select = () => (
     </Grid>
 );
 
-export const datePicker = () => (
+export const DatePicker = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>

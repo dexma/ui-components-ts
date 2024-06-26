@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { RadioFieldGroup, CheckboxFieldGroup, Grid, Row, Cell, Paragraph, FieldGroupItem, FieldGroupVariant, ButtonSize } from '@components';
+import { RadioFieldGroup, CheckboxFieldGroup, Grid, Row, Cell, Paragraph, type FieldGroupItem, FieldGroupVariant, ButtonSize, RadioFieldGroupProps } from '@components';
 import { mockRadioGroup, mockRadioCustomGroup, mockCheckboxGroup, mockSelectedRadioItem, mockSelectedCheckboxItem } from '../../tests/mock/FieldGroup';
 
 export default {
@@ -22,23 +22,15 @@ const RadioCustomGroup = (props: { size: ButtonSize }) => {
     const handleChange = ({ value }: FieldGroupItem) => {
         setSelectedValue(value);
     };
-    return (
-        <>
-            <RadioFieldGroup variant={FieldGroupVariant.CUSTOM} values={mockRadioCustomGroup} selectedValues={selectedValues} onChange={handleChange} {...props} />
-        </>
-    );
+    return <RadioFieldGroup variant={FieldGroupVariant.CUSTOM} values={mockRadioCustomGroup} selectedValues={selectedValues} onChange={handleChange} {...props} />;
 };
 
-const RadioSplitGroup = (props: {}) => {
+const RadioSplitGroup = (props: Partial<RadioFieldGroupProps>) => {
     const [selectedValues, setSelectedValue] = useState(mockSelectedRadioItem);
     const handleChange = ({ value }: FieldGroupItem) => {
         setSelectedValue(value);
     };
-    return (
-        <>
-            <RadioFieldGroup variant={FieldGroupVariant.SPLIT} values={mockRadioGroup} selectedValues={selectedValues} onChange={handleChange} {...props} />
-        </>
-    );
+    return <RadioFieldGroup variant={FieldGroupVariant.SPLIT} {...props} values={mockRadioGroup} selectedValues={selectedValues} onChange={handleChange} />;
 };
 
 const CheckboxGroup = (props: { horizontal?: boolean; vertical?: boolean }) => {
@@ -56,7 +48,7 @@ const CheckboxGroup = (props: { horizontal?: boolean; vertical?: boolean }) => {
     return <CheckboxFieldGroup values={mockCheckboxGroup} selectedValues={selectedValues} onChange={handleChange} {...props} />;
 };
 
-export const fieldJoinedVariantGroupRadio = () => (
+export const FieldJoinedVariantGroupRadio = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
@@ -69,7 +61,7 @@ export const fieldJoinedVariantGroupRadio = () => (
     </Grid>
 );
 
-export const fieldCustomVariantGroupRadio = () => (
+export const FieldCustomVariantGroupRadio = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
@@ -79,7 +71,7 @@ export const fieldCustomVariantGroupRadio = () => (
     </Grid>
 );
 
-export const fieldSplitVariantGroupRadio = () => (
+export const FieldSplitVariantGroupRadio = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12} style={{ marginBottom: '10px' }}>
@@ -92,14 +84,14 @@ export const fieldSplitVariantGroupRadio = () => (
     </Grid>
 );
 
-export const fieldGroupCheckboxTooltips = () => (
+export const FieldGroupCheckboxTooltips = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
                 <Paragraph margin='1rem 0 1rem 0'>Create group of input with type checkbox and vertically</Paragraph>
             </Cell>
             <Cell xs={12} style={{ marginBottom: '10px' }}>
-                <CheckboxGroup horizontal />
+                <CheckboxGroup />
             </Cell>
             <Cell xs={12}>
                 <CheckboxGroup vertical />

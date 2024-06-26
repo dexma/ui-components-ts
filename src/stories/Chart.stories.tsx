@@ -19,7 +19,7 @@ export default {
     },
 };
 
-export const basic = () => (
+export const Basic = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
@@ -35,7 +35,7 @@ export const basic = () => (
     </Grid>
 );
 
-export const mvExample = () => (
+export const MvExample = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
@@ -57,7 +57,7 @@ export const mvExample = () => (
     </Grid>
 );
 
-export const chartLoading = () => (
+export const Loading = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
@@ -70,7 +70,7 @@ export const chartLoading = () => (
     </Grid>
 );
 
-export const chartError = () => (
+export const Error = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
@@ -85,7 +85,7 @@ export const chartError = () => (
                             variant={ResultVariants.ERROR}
                             title='Submission Failed'
                             info='Please check and modify the following information before resubmitting.'
-                            content={<button>"Cancel"</button>}
+                            content={<button type='button'>Cancel</button>}
                         />
                     }
                 />
@@ -108,7 +108,7 @@ export const chartError = () => (
     </Grid>
 );
 
-export const basicArea = () => (
+export const BasicArea = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
@@ -121,7 +121,7 @@ export const basicArea = () => (
     </Grid>
 );
 
-export const stackedBar = () => (
+export const StackedBar = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
@@ -134,7 +134,7 @@ export const stackedBar = () => (
     </Grid>
 );
 
-export const stackedBarNegative = () => (
+export const StackedBarNegative = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
@@ -147,7 +147,7 @@ export const stackedBarNegative = () => (
     </Grid>
 );
 
-export const mixed = () => (
+export const Mixed = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
@@ -160,7 +160,7 @@ export const mixed = () => (
     </Grid>
 );
 
-export const heatmap = () => (
+export const Heatmap = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Row, Cell, Paragraph, Tooltip, Button } from '@components';
+import { Grid, Row, Cell, Paragraph, Tooltip, Button, TooltipPropsExtended } from '@components';
 
 export default {
     title: 'Tooltip',
@@ -7,7 +7,7 @@ export default {
     tags: ['autodocs'],
 };
 
-export const tooltip = () => (
+export const Basic = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
@@ -18,23 +18,23 @@ export const tooltip = () => (
             </Cell>
             <Cell>
                 <Tooltip title='Tooltip' trigger='click'>
-                    <Button text='Click me'></Button>
+                    <Button text='Click me' />
                 </Tooltip>
                 <Tooltip title='Tooltip'>
-                    <Button text='Test' iconBefore='vader'></Button>
+                    <Button text='Test' iconBefore='vader' />
                 </Tooltip>
                 <Tooltip title='Tooltip top' position='top'>
-                    <Button text='Test top' iconBefore='vader' variant='secondary'></Button>
+                    <Button text='Test top' iconBefore='vader' variant='secondary' />
                 </Tooltip>
                 <Tooltip title='Tooltip right' position='right'>
-                    <Button iconBefore='help' isCircle></Button>
+                    <Button iconBefore='help' isCircle />
                 </Tooltip>
             </Cell>
         </Row>
     </Grid>
 );
 
-export const playground = (args: any) => (
+export const Playground = (args: TooltipPropsExtended) => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>

@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { Dropdown, DropdownProps, Row, Grid, Cell, Paragraph } from '@components';
+import { Dropdown, type DropdownProps, Row, Grid, Cell, Paragraph } from '@components';
 
-const content = [
+const innerContent = [
     {
         text: 'Edit',
         icon: 'edit',
@@ -25,63 +25,63 @@ export default {
     tags: ['autodocs'],
 };
 
-export const dropdown = () => (
+export const Basic = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
                 <Paragraph margin='1rem 0 1rem 0'>A simple dropdown that provides action elements like links and buttons.</Paragraph>
             </Cell>
             <Cell xs={12}>
-                <Dropdown icon='more_horiz' content={content} />
-                <Dropdown icon='add' content={content} />
+                <Dropdown icon='more_horiz' content={innerContent} />
+                <Dropdown icon='add' content={innerContent} />
             </Cell>
         </Row>
     </Grid>
 );
 
-export const dropdownWithText = () => (
+export const DropdownWithText = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
                 <Paragraph margin='1rem 0 1rem 0'>The text prop allows the dropdown to be more descriptive.</Paragraph>
             </Cell>
             <Cell xs={12}>
-                <Dropdown icon='add' content={content} text='Dropdown' trigger={['click']} />
+                <Dropdown icon='add' content={innerContent} text='Dropdown' trigger={['click']} />
             </Cell>
         </Row>
     </Grid>
 );
 
-export const dropdownWithPlacement = () => (
+export const DropdownWithPlacement = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
                 <Paragraph margin='1rem 0 1rem 0'>You can use the placement prop to adjust the dropdown position.</Paragraph>
-                <br></br>
+                <br />
             </Cell>
             <Cell xs={12} xsOffset={2}>
-                <Dropdown icon='settings' content={content} text='Bottom' placement='bottom' />
-            </Cell>
-            <br />
-            <Cell xs={12} xsOffset={2}>
-                <Dropdown icon='settings' content={content} text='Top' placement='top' />
+                <Dropdown icon='settings' content={innerContent} text='Bottom' placement='bottom' />
             </Cell>
             <br />
             <Cell xs={12} xsOffset={2}>
-                <Dropdown icon='settings' content={content} text='Left' placement='bottomLeft' />
+                <Dropdown icon='settings' content={innerContent} text='Top' placement='top' />
             </Cell>
             <br />
             <Cell xs={12} xsOffset={2}>
-                <Dropdown icon='settings' content={content} text='Right' placement='bottomRight' />
+                <Dropdown icon='settings' content={innerContent} text='Left' placement='bottomLeft' />
+            </Cell>
+            <br />
+            <Cell xs={12} xsOffset={2}>
+                <Dropdown icon='settings' content={innerContent} text='Right' placement='bottomRight' />
             </Cell>
         </Row>
     </Grid>
 );
 
-export const playground = (args: DropdownProps) => {
-    if (typeof args.content === 'object' && !Array.isArray(args.content)) {
+export const Playground = ({ content, ...props }: DropdownProps) => {
+    if (typeof content === 'object' && !Array.isArray(content)) {
         // eslint-disable-next-line
-        args.content = [];
+        content = [];
     }
     return (
         <Grid fluid>
@@ -90,7 +90,7 @@ export const playground = (args: DropdownProps) => {
                     <Paragraph margin='1rem 0 1rem 0'>Use the Controls on the section below to add your own props to this Dropdown.</Paragraph>
                 </Cell>
                 <Cell xs={12}>
-                    <Dropdown {...args} />
+                    <Dropdown {...props} />
                 </Cell>
             </Row>
         </Grid>

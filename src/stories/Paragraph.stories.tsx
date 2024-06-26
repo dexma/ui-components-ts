@@ -7,7 +7,7 @@ export default {
     tags: ['autodocs'],
 };
 
-export const paragraph = () => (
+export const Basic = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>

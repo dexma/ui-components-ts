@@ -1,8 +1,8 @@
 import { styled } from 'styled-components';
-import theme from '@utils/theme';
 import { glow } from '@utils/animation';
+import { Theme } from '@utils/theme';
 
-const StyledDot = styled.div<{ theme: typeof theme; size: number }>`
+const StyledDot = styled.div<{ theme: Theme; size: number }>`
     background: ${(props) => props.theme.iconColor};
     display: inline-block;
     vertical-align: top;

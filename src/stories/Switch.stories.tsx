@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Row, Cell, Paragraph, Switch } from '@components';
+import { Grid, Row, Cell, Paragraph, Switch, SwitchProps } from '@components';
 
 export default {
     title: 'Switch',
@@ -7,7 +7,7 @@ export default {
     tags: ['autodocs'],
 };
 
-export const defaultSwitch = () => (
+export const DefaultSwitch = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
@@ -20,7 +20,7 @@ export const defaultSwitch = () => (
     </Grid>
 );
 
-export const sizes = () => (
+export const Sizes = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
@@ -33,7 +33,7 @@ export const sizes = () => (
     </Grid>
 );
 
-export const disabled = () => (
+export const Disabled = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
@@ -45,7 +45,8 @@ export const disabled = () => (
         </Row>
     </Grid>
 );
-export const playground = (args: any) => (
+
+export const Playground = (args: SwitchProps) => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>

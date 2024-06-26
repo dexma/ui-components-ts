@@ -60,7 +60,7 @@ const StyledFormControl = styled.div<{ $error?: boolean; $success?: boolean }>`
         font-size: ${(props) => formControlMessageFontSize(props.theme)};
         color: ${(props) => {
             let colorMessage = gray300(props.theme);
-            props.$error && (colorMessage = error);
+            if (props.$error) colorMessage = error;
             return colorMessage;
         }};
     }

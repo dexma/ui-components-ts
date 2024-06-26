@@ -1,11 +1,11 @@
-import React, { ReactNode, useContext } from 'react';
+import React, { type ReactNode, useContext } from 'react';
 import classNames from 'classnames';
-import { uniqueId } from 'lodash';
+import { uniqueId as lodashUniqueId } from 'lodash';
 import find from 'lodash/find';
 import set from 'lodash/set';
 import { ThemeContext } from 'styled-components';
 
-import theme from '@utils/theme';
+import defaultTheme from '@utils/theme';
 import { withDataId } from '@components/DataId/withDataId';
 import { StyledFieldGroup } from '@styles/Fieldgroup/StyledFieldGroup';
 import { ButtonSize, Icon, Tooltip } from '@components';
@@ -75,12 +75,6 @@ export type FieldGroupItem = {
     isDisabled?: boolean;
 };
 
-export const RadioFieldGroup = withDataId((props: FieldGroupProps<string | number>) => GenericFieldGroup({ ...props, type: FieldGroupType.RADIO }), 'radio-field-group');
-export const CheckboxFieldGroup = withDataId(
-    (props: FieldGroupProps<(string | number)[]>) => GenericFieldGroup({ ...props, type: FieldGroupType.CHECKBOX }),
-    'checkbox-field-group'
-);
-
 const GenericFieldGroup = <T extends FieldGroupType, V>({
     type,
     variant = FieldGroupVariant.JOINED,
@@ -94,13 +88,13 @@ const GenericFieldGroup = <T extends FieldGroupType, V>({
     dataId,
     ...props
 }: GenericFieldGroupProps<T, V>) => {
-    const th = useContext(ThemeContext) || theme;
+    const th = useContext(ThemeContext) || defaultTheme;
     const uniqueValues =
         values.length > 0
             ? [
                   ...values.map((value: FieldGroupItem) => ({
                       ...value,
-                      uniqueId: uniqueId(value.id),
+                      uniqueId: lodashUniqueId(value.id),
                   })),
               ]
             : [];
@@ -110,7 +104,7 @@ const GenericFieldGroup = <T extends FieldGroupType, V>({
     // const fieldGroupProps = omit(props, ['values', 'selectedValues', 'name', 'onChange', 'onFieldClick', 'dataId']);
     const handleOnFieldClick = (item: FieldGroupItem) => {
         const { uniqueId, ...itemRest } = item;
-        onFieldClick && onFieldClick(itemRest);
+        if (onFieldClick) onFieldClick(itemRest);
     };
 
     const handleOnChange = (item: FieldGroupItem) => {
@@ -125,19 +119,24 @@ const GenericFieldGroup = <T extends FieldGroupType, V>({
                 const isSelected = isFieldSelected({ type, selectedValues: item }, selectedField);
                 const classesItem = classNames('item', label ? `item-${label}` : null, isSelected && 'active', isDisabled && 'disabled');
                 const getLabel = () => (
+                    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
                     <label
                         className={classesItem}
                         data-tooltip={tooltip}
                         htmlFor={`${uniqueId}_${value}`}
                         key={`${uniqueId}_${value}`}
-                        onClick={() => handleOnFieldClick(item)}
+                        onClick={() => {
+                            handleOnFieldClick(item);
+                        }}
                         data-testid='field-group-label'
                     >
                         {!icon && label ? label : null}
                         {icon ? <Icon name={icon} size={variant === 'custom' && size === 'large' ? 'xlarge' : size} color={colors.red} /> : null}
                         <input
                             id={`${uniqueId}_${value}`}
-                            onChange={() => handleOnChange(item)}
+                            onChange={() => {
+                                handleOnChange(item);
+                            }}
                             type={type}
                             name={name}
                             value={value}
@@ -158,3 +157,12 @@ const GenericFieldGroup = <T extends FieldGroupType, V>({
         </StyledFieldGroup>
     );
 };
+
+export type RadioFieldGroupProps = FieldGroupProps<string | number>;
+export type CheckboxFieldGroupProps = FieldGroupProps<Array<string | number>>;
+
+export const RadioFieldGroup = withDataId((props: RadioFieldGroupProps) => GenericFieldGroup({ ...props, type: FieldGroupType.RADIO }), 'radio-field-group');
+export const CheckboxFieldGroup = withDataId(
+    (props: FieldGroupProps<Array<string | number>>) => GenericFieldGroup({ ...props, type: FieldGroupType.CHECKBOX }),
+    'checkbox-field-group'
+);

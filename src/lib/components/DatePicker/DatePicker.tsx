@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
 import { ThemeContext } from 'styled-components';
-import { ConfigProvider, DatePickerProps } from 'antd';
-import { RangePickerProps } from 'antd/lib/date-picker';
+import { ConfigProvider, type DatePickerProps } from 'antd';
+import { type RangePickerProps } from 'antd/lib/date-picker';
 
-import defaultTheme, { Theme } from '@utils/theme';
+import defaultTheme, { type Theme } from '@utils/theme';
 import { Icon } from '@components/Icon';
 import { withDataId } from '@components/DataId/withDataId';
-import { DropdownDatePickerStyles, StyledAntdDatePicker, StyledAntdRangePicker } from '@styles/AntdPicker/StyledAntdPicker';
+import { DropdownDatePickerStyles, StyledAntdDatePicker, StyledAntdRangePicker } from '@styles/DatePicker/StyledDatePicker';
 import * as datePickerUtils from './datePickerUtils';
 
 type CommonProps = {
@@ -16,7 +16,7 @@ type CommonProps = {
     theme?: Theme;
 };
 
-type AntdDatePickerProps = DatePickerProps & CommonProps;
+export type AntdDatePickerProps = DatePickerProps & CommonProps;
 
 export const AntdDatePicker = withDataId(({ lang = 'en', theme = defaultTheme, dataId, format, ...props }: AntdDatePickerProps) => {
     const th = useContext(ThemeContext) || theme;
@@ -72,9 +72,9 @@ export const AntdRangePicker = withDataId(({ lang = 'en', theme = defaultTheme, 
     );
 }, 'rangepicker');
 
-type DatePicker = { type: 'date' | 'range' } & (AntdDatePickerProps | AntdRangePickerProps);
+type DatePickerType = { type: 'date' | 'range' } & (AntdDatePickerProps | AntdRangePickerProps);
 
-export const DatePicker = ({ type, ...props }: DatePicker) => {
+export const DatePicker = ({ type, ...props }: DatePickerType) => {
     if (type === 'range') {
         return <AntdRangePicker {...(props as AntdRangePickerProps)} />;
     }

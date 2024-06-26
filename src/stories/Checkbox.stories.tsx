@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Checkbox, Grid, Row, Cell, Paragraph } from '@components';
+import { Checkbox, Grid, Row, Cell, Paragraph, CheckboxProps } from '@components';
 
 export default {
     title: 'Checkbox',
@@ -10,7 +10,9 @@ export default {
 
 const CheckboxBasic = ({ text }: { text?: string }) => {
     const [checked, setChecked] = useState(false);
-    const handleChange = () => setChecked(!checked);
+    const handleChange = () => {
+        setChecked(!checked);
+    };
     return (
         <Checkbox checked={checked} onChange={handleChange}>
             {text && text}
@@ -18,7 +20,7 @@ const CheckboxBasic = ({ text }: { text?: string }) => {
     );
 };
 
-export const basic = () => (
+export const Basic = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
@@ -42,7 +44,7 @@ export const basic = () => (
     </Grid>
 );
 
-export const playground = (args: any) => (
+export const Playground = (args: CheckboxProps) => (
     <Grid fluid>
         <Row style={{ marginBottom: '10px' }}>
             <Cell xs={12}>

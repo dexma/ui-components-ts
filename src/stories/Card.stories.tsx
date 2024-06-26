@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Grid, Cell, Button, Row, Paragraph, Card } from '@components';
+import { Grid, Cell, Button, Row, Paragraph, Card, CardProps } from '@components';
 import { StyledCell } from '@styles/Cell/StyledCell';
 import { mockCards } from '../../tests/mock/Card';
 
@@ -17,29 +17,29 @@ const StyledCustomGrid = styled(Grid)`
     }
 `;
 
-export const cards = () => (
+export const Cards = () => (
     <StyledCustomGrid fluid>
         <Row>
             <Cell xs={12}>
                 <Paragraph margin='1rem 0 1rem 0'>We present our simple and custom cards.</Paragraph>
             </Cell>
-            {mockCards.map((card, i) => (
-                <Cell xs={4} key={i}>
-                    <Card isLoading title={card.title} subtitle='With supporting text below as a natural lead-in to additional content.' />
+            {mockCards.map((card) => (
+                <Cell xs={4} key={card.title}>
+                    <Card title={card.title} subtitle='With supporting text below as a natural lead-in to additional content.' />
                 </Cell>
             ))}
         </Row>
     </StyledCustomGrid>
 );
 
-export const image = () => (
+export const Image = () => (
     <StyledCustomGrid fluid>
         <Row>
             <Cell xs={12}>
                 <Paragraph margin='1rem 0 1rem 0'>Here we have cards but we pass a image prop.</Paragraph>
             </Cell>
-            {mockCards.map((card, i) => (
-                <Cell xs={4} key={i}>
+            {mockCards.map((card) => (
+                <Cell xs={4} key={card.title}>
                     <Card title={card.title} image={card.image} />
                 </Cell>
             ))}
@@ -47,14 +47,14 @@ export const image = () => (
     </StyledCustomGrid>
 );
 
-export const icons = () => (
+export const Icons = () => (
     <StyledCustomGrid fluid>
         <Row>
             <Cell xs={12}>
                 <Paragraph margin='1rem 0 1rem 0'>Here we have cards but we pass a icon name.</Paragraph>
             </Cell>
-            {mockCards.map((card, i) => (
-                <Cell xs={4} key={i}>
+            {mockCards.map((card) => (
+                <Cell xs={4} key={card.title}>
                     <Card title={card.title} icon={card.icon} subtitle='With supporting text below as a natural lead-in to additional content.' />
                 </Cell>
             ))}
@@ -62,14 +62,14 @@ export const icons = () => (
     </StyledCustomGrid>
 );
 
-export const footer = () => (
+export const Footer = () => (
     <StyledCustomGrid fluid>
         <Row>
             <Cell xs={12}>
                 <Paragraph margin='1rem 0 1rem 0'>Here we have cards and custom footer. You can pass JSX element to it to render a component inside the footer.</Paragraph>
             </Cell>
-            {mockCards.map((card, i) => (
-                <Cell xs={4} key={i}>
+            {mockCards.map((card) => (
+                <Cell xs={4} key={card.title}>
                     <Card
                         title={card.title}
                         image={card.image}
@@ -86,14 +86,14 @@ export const footer = () => (
     </StyledCustomGrid>
 );
 
-export const link = () => (
+export const Link = () => (
     <StyledCustomGrid fluid>
         <Row>
             <Cell xs={12}>
                 <Paragraph margin='1rem 0 1rem 0'>This is an example of the a link (image) with a card.</Paragraph>
             </Cell>
-            {mockCards.map((card, i) => (
-                <Cell xs={4} key={i}>
+            {mockCards.map((card) => (
+                <Cell xs={4} key={card.title}>
                     <Card title={card.title} image={card.image} subtitle='With supporting text below as a natural lead-in to additional content.' link={card.image} />
                 </Cell>
             ))}
@@ -101,14 +101,14 @@ export const link = () => (
     </StyledCustomGrid>
 );
 
-export const horizontal = () => (
+export const Horizontal = () => (
     <StyledCustomGrid fluid>
         <Row>
             <Cell xs={12}>
                 <Paragraph margin='1rem 0 1rem 0'>Here we have horizontal cards.</Paragraph>
             </Cell>
-            {mockCards.map((card, i) => (
-                <Cell xs={6} key={i}>
+            {mockCards.map((card) => (
+                <Cell xs={6} key={card.title}>
                     <Card title={card.title} image={card.image} subtitle='With supporting text below as a natural lead-in to additional content.' isHorizontal />
                 </Cell>
             ))}
@@ -116,14 +116,14 @@ export const horizontal = () => (
     </StyledCustomGrid>
 );
 
-export const horizontalFooter = () => (
+export const HorizontalFooter = () => (
     <StyledCustomGrid fluid>
         <Row>
             <Cell xs={12}>
                 <Paragraph margin='1rem 0 1rem 0'>Here we have horizontal cards and we can customize the footer, passing a JSX element to it.</Paragraph>
             </Cell>
-            {mockCards.map((card, i) => (
-                <Cell xs={12} key={i}>
+            {mockCards.map((card) => (
+                <Cell xs={12} key={card.title}>
                     <Card
                         title={card.title}
                         image={card.image}
@@ -141,7 +141,7 @@ export const horizontalFooter = () => (
     </StyledCustomGrid>
 );
 
-export const playground = (args: any) => (
+export const Playground = (args: CardProps) => (
     <StyledCustomGrid fluid>
         <Row>
             <Cell xs={12}>

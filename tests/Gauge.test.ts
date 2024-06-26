@@ -1,5 +1,6 @@
 import React from 'react';
 import { describe, expect, it } from 'vitest';
+import defaultTheme from '@utils/theme';
 import {
     getBackgroundSerie,
     getChart,
@@ -35,7 +36,6 @@ import {
     mockValueBiggerThanMaxPropsGauge,
     mockValueLessThanMinPropsGauge,
 } from './mock/Gauge';
-import theme from '@utils/theme';
 
 describe('<Gauge>', () => {
     describe('Ancillary functions', () => {
@@ -94,7 +94,7 @@ describe('<Gauge>', () => {
             it('should return a range serie, based on the backgroundColor of theme, that defines the whole shadow of the main arc on the gauge', () => {
                 // Given
                 const expectedSerie = expectedBackgroundSerie;
-                const backgroundColor = theme.backgroundColor;
+                const { backgroundColor } = defaultTheme;
                 const maxValue = 100;
                 // When
                 const resultingSerie = getBackgroundSerie(backgroundColor, maxValue);

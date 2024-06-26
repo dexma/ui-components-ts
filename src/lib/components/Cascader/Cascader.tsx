@@ -1,14 +1,14 @@
-import React, { MouseEvent, ReactNode, useContext, useRef, useState } from 'react';
-import { Cascader as CascaderAntd, ConfigProvider, CascaderProps as CascaderAntdProps } from 'antd';
-import { CascaderRef, DefaultOptionType } from 'antd/es/cascader';
-import { DefaultTheme, ThemeContext } from 'styled-components';
+import React, { type MouseEvent, type ReactNode, useContext, useRef, useState } from 'react';
+import { Cascader as CascaderAntd, ConfigProvider, type CascaderProps as CascaderAntdProps } from 'antd';
+import { type CascaderRef, type DefaultOptionType } from 'antd/es/cascader';
+import { type DefaultTheme, ThemeContext } from 'styled-components';
 
-import theme from '@utils/theme';
+import defaultTheme from '@utils/theme';
 import { Icon } from '@components/Icon';
 import { CascaderOptionStyle, StyledTagSelected } from '@styles/Cascader/StyledCascader';
 import { colors } from 'index';
 
-type Value = (string | number)[];
+type Value = Array<string | number>;
 type CascaderProps<OptionType extends DefaultOptionType> = CascaderAntdProps & {
     open?: boolean;
     options?: OptionType[];
@@ -31,13 +31,13 @@ export const tagRender = (theme: DefaultTheme) => (props: { label: ReactNode; va
 };
 
 export const Cascader = <OptionType extends DefaultOptionType>({ multiple, options = [], maxTagCount, onChange, open, ...props }: CascaderProps<OptionType>) => {
-    const th = useContext(ThemeContext) || theme;
+    const th = useContext(ThemeContext) || defaultTheme;
     const [currentOpen, setCurrentOpen] = useState(open || false);
     const ref = useRef<CascaderRef>();
 
     const handleOnChange = (value: Value | Value[]) => {
-        onChange && onChange(value);
-        if (!multiple) ref.current?.blur() && setCurrentOpen(false);
+        if (onChange) onChange(value);
+        if (!multiple && ref.current?.blur()) setCurrentOpen(false);
     };
 
     return (
@@ -67,7 +67,7 @@ export const Cascader = <OptionType extends DefaultOptionType>({ multiple, optio
                     onFocus={() => {
                         setCurrentOpen(true);
                     }}
-                    tagRender={tagRender(theme)}
+                    tagRender={tagRender(defaultTheme)}
                     maxTagPlaceholder={(values) => `+${values.length}`}
                     open={currentOpen}
                     {...props}

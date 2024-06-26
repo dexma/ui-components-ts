@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { Theme, color } from '@utils/theme';
+import { type Theme, color } from '@utils/theme';
 import { backgroundColor, borderRadius, fontColor, fontSize, fontWeightSemiBold, primaryColor, primaryColorSvg, switchPeriodComparativeFontSize } from '@utils/selectors';
 import { StyledFieldGroup } from '@styles/Fieldgroup/StyledFieldGroup';
 import { StyledIcon } from '@styles/Icon/StyledIcon';

@@ -1,21 +1,21 @@
-import React, { CSSProperties, ReactNode, useContext } from 'react';
+import React, { type CSSProperties, type ReactNode, useContext } from 'react';
 import { ThemeContext } from 'styled-components';
 
-import theme from '@utils/theme';
+import defaultTheme from '@utils/theme';
 import { Spinner } from '@components';
 import { StyledLoading } from '@styles/Loading/StyledLoading';
 
-type LoadingProps = {
+export type LoadingProps = {
     size?: number;
     isLoading: boolean;
-    color?: typeof theme.color;
+    color?: typeof defaultTheme.color;
     children?: ReactNode;
     className?: string;
     style?: CSSProperties;
 };
 
 export const Loading = ({ color, size = 24, isLoading, children, ...props }: LoadingProps) => {
-    const th = useContext(ThemeContext) || theme;
+    const th = useContext(ThemeContext) || defaultTheme;
     return isLoading ? (
         <StyledLoading data-testid='loading' theme={th} {...props}>
             <Spinner color={color} size={size} />

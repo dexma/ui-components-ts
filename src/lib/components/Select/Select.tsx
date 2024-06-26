@@ -1,15 +1,15 @@
-import { Select, SelectProps } from 'antd';
-import theme, { Theme } from '@utils/theme';
+import { Select as AntdSelect, type SelectProps as AntdSelectProps } from 'antd';
+import defaultTheme, { type Theme } from '@utils/theme';
 import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { get } from 'lodash';
 import { ThemeContext } from 'styled-components';
 
 import { Icon, Tooltip } from '@components';
 import { withDataId } from '@components/DataId/withDataId';
-import { SelectOptionStyle, StyledAntdSelectDropdown, StyledSpanOption, StyledSpanOptionSelected } from '@styles/AntdSelect/StyledAntdSelect';
-import { filterOption, findSubstringIndices, getOptionsBySearch, getRegExpBasedOnInput, singleOptionFilter } from '../AntdSelect/selectUtils';
-import { ButtonPaginationSelector } from '../AntdSelect/ButtonPaginationSelector';
+import { SelectOptionStyle, StyledSelectDropdown, StyledSpanOption, StyledSpanOptionSelected } from '@styles/Select/StyledSelect';
 import { colors } from 'index';
+import { filterOption, findSubstringIndices, getOptionsBySearch, getRegExpBasedOnInput, singleOptionFilter } from './selectUtils';
+import { ButtonPaginationSelector } from './ButtonPaginationSelector';
 
 const ALL_CHARACTER = '*';
 const ENTER_CHARACTER = 'Enter';
@@ -44,7 +44,7 @@ export const tagRenderButtonPagination = (props: CustomTagProps, options: Option
     };
 
     const option = options.filter((element) => element.value === value)[0];
-    const parsedLabel = (option.label as string).length > maxTagLength - 3 ? `${(option.label as string).slice(0, maxTagLength - 3)}...` : option.label;
+    const parsedLabel = option.label.length > maxTagLength - 3 ? `${option.label.slice(0, maxTagLength - 3)}...` : option.label;
 
     return (
         <Tooltip title={option.label}>
@@ -65,7 +65,7 @@ export const tagRenderButtonPagination = (props: CustomTagProps, options: Option
     );
 };
 
-export const dropdownRenderSelectAntd = (
+export const dropdownRenderSelect = (
     menu: React.ReactElement,
     currentPage: number,
     options: Option[],
@@ -77,28 +77,24 @@ export const dropdownRenderSelectAntd = (
     mode: string,
     theme: Theme,
     pageSize?: number
-) => {
-    return (
-        <>
-            <StyledAntdSelectDropdown data-testid='select-dropdown'>
-                {menu}
-                {pageSize !== undefined && ['multiple', 'tags'].includes(mode) && (
-                    <ButtonPaginationSelector
-                        pageSize={pageSize}
-                        currentPage={currentPage}
-                        handleSelectAll={handleSelectAll}
-                        onPageChange={handleChangePage}
-                        options={options}
-                        text={text}
-                        theme={theme}
-                        searchValue={searchValue}
-                        showDropdown={showDropdown}
-                    />
-                )}
-            </StyledAntdSelectDropdown>
-        </>
-    );
-};
+) => (
+    <StyledSelectDropdown data-testid='select-dropdown'>
+        {menu}
+        {pageSize !== undefined && ['multiple', 'tags'].includes(mode) && (
+            <ButtonPaginationSelector
+                pageSize={pageSize}
+                currentPage={currentPage}
+                handleSelectAll={handleSelectAll}
+                onPageChange={handleChangePage}
+                options={options}
+                text={text}
+                theme={theme}
+                searchValue={searchValue}
+                showDropdown={showDropdown}
+            />
+        )}
+    </StyledSelectDropdown>
+);
 
 export const renderUnselectedOption = (option: any, searchValue: string, dataId: string) => {
     if (searchValue !== '' && (![...searchValue].every((char) => char === '*' || char === ' ') || !searchValue.includes(ALL_CHARACTER))) {
@@ -116,7 +112,7 @@ export const renderUnselectedOption = (option: any, searchValue: string, dataId:
                 <StyledSpanOption data-testid={`option-span-${option}-bold`} data-id={`${dataId}.option-span-${option.value}-bold`} value={option as string}>
                     {[...option].map((letter, index) => {
                         const isBold = searchValue.includes(ALL_CHARACTER) ? index === indices.start || index === indices.end : index >= indices.start && index <= indices.end;
-                        return isBold ? <b key={index}>{letter}</b> : letter;
+                        return isBold ? <b key={letter}>{letter}</b> : letter;
                     })}
                 </StyledSpanOption>
             );
@@ -129,19 +125,19 @@ export const renderUnselectedOption = (option: any, searchValue: string, dataId:
     );
 };
 
-const isDisabledOption = (option: Option, selectedValues: (string | number)[], pageSize?: number) => {
+const isDisabledOption = (option: Option, selectedValues: Array<string | number>, pageSize?: number) => {
     if (pageSize !== undefined) return selectedValues.length >= pageSize && !selectedValues.includes(option.value);
     return false;
 };
 
-export const optionsRenderer = (options: Option[], selectedValues: (string | number)[], searchValue: string, theme: Theme, dataId: string, pageSize?: number) => {
+export const optionsRenderer = (options: Option[], selectedValues: Array<string | number>, searchValue: string, theme: Theme, dataId: string, pageSize?: number) => {
     const optionsToRender = searchValue !== '' ? options : (getOptionsBySearch(options, searchValue) as Option[]);
     return (
         <>
             {optionsToRender.map((option) => {
                 const backgroundColor = selectedValues.includes(option.value) ? get(theme.color, option.color) : '#FFFFFF';
                 return (
-                    <Select.Option
+                    <AntdSelect.Option
                         id={option.value}
                         className='option-select'
                         key={option.value}
@@ -150,7 +146,7 @@ export const optionsRenderer = (options: Option[], selectedValues: (string | num
                         theme={theme}
                         color={option.color}
                         style={{
-                            backgroundColor: backgroundColor,
+                            backgroundColor,
                         }}
                         selected={selectedValues.includes(option.value)}
                         data-testid={`select-option-${option.value}`}
@@ -163,7 +159,7 @@ export const optionsRenderer = (options: Option[], selectedValues: (string | num
                         ) : (
                             renderUnselectedOption(option.label, searchValue, dataId)
                         )}
-                    </Select.Option>
+                    </AntdSelect.Option>
                 );
             })}
         </>
@@ -178,16 +174,16 @@ export type SelectTextProps = {
     overflow: string;
 };
 
-type AntdSelectProps = Omit<SelectProps, 'options' | 'mode'> & {
+export type SelectProps = Omit<AntdSelectProps, 'options' | 'mode'> & {
     dataId?: string;
     defaultValues?: any[];
     pageSize?: number;
     text?: SelectTextProps;
-    options?: {
+    options?: Array<{
         value: string;
         label: string;
         color: string;
-    }[];
+    }>;
     theme?: Theme;
     isLoading?: boolean;
     maxTagLength?: number;
@@ -197,12 +193,12 @@ type AntdSelectProps = Omit<SelectProps, 'options' | 'mode'> & {
     mode?: 'multiple' | 'single';
 };
 
-interface BaseSelectRef {
+type BaseSelectRef = {
     focus: () => void;
     blur: () => void;
-}
+};
 
-export const AntdSelect = withDataId(
+export const Select = withDataId(
     ({
         dataId = 'select',
         defaultValues = [],
@@ -225,14 +221,14 @@ export const AntdSelect = withDataId(
         handleClearAll,
         allowClear = true,
         ...props
-    }: AntdSelectProps) => {
+    }: SelectProps) => {
         const [showDropdown, setShowDropdown] = useState(false);
         const [selectedValues, setSelectedValues] = useState<any[]>([]);
         const [currentPage, setCurrentPage] = useState<number>(1);
         const [searchValue, setSearchValue] = useState('');
         const ref = useRef<BaseSelectRef | null>(null);
         const sValue = useRef('');
-        const th = useContext(ThemeContext) || theme;
+        const th = useContext(ThemeContext) || defaultTheme;
         const options = originalOptions || [];
 
         useEffect(() => {
@@ -258,7 +254,7 @@ export const AntdSelect = withDataId(
             const allValues = slicedOptions.map((option) => option.value);
 
             setSelectedValues(() => allValues);
-            handleButtonSelectAll && handleButtonSelectAll(allValues);
+            if (handleButtonSelectAll) handleButtonSelectAll(allValues);
         };
 
         const closeDropdown = () => {
@@ -270,7 +266,7 @@ export const AntdSelect = withDataId(
         };
 
         const reset = () => {
-            handleClearAll && handleClearAll();
+            if (handleClearAll) handleClearAll();
             setCurrentPage(1);
             sValue.current = '';
             setSearchValue('');
@@ -283,7 +279,7 @@ export const AntdSelect = withDataId(
             <>
                 <SelectOptionStyle $theme={th} />
                 {mode === undefined || mode === 'single' ? (
-                    <Select<{
+                    <AntdSelect<{
                         value: string | number;
                         label: string;
                         color: string;
@@ -340,7 +336,7 @@ export const AntdSelect = withDataId(
                             )
                         }
                         onSelect={(value, option) => {
-                            onChange !== undefined && onChange(value, option);
+                            if (onChange !== undefined) onChange(value, option);
                             setSelectedValues([value]);
                             closeDropdown();
                         }}
@@ -361,7 +357,7 @@ export const AntdSelect = withDataId(
                         {...props}
                     />
                 ) : (
-                    <Select
+                    <AntdSelect
                         autoClearSearchValue={false}
                         removeIcon={<Icon color='gray' name='close' size='small' />}
                         data-id={dataId}
@@ -370,7 +366,7 @@ export const AntdSelect = withDataId(
                         dropdownRender={
                             text
                                 ? (menu: React.ReactElement) =>
-                                      dropdownRenderSelectAntd(
+                                      dropdownRenderSelect(
                                           menu,
                                           currentPage,
                                           options,
@@ -380,7 +376,7 @@ export const AntdSelect = withDataId(
                                           searchValue,
                                           showDropdown,
                                           mode,
-                                          theme,
+                                          defaultTheme,
                                           pageSize
                                       )
                                 : undefined
@@ -388,10 +384,10 @@ export const AntdSelect = withDataId(
                         optionFilterProp='children'
                         filterOption={filterOption}
                         maxTagCount='responsive'
-                        maxTagPlaceholder={(props: DisplayValue[]) => {
-                            const textOverflow = overflowLength && props.length > overflowLength ? ` ${text?.overflow}` : '';
-                            const valuesToRender = `${props.slice(0, overflowLength).map((value) => ` ${value?.label.props.value}`)}${textOverflow}`;
-                            return <Tooltip title={valuesToRender}>{`+${props.length}`}</Tooltip>;
+                        maxTagPlaceholder={(displayValue: DisplayValue[]) => {
+                            const textOverflow = overflowLength && displayValue.length > overflowLength ? ` ${text?.overflow}` : '';
+                            const valuesToRender = `${displayValue.slice(0, overflowLength).map((value) => ` ${value?.label?.displayValue?.value}`)}${textOverflow}`;
+                            return <Tooltip title={valuesToRender}>{`+${displayValue.length}`}</Tooltip>;
                         }}
                         menuItemSelectedIcon={<Icon color='white' name='close' size='small' />}
                         mode={mode}
@@ -443,17 +439,17 @@ export const AntdSelect = withDataId(
                         onDropdownVisibleChange={(e) => {
                             if (e !== showDropdown) {
                                 setShowDropdown(e);
-                                if (e === false) {
+                                if (!e) {
                                     setCurrentPage(1);
                                     setSearchValue('');
                                 }
                             }
                         }}
-                        tagRender={maxTagLength ? (props: CustomTagProps) => tagRenderButtonPagination(props, options, maxTagLength, theme) : undefined}
+                        tagRender={maxTagLength ? (customTagProps: CustomTagProps) => tagRenderButtonPagination(customTagProps, options, maxTagLength, defaultTheme) : undefined}
                         value={selectedValues}
                         dropdownAlign={{ offset: [0, 3] }}
-                        onChange={(values, options) => {
-                            onChange !== undefined && onChange(values, options);
+                        onChange={(values, _options) => {
+                            if (onChange !== undefined) onChange(values, _options);
                             setSelectedValues(values);
                         }}
                         onFocus={() => {
@@ -472,8 +468,8 @@ export const AntdSelect = withDataId(
                         }}
                         {...props}
                     >
-                        {optionsRenderer(options, selectedValues, searchValue, theme, dataId, pageSize)}
-                    </Select>
+                        {optionsRenderer(options, selectedValues, searchValue, defaultTheme, dataId, pageSize)}
+                    </AntdSelect>
                 )}
             </>
         );
@@ -482,6 +478,6 @@ export const AntdSelect = withDataId(
 );
 
 // DO NOT REMOVE, NOT WORKING W/O THIS LINE (UNKNOWN REASON)
-AntdSelect.defaultProps = {
+Select.defaultProps = {
     defaultValues: [],
 };

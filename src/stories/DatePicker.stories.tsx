@@ -7,7 +7,7 @@ export default {
     tags: ['autodocs'],
 };
 
-export const antdDatePicker = () => (
+export const Basic = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
@@ -27,7 +27,7 @@ export const antdDatePicker = () => (
     </Grid>
 );
 
-export const antdRangePicker = () => (
+export const RangePicker = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
@@ -47,7 +47,7 @@ export const antdRangePicker = () => (
     </Grid>
 );
 
-export const antdDateTimePicker = () => (
+export const DateTimePicker = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
@@ -66,7 +66,7 @@ export const antdDateTimePicker = () => (
     </Grid>
 );
 
-export const antdPickerPresets = () => (
+export const PickerPresets = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
@@ -93,7 +93,7 @@ export const antdPickerPresets = () => (
     </Grid>
 );
 
-export const languageDatePicker = () => (
+export const LanguageDatePicker = () => (
     <Grid fluid>
         <Row>
             <Paragraph margin='1rem 0 1rem 0'>

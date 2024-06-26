@@ -6,11 +6,7 @@ import { Grid } from '@components';
 
 describe('<Grid>', () => {
     it('Should render the correct classNamePrefix component', () => {
-        const grid = render(
-            <Grid>
-                <></>
-            </Grid>
-        );
+        render(<Grid>Empty Grid</Grid>);
         expect(screen.getAllByTestId('grid').length).toEqual(1);
     });
 });

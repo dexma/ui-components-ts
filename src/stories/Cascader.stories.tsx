@@ -38,7 +38,7 @@ export default {
     },
 };
 
-export const cascaderSingle = () => (
+export const Single = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
@@ -94,7 +94,7 @@ export const cascaderSingle = () => (
     </Grid>
 );
 
-export const cascaderMultiple = () => (
+export const Multiple = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>

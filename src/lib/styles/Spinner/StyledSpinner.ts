@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { parseToRgb } from 'polished';
 import get from 'lodash/get';
 
-import { Theme } from '@utils/theme';
+import { type Theme } from '@utils/theme';
 import { rotate360 } from '@utils/animation';
 
 type StyledSpinnerProps = {

@@ -1,7 +1,7 @@
-import React, { ReactNode, useContext } from 'react';
+import React, { type ReactNode, useContext } from 'react';
 import { ThemeContext } from 'styled-components';
 
-import theme from '@utils/theme';
+import defaultTheme from '@utils/theme';
 import { Icon, Row } from '@components';
 import { StyledResult } from '@styles/Result/StyledResult';
 
@@ -15,8 +15,8 @@ export enum ResultVariants {
 }
 
 const getIcon = (variant: string) => {
-    let iconName = undefined;
-    let iconColor = undefined;
+    let iconName;
+    let iconColor;
     switch (variant) {
         case ResultVariants.SUCCESS:
             iconName = 'circle_check';
@@ -48,7 +48,7 @@ const getIcon = (variant: string) => {
     return { iconName, iconColor };
 };
 
-type ResultProps = {
+export type ResultProps = {
     variant: ResultVariants;
     content?: ReactNode;
     title?: string;
@@ -59,7 +59,7 @@ type ResultProps = {
 };
 
 export const Result = ({ title, info, variant = ResultVariants.DEFAULT, content, size = 72, icon, iconElement }: ResultProps) => {
-    const th = useContext(ThemeContext) || theme;
+    const th = useContext(ThemeContext) || defaultTheme;
     const { iconName, iconColor } = getIcon(variant);
     return (
         <StyledResult fluid className={`result-${variant}`} data-testid={`result-${variant}`} theme={th}>

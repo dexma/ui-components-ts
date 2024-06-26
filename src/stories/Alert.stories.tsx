@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Row, Cell, Paragraph, Alert } from '@components';
+import { Grid, Row, Cell, Paragraph, Alert, AlertProps } from '@components';
 
 export default {
     title: 'Alert',
@@ -7,7 +7,7 @@ export default {
     tags: ['autodocs'],
 };
 
-export const alert = () => (
+export const Basic = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
@@ -31,7 +31,7 @@ export const alert = () => (
     </Grid>
 );
 
-export const description = () => (
+export const Description = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
@@ -44,7 +44,7 @@ export const description = () => (
     </Grid>
 );
 
-export const noIcon = () => (
+export const NoIcon = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
@@ -63,7 +63,7 @@ export const noIcon = () => (
     </Grid>
 );
 
-export const customAlert = () => (
+export const CustomAlert = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
@@ -147,7 +147,7 @@ export const customAlert = () => (
     </Grid>
 );
 
-export const playground = (args: any) => (
+export const Playground = (args: AlertProps) => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>

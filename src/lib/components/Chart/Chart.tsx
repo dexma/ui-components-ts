@@ -1,8 +1,8 @@
-import React, { ForwardedRef, Ref, useContext, useEffect, useState } from 'react';
+import React, { type ForwardedRef, type Ref, useContext, useEffect, useState } from 'react';
 import { ThemeContext } from 'styled-components';
 
 import Highcharts from 'highcharts';
-import HighchartsReact, { HighchartsReactRefObject } from 'highcharts-react-official';
+import HighchartsReact, { type HighchartsReactRefObject } from 'highcharts-react-official';
 import HighchartsHeatmap from 'highcharts/modules/heatmap';
 
 import addSolidGauge from 'highcharts/modules/solid-gauge';
@@ -15,7 +15,7 @@ import highchartsMore from 'highcharts/highcharts-more';
 import addPatternFill from 'highcharts/modules/pattern-fill';
 import accessibility from 'highcharts/modules/accessibility';
 
-import theme from '@utils/theme';
+import defaultTheme from '@utils/theme';
 import { withDataId } from '@components/DataId/withDataId';
 import { StyledChart, StyledChartError, StyledChartLoading } from '@styles/Chart/StyledChart';
 
@@ -30,36 +30,34 @@ addSolidGauge(Highcharts);
 addPatternFill(Highcharts);
 accessibility(Highcharts);
 
-Highcharts.SVGRenderer.prototype.symbols.cross = function (x: string, y: string, w: string, h: string) {
-    return ['M', x, y, 'L', x + w, y + h, 'M', x + w, y, 'L', x, y + h, 'z'];
-};
+Highcharts.SVGRenderer.prototype.symbols.cross = (x: string, y: string, w: string, h: string) => ['M', x, y, 'L', x + w, y + h, 'M', x + w, y, 'L', x, y + h, 'z'];
 
 const ChartLoading = () => (
     <StyledChartLoading data-testid='chart-loading'>
         <svg width='210' height='210' preserveAspectRatio='none' viewBox='0 0 210 210'>
-            <rect width='100%' height='100%' fill='url("#fill")' clipPath='url(#clip-path-chart)'></rect>
+            <rect width='100%' height='100%' fill='url("#fill")' clipPath='url(#clip-path-chart)' />
             <defs>
                 <clipPath id='clip-path-chart'>
-                    <rect width='1' height='1' x='156' y='89' rx='0' ry='0'></rect>
-                    <rect width='9' height='27' x='62' y='103' rx='0' ry='0'></rect>
-                    <rect width='9' height='72' x='89' y='60' rx='0' ry='0'></rect>
-                    <rect width='9' height='43' x='115' y='87' rx='0' ry='0'></rect>
-                    <rect width='9' height='60' x='140' y='71' rx='0' ry='0'></rect>
-                    <rect width='140' height='9' x='35' y='153' rx='0' ry='0'></rect>
-                    <rect width='184' height='9' x='14' y='30' rx='0' ry='0'></rect>
-                    <rect width='9' height='154' x='190' y='30' rx='0' ry='0'></rect>
-                    <rect width='184' height='9' x='14' y='174' rx='0' ry='0'></rect>
-                    <rect width='9' height='154' x='14' y='30' rx='0' ry='0'></rect>
+                    <rect width='1' height='1' x='156' y='89' rx='0' ry='0' />
+                    <rect width='9' height='27' x='62' y='103' rx='0' ry='0' />
+                    <rect width='9' height='72' x='89' y='60' rx='0' ry='0' />
+                    <rect width='9' height='43' x='115' y='87' rx='0' ry='0' />
+                    <rect width='9' height='60' x='140' y='71' rx='0' ry='0' />
+                    <rect width='140' height='9' x='35' y='153' rx='0' ry='0' />
+                    <rect width='184' height='9' x='14' y='30' rx='0' ry='0' />
+                    <rect width='9' height='154' x='190' y='30' rx='0' ry='0' />
+                    <rect width='184' height='9' x='14' y='174' rx='0' ry='0' />
+                    <rect width='9' height='154' x='14' y='30' rx='0' ry='0' />
                 </clipPath>
                 <linearGradient id='fill'>
                     <stop offset='0.6' stopColor='#f3f3f3'>
-                        <animate attributeName='offset' dur='2s' keyTimes='0; 0.25; 1' repeatCount='indefinite' values='-2; -2; 1'></animate>
+                        <animate attributeName='offset' dur='2s' keyTimes='0; 0.25; 1' repeatCount='indefinite' values='-2; -2; 1' />
                     </stop>
                     <stop offset='1.6' stopColor='#ecebeb'>
-                        <animate attributeName='offset' dur='2s' keyTimes='0; 0.25; 1' repeatCount='indefinite' values='-1; -1; 2'></animate>
+                        <animate attributeName='offset' dur='2s' keyTimes='0; 0.25; 1' repeatCount='indefinite' values='-1; -1; 2' />
                     </stop>
                     <stop offset='2.6' stopColor='#f3f3f3'>
-                        <animate attributeName='offset' dur='2s' keyTimes='0; 0.25; 1' repeatCount='indefinite' values='0; 0; 3'></animate>
+                        <animate attributeName='offset' dur='2s' keyTimes='0; 0.25; 1' repeatCount='indefinite' values='0; 0; 3' />
                     </stop>
                 </linearGradient>
             </defs>
@@ -105,12 +103,12 @@ export const Chart = withDataId(
             }: ChartProps,
             ref: ForwardedRef<HTMLDivElement>
         ) => {
-            const th = useContext(ThemeContext) || theme;
+            const th = useContext(ThemeContext) || defaultTheme;
             const loading = isLoading && !showError;
             const error = !isLoading && showError && errorContent;
             const showChart = !loading && !error && options;
             const [aggregateOptions, setAggregateOptions] = useState<Highcharts.Options>();
-            const { fontFamily, backgroundColor } = useContext(ThemeContext) || theme;
+            const { fontFamily, backgroundColor } = useContext(ThemeContext) || defaultTheme;
 
             // NOTE: this setOptions is global to all Charts so everytime it is called these values
             // will be overwritten and the last one will prevail on all rendered charts
@@ -156,12 +154,12 @@ export const Chart = withDataId(
                     },
                     tooltip: {
                         ...currentOptions.tooltip,
-                        backgroundColor: backgroundColor,
+                        backgroundColor,
                         shadow: false,
                     },
                     legend: {
                         ...currentOptions.legend,
-                        backgroundColor: backgroundColor,
+                        backgroundColor,
                         itemStyle: {},
                     },
                     credits: {
@@ -172,10 +170,10 @@ export const Chart = withDataId(
                     },
                     chart: {
                         ...currentOptions.chart,
-                        backgroundColor: backgroundColor,
+                        backgroundColor,
                         style: {
                             ...currentOptions.chart.style,
-                            fontFamily: fontFamily,
+                            fontFamily,
                         },
                     },
                 });

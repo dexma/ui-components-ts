@@ -1,5 +1,5 @@
 import React from 'react';
-import { Loading, Grid, Row, Cell, Paragraph } from '@components';
+import { Loading, Grid, Row, Cell, Paragraph, LoadingProps } from '@components';
 
 export default {
     title: 'Loading',
@@ -7,7 +7,7 @@ export default {
     tags: ['autodocs'],
 };
 
-export const loading = () => (
+export const Basic = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
@@ -65,7 +65,7 @@ export const loading = () => (
     </Grid>
 );
 
-export const playground = (args: any) => (
+export const Playground = (args: LoadingProps) => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>

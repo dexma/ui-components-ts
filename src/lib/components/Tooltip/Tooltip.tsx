@@ -1,18 +1,15 @@
 import React from 'react';
-import { Tooltip as TooltipReact, TooltipProps } from 'antd';
+import { Tooltip as TooltipReact, type TooltipProps } from 'antd';
+import { TooltipPlacement } from 'antd/lib/tooltip';
 
-type TooltipPropsExtended = TooltipProps & {
-    position?: 'top' | 'topLeft' | 'topRight' | 'bottom' | 'bottomLeft' | 'bottomRight' | 'left' | 'leftBottom' | 'leftTop' | 'right' | 'rightBottom' | 'rightTop';
+export type TooltipPropsExtended = TooltipProps & {
+    position?: TooltipPlacement;
 };
 
-export const Tooltip = (props: TooltipPropsExtended) => {
-    const { position, placement } = props;
-
-    return (
-        <TooltipReact placement={position || placement} {...props}>
-            {props.children}
-        </TooltipReact>
-    );
-};
+export const Tooltip = ({ position, placement, children, ...props }: TooltipPropsExtended) => (
+    <TooltipReact placement={placement ?? position} {...props}>
+        {children}
+    </TooltipReact>
+);
 
 export default Tooltip;

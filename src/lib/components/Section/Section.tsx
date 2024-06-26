@@ -1,6 +1,6 @@
 import React from 'react';
 
-import theme from '@utils/theme';
+import defaultTheme from '@utils/theme';
 import { Cell, Heading, Button } from '@components';
 import { withDataId } from '@components/DataId/withDataId';
 import { StyledSection } from '@styles/Section/StyledSection';
@@ -14,6 +14,7 @@ type SectionProps = {
     onExportImage?: () => void;
     onAddReport?: () => void;
 };
+
 export const Section = withDataId((props: SectionProps) => {
     const { title, isLoading, onExportExcel, onExportImage, onAddReport, children, dataId } = props;
     const hasExportExcel = !!onExportExcel;
@@ -21,7 +22,7 @@ export const Section = withDataId((props: SectionProps) => {
     const hasAddReport = !!onAddReport;
     const hasButtons = hasExportExcel || hasExportImage || hasAddReport;
     return (
-        <StyledSection theme={theme} $title={!!title} $hasButtons={!!hasButtons}>
+        <StyledSection theme={defaultTheme} $title={!!title} $hasButtons={!!hasButtons}>
             <div className='section-top' data-testid='section-data' data-id={dataId}>
                 {title && (
                     <Cell className='section-title'>

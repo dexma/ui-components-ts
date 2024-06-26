@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Divider, Grid, Row, Cell, Paragraph } from '@components';
+import { Divider, Grid, Row, Cell, Paragraph, DividerProps } from '@components';
 
 export default {
     title: 'Divider',
@@ -8,7 +8,7 @@ export default {
     tags: ['autodocs'],
 };
 
-export const divider = (args: any) => (
+export const Basic = (args: DividerProps) => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>

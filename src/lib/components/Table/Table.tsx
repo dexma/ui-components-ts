@@ -1,14 +1,14 @@
 import React, { useContext } from 'react';
 import styled, { ThemeContext } from 'styled-components';
 import omit from 'lodash/omit';
-import { Table as TableAntDesign, ConfigProvider, TableProps as AntDTableProps } from 'antd';
+import { Table as TableAntDesign, ConfigProvider, type TableProps as AntDTableProps } from 'antd';
 
-import theme from '@utils/theme';
+import defaultTheme from '@utils/theme';
 import { Button, itemRender } from '@components';
 import { withDataId } from '@components/DataId/withDataId';
 import { StyledResult } from '@styles/Result/StyledResult';
 import { StyledTable } from '@styles/Table/StyledTable';
-import { AnyObject } from 'antd/lib/table/Table';
+import { type AnyObject } from 'antd/lib/table/Table';
 
 const StyledTableLoading = styled.div`
     display: flex;
@@ -22,28 +22,28 @@ const StyledTableLoading = styled.div`
 const TableLoading = () => (
     <StyledTableLoading data-testid='table-loading'>
         <svg width='210' height='210' aria-labelledby='loading-aria' preserveAspectRatio='none' viewBox='0 0 210 210'>
-            <rect width='100%' height='100%' fill='url("#fill")' clipPath='url(#clip-path-table)'></rect>
+            <rect width='100%' height='100%' fill='url("#fill")' clipPath='url(#clip-path-table)' />
             <defs>
                 <clipPath id='clip-path-table'>
-                    <rect width='9' height='158' x='10' y='26' rx='0' ry='0'></rect>
-                    <rect width='1' height='88' x='107' y='73' rx='0' ry='0'></rect>
-                    <rect width='190' height='9' x='10' y='26' rx='0' ry='0'></rect>
-                    <rect width='184' height='9' x='10' y='175' rx='0' ry='0'></rect>
-                    <rect width='9' height='158' x='191' y='26' rx='0' ry='0'></rect>
-                    <rect width='4' height='158' x='59' y='26' rx='0' ry='0'></rect>
-                    <rect width='4' height='158' x='103' y='26' rx='0' ry='0'></rect>
-                    <rect width='4' height='158' x='147' y='26' rx='0' ry='0'></rect>
-                    <rect width='184' height='4' x='10' y='68' rx='0' ry='0'></rect>
+                    <rect width='9' height='158' x='10' y='26' rx='0' ry='0' />
+                    <rect width='1' height='88' x='107' y='73' rx='0' ry='0' />
+                    <rect width='190' height='9' x='10' y='26' rx='0' ry='0' />
+                    <rect width='184' height='9' x='10' y='175' rx='0' ry='0' />
+                    <rect width='9' height='158' x='191' y='26' rx='0' ry='0' />
+                    <rect width='4' height='158' x='59' y='26' rx='0' ry='0' />
+                    <rect width='4' height='158' x='103' y='26' rx='0' ry='0' />
+                    <rect width='4' height='158' x='147' y='26' rx='0' ry='0' />
+                    <rect width='184' height='4' x='10' y='68' rx='0' ry='0' />
                 </clipPath>
                 <linearGradient id='fill'>
                     <stop offset='0.6' stopColor='#f3f3f3'>
-                        <animate attributeName='offset' dur='2s' keyTimes='0; 0.25; 1' repeatCount='indefinite' values='-2; -2; 1'></animate>
+                        <animate attributeName='offset' dur='2s' keyTimes='0; 0.25; 1' repeatCount='indefinite' values='-2; -2; 1' />
                     </stop>
                     <stop offset='1.6' stopColor='#ecebeb'>
-                        <animate attributeName='offset' dur='2s' keyTimes='0; 0.25; 1' repeatCount='indefinite' values='-1; -1; 2'></animate>
+                        <animate attributeName='offset' dur='2s' keyTimes='0; 0.25; 1' repeatCount='indefinite' values='-1; -1; 2' />
                     </stop>
                     <stop offset='2.6' stopColor='#f3f3f3'>
-                        <animate attributeName='offset' dur='2s' keyTimes='0; 0.25; 1' repeatCount='indefinite' values='0; 0; 3'></animate>
+                        <animate attributeName='offset' dur='2s' keyTimes='0; 0.25; 1' repeatCount='indefinite' values='0; 0; 3' />
                     </stop>
                 </linearGradient>
             </defs>
@@ -89,6 +89,7 @@ type ExpandedIconProps<T> = {
     onExpand: (record: T, event: React.MouseEvent<HTMLElement>) => void;
     record: T;
 };
+
 const getExpandedIcon = <T extends object>(props: ExpandedIconProps<T>) => {
     const { expanded, onExpand, record } = props;
     return (
@@ -115,12 +116,10 @@ type TableProps = {
     errorContent?: React.ReactNode;
 };
 
-export const buildTableWithDataId = <RecordType extends AnyObject>() => withDataId(Table<RecordType>, 'table');
-
 export const Table = <RecordType extends AnyObject>(props: AntDTableProps<RecordType> & TableProps) => {
     const { isExpanded, expandable, columns, dataSource, isLoading, showError, errorContent, dataId } = props;
     const tableProps = omit(props, ['theme', 'columns', 'dataId', 'expandable']);
-    const th = useContext(ThemeContext) || theme;
+    const th = useContext(ThemeContext) || defaultTheme;
     const getColumnsExpanded = () => {
         if (columns) {
             const newFirstColumn = {
@@ -129,12 +128,14 @@ export const Table = <RecordType extends AnyObject>(props: AntDTableProps<Record
             };
             return [newFirstColumn, ...columns];
         }
+        return [];
     };
 
     const loading = isLoading && !showError;
     const error = !isLoading && showError && errorContent;
     const showTable = !loading && !error && columns && dataSource;
-    const expandIcon = expandable ? (expandable?.expandIcon ? expandable.expandIcon : getExpandedIcon) : undefined;
+    if (expandable && !expandable.expandIcon) expandable.expandIcon = getExpandedIcon;
+    const expandIcon = expandable ? expandable.expandIcon : undefined;
     return (
         <ConfigProvider
             theme={{
@@ -161,3 +162,5 @@ export const Table = <RecordType extends AnyObject>(props: AntDTableProps<Record
         </ConfigProvider>
     );
 };
+
+export const buildTableWithDataId = <RecordType extends AnyObject>() => withDataId(Table<RecordType>, 'table');

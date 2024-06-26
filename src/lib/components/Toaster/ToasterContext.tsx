@@ -1,9 +1,9 @@
 import React from 'react';
 
+import { ToastType } from '@components';
+
 type ToasterContextType = {
-    toast: ({ text, type }: { text: any; type: any }) => void;
+    toast: ({ text, type }: { text: string; type: ToastType }) => void;
 };
 
-const ToasterContext = React.createContext<ToasterContextType>({ toast: () => {} });
-
-export default ToasterContext;
+export const ToasterContext = React.createContext<ToasterContextType>({ toast: () => {} });

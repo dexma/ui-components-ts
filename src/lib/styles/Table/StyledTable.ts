@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { Theme } from '@utils/theme';
+import { type Theme } from '@utils/theme';
 import { fontColor, fontWeightNormal, gray200, gray50, gray700, tableFontSize, white } from '@utils/selectors';
 import { StyledButton } from '@styles/Button/StyledButton';
 import { getStyledPagination } from '@styles/Pagination/StyledPagination';

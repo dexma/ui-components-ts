@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import isNumber from 'lodash/isNumber';
 import { gridColumns, gridHalfGutterWidth } from '@utils/selectors';
-import { Theme } from '@utils/theme';
+import { type Theme } from '@utils/theme';
 
 const percentage = (number: number) => number * 100;
 
@@ -13,18 +13,14 @@ const getColumnFull = () => `{
       max-width: 100%;      
     }`;
 
-const getColumn = (size: number, columns: number) => {
-    return `
+const getColumn = (size: number, columns: number) => `
     flex: 0 0 ${percentage(size / columns)}%;
     max-width: ${percentage(size / columns)}%;
   `;
-};
 
-const getColumnOffset = (size: number, columns: number) => {
-    return `
+const getColumnOffset = (size: number, columns: number) => `
     margin-left: ${percentage(size / columns)}%;
   `;
-};
 
 const getColumns = (theme: Theme, breakpoint: number) => (isColumnFull(breakpoint) ? getColumnFull() : getColumn(breakpoint, gridColumns(theme)));
 

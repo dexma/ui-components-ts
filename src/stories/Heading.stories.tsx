@@ -9,7 +9,7 @@ export default {
     tags: ['autodocs'],
 };
 
-export const headings = () => (
+export const Basic = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
@@ -34,7 +34,7 @@ const StyledBox = styled.div`
     }
 `;
 
-export const childrens = () => (
+export const Childrens = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>

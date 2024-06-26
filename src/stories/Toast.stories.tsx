@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Button, Cell, Grid, Paragraph, Row, Toaster } from '@components';
-import ToasterContext from '../lib/components/Toaster/ToasterContext';
+import { ToasterContext } from '../lib/components/Toaster/ToasterContext';
 import { ToastType } from '../lib/components/Toaster/Toast';
 
 export default {
@@ -10,7 +10,7 @@ export default {
     tags: ['autodocs'],
 };
 
-export const toaster = () => (
+export const Basic = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>

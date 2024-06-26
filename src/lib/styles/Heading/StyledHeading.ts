@@ -1,7 +1,7 @@
 import get from 'lodash/get';
 import styled, { css } from 'styled-components';
 
-import { Theme } from '@utils/theme';
+import { type Theme } from '@utils/theme';
 import { headingFontSize } from '@utils/selectors';
 
 const getSizes = (as: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6', theme: Theme) => {

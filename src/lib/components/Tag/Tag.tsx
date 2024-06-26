@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { ThemeContext } from 'styled-components';
 
-import theme from '@utils/theme';
+import defaultTheme from '@utils/theme';
 import { Icon } from '@components';
 import { withDataId } from '@components/DataId/withDataId';
 import { StyledTag } from '@styles/Tag/StyledTag';
@@ -19,7 +19,7 @@ export type TagProps = {
 };
 
 export const Tag = withDataId(({ icon, color, closable, children, type = 'normal', onClose, onClick, variant = 'primary', dataId, ...props }: TagProps) => {
-    const th = useContext(ThemeContext) || theme;
+    const th = useContext(ThemeContext) || defaultTheme;
     return (
         <StyledTag
             data-testid='tag'

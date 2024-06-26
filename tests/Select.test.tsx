@@ -1,9 +1,9 @@
-import { ButtonPaginationSelector, getButtonText } from '@components/AntdSelect/ButtonPaginationSelector';
-import { tagRenderButtonPagination, dropdownRenderSelectAntd, renderUnselectedOption, AntdSelect } from '@components/AntdSelect/AntdSelect';
-import { filterOption, getOptionsBySearch } from '@components/AntdSelect/selectUtils';
+import { ButtonPaginationSelector, getButtonText } from '@components/Select/ButtonPaginationSelector';
+import { tagRenderButtonPagination, dropdownRenderSelect, renderUnselectedOption, Select } from '@components/Select/Select';
+import { filterOption, getOptionsBySearch } from '@components/Select/selectUtils';
 import { act, fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it, vitest } from 'vitest';
-import theme from '@utils/theme';
+import defaultTheme from '@utils/theme';
 
 const text = {
     select: 'Select',
@@ -271,7 +271,7 @@ describe('Ancillary functions', () => {
                 onClose: vitest.fn(),
             };
             const options = [{ value: 'Test 1', label: 'Test 1', color: 'blue' }];
-            render(tagRenderButtonPagination(props, options, 5, theme));
+            render(tagRenderButtonPagination(props, options, 5, defaultTheme));
             const tag = screen.getByTestId('tag-option-selected-Test 1');
             expect(tag).toBeTruthy();
         });
@@ -284,7 +284,7 @@ describe('Ancillary functions', () => {
                 onClose,
             };
             const options = [{ value: 'Test 1', label: 'Test 1', color: 'blue' }];
-            render(tagRenderButtonPagination(props, options, 5, theme));
+            render(tagRenderButtonPagination(props, options, 5, defaultTheme));
             const tag = screen.getByTestId('tag-option-selected-Test 1');
             expect(tag).toBeTruthy();
             const closeIcon = screen.getByTestId('icon');
@@ -301,7 +301,7 @@ describe('Ancillary functions', () => {
                 onClose: vitest.fn(),
             };
             const options = [{ value: 'Test 1', label: 'Test 1', color: 'blue' }];
-            render(tagRenderButtonPagination(props, options, 5, theme));
+            render(tagRenderButtonPagination(props, options, 5, defaultTheme));
             const tag = screen.getByTestId('tag-option-selected-Test 1');
             expect(tag).toBeTruthy();
             const closeIcon = screen.queryByTestId('icon');
@@ -309,12 +309,11 @@ describe('Ancillary functions', () => {
         });
     });
     describe('dropdownRender', () => {
-        const MockDropdownMenuComponent = () => {
-            return <span data-testid='dropdown-menu'></span>;
-        };
+        const MockDropdownMenuComponent = () => <span data-testid='dropdown-menu' />;
+
         it('should render a dropdown and pagination buttons successfully', () => {
             render(
-                dropdownRenderSelectAntd(
+                dropdownRenderSelect(
                     <MockDropdownMenuComponent />,
                     2,
                     [
@@ -329,7 +328,7 @@ describe('Ancillary functions', () => {
                     '',
                     true,
                     'multiple',
-                    theme,
+                    defaultTheme,
                     1
                 )
             );
@@ -345,7 +344,7 @@ describe('Ancillary functions', () => {
             expect(buttonSelectAll).toBeTruthy();
         });
         it('should render a dropdown successfully but not pagination and select all ones', () => {
-            render(dropdownRenderSelectAntd(<MockDropdownMenuComponent />, 10, [], vitest.fn(), vitest.fn(), text, '', true, 'multiple', theme, 1));
+            render(dropdownRenderSelect(<MockDropdownMenuComponent />, 10, [], vitest.fn(), vitest.fn(), text, '', true, 'multiple', defaultTheme, 1));
             const wrapper = screen.getByTestId('select-dropdown');
             expect(wrapper).toBeTruthy();
             const dropdown = screen.getByTestId('dropdown-menu');
@@ -375,15 +374,15 @@ describe('Ancillary functions', () => {
 });
 
 describe('Select', () => {
-    it('should render AntdSelect successfully', () => {
-        render(<AntdSelect mode='multiple' data-testid='select' style={{ width: '100%' }} />);
+    it('should render Select successfully', () => {
+        render(<Select mode='multiple' data-testid='select' style={{ width: '100%' }} />);
 
         const select = screen.getByTestId('select');
         expect(select).toBeTruthy();
     });
 
     it('should open dropDown when input is clicked', () => {
-        const { container } = render(<AntdSelect mode='multiple' data-testid='select' style={{ width: '100%' }} options={[{ color: 'blue', value: 'Test', label: 'Test' }]} />);
+        const { container } = render(<Select mode='multiple' data-testid='select' style={{ width: '100%' }} options={[{ color: 'blue', value: 'Test', label: 'Test' }]} />);
         // When
         const select = container.querySelector("[data-testid='select'] > .ant-select-selector");
         expect(select).not.toBeNull();
@@ -397,7 +396,7 @@ describe('Select', () => {
 
     it('should show icon clearAll when a value is selected and allowClear is enabled', () => {
         const { container } = render(
-            <AntdSelect
+            <Select
                 data-testid='select'
                 allowClear
                 defaultValues={['Test']}
@@ -425,7 +424,7 @@ describe('Select', () => {
     it('should trigger onChange when some option is selected', () => {
         const onChange = vitest.fn();
         const { container } = render(
-            <AntdSelect
+            <Select
                 data-testid='select'
                 mode='multiple'
                 style={{ width: '100%' }}
@@ -460,7 +459,7 @@ describe('Select', () => {
     it('should remove the tag when icon is clicked', () => {
         const onChange = vitest.fn();
         const { container } = render(
-            <AntdSelect
+            <Select
                 data-testid='select'
                 mode='multiple'
                 style={{ width: '100%' }}
@@ -500,7 +499,7 @@ describe('Select', () => {
 
     it('should render pagination elements when pageSize is smaller than the options total', () => {
         const { container } = render(
-            <AntdSelect
+            <Select
                 data-testid='select'
                 mode='multiple'
                 style={{ width: '100%' }}
@@ -531,7 +530,7 @@ describe('Select', () => {
 
     it('should not render pagination, except select all button, when pageSize is bigger than the options total', () => {
         const { container } = render(
-            <AntdSelect
+            <Select
                 data-testid='select'
                 mode='multiple'
                 style={{ width: '100%' }}
@@ -561,7 +560,7 @@ describe('Select', () => {
     });
     it('should not render pagination elements when pageSize is undefined', () => {
         const { container } = render(
-            <AntdSelect
+            <Select
                 data-testid='select'
                 mode='multiple'
                 style={{ width: '100%' }}
@@ -590,7 +589,7 @@ describe('Select', () => {
     });
     it('should filter rendered options by the search value when there is a search value', () => {
         const { container } = render(
-            <AntdSelect
+            <Select
                 data-testid='select'
                 mode='multiple'
                 style={{ width: '100%' }}

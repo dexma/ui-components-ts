@@ -19,8 +19,8 @@ import {
     fontWeightNormal,
     borderRadius,
 } from '@utils/selectors';
-import { Theme } from '@utils/theme';
-import { ReactNode } from 'react';
+import { type Theme } from '@utils/theme';
+import { type ReactNode } from 'react';
 
 const getAlertTypeColor = (theme: Theme, $type: string) => {
     let bgColor = '';
@@ -151,17 +151,17 @@ const StyledAlert = styled.div<StyledAlertProps>`
         css`
             height: auto;
             line-height: normal;
-            padding: ${(props: any) => (!props.message ? '10px 15px' : '20px 15px')};
+            padding: ${!props.$message ? '10px 15px' : '20px 15px'};
             .description {
                 position: relative;
-                padding: ${(props: any) => (props.$showIcon ? '0px 0px 0px 30px' : '0px 0px 0px 0px')};
-                padding-left: ${(props: any) => !props.$message && '0px'};
-                padding-top: ${(props: any) => props.$message && '10px'};
+                padding: ${props.$showIcon ? '0px 0px 0px 30px' : '0px 0px 0px 0px'};
+                padding-left: ${!props.$message && '0px'};
+                padding-top: ${props.$message && '10px'};
                 line-height: 1.5;
-                border-radius: ${(props: any) => borderRadius(props.theme)};
+                border-radius: ${borderRadius(props.theme)};
                 flex-direction: column;
                 align-items: start;
-                font-size: ${(props: any) => alertDescriptionMessageFontSize(props.theme)};
+                font-size: ${alertDescriptionMessageFontSize(props.theme)};
                 .alert-icon {
                     position: absolute;
                     top: 10px;

@@ -2,23 +2,46 @@ import React, { useState } from 'react';
 
 import { Button, Modal, Grid, Row, Cell, Paragraph } from '@components';
 
-const ModalView = (props: { withFooter?: boolean }) => {
+const ModalView = ({ withFooter }: { withFooter?: boolean }) => {
     const [showModal, setShowModal] = useState(false);
 
-    const footer = props.withFooter
+    const footer = withFooter
         ? [
-              <Button variant='destructive' onClick={() => setShowModal(false)}>
+              <Button
+                  variant='destructive'
+                  onClick={() => {
+                      setShowModal(false);
+                  }}
+              >
                   Yes, discard project
               </Button>,
-              <Button variant='secondary' onClick={() => setShowModal(false)}>
+              <Button
+                  variant='secondary'
+                  onClick={() => {
+                      setShowModal(false);
+                  }}
+              >
                   No, continue editing
               </Button>,
           ]
         : false;
     return (
         <div>
-            <Button text='Open modal' onClick={() => setShowModal(true)} />
-            <Modal open={showModal} onCancel={() => setShowModal(false)} title='Unsaved changes' width={400} footer={footer}>
+            <Button
+                text='Open modal'
+                onClick={() => {
+                    setShowModal(true);
+                }}
+            />
+            <Modal
+                open={showModal}
+                onCancel={() => {
+                    setShowModal(false);
+                }}
+                title='Unsaved changes'
+                width={400}
+                footer={footer}
+            >
                 <Paragraph>Are you sure you want to discard your changes?</Paragraph>
             </Modal>
         </div>
@@ -31,7 +54,7 @@ export default {
     tags: ['autodocs'],
 };
 
-export const modals = () => (
+export const Basic = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
@@ -49,7 +72,7 @@ export const modals = () => (
     </Grid>
 );
 
-export const footer = () => (
+export const Footer = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>

@@ -1,8 +1,8 @@
-import styled, { DefaultTheme, createGlobalStyle, css } from 'styled-components';
+import styled, { type DefaultTheme, createGlobalStyle, css } from 'styled-components';
 import { get } from 'lodash';
 import { Button, Cell, Icon } from '@components';
 import { Row } from '@components/Row';
-import { Theme, color, primary } from '@utils/theme';
+import { type Theme, color, primary } from '@utils/theme';
 import { primaryColor, white } from '@utils/selectors';
 import { StyledIcon } from '../Icon/StyledIcon';
 
@@ -27,9 +27,7 @@ export const hexToRGBA = (hex: string, a: number) => {
     return `rgba(${red}, ${green}, ${blue}, ${a})`;
 };
 
-const getColorHover = (theme?: Theme) => {
-    return theme ? primaryColor : primary;
-};
+const getColorHover = (theme?: Theme) => (theme ? primaryColor : primary);
 
 export const StyledPaginationPageWrapper = styled(Cell)<{ $disabled?: boolean; theme?: Theme }>`
     cursor: ${(props) => (props.$disabled ? 'not-allowed' : 'pointer')};
@@ -41,9 +39,9 @@ export const StyledPaginationPageWrapper = styled(Cell)<{ $disabled?: boolean; t
     align-items: center;
     justify-items: center;
     :hover {
-        // TODO
+        ${(props) => (props.$disabled ? '#c9cccf' : getColorHover(props))};
         svg {
-            // TODO
+            fill: ${(props) => (props.$disabled ? '#c9cccf' : getColorHover(props))};
         }
     }
 `;
@@ -73,7 +71,7 @@ export const StyledPaginationSelector = styled.div`
     gap: 4px;
 `;
 
-export const StyledAntdSelectDropdown = styled.div`
+export const StyledSelectDropdown = styled.div`
     .ant-select-item {
         min-height: auto;
     }
@@ -84,7 +82,7 @@ export const StyledAntdSelectDropdown = styled.div`
     }
 `;
 
-const getSpanColor = (theme: Theme, color: string) => get(theme.color, color);
+const getSpanColor = (theme: Theme, _color: string) => get(theme.color, _color);
 
 export const StyledSpanOptionSelected = styled.span<{ theme: Theme; icon?: any; closable?: any; onClose?: any; value: string }>`
     display: flex;
@@ -116,7 +114,7 @@ export const StyledSpanOptionSelected = styled.span<{ theme: Theme; icon?: any; 
                     cursor: pointer;
                     margin-right: -2px;
                     margin-left: 3px;
-                    fill: ${(props: any) => white(props.theme)};
+                    fill: ${(_props) => white(_props.theme)};
                 }
             `};
     }

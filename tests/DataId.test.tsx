@@ -2,15 +2,13 @@ import React from 'react';
 import { describe, expect, it } from 'vitest';
 import { render } from '@testing-library/react';
 
-import { DataIdProvider, Button, Chart, Input, Checkbox, Section, DatePicker, AntdSelect, buildTableWithDataId, Tag, Dropdown } from '@components';
+import { DataIdProvider, Button, Chart, Input, Checkbox, Section, DatePicker, Select, buildTableWithDataId, Tag, Dropdown } from '@components';
 import { withDataId } from '@components/DataId/withDataId';
 import { User } from './mock/Table';
 
 describe('Data Id', () => {
     it('withDataId should not build data-id', () => {
-        const Example = (props: { dataId?: string }) => {
-            return <div data-id={props.dataId}>Example</div>;
-        };
+        const Example = ({dataId}: { dataId?: string }) => <div data-id={dataId}>Example</div>;
 
         const ExampleWithId = withDataId(Example, '');
 
@@ -20,9 +18,7 @@ describe('Data Id', () => {
     });
 
     it('withDataId should build data-id as default value', () => {
-        const Example = (props: { dataId?: string }) => {
-            return <div data-id={props.dataId}>Example</div>;
-        };
+        const Example = ({dataId}: { dataId?: string }) => <div data-id={dataId}>Example</div>;
 
         const ExampleWithId = withDataId(Example, 'example');
 
@@ -32,9 +28,7 @@ describe('Data Id', () => {
     });
 
     it('withDataId should build data-id as specific value', () => {
-        const Example = (props: { dataId: string }) => {
-            return <div data-id={props.dataId}>Example</div>;
-        };
+        const Example = ({dataId}: { dataId?: string }) => <div data-id={dataId}>Example</div>;
 
         const ExampleWithId = withDataId(Example, 'example');
 
@@ -44,9 +38,7 @@ describe('Data Id', () => {
     });
 
     it('withDataId should build data-id as context + default value', () => {
-        const Example = (props: { dataId?: string }) => {
-            return <div data-id={props.dataId}>Example</div>;
-        };
+        const Example = ({dataId}: { dataId?: string }) => <div data-id={dataId}>Example</div>;
 
         const ExampleWithId = withDataId(Example, 'example');
 
@@ -60,9 +52,7 @@ describe('Data Id', () => {
     });
 
     it('withDataId should build data-id as context + specific value', () => {
-        const Example = (props: { dataId: string }) => {
-            return <div data-id={props.dataId}>Example</div>;
-        };
+        const Example = ({dataId}: { dataId?: string }) => <div data-id={dataId}>Example</div>;
 
         const ExampleWithId = withDataId(Example, 'example');
 
@@ -84,7 +74,7 @@ describe('Data Id', () => {
                     <Chart />
                     <DatePicker type='date' />
                     <Input />
-                    <AntdSelect />
+                    <Select />
                     <TableWithDataId />
                     <Tag />
                     <Dropdown />
@@ -122,7 +112,7 @@ describe('Data Id', () => {
                     <Chart dataId='chart.test' />
                     <DatePicker type='date' dataId='datepicker.test' />
                     <Input dataId='input.test' />
-                    <AntdSelect dataId='select.test' />
+                    <Select dataId='select.test' />
                     <TableWithDataId dataId='table.test' />
                     <Tag dataId='tag.test' />
                     <Dropdown dataId='dropdown.test' />
@@ -161,7 +151,7 @@ describe('Data Id', () => {
                         <Chart />
                         <DatePicker type='date' />
                         <Input />
-                        <AntdSelect />
+                        <Select />
                         <TableWithDataId />
                         <Tag />
                         <Dropdown />
@@ -201,7 +191,7 @@ describe('Data Id', () => {
                         <Chart dataId='chart.test' />
                         <DatePicker type='date' dataId='datepicker.test' />
                         <Input dataId='input.test' />
-                        <AntdSelect dataId='select.test' />
+                        <Select dataId='select.test' />
                         <TableWithDataId dataId='table.test' />
                         <Tag dataId='tag.test' />
                         <Dropdown dataId='dropdown.test'/>

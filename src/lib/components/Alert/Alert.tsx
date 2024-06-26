@@ -1,12 +1,12 @@
-import React, { CSSProperties, ReactNode, useContext, useState } from 'react';
+import React, { type CSSProperties, type ReactNode, useContext, useState } from 'react';
 import { ThemeContext } from 'styled-components';
 import get from 'lodash/get';
 
-import theme from '@utils/theme';
+import defaultTheme from '@utils/theme';
 import { StyledAlert } from '@styles/Alert/StyledAlert';
 import { Icon, IconSize } from '@components/Icon';
 
-type AlertProps = {
+export type AlertProps = {
     message?: ReactNode;
     type: 'basic' | 'outline' | 'warning' | 'info' | 'success' | 'error';
     onClose?: (e: any) => void;
@@ -18,7 +18,7 @@ type AlertProps = {
 };
 
 export const Alert = ({ type = 'warning', closable = false, message, description, showIcon = false, onClose, ...props }: AlertProps) => {
-    const th = useContext(ThemeContext) || theme;
+    const th = useContext(ThemeContext) || defaultTheme;
     const [closed, setClosed] = useState(false);
     let renderIcon = null;
     switch (type) {
@@ -44,11 +44,11 @@ export const Alert = ({ type = 'warning', closable = false, message, description
     }
     const handleClose = (e: any) => {
         setClosed(true);
-        onClose && onClose(e);
+        if (onClose) onClose(e);
     };
-    const getDescription = (description: string) => (
+    const getDescription = (_description: string) => (
         <span data-testid='alert-description' className='description'>
-            {description}
+            {_description}
         </span>
     );
 

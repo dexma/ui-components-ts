@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { StyledButtonSelectAll, StyledIconButtonPagination, StyledPaginationPageWrapper, StyledRowButtonPagination } from '@styles/Select/StyledSelect';
+import { type Theme } from '@utils/theme';
 import { getOptionsBySearch } from './selectUtils';
 import { Cell } from '../Cell';
-import { StyledButtonSelectAll, StyledIconButtonPagination, StyledPaginationPageWrapper, StyledRowButtonPagination } from '@styles/AntdSelect/StyledAntdSelect';
-import { SelectTextProps } from '../AntdSelect/AntdSelect';
-import { Theme } from '@utils/theme';
+import { type SelectTextProps } from './Select';
 
 export const getButtonText = (text: SelectTextProps, currentPage: number, pageSize: number, options: any[], searchValue: string, numElements: number) => {
     const textValue = `${text.select}`;
@@ -83,7 +83,7 @@ export const ButtonPaginationSelector = ({
             setIsPrevDisabled(currentPage === 1);
             setIsNextDisabled(currentPage === totalPages);
         }
-    }, [showDropdown]);
+    }, [showDropdown, currentPage, totalPages]);
 
     useEffect(() => {
         if (pageSize !== undefined) {

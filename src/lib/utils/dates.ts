@@ -1,4 +1,4 @@
-import moment, { Moment } from 'moment';
+import moment, { type Moment } from 'moment';
 
 const ISO_FORMAT = 'DD/MM/YY';
 const NUMBER_OF_MONTHS = 3;
@@ -68,7 +68,7 @@ const previousYear = (parser: Parser) => {
     return parser(startOfLastYear, endOfLastYear);
 };
 
-enum DATE_RANGE {
+enum DateRange {
     CUSTOM = 'custom',
     TODAY = 'today',
     YESTERDAY = 'yesterday',
@@ -86,7 +86,7 @@ export {
     START_DATE,
     END_DATE,
     DAY_SIZE,
-    DATE_RANGE,
+    DateRange,
     day,
     today,
     yesterday,

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { Theme } from '@utils/theme';
+import { type Theme } from '@utils/theme';
 import { StyledTag } from '@styles/Tag/StyledTag';
 
 const StyledTagGroup = styled.div<{ theme: Theme }>`

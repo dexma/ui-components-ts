@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, ButtonGroup, Cell, Grid, Row, Paragraph } from '@components';
+import { Button, ButtonGroup, Cell, Grid, Row, Paragraph, ButtonProps } from '@components';
 
 export default {
     title: 'Button',
@@ -7,7 +7,7 @@ export default {
     tags: ['autodocs'],
 };
 
-export const buttons = () => (
+export const Basic = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
@@ -29,7 +29,7 @@ export const buttons = () => (
     </Grid>
 );
 
-export const sizes = () => (
+export const Sizes = () => (
     <Grid fluid>
         <Row style={{ marginBottom: '10px' }}>
             <Cell xs={12}>
@@ -53,7 +53,7 @@ export const sizes = () => (
     </Grid>
 );
 
-export const icons = () => (
+export const Icons = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
@@ -81,7 +81,7 @@ export const icons = () => (
     </Grid>
 );
 
-export const loading = () => (
+export const Loading = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
@@ -105,7 +105,7 @@ export const loading = () => (
     </Grid>
 );
 
-export const group = () => (
+export const Group = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
@@ -125,7 +125,7 @@ export const group = () => (
     </Grid>
 );
 
-export const withTooltips = () => (
+export const WithTooltips = () => (
     <Grid fluid>
         <Row>
             <Cell xs={12}>
@@ -140,7 +140,7 @@ export const withTooltips = () => (
     </Grid>
 );
 
-export const playground = (args: any) => (
+export const Playground = (args: ButtonProps) => (
     <Grid fluid>
         <Row style={{ marginBottom: '10px' }}>
             <Cell xs={12}>
