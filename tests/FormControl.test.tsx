@@ -2,9 +2,6 @@ import React from 'react';
 import { describe, expect, it, vitest } from 'vitest';
 import { render, fireEvent, screen } from '@testing-library/react';
 import { FormControl } from '@components';
-import { mockPeriodOptions } from './mock/DatePicker';
-
-const currentMonthLabel = mockPeriodOptions[5].label;
 
 const options = [
     { value: '1', label: 'First test option' },
@@ -12,14 +9,17 @@ const options = [
 ];
 
 describe('<FormControl>', () => {
-    describe('input', function () {
+    describe('input', () => {
         it('Should call mock function on change', () => {
             const mockCallBack = vitest.fn();
+            const expectedValue = 'new value';
             const { getByTestId } = render(<FormControl control='Input' onChange={mockCallBack} />);
-            fireEvent.change(getByTestId('input-element'), {
-                target: { value: 'new value' },
+            const inputElement = getByTestId('input-element') as HTMLInputElement;
+            fireEvent.change(inputElement, {
+                target: { value: expectedValue },
             });
             expect(mockCallBack).toBeCalled();
+            expect(inputElement.value).toBe(expectedValue);
         });
         it('Should call mock function on focus', () => {
             const mockCallBack = vitest.fn();

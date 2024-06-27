@@ -5,6 +5,7 @@ import { StyledDropdownInnerButton, StyledDropdownButton, StyledGlobalDropdown }
 
 type DropdownContent = {
     text: string;
+    key?: string;
     icon?: string;
     dataId?: string;
     variant?: string;
@@ -14,17 +15,18 @@ type DropdownContent = {
 const getContent = (menu?: DropdownContent[]) => {
     if (!menu) return null;
     const items = menu
-        ? menu.map((item) => ({
+        ? menu.map(({ key, icon, onClick, dataId, variant, text, ...props }) => ({
               label: (
                   <StyledDropdownInnerButton
                       className='dropdown-button-item'
                       style={{ width: '100%', padding: '0px 1rem' }}
-                      iconBefore={item.icon}
-                      onClick={item.onClick}
-                      {...item}
-                      dataId={item.dataId ?? 'ddItem'}
-                      variant={item.variant ?? 'icon'}
-                      text={item.text}
+                      iconBefore={icon}
+                      onClick={onClick}
+                      key={key}
+                      dataId={dataId ?? 'ddItem'}
+                      variant={variant ?? 'icon'}
+                      text={text}
+                      {...props}
                   />
               ),
           }))
