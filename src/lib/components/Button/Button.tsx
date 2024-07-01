@@ -1,5 +1,5 @@
 /* eslint-disable import/no-cycle */
-import React, { type ButtonHTMLAttributes, type CSSProperties, type MouseEventHandler, type ReactNode, useContext } from 'react';
+import React, { type ButtonHTMLAttributes, type ReactNode, useContext } from 'react';
 import classNames from 'classnames';
 import debounce from 'lodash/debounce';
 import { ThemeContext } from 'styled-components';
@@ -29,7 +29,6 @@ const getButtonIconSize = (size?: string | ButtonSize) => {
 export const ButtonGroup = (props: any) => <StyledButtonGroup {...props} />;
 
 export type ButtonProps = {
-    className?: string;
     text?: string;
     size?: string | ButtonSize;
     variant?: string;
@@ -46,10 +45,7 @@ export type ButtonProps = {
     debounceTime?: number;
     children?: ReactNode;
     dataId?: string;
-    onMouseEnter?: MouseEventHandler<HTMLButtonElement>;
-    onMouseLeave?: MouseEventHandler<HTMLButtonElement>;
     'data-testid'?: string;
-    style?: CSSProperties;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
 export const Button = withDataId(
@@ -62,8 +58,6 @@ export const Button = withDataId(
         iconColor,
         tooltip,
         onClick,
-        onMouseEnter,
-        onMouseLeave,
         isDisabled = false,
         isExpanded = false,
         isLoading = false,
@@ -72,7 +66,6 @@ export const Button = withDataId(
         children,
         dataId = 'button',
         variant = 'primary',
-        style,
         ...props
     }: ButtonProps) => {
         const th = useContext(ThemeContext) || defaultTheme;
@@ -95,11 +88,8 @@ export const Button = withDataId(
                 $text={text}
                 theme={th}
                 onClick={handleClick}
-                onMouseEnter={onMouseEnter}
-                onMouseLeave={onMouseLeave}
                 data-id={dataId}
                 data-testid={rest['data-testid'] ?? 'button'}
-                style={style}
                 {...rest}
             >
                 {isLoading ? <Spinner size={spinnerSize} data-testid='button-loading' /> : null}

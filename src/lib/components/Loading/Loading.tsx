@@ -1,4 +1,4 @@
-import React, { type CSSProperties, type ReactNode, useContext } from 'react';
+import React, { HTMLAttributes, useContext } from 'react';
 import { ThemeContext } from 'styled-components';
 
 import defaultTheme from '@utils/theme';
@@ -9,10 +9,7 @@ export type LoadingProps = {
     size?: number;
     isLoading: boolean;
     color?: typeof defaultTheme.color;
-    children?: ReactNode;
-    className?: string;
-    style?: CSSProperties;
-};
+} & HTMLAttributes<HTMLDivElement>;
 
 export const Loading = ({ color, size = 24, isLoading, children, ...props }: LoadingProps) => {
     const th = useContext(ThemeContext) || defaultTheme;

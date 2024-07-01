@@ -1,4 +1,4 @@
-import React, { type ReactNode, useContext } from 'react';
+import React, { HTMLAttributes, useContext } from 'react';
 import { ThemeContext } from 'styled-components';
 
 import defaultTheme from '@utils/theme';
@@ -14,14 +14,11 @@ type CellProps = {
     mdOffset?: number;
     lgOffset?: number;
     direction?: string;
-    children?: ReactNode;
-    className?: string;
-    style?: React.CSSProperties;
     onClick?: () => void;
     ['data-testid']?: string;
-};
+} & HTMLAttributes<HTMLDivElement>;
 
-export const Cell = ({ xs, sm, md, lg, xsOffset, smOffset, mdOffset, lgOffset, direction, children, onClick, className, style, ...props }: CellProps) => {
+export const Cell = ({ xs, sm, md, lg, xsOffset, smOffset, mdOffset, lgOffset, direction, children, onClick, ...props }: CellProps) => {
     const th = useContext(ThemeContext) || defaultTheme;
     return (
         <StyledCell
@@ -34,9 +31,7 @@ export const Cell = ({ xs, sm, md, lg, xsOffset, smOffset, mdOffset, lgOffset, d
             $mdOffset={mdOffset}
             $lgOffset={lgOffset}
             $direction={direction}
-            className={className}
             theme={th}
-            style={style}
             onClick={onClick}
             {...props}
             data-testid={props['data-testid'] ?? 'cell'}

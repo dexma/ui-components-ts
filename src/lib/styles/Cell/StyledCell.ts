@@ -10,7 +10,7 @@ const isColumnFull = (value: string | number): boolean => !isNumber(value);
 const getColumnFull = () => `{
       flex-grow: 1;
       flex-basis: 0;
-      max-width: 100%;      
+      max-width: 100%;
     }`;
 
 const getColumn = (size: number, columns: number) => `

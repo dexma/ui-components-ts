@@ -1,6 +1,6 @@
 import { Select as AntdSelect, type SelectProps as AntdSelectProps } from 'antd';
 import defaultTheme, { type Theme } from '@utils/theme';
-import { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import { MouseEventHandler, ReactElement, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { get } from 'lodash';
 import { ThemeContext } from 'styled-components';
 
@@ -25,7 +25,7 @@ type CustomTagProps = {
 type Option = {
     value: string | number;
     label: string;
-    color: string;
+    color?: string;
 };
 
 type DisplayValue = {
@@ -36,9 +36,9 @@ type DisplayValue = {
     disabled?: boolean;
 };
 
-export const tagRenderButtonPagination = (props: CustomTagProps, options: Option[], maxTagLength: number, theme: Theme) => {
+export const tagRenderButtonPagination = (props: CustomTagProps, options: Option[], maxTagLength: number, theme: Theme): ReactElement => {
     const { value, closable, onClose } = props;
-    const onPreventMouseDown = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    const onPreventMouseDown = (event: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
         event.preventDefault();
         event.stopPropagation();
     };
@@ -59,7 +59,7 @@ export const tagRenderButtonPagination = (props: CustomTagProps, options: Option
                 theme={theme}
             >
                 {parsedLabel}
-                {closable && <Icon className='icon-close' name='close' size='small' onClick={onClose} color={colors.white} />}
+                {closable && <Icon className='icon-close' name='close' size='small' onClick={onClose as unknown as MouseEventHandler<SVGSVGElement>} color={colors.white} />}
             </StyledSpanOptionSelected>
         </Tooltip>
     );
@@ -135,7 +135,7 @@ export const optionsRenderer = (options: Option[], selectedValues: Array<string 
     return (
         <>
             {optionsToRender.map((option) => {
-                const backgroundColor = selectedValues.includes(option.value) ? get(theme.color, option.color) : '#FFFFFF';
+                const backgroundColor = selectedValues.includes(option.value) && option.color ? get(theme.color, option.color) : colors.white;
                 return (
                     <AntdSelect.Option
                         id={option.value}
@@ -179,11 +179,7 @@ export type SelectProps = Omit<AntdSelectProps, 'options' | 'mode'> & {
     defaultValues?: any[];
     pageSize?: number;
     text?: SelectTextProps;
-    options?: Array<{
-        value: string;
-        label: string;
-        color: string;
-    }>;
+    options?: Array<Option>;
     theme?: Theme;
     isLoading?: boolean;
     maxTagLength?: number;
@@ -279,11 +275,7 @@ export const Select = withDataId(
             <>
                 <SelectOptionStyle $theme={th} />
                 {mode === undefined || mode === 'single' ? (
-                    <AntdSelect<{
-                        value: string | number;
-                        label: string;
-                        color: string;
-                    }>
+                    <AntdSelect<Option>
                         data-testid='select'
                         autoClearSearchValue
                         removeIcon={<Icon color='gray' name='close' size='small' />}
@@ -365,7 +357,7 @@ export const Select = withDataId(
                         defaultValue={defaultValues}
                         dropdownRender={
                             text
-                                ? (menu: React.ReactElement) =>
+                                ? (menu: ReactElement) =>
                                       dropdownRenderSelect(
                                           menu,
                                           currentPage,

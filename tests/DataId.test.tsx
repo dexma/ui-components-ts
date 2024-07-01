@@ -8,7 +8,7 @@ import { User } from './mock/Table';
 
 describe('Data Id', () => {
     it('withDataId should not build data-id', () => {
-        const Example = ({dataId}: { dataId?: string }) => <div data-id={dataId}>Example</div>;
+        const Example = ({ dataId }: { dataId?: string }) => <div data-id={dataId}>Example</div>;
 
         const ExampleWithId = withDataId(Example, '');
 
@@ -18,7 +18,7 @@ describe('Data Id', () => {
     });
 
     it('withDataId should build data-id as default value', () => {
-        const Example = ({dataId}: { dataId?: string }) => <div data-id={dataId}>Example</div>;
+        const Example = ({ dataId }: { dataId?: string }) => <div data-id={dataId}>Example</div>;
 
         const ExampleWithId = withDataId(Example, 'example');
 
@@ -28,7 +28,7 @@ describe('Data Id', () => {
     });
 
     it('withDataId should build data-id as specific value', () => {
-        const Example = ({dataId}: { dataId?: string }) => <div data-id={dataId}>Example</div>;
+        const Example = ({ dataId }: { dataId?: string }) => <div data-id={dataId}>Example</div>;
 
         const ExampleWithId = withDataId(Example, 'example');
 
@@ -38,7 +38,7 @@ describe('Data Id', () => {
     });
 
     it('withDataId should build data-id as context + default value', () => {
-        const Example = ({dataId}: { dataId?: string }) => <div data-id={dataId}>Example</div>;
+        const Example = ({ dataId }: { dataId?: string }) => <div data-id={dataId}>Example</div>;
 
         const ExampleWithId = withDataId(Example, 'example');
 
@@ -52,7 +52,7 @@ describe('Data Id', () => {
     });
 
     it('withDataId should build data-id as context + specific value', () => {
-        const Example = ({dataId}: { dataId?: string }) => <div data-id={dataId}>Example</div>;
+        const Example = ({ dataId }: { dataId?: string }) => <div data-id={dataId}>Example</div>;
 
         const ExampleWithId = withDataId(Example, 'example');
 
@@ -194,7 +194,7 @@ describe('Data Id', () => {
                         <Select dataId='select.test' />
                         <TableWithDataId dataId='table.test' />
                         <Tag dataId='tag.test' />
-                        <Dropdown dataId='dropdown.test'/>
+                        <Dropdown dataId='dropdown.test' />
                     </>
                 </Section>
             </DataIdProvider>

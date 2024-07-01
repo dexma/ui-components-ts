@@ -1,10 +1,10 @@
-import React, { type CSSProperties, type ReactNode, useContext } from 'react';
+import React, { useContext, HTMLAttributes } from 'react';
 import { ThemeContext } from 'styled-components';
 
 import defaultTheme from '@utils/theme';
 import { StyledParagraph } from '@styles/Paragraph/StyledParagraph';
 
-export type ParagraphProps = { margin?: string; color?: string; size?: 'small' | 'medium' | 'large' | 'xlarge'; children: ReactNode; className?: string; style?: CSSProperties };
+export type ParagraphProps = { margin?: string; color?: string; size?: 'small' | 'medium' | 'large' | 'xlarge' } & HTMLAttributes<HTMLDivElement>;
 
 export const Paragraph = ({ margin = '0 0 0 0', color = 'gray700', size = 'medium', children, ...props }: ParagraphProps) => {
     const th = useContext(ThemeContext) || defaultTheme;

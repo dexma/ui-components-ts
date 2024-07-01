@@ -27,9 +27,12 @@ type FormControlProps = {
     onFocus?: any;
     onBlur?: any;
     onChangeInput?: any;
+    onChangePicker?: (e: { hex: string }) => void;
     onDatesChange?: any;
     initialColor?: string;
     placeholder?: string;
+    maxLength?: number;
+    rows?: number;
 };
 
 export const FormControl = withDataId(

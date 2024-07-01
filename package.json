@@ -54,13 +54,11 @@
     },
     "dependencies": {
         "@storybook/cli": "^8.1.10",
-        "@types/hoist-non-react-statics": "^3.3.5",
         "@types/lodash": "^4.14.202",
         "@xmldom/xmldom": "^0.8.10",
         "classnames": "^2.5.1",
         "dayjs": "^1.11.11",
         "highcharts-react-official": "^3.1.0",
-        "hoist-non-react-statics": "^3.3.2",
         "lodash": "^4.17.21",
         "polished": "^4.3.1",
         "react-color": "^2.19.3",

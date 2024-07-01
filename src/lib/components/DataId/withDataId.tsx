@@ -1,27 +1,26 @@
-import React, { useContext } from 'react';
-import hoistStatics from 'hoist-non-react-statics';
+import React, { ComponentType, forwardRef, useContext } from 'react';
 import { DataIdContext } from '@components/DataId/DataIdProvider';
 
 type WithDataIdProps = {
     dataId?: string;
 };
 
-export function withDataId<T extends WithDataIdProps>(Component: React.ComponentType<T>, defaultValue: string) {
-    const withData = React.forwardRef((props: T, ref) => {
+export const withDataId = <P extends object>(Component: ComponentType<P & WithDataIdProps>, defaultValue: string) => {
+    const WrappedComponent = forwardRef<unknown, Omit<P, keyof WithDataIdProps> & Partial<WithDataIdProps>>(({ dataId, ...props }, ref) => {
         const namespace = useContext(DataIdContext);
 
-        let dataId = defaultValue;
+        let composedDataId = defaultValue;
 
-        if (namespace && props.dataId) {
-            dataId = `${namespace}.${props.dataId}`;
+        if (namespace && dataId) {
+            composedDataId = `${namespace}.${dataId}`;
         } else if (namespace) {
-            dataId = `${namespace}.${dataId}`;
-        } else if (props.dataId) {
-            dataId = props.dataId;
+            composedDataId = `${namespace}.${composedDataId}`;
+        } else if (dataId) {
+            composedDataId = dataId;
         }
-        return <Component {...props} dataId={dataId} refs={ref} />;
+
+        return <Component {...(props as P)} dataId={composedDataId} ref={ref} />;
     });
 
-    const Hoisted = hoistStatics(withData, Component);
-    return Hoisted;
-}
+    return WrappedComponent;
+};

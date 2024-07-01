@@ -1,5 +1,5 @@
-import React, { ReactNode, useContext } from 'react';
-import { Checkbox as CheckboxAntd, ConfigProvider } from 'antd';
+import React, { useContext } from 'react';
+import { Checkbox as CheckboxAntd, CheckboxProps as AntCheckboxProps, ConfigProvider } from 'antd';
 import { ThemeContext } from 'styled-components';
 
 import defaultTheme from '@utils/theme';
@@ -7,12 +7,7 @@ import { withDataId } from '@components/DataId/withDataId';
 
 export type CheckboxProps = {
     dataId?: string;
-    checked?: boolean;
-    disabled?: boolean;
-    children?: ReactNode;
-    className?: string;
-    onChange?: () => void;
-};
+} & AntCheckboxProps;
 
 export const Checkbox = withDataId(({ checked, disabled, dataId, children, ...props }: CheckboxProps) => {
     const th = useContext(ThemeContext) || defaultTheme;

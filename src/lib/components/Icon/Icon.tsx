@@ -1,4 +1,4 @@
-import React, { type CSSProperties, forwardRef, useContext } from 'react';
+import React, { forwardRef, LegacyRef, SVGProps, useContext } from 'react';
 import { ThemeContext } from 'styled-components';
 import isNumber from 'lodash/isNumber';
 import { v4 as uuidv4 } from 'uuid';
@@ -50,10 +50,7 @@ export type IconProps = {
     name?: string;
     color?: string | keyof typeof defaultTheme.color;
     size?: number | string | IconSize;
-    className?: string;
-    style?: CSSProperties;
-    onClick?: (e: any) => void;
-};
+} & SVGProps<SVGSVGElement>;
 
 const getColor = (th: Theme, color?: string | typeof defaultTheme.color) => {
     if (!color) return th.color.gray500;
@@ -61,7 +58,7 @@ const getColor = (th: Theme, color?: string | typeof defaultTheme.color) => {
     return th.color[color as keyof typeof th.color];
 };
 
-export const Icon = forwardRef(({ name = 'vader', color = 'gray500', size = IconSize.LARGE, className, onClick, ...props }: IconProps, ref) => {
+export const Icon = forwardRef(({ name = 'vader', color = 'gray500', size = IconSize.LARGE, onClick, ...props }: IconProps, ref: LegacyRef<SVGSVGElement>) => {
     const th = useContext(ThemeContext) || defaultTheme;
     const fillColor = getColor(th, color);
     const pathElements = getIconPaths(name);
@@ -69,7 +66,6 @@ export const Icon = forwardRef(({ name = 'vader', color = 'gray500', size = Icon
     return (
         <StyledIcon
             ref={ref}
-            className={className}
             width={iconSize}
             height={iconSize}
             viewBox='0 0 24 24'

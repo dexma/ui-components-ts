@@ -47,6 +47,7 @@ type SwitchPeriodComparativeProps = {
     samePeriodLastYearText?: string;
     onPeriodSelect?: ({ period, date }: { period: string; date: { startDate: Dayjs; endDate: Dayjs } }) => void;
 };
+
 export const SwitchPeriodComparative = ({
     selectedPeriod = SelectedPeriodType.PREVIOUS_PERIOD,
     startDate,

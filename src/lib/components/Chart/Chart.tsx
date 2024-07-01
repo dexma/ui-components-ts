@@ -1,4 +1,4 @@
-import React, { type ForwardedRef, type Ref, useContext, useEffect, useState } from 'react';
+import React, { type ForwardedRef, forwardRef, useContext, useEffect, useState } from 'react';
 import { ThemeContext } from 'styled-components';
 
 import Highcharts from 'highcharts';
@@ -84,7 +84,7 @@ type ChartProps = {
 };
 
 export const Chart = withDataId(
-    React.forwardRef(
+    forwardRef(
         (
             {
                 options,
@@ -93,15 +93,15 @@ export const Chart = withDataId(
                 errorContent,
                 dataId,
                 'data-testid': dataTestId,
-                decimalPoint,
-                thousandsSep,
-                numericSymbols,
+                decimalPoint = '.',
+                thousandsSep = ' ',
+                numericSymbols = ['k', 'M', 'G', 'T', 'P', 'E'],
                 months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
                 shortMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
                 weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
                 ...props
             }: ChartProps,
-            ref: ForwardedRef<HTMLDivElement>
+            ref: ForwardedRef<HighchartsReactRefObject>
         ) => {
             const th = useContext(ThemeContext) || defaultTheme;
             const loading = isLoading && !showError;
@@ -183,7 +183,7 @@ export const Chart = withDataId(
                 <StyledChart data-id={dataId} data-testid={dataTestId} theme={th}>
                     {(loading || !aggregateOptions) && <ChartLoading />}
                     {error && <ChartError>{errorContent}</ChartError>}
-                    {showChart && aggregateOptions && <HighchartsReact highcharts={Highcharts} ref={ref as Ref<HighchartsReactRefObject>} {...props} options={aggregateOptions} />}
+                    {showChart && aggregateOptions && <HighchartsReact highcharts={Highcharts} ref={ref} {...props} options={aggregateOptions} />}
                 </StyledChart>
             );
         }

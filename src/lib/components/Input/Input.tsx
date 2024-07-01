@@ -1,4 +1,4 @@
-import React, { useState, forwardRef, type ForwardedRef, useContext, ReactNode, FocusEvent, ChangeEvent } from 'react';
+import React, { useState, forwardRef, type ForwardedRef, useContext, ReactNode, FocusEvent, InputHTMLAttributes } from 'react';
 import { ThemeContext } from 'styled-components';
 import omit from 'lodash/omit';
 
@@ -18,18 +18,13 @@ type InputProps = {
     type?: string;
     name?: string;
     disabled?: boolean;
-    onFocus?: (e: FocusEvent<HTMLInputElement>) => void;
-    onBlur?: (e: FocusEvent<HTMLInputElement>) => void;
-    onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
     dataId?: string;
-    children?: ReactNode;
-    className?: string;
-};
+} & InputHTMLAttributes<HTMLInputElement>;
 
 export const Input = withDataId(
     forwardRef((props: InputProps, ref: ForwardedRef<HTMLInputElement>) => {
         const [focused, setFocused] = useState(false);
-        const { icon, isLoading, onFocus, onBlur, children, dataId, className } = props;
+        const { icon, isLoading, onFocus, onBlur, children, dataId } = props;
         const th = useContext(ThemeContext) || defaultTheme;
         const newProps = omit(props, ['placeholder', 'id', 'label', 'value', 'type', 'name', 'onChange', 'onFocus', 'onBlur', 'dataId', 'isLoading']);
         const inputProps = omit(props, ['icon', 'isLoading', 'theme', 'children', 'onFocus', 'onBlur', 'dataId', 'isLoading']);
@@ -42,16 +37,7 @@ export const Input = withDataId(
             if (onBlur) onBlur(e);
         };
         return (
-            <StyledInput
-                data-testid='input'
-                $icon={icon}
-                $isLoading={isLoading !== undefined ? isLoading : false}
-                $focused={focused}
-                data-id={dataId}
-                theme={th}
-                className={className}
-                {...newProps}
-            >
+            <StyledInput data-testid='input' $icon={icon} $isLoading={isLoading !== undefined ? isLoading : false} $focused={focused} data-id={dataId} theme={th} {...newProps}>
                 {icon && (
                     <div className='icon-container'>
                         <Icon name={icon} size={20} color='gray500' />

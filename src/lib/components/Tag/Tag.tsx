@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { HTMLAttributes, useContext } from 'react';
 import { ThemeContext } from 'styled-components';
 
 import defaultTheme from '@utils/theme';
@@ -11,14 +11,12 @@ export type TagProps = {
     color?: string;
     icon?: string;
     closable?: boolean;
-    onClick?: () => void;
     onClose?: () => void;
     type?: 'normal' | 'rounded';
     variant?: 'primary' | 'outline';
-    children?: React.ReactNode;
-};
+} & HTMLAttributes<HTMLDivElement>;
 
-export const Tag = withDataId(({ icon, color, closable, children, type = 'normal', onClose, onClick, variant = 'primary', dataId, ...props }: TagProps) => {
+export const Tag = withDataId(({ icon, color, closable, children, type = 'normal', onClose, variant = 'primary', dataId, ...props }: TagProps) => {
     const th = useContext(ThemeContext) || defaultTheme;
     return (
         <StyledTag
@@ -29,7 +27,6 @@ export const Tag = withDataId(({ icon, color, closable, children, type = 'normal
             $icon={icon}
             $color={color ?? th.primary}
             $closable={closable}
-            onClick={onClick}
             theme={th}
             {...props}
         >

@@ -1,4 +1,4 @@
-import React, { type ReactNode, useContext } from 'react';
+import React, { HTMLAttributes, type ReactNode, useContext } from 'react';
 import classNames from 'classnames';
 import { uniqueId as lodashUniqueId } from 'lodash';
 import find from 'lodash/find';
@@ -62,13 +62,13 @@ type FieldGroupProps<V> = {
     onChange?: (e: FieldGroupItem) => void;
     onFieldClick?: (e: FieldGroupItem) => void;
     dataId?: string;
-};
+} & Omit<HTMLAttributes<HTMLDivElement>, 'onChange'>;
 
 export type FieldGroupItem = {
     id: string;
     label?: ReactNode;
     icon?: string;
-    name: string;
+    name?: string;
     uniqueId?: string;
     value: string;
     tooltip?: string;

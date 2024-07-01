@@ -36,7 +36,7 @@ export const mockBasicArea: ChartOptions = {
         labels: {
             formatter: () => {
                 const current = this as unknown as { value: any };
-                return `${current?.value / 1000}k`;
+                return `${current ? current.value / 1000 : 0}k`;
             },
         },
     },
@@ -308,7 +308,7 @@ export const mockStackedBarNegative: ChartOptions = {
     },
     xAxis: [
         {
-            categories: categories,
+            categories,
             reversed: false,
             labels: {
                 step: 1,
@@ -318,7 +318,7 @@ export const mockStackedBarNegative: ChartOptions = {
             // mirror axis on right side
             opposite: true,
             reversed: false,
-            categories: categories,
+            categories,
             linkedTo: 0,
             labels: {
                 step: 1,
@@ -346,7 +346,7 @@ export const mockStackedBarNegative: ChartOptions = {
     tooltip: {
         formatter: () => {
             const current = this as unknown as { series: any; point: any };
-            return `<b>${current?.series.name}, age ${current?.point.category}</b><br/>` + `Population: ${Highcharts.numberFormat(Math.abs(current?.point.y), 0)}`;
+            return `<b>${current?.series.name}, age ${current?.point.category}</b><br/>Population: ${Highcharts.numberFormat(Math.abs(current?.point.y), 0)}`;
         },
     },
 

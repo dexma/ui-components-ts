@@ -80,20 +80,4 @@ enum DateRange {
     PREVIOUS_YEAR = 'previous_year',
 }
 
-export {
-    ISO_FORMAT,
-    NUMBER_OF_MONTHS,
-    START_DATE,
-    END_DATE,
-    DAY_SIZE,
-    DateRange,
-    day,
-    today,
-    yesterday,
-    last7Days,
-    last28Days,
-    currentMonth,
-    lastMonth,
-    yearToDate,
-    previousYear,
-};
+export { ISO_FORMAT, NUMBER_OF_MONTHS, START_DATE, END_DATE, DAY_SIZE, DateRange, day, today, yesterday, last7Days, last28Days, currentMonth, lastMonth, yearToDate, previousYear };
