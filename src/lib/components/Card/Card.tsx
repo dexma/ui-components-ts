@@ -1,87 +1,12 @@
-import React, { ReactNode, useContext } from 'react';
-import PropTypes from 'prop-types';
-import { ThemeContext, withTheme } from 'styled-components';
+import React, { useContext } from 'react';
+import { ThemeContext } from 'styled-components';
 import classNames from 'classnames';
-import omit from 'lodash/omit';
 
-import { Icon } from '@/components/Icon';
-import { Paragraph } from '@/components/Paragraph';
-import { StyledCard, StyledCardLink } from '@/styles/Card/StyledCard';
-import theme from '@/utils/theme';
+import defaultTheme from '@utils/theme';
+import { Icon, Paragraph } from '@components';
+import { StyledCard, StyledCardLink } from '@styles/Card/StyledCard';
 
-const propTypes = {
-    /**
-     * Set the card as a link with href
-     */
-    link: PropTypes.string,
-    /**
-     * Show the title of the card
-     */
-    title: PropTypes.string,
-    /**
-     * Show ... if the title collapse
-     */
-    titleTruncated: PropTypes.bool,
-    /**
-     * Set the subtitle of the card
-     */
-    subtitle: PropTypes.string,
-    /**
-     * Set the description of the card
-     */
-    description: PropTypes.string,
-    /**
-     * You can use icon as the main picture
-     */
-    icon: PropTypes.string,
-    /**
-     * You can pass image url image
-     */
-    image: PropTypes.string,
-    /**
-     * You can set the footer of the card
-     */
-    footer: PropTypes.node,
-    /**
-     * Show the active card
-     */
-    isActive: PropTypes.bool,
-    /**
-     * Show a white card
-     */
-    isWhite: PropTypes.bool,
-    /**
-     * Show a loading placeholder
-     */
-    isLoading: PropTypes.bool,
-    /**
-     * Show the horizontal style card
-     */
-    isHorizontal: PropTypes.bool,
-    /**
-     * Invoked once the button has been clicked.
-     */
-    onClick: PropTypes.func,
-    /**
-     * Invoked once the button has been focused.
-     */
-    onFocus: PropTypes.func,
-    /**
-     * Theme json based
-     */
-    theme: PropTypes.shape({}),
-};
-
-const defaultProps = {
-    titleTruncated: false,
-    isActive: false,
-    isWhite: false,
-    isLoading: false,
-    isHorizontal: false,
-    theme: theme,
-};
-
-export const CardHeader = ({ image, icon }: { image?: string; icon?: string }) => {
+const CardHeader = ({ image, icon }: { image?: string; icon?: string }) => {
     if (!image && !icon) return null;
     return (
         <div className='card-header' data-testid='card-header'>
@@ -91,7 +16,7 @@ export const CardHeader = ({ image, icon }: { image?: string; icon?: string }) =
     );
 };
 
-export const CardBody = ({ title, subtitle, description }: { title?: string; subtitle?: string; description?: string }) => {
+const CardBody = ({ title, subtitle, description }: { title?: string; subtitle?: string; description?: string }) => {
     if (!title && !subtitle && !description) return null;
     return (
         <div className='card-body' data-testid='card-body'>
@@ -102,7 +27,7 @@ export const CardBody = ({ title, subtitle, description }: { title?: string; sub
     );
 };
 
-export const CardFooter = ({ footer }: { footer: React.ReactNode }) => {
+const CardFooter = ({ footer }: { footer: React.ReactNode }) => {
     if (!footer) return null;
     return (
         <div className='card-footer' data-testid='card-footer'>
@@ -111,18 +36,15 @@ export const CardFooter = ({ footer }: { footer: React.ReactNode }) => {
     );
 };
 
-type CardProps = {
+export type CardProps = {
     link?: string;
     title?: string;
-    titleTruncated?: boolean;
     subtitle?: string;
     description?: string;
     icon?: string;
     image?: string;
     footer?: React.ReactNode;
     isActive?: boolean;
-    isWhite?: boolean;
-    isLoading?: boolean;
     isHorizontal?: boolean;
     onClick?: (event: React.MouseEvent<HTMLAnchorElement>) => void;
     onFocus?: (event: React.FocusEvent<HTMLAnchorElement>) => void;
@@ -138,18 +60,18 @@ type CardContentProps = {
     isHorizontal?: boolean;
 };
 
-const CardContent = (props: CardContentProps) => (
+const CardContent = ({ image, icon, isHorizontal, title, subtitle, description, footer }: CardContentProps) => (
     <>
-        <CardHeader image={props.image} icon={props.icon} />
-        {props.isHorizontal ? (
+        <CardHeader image={image} icon={icon} />
+        {isHorizontal ? (
             <div className='horizontal'>
-                <CardBody title={props.title} subtitle={props.subtitle} description={props.description} />
-                <CardFooter footer={props.footer} />
+                <CardBody title={title} subtitle={subtitle} description={description} />
+                <CardFooter footer={footer} />
             </div>
         ) : (
             <>
-                <CardBody title={props.title} subtitle={props.subtitle} description={props.description} />
-                <CardFooter footer={props.footer} />
+                <CardBody title={title} subtitle={subtitle} description={description} />
+                <CardFooter footer={footer} />
             </>
         )}
     </>
@@ -157,26 +79,17 @@ const CardContent = (props: CardContentProps) => (
 
 export const Card = (props: CardProps) => {
     const { link, title, subtitle, description, icon, image, footer, isActive, isHorizontal, onClick, onFocus } = props;
-    const th = useContext(ThemeContext) || theme;
+    const th = useContext(ThemeContext) || defaultTheme;
     const classes = classNames(isActive && 'active');
-    return (
-        <>
-            {link ? (
-                <StyledCardLink href={link} className={classes} theme={th} $hasFooter={footer !== null} data-testid='card' onClick={onClick} onFocus={onFocus}>
-                    <CardContent title={title} subtitle={subtitle} description={description} icon={icon} image={image} footer={footer} isHorizontal={isHorizontal} />
-                </StyledCardLink>
-            ) : (
-                <StyledCard className={classes} theme={th} $hasFooter={footer !== null} data-testid='card' onClick={onClick} onFocus={onFocus}>
-                    <CardContent title={title} subtitle={subtitle} description={description} icon={icon} image={image} footer={footer} isHorizontal={isHorizontal} />
-                </StyledCard>
-            )}
-        </>
+    return link ? (
+        <StyledCardLink href={link} className={classes} theme={th} $hasFooter={footer !== null} $isHorizontal={isHorizontal} data-testid='card' onClick={onClick} onFocus={onFocus}>
+            <CardContent title={title} subtitle={subtitle} description={description} icon={icon} image={image} footer={footer} isHorizontal={isHorizontal} />
+        </StyledCardLink>
+    ) : (
+        <StyledCard className={classes} theme={th} $hasFooter={footer !== null} $isHorizontal={isHorizontal} data-testid='card' onClick={onClick} onFocus={onFocus}>
+            <CardContent title={title} subtitle={subtitle} description={description} icon={icon} image={image} footer={footer} isHorizontal={isHorizontal} />
+        </StyledCard>
     );
 };
-
-StyledCard.displayName = 'StyledCard';
-
-Card.propTypes = propTypes;
-Card.defaultProps = defaultProps;
 
 export default Card;

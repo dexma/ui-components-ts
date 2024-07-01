@@ -1,7 +1,8 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import { expect, describe, it, vitest } from 'vitest';
-import { Alert } from '@/components/Alert';
+
+import { Alert } from '@components';
 
 describe('<Alert>', () => {
     it('Should render the message passed as a prop', () => {

@@ -1,34 +1,8 @@
-import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
-
-import { StyledCell } from '@/styles/Cell/StyledCell';
-import theme from '@/utils/theme';
+import React, { HTMLAttributes, useContext } from 'react';
 import { ThemeContext } from 'styled-components';
 
-const propTypes = {
-    /**
-     * Responsive extra small size
-     */
-    xs: PropTypes.oneOfType([PropTypes.number, PropTypes.bool, PropTypes.string]),
-    /**
-     * Responsive small size
-     */
-    sm: PropTypes.oneOfType([PropTypes.number, PropTypes.bool, PropTypes.string]),
-    /**
-     * Responsive medium size
-     */
-    md: PropTypes.oneOfType([PropTypes.number, PropTypes.bool, PropTypes.string]),
-    /**
-     * Responsive large size
-     */
-    lg: PropTypes.oneOfType([PropTypes.number, PropTypes.bool, PropTypes.string]),
-    xsOffset: PropTypes.number,
-    smOffset: PropTypes.number,
-    mdOffset: PropTypes.number,
-    lgOffset: PropTypes.number,
-    first: PropTypes.oneOf(['xs', 'sm', 'md', 'lg']),
-    last: PropTypes.oneOf(['xs', 'sm', 'md', 'lg']),
-};
+import defaultTheme from '@utils/theme';
+import { StyledCell } from '@styles/Cell/StyledCell';
 
 type CellProps = {
     xs?: number;
@@ -40,36 +14,31 @@ type CellProps = {
     mdOffset?: number;
     lgOffset?: number;
     direction?: string;
-    children?: JSX.Element | JSX.Element[];
-    className?: string;
-    style?: React.CSSProperties;
-};
+    onClick?: () => void;
+    ['data-testid']?: string;
+} & HTMLAttributes<HTMLDivElement>;
 
-export const Cell = (props: CellProps) => {
-    const th = useContext(ThemeContext) || theme;
+export const Cell = ({ xs, sm, md, lg, xsOffset, smOffset, mdOffset, lgOffset, direction, children, onClick, ...props }: CellProps) => {
+    const th = useContext(ThemeContext) || defaultTheme;
     return (
         <StyledCell
-            data-testid='cell'
-            $xs={props.xs}
-            $sm={props.sm}
-            $md={props.md}
-            $lg={props.lg}
-            $xsOffset={props.xsOffset}
-            $smOffset={props.smOffset}
-            $mdOffset={props.mdOffset}
-            $lgOffset={props.lgOffset}
-            $direction={props.direction}
-            className={props.className}
+            $xs={xs}
+            $sm={sm}
+            $md={md}
+            $lg={lg}
+            $xsOffset={xsOffset}
+            $smOffset={smOffset}
+            $mdOffset={mdOffset}
+            $lgOffset={lgOffset}
+            $direction={direction}
             theme={th}
-            style={props.style}
+            onClick={onClick}
+            {...props}
+            data-testid={props['data-testid'] ?? 'cell'}
         >
-            {props.children}
+            {children}
         </StyledCell>
     );
 };
 
 StyledCell.displayName = 'StyledCell';
-
-Cell.propTypes = propTypes;
-
-export default Cell;

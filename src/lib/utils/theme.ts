@@ -1,3 +1,5 @@
+import { type DefaultTheme } from 'styled-components';
+
 // Colors (https://dexmatech.atlassian.net/wiki/spaces/design/pages/698253492/Colour)
 export const color = {
     teal50: '#e7fdf5',
@@ -384,7 +386,7 @@ const progress = {
     backgroundColor: color.white,
 };
 
-const theme = {
+const defaultTheme: DefaultTheme = {
     ...base,
     alert,
     button,
@@ -404,6 +406,6 @@ const theme = {
     progress,
 };
 
-export type Theme = typeof theme;
+export type Theme = DefaultTheme;
 
-export default theme;
+export default defaultTheme;

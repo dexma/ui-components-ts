@@ -1,33 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { Popover as AntDPopover, PopoverProps as AntDPopoverProps } from 'antd';
-import withDataId from '@/components/DataId/withDataId';
+import { Popover as AntDPopover, type PopoverProps as AntDPopoverProps } from 'antd';
 
-const propTypes = {
-    /**
-     * If it shows or not the arrow that points to the trigger element
-     */
-    arrow: PropTypes.bool,
-    /**
-     * Wrapped content that will trigger the popover
-     */
-    children: PropTypes.node,
-    /**
-     * Content of the popover
-     */
-    content: PropTypes.node,
-    /**
-     * Title of the popover
-     */
-    title: PropTypes.string,
-    /**
-     * Trigger of the popover
-     * Can be an array of triggers
-     */
-    trigger: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
-};
+import { withDataId } from '@components/DataId/withDataId';
 
-const Popover = (props: AntDPopoverProps) => {
+export const Popover = withDataId((props: AntDPopoverProps & { dataId?: string }) => {
     const { arrow, children, content, title, trigger, ...rest } = props;
 
     return (
@@ -35,11 +11,4 @@ const Popover = (props: AntDPopoverProps) => {
             {children}
         </AntDPopover>
     );
-};
-
-Popover.propTypes = propTypes;
-Popover.defaultProps = {
-    arrow: false,
-};
-
-export default withDataId(Popover);
+}, 'popover');

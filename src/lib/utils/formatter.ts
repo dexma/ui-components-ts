@@ -1,3 +1,9 @@
+const applyTwoDecimals = (number: number, decimal: string, grouping: string) =>
+    parseFloat(number.toFixed(2))
+        .toString()
+        .replace(/,|\./g, decimal)
+        .replace(/\B(?=(\d{3})+(?!\d))/g, grouping);
+
 export const numberFormatter = (number: number, decimal: string, grouping: string) => {
     // const number = parseFloat(numberAsStr);
     if (number > 10000 || number < -10000) {
@@ -10,12 +16,6 @@ export const numberFormatter = (number: number, decimal: string, grouping: strin
     }
     return applyTwoDecimals(number, decimal, grouping);
 };
-
-const applyTwoDecimals = (number: number, decimal: string, grouping: string) =>
-    parseFloat(number.toFixed(2))
-        .toString()
-        .replace(/,|\./g, decimal)
-        .replace(/\B(?=(\d{3})+(?!\d))/g, grouping);
 
 export const applyScientific = (number: number, decimal: string, exponential: number) =>
     number

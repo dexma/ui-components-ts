@@ -1,8 +1,9 @@
 import React from 'react';
-import { Icon, IconSize, getIconSize } from '@/components/Icon';
-import { icons } from '@/config/index';
 import { describe, expect, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
+
+import { icons } from '@config';
+import { Icon, IconSize, getIconSize } from '@components';
 
 describe('<Icon>', () => {
     it('Should render the classNamePrefix component', () => {

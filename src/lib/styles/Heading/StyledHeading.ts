@@ -1,7 +1,8 @@
-import styled, { css } from 'styled-components';
 import get from 'lodash/get';
-import { headingFontSize } from '@/utils/selectors';
-import { Theme } from '@/utils/theme';
+import styled, { css } from 'styled-components';
+
+import { type Theme } from '@utils/theme';
+import { headingFontSize } from '@utils/selectors';
 
 const getSizes = (as: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6', theme: Theme) => {
     const fontSizes = headingFontSize(theme);

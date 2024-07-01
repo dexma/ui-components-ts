@@ -1,35 +1,17 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withTheme } from 'styled-components';
-import { ModalProps } from 'antd';
-import theme, { Theme } from '@/utils/theme';
-import { StyledModal, StyledModalGlobal } from '@/styles/Modal/StyledModal';
-import { Icon } from '@/components/Icon';
+import React, { useContext } from 'react';
+import { type ModalProps } from 'antd';
+import { ThemeContext } from 'styled-components';
 
-const propTypes = {
-    /**
-     * Theme json based
-     */
-    theme: PropTypes.shape({}),
-};
+import defaultTheme from '@utils/theme';
+import { Icon } from '@components';
+import { StyledModal, StyledModalGlobal } from '@styles/Modal/StyledModal';
 
-const defaultProps = {
-    theme: theme,
-};
-
-export const Modal = (props: ModalProps & { theme: Theme }) => {
-    const { theme } = props;
+export const Modal = (props: ModalProps) => {
+    const th = useContext(ThemeContext) || defaultTheme;
     return (
         <>
-            <StyledModal data-testid='modal' closeIcon={<Icon name='close' color='gray300' size='medium' />} footer={false} transitionName='' maskTransitionName='' {...props} />
-            <StyledModalGlobal theme={theme} />
+            <StyledModal data-testid='modal' closeIcon={<Icon name='close' color='gray300' size='medium' />} transitionName='' maskTransitionName='' {...props} />
+            <StyledModalGlobal theme={th} />
         </>
     );
 };
-
-StyledModal.displayName = 'StyledModal';
-
-Modal.propTypes = propTypes;
-Modal.defaultProps = defaultProps;
-
-export default withTheme(Modal);

@@ -1,8 +1,8 @@
 import { useContext } from 'react';
 import { ThemeContext } from 'styled-components';
 
-import { StyledDot, StyledDots } from '@/styles/Dots/StyledDots';
-import theme from '@/utils/theme';
+import { StyledDot, StyledDots } from '@styles/Dots/StyledDots';
+import defaultTheme from '@utils/theme';
 
 export type DotsProps = {
     steps: number;
@@ -13,7 +13,7 @@ StyledDots.displayName = 'StyledDots';
 
 export const Dots = (props: DotsProps) => {
     const { steps, size } = props;
-    const th = useContext(ThemeContext) || theme;
+    const th = useContext(ThemeContext) || defaultTheme;
     const dots = [];
     for (let i = 0; i < steps; i += 1) {
         dots.push(<StyledDot data-testid='dot' key={i} theme={th} size={size} />);

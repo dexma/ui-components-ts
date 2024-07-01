@@ -1,73 +1,26 @@
-/* eslint-disable react/button-has-type */
-import React from 'react';
-import { omit } from 'lodash';
-import PropTypes from 'prop-types';
-import { withTheme } from 'styled-components';
+import React, { useContext } from 'react';
 import { Switch as SwitchAntDesign } from 'antd';
+import { SwitchChangeEventHandler, SwitchClickEventHandler, type SwitchProps as AntdSwitchProps, type SwitchSize } from 'antd/es/switch';
+import { ThemeContext } from 'styled-components';
 
-import theme, { Theme } from '@/utils/theme';
-import withDataId from '@/components/DataId/withDataId';
-import { StyledSwitch } from '@/styles/Switch/StyledSwitch';
-import { SwitchProps as AntdSwitchProps, SwitchSize } from 'antd/es/switch';
+import defaultTheme from '@utils/theme';
+import { withDataId } from '@components/DataId/withDataId';
+import { StyledSwitch } from '@styles/Switch/StyledSwitch';
 
-const propTypes = {
-    /**
-     * Set default value
-     */
-    defaultChecked: PropTypes.bool,
-    /**
-     * Set the switch to disabled
-     */
-    disabled: PropTypes.bool,
-    /**
-     * Set the size of switch
-     */
-    size: PropTypes.oneOf(['default', 'small']),
-    /**
-     * Callback onChange
-     */
-    onChange: PropTypes.func,
-    /**
-     * Callback onClick
-     */
-    onClick: PropTypes.func,
-    /**
-     * Theme json based
-     */
-    theme: PropTypes.shape({}),
-    /**
-     * data-id attribute to identfy the element in DOM
-     */
-    dataId: PropTypes.string,
-};
-
-const defaultProps = {
-    disabled: false,
-    size: 'default',
-    theme: theme,
-    dataId: 'switch',
-};
-
-type SwitchProps = {
+export type SwitchProps = {
     disabled?: boolean;
     size?: SwitchSize;
     dataId?: string;
-    onChange?: () => void;
-    onClick?: () => void;
-    theme: Theme;
+    onChange?: SwitchChangeEventHandler;
+    onClick?: SwitchClickEventHandler;
 } & AntdSwitchProps;
-export const Switch = (props: SwitchProps) => {
-    const { disabled, size, onChange, onClick, dataId } = props;
-    const switchProps = omit(props, ['dataId']);
+
+export const Switch = withDataId(({ disabled, size = 'default', onChange, onClick, dataId, ...props }: SwitchProps) => {
+    const th = useContext(ThemeContext) || defaultTheme;
 
     return (
-        <StyledSwitch {...props}>
-            <SwitchAntDesign {...switchProps} data-testid='switch' disabled={disabled} onChange={onChange} onClick={onClick} size={size} data-id={dataId} />
+        <StyledSwitch {...props} theme={th}>
+            <SwitchAntDesign {...props} data-testid='switch' disabled={disabled} onChange={onChange} onClick={onClick} size={size} data-id={dataId} />
         </StyledSwitch>
     );
-};
-
-Switch.propTypes = propTypes;
-Switch.defaultProps = defaultProps;
-
-export default withTheme(withDataId(Switch));
+}, 'switch');

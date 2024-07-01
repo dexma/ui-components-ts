@@ -1,25 +1,25 @@
-import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
-import { Tabs as TabsAntDesign, TabsProps as TabsPropsAntDesign } from 'antd';
+import React, { ReactNode, useContext } from 'react';
+import { Tabs as TabsAntDesign, type TabsProps as TabsPropsAntDesign, type TabPaneProps } from 'antd';
 
-import theme from '@/utils/theme';
-import { StyledTabs } from '@/styles/Tabs/StyledTabs';
+import { StyledTabs } from '@styles/Tabs/StyledTabs';
 import { ThemeContext } from 'styled-components';
 
-type TabsProps = TabsPropsAntDesign & {
-    variant?: 'default' | 'scrollable';
-};
+export enum TabsVariant {
+    DEFAULT = 'default',
+    SCROLLABLE = 'scrollable',
+}
+type TabsProps = { variant?: TabsVariant } & TabsPropsAntDesign;
 
-export const Tabs = (props: TabsProps) => {
-    const { variant, ...tabsProps } = props;
+export const Tabs = ({ variant = TabsVariant.DEFAULT, ...props }: TabsProps): ReactNode => {
     const th = useContext(ThemeContext);
     return (
-        <StyledTabs $variant={variant || 'default'} theme={th} data-testid='tabs'>
-            <TabsAntDesign animated={{ inkBar: false, tabPane: false }} {...tabsProps} />
+        <StyledTabs $variant={variant} theme={th} data-testid='tabs'>
+            <TabsAntDesign animated={{ inkBar: false, tabPane: false }} {...props} />
         </StyledTabs>
     );
 };
 
-export const TabPane = (props: any) => {
-    return <TabsAntDesign.TabPane {...props} />;
-};
+/**
+ * @deprecated [Tabs] Tabs.TabPane is deprecated. Please use `items` directly.
+ */
+export const TabPane = (props: TabPaneProps): ReactNode => <TabsAntDesign.TabPane {...props} />;

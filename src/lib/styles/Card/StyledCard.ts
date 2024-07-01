@@ -16,39 +16,37 @@ import {
     gray500,
     gray700,
     gray900,
-} from '@/utils/selectors';
+} from '@utils/selectors';
 
-import { StyledIcon } from '@/styles/Icon/StyledIcon';
-import { StyledParagraph } from '@/styles/Paragraph/StyledParagraph';
-import { StyledButton } from '@/styles/Button/StyledButton';
-import { Theme } from '@/utils/theme';
+import { StyledIcon } from '@styles/Icon/StyledIcon';
+import { StyledParagraph } from '@styles/Paragraph/StyledParagraph';
+import { StyledButton } from '@styles/Button/StyledButton';
+import { type Theme } from '@utils/theme';
 
-export const getHorizontal = () => {
-    return css`
-        flex-direction: row;
-        .card-header {
-            width: 33.33333333%;
-        }
-        .horizontal {
-            flex-direction: column;
-            width: 66.66666667%;
+export const getHorizontal = () => css`
+    flex-direction: row;
+    .card-header {
+        width: 33.33333333%;
+    }
+    .horizontal {
+        flex-direction: column;
+        width: 66.66666667%;
+        display: flex;
+        .card-body {
+            flex: 1 1 100%;
+            align-items: flex-start;
+            justify-content: center;
+            /* align-self: center; */
             display: flex;
-            .card-body {
-                flex: 1 1 100%;
-                align-items: flex-start;
-                justify-content: center;
-                /* align-self: center; */
-                display: flex;
-                flex-direction: column;
-                padding: 1.25rem;
-            }
-            .card-footer {
-                width: 100%;
-                flex: auto;
-            }
+            flex-direction: column;
+            padding: 1.25rem;
         }
-    `;
-};
+        .card-footer {
+            width: 100%;
+            flex: auto;
+        }
+    }
+`;
 
 export const getTextTruncate = () => css`
     white-space: nowrap;

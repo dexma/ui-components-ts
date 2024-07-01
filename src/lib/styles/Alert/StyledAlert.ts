@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { StyledIcon } from '@/styles/Icon/StyledIcon';
+import { StyledIcon } from '@styles/Icon/StyledIcon';
 
 import {
     alertMessageFontSize,
@@ -18,30 +18,31 @@ import {
     fontWeightSemiBold,
     fontWeightNormal,
     borderRadius,
-} from '@/utils/selectors';
-import { Theme } from '@/utils/theme';
+} from '@utils/selectors';
+import { type Theme } from '@utils/theme';
+import { type ReactNode } from 'react';
 
 const getAlertTypeColor = (theme: Theme, $type: string) => {
     let bgColor = '';
     switch ($type) {
         case 'outline':
-            bgColor = white(theme) as unknown as string;
+            bgColor = white(theme);
             break;
         case 'success':
-            bgColor = successColor(theme) as unknown as string;
+            bgColor = successColor(theme);
             break;
         case 'info':
-            bgColor = infoColor(theme) as unknown as string;
+            bgColor = infoColor(theme);
             break;
         case 'warning':
-            bgColor = warningColor(theme) as unknown as string;
+            bgColor = warningColor(theme);
             break;
         case 'error':
-            bgColor = errorColor(theme) as unknown as string;
+            bgColor = errorColor(theme);
             break;
         case 'basic':
         default:
-            bgColor = gray100(theme) as unknown as string;
+            bgColor = gray100(theme);
             break;
     }
     return css`
@@ -52,7 +53,7 @@ const getAlertTypeColor = (theme: Theme, $type: string) => {
 type StyledAlertProps = {
     $type: string;
     $description?: string;
-    $message?: string | JSX.Element;
+    $message: ReactNode;
     $showIcon?: boolean;
     theme: Theme;
 };
@@ -150,17 +151,17 @@ const StyledAlert = styled.div<StyledAlertProps>`
         css`
             height: auto;
             line-height: normal;
-            padding: ${(props: any) => (!props.message ? '10px 15px' : '20px 15px')};
+            padding: ${!props.$message ? '10px 15px' : '20px 15px'};
             .description {
                 position: relative;
-                padding: ${(props: any) => (props.$showIcon ? '0px 0px 0px 30px' : '0px 0px 0px 0px')};
-                padding-left: ${(props: any) => !props.$message && '0px'};
-                padding-top: ${(props: any) => props.$message && '10px'};
+                padding: ${props.$showIcon ? '0px 0px 0px 30px' : '0px 0px 0px 0px'};
+                padding-left: ${!props.$message && '0px'};
+                padding-top: ${props.$message && '10px'};
                 line-height: 1.5;
-                border-radius: ${(props: any) => borderRadius(props.theme)};
+                border-radius: ${borderRadius(props.theme)};
                 flex-direction: column;
                 align-items: start;
-                font-size: ${(props: any) => alertDescriptionMessageFontSize(props.theme)};
+                font-size: ${alertDescriptionMessageFontSize(props.theme)};
                 .alert-icon {
                     position: absolute;
                     top: 10px;

@@ -1,8 +1,9 @@
 import React from 'react';
+import { describe, expect, it } from 'vitest';
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { Heading } from '@/components/Heading';
-import { describe, expect, it } from 'vitest';
+
+import { Heading } from '@components';
 
 describe('<Heading>', () => {
     it('Should render the correct classNamePrefix component', () => {

@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
-import { Pagination as PaginationAntDesign, PaginationProps as PaginationAntProps } from 'antd';
+import { Pagination as PaginationAntDesign, type PaginationProps as PaginationAntProps } from 'antd';
 import { ThemeContext } from 'styled-components';
-import { Icon } from '@/components/Icon';
-import { StyledPagination } from '@/styles/Pagination/StyledPagination';
-import theme from '@/utils/theme';
+import { Icon } from '@components';
+import { StyledPagination } from '@styles/Pagination/StyledPagination';
+import defaultTheme from '@utils/theme';
 
 export const itemRender = (page: number, type: 'page' | 'prev' | 'next' | 'jump-prev' | 'jump-next', element: React.ReactNode) => {
     if (type === 'prev') {
@@ -15,13 +15,13 @@ export const itemRender = (page: number, type: 'page' | 'prev' | 'next' | 'jump-
     return element;
 };
 
-export const Pagination = (props: PaginationAntProps) => {
-    const th = useContext(ThemeContext) || theme;
+export type PaginationProps = PaginationAntProps;
+
+export const Pagination = (props: PaginationProps) => {
+    const th = useContext(ThemeContext) || defaultTheme;
     return (
         <StyledPagination data-testid='pagination' theme={th}>
             <PaginationAntDesign itemRender={itemRender} {...props} />
         </StyledPagination>
     );
 };
-
-export default Pagination;

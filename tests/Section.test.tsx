@@ -1,11 +1,10 @@
 import React from 'react';
+import { describe, expect, it, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { describe, expect, it, vi } from 'vitest';
 
-import { Chart } from '@/components/Chart';
+import { Chart, Section } from '@components';
 import { mockBasicArea } from './mock/Chart';
-import Section from '@/components/Section/Section';
 
 describe('<SectionData>', () => {
     it('Should render a chart', () => {

@@ -1,15 +1,15 @@
-import { Button } from '@/components/Button';
-import Popover from '@/components/Popover/Popover';
-import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
-import { expect, describe, test, vitest } from 'vitest';
+import { expect, describe, test } from 'vitest';
+import { fireEvent, render, screen } from '@testing-library/react';
+
+import { Button, Popover } from '@components';
 
 describe('Popover', () => {
     test('should open a popover with a title and content', () => {
         // Given
         render(
             <Popover title='Popover' content='Popover content' trigger='click'>
-                <Button text='Click me'></Button>
+                <Button text='Click me' />
             </Popover>
         );
 
@@ -26,7 +26,7 @@ describe('Popover', () => {
         // Given
         render(
             <Popover title='Popover' trigger='click'>
-                <Button text='Click me'></Button>
+                <Button text='Click me' />
             </Popover>
         );
 
@@ -43,7 +43,7 @@ describe('Popover', () => {
         // Given
         render(
             <Popover content='Popover content' trigger='click'>
-                <Button text='Click me'></Button>
+                <Button text='Click me' />
             </Popover>
         );
 
@@ -60,7 +60,7 @@ describe('Popover', () => {
         // Given
         render(
             <Popover title='Popover custom' content={<div data-testid='test-content'>Popover content</div>} trigger='click'>
-                <Button text='Click me'></Button>
+                <Button text='Click me' />
             </Popover>
         );
 

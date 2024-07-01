@@ -1,13 +1,11 @@
-/* eslint-disable import/no-cycle */
-import React, { forwardRef, useContext } from 'react';
+import React, { forwardRef, LegacyRef, SVGProps, useContext } from 'react';
 import { ThemeContext } from 'styled-components';
-import get from 'lodash/get';
 import isNumber from 'lodash/isNumber';
-import omit from 'lodash/omit';
+import { v4 as uuidv4 } from 'uuid';
 
-import { icons } from '@/config/index';
-import theme from '@/utils/theme';
-import { StyledIcon } from '@/styles/Icon/StyledIcon';
+import { icons } from '@config';
+import defaultTheme, { type Theme } from '@utils/theme';
+import { StyledIcon } from '@styles/Icon/StyledIcon';
 
 export enum IconSize {
     SMALL = 'small',
@@ -27,20 +25,19 @@ export const getIconSize = (size?: number | string | IconSize) => {
 
 const getIconPaths = (name?: string) => {
     let config: any = [];
-    (icons as unknown as any[]).forEach((item: { name: string; icon: string }) => {
+    icons.forEach((item) => {
         if (item.name === name) {
             config = item.icon;
         }
     });
-    return config.map((itemConfig: any, i: number) => {
+    return config.map((itemConfig: any) => {
         const { tag, transform } = itemConfig;
+        const { d, opacity, clipRule, fillRule, cx, cy, r } = itemConfig;
         switch (tag) {
             case 'path':
-                const { d, opacity, clipRule, fillRule } = itemConfig;
-                return <path key={i} d={d} opacity={opacity} clipRule={clipRule} fillRule={fillRule} transform={transform} />;
+                return <path key={uuidv4()} d={d} opacity={opacity} clipRule={clipRule} fillRule={fillRule} transform={transform} />;
             case 'circle':
-                const { cx, cy, r } = itemConfig;
-                return <circle key={i} cx={cx} cy={cy} r={r} transform={transform} />;
+                return <circle key={uuidv4()} cx={cx} cy={cy} r={r} transform={transform} />;
             default:
                 return null;
         }
@@ -49,31 +46,26 @@ const getIconPaths = (name?: string) => {
 
 const isHexColor = (hex?: string) => (hex ? /^#[0-9A-F]{6}$/i.test(hex) || /^#[0-9A-F]{3}$/i.test(hex) : false);
 
-type IconProps = {
+export type IconProps = {
     name?: string;
-    color?: string | keyof typeof theme.color;
+    color?: string | keyof typeof defaultTheme.color;
     size?: number | string | IconSize;
-    className?: string;
-    onClick?: (e: any) => void;
-};
+} & SVGProps<SVGSVGElement>;
 
-const getColor = (color?: string | keyof typeof theme.color) => {
-    if (!color) return theme.color.gray500;
+const getColor = (th: Theme, color?: string | typeof defaultTheme.color) => {
+    if (!color) return th.color.gray500;
     if (isHexColor(color)) return color;
-    return theme.color[color as keyof typeof theme.color];
+    return th.color[color as keyof typeof th.color];
 };
 
-export const Icon = forwardRef((props: IconProps, ref) => {
-    const th = useContext(ThemeContext) || theme;
-    const { name, color, size, className, onClick } = props;
-    const fillColor = getColor(color);
+export const Icon = forwardRef(({ name = 'vader', color = 'gray500', size = IconSize.LARGE, onClick, ...props }: IconProps, ref: LegacyRef<SVGSVGElement>) => {
+    const th = useContext(ThemeContext) || defaultTheme;
+    const fillColor = getColor(th, color);
     const pathElements = getIconPaths(name);
     const iconSize = getIconSize(size);
-    const iconProps = omit(props, ['name', 'className', 'color', 'size', 'onClick']);
-    // ref={ref} is necessary to forward the ref to the styled component, which type?
     return (
         <StyledIcon
-            className={className}
+            ref={ref}
             width={iconSize}
             height={iconSize}
             viewBox='0 0 24 24'
@@ -84,20 +76,11 @@ export const Icon = forwardRef((props: IconProps, ref) => {
             $fillColor={fillColor}
             data-testid='icon'
             onClick={onClick}
-            {...iconProps}
+            {...props}
         >
             {pathElements}
         </StyledIcon>
     );
 });
-
-const defaultProps = {
-    name: 'vader',
-    color: 'gray500',
-    size: IconSize.LARGE,
-    theme: theme,
-};
-
-Icon.defaultProps = defaultProps;
 
 export default Icon;

@@ -1,23 +1,21 @@
 import styled, { css } from 'styled-components';
 
-import { gridOuterPadding, gridContainerSm, gridContainerMd, gridContainerLg } from '@/utils/selectors';
-import { Theme } from '@/utils/theme';
+import { type Theme } from '@utils/theme';
+import { gridOuterPadding, gridContainerSm, gridContainerMd, gridContainerLg } from '@utils/selectors';
 
-const getWidthContainer = (props: { theme: Theme }) => {
-    return css`
-        @media only screen and (min-width: 48em) {
-            max-width: ${gridContainerSm(props.theme)};
-        }
+const getWidthContainer = (props: { theme: Theme }) => css`
+    @media only screen and (min-width: 48em) {
+        max-width: ${gridContainerSm(props.theme)};
+    }
 
-        @media only screen and (min-width: 64em) {
-            max-width: ${gridContainerMd(props.theme)};
-        }
+    @media only screen and (min-width: 64em) {
+        max-width: ${gridContainerMd(props.theme)};
+    }
 
-        @media only screen and (min-width: 75em) {
-            max-width: ${gridContainerLg(props.theme)};
-        }
-    `;
-};
+    @media only screen and (min-width: 75em) {
+        max-width: ${gridContainerLg(props.theme)};
+    }
+`;
 
 const StyledGrid = styled.div<{ $fluid?: boolean; theme: Theme }>`
     margin-right: auto;

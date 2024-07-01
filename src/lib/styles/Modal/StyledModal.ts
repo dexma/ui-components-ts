@@ -1,11 +1,13 @@
 import styled, { createGlobalStyle } from 'styled-components';
-import { Modal as ModalAntDesign, ModalProps as AntDModalProps } from 'antd';
-import { backgroundColor, borderRadius, boxShadow, fontColor, fontSize, fontWeightSemiBold, gray900 } from '@/utils/selectors';
-import { Theme, color } from '@/utils/theme';
+import { Modal as ModalAntDesign, type ModalProps as AntDModalProps } from 'antd';
+
+import { type Theme, color } from '@utils/theme';
+import { backgroundColor, borderRadius, boxShadow, fontColor, fontSize, fontWeightSemiBold } from '@utils/selectors';
 
 type ModalProps = AntDModalProps & {
     theme: Theme;
 };
+
 const StyledModal = styled(ModalAntDesign)<ModalProps>`
     box-sizing: border-box;
     margin: 0;
@@ -79,7 +81,6 @@ const StyledModal = styled(ModalAntDesign)<ModalProps>`
         color: ${(props) => fontColor(props.theme)};
     }
     .ant-modal-footer {
-        padding: 10px 16px 24px 16px;
         text-align: right;
         background: transparent;
         border-radius: 0 0 ${(props) => borderRadius(props.theme)} ${(props) => borderRadius(props.theme)};

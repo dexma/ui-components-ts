@@ -1,63 +1,78 @@
 import React from 'react';
-import { Dropdown as DropdownAntd } from 'antd';
-import { Button } from '@/components/Button';
-import { StyledGlobalDropdown } from '@/styles/Dropdown/StyledDropdown';
+import { Dropdown as DropdownAntd, type DropDownProps, type MenuProps } from 'antd';
 
-const defaultProps: DropdownProps = {
-    placement: 'bottomRight',
-    trigger: 'hover',
-};
+import { StyledDropdownInnerButton, StyledDropdownButton, StyledGlobalDropdown } from '@styles/Dropdown/StyledDropdown';
 
-type DropdownMenuItem = {
+type DropdownContent = {
     text: string;
+    key?: string;
     icon?: string;
-    onClick?: (element?: any) => void;
+    dataId?: string;
+    variant?: string;
+    onClick?: (e: any) => void;
 };
 
-export type DropdownProps = {
-    trigger: 'click' | 'hover';
+const getContent = (menu?: DropdownContent[]) => {
+    if (!menu) return null;
+    const items = menu
+        ? menu.map(({ key, icon, onClick, dataId, variant, text, ...props }) => ({
+              label: (
+                  <StyledDropdownInnerButton
+                      className='dropdown-button-item'
+                      style={{ width: '100%', padding: '0px 1rem' }}
+                      iconBefore={icon}
+                      onClick={onClick}
+                      key={key}
+                      dataId={dataId ?? 'ddItem'}
+                      variant={variant ?? 'icon'}
+                      text={text}
+                      {...props}
+                  />
+              ),
+          }))
+        : undefined;
+    return {
+        items,
+    };
+};
+
+export type DropdownProps = DropDownProps & {
+    dataId?: string;
     text?: string;
-    placement: 'top' | 'bottom' | 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight' | 'topCenter' | 'bottomCenter';
-    content?: DropdownMenuItem[];
     icon?: string;
+    variant?: string;
+    content?: DropdownContent[];
 };
 
-const getContent = (
-    content: DropdownMenuItem[]
-): {
-    type: 'group';
-    label: JSX.Element;
-}[] => {
-    return content.map((props: DropdownMenuItem, i: number) => {
-        const { icon, onClick, ...rest } = props;
-        return {
-            type: 'group',
-            label: <Button key={i} className='dropdown-button-item' variant='icon' iconBefore={icon} onClick={onClick} {...rest} />,
-        };
-    });
-};
-
-export const Dropdown = (props: DropdownProps) => {
-    const { trigger, text, placement, content, icon } = props;
-    const renderContent = content ? getContent(content) : undefined;
-
+export const Dropdown = ({ dataId = 'dropdown-button', trigger = ['hover'], text, placement = 'bottomRight', menu, icon, content, variant }: DropdownProps) => {
+    const menuItems = menu || (getContent(content) as MenuProps);
     return (
         <>
-            <StyledGlobalDropdown {...props} />
-            <DropdownAntd menu={{ items: renderContent }} placement={placement} trigger={[trigger]}>
-                <Button
-                    data-testid={text ? 'dropdown-button-text' : 'dropdown-button-icon'}
-                    className='dropdown-button'
-                    variant={text ? 'icon' : 'icon-secondary'}
-                    iconBefore={icon}
-                    text={text}
-                    isCircle={!text}
-                ></Button>
+            <StyledGlobalDropdown />
+            <DropdownAntd menu={menuItems} placement={placement} trigger={trigger}>
+                {text ? (
+                    <StyledDropdownButton
+                        data-testid='dropdown-button-text'
+                        dataId={dataId}
+                        className='dropdown-button'
+                        variant={variant ?? 'icon'}
+                        iconBefore={icon}
+                        text={text}
+                    />
+                ) : (
+                    <StyledDropdownButton
+                        data-testid='dropdown-button-icon'
+                        dataId={dataId}
+                        className='dropdown-button'
+                        variant={variant ?? 'icon-secondary'}
+                        iconBefore={icon}
+                        text=''
+                        isCircle
+                    />
+                )}
             </DropdownAntd>
         </>
     );
 };
-
-Dropdown.defaultProps = defaultProps;
 
 export default Dropdown;

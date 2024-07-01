@@ -1,23 +1,16 @@
 import React, { useContext } from 'react';
-import { ThemeContext, withTheme } from 'styled-components';
-import { Checkbox as CheckboxAntd, ConfigProvider } from 'antd';
-import omit from 'lodash/omit';
-import theme from '@/utils/theme';
+import { Checkbox as CheckboxAntd, CheckboxProps as AntCheckboxProps, ConfigProvider } from 'antd';
+import { ThemeContext } from 'styled-components';
 
-const defaultProps: CheckboxProps = {};
+import defaultTheme from '@utils/theme';
+import { withDataId } from '@components/DataId/withDataId';
 
-type CheckboxProps = {
-    checked?: boolean;
-    disabled?: boolean;
-    children?: JSX.Element | JSX.Element[] | string;
-    className?: string;
-    onChange?: () => void;
-};
+export type CheckboxProps = {
+    dataId?: string;
+} & AntCheckboxProps;
 
-export const Checkbox = (props: CheckboxProps) => {
-    const { checked, disabled, className, children } = props;
-    const th = useContext(ThemeContext) || theme;
-    const checkboxProps = omit(props, ['children', 'disabled', 'checked', 'className']);
+export const Checkbox = withDataId(({ checked, disabled, dataId, children, ...props }: CheckboxProps) => {
+    const th = useContext(ThemeContext) || defaultTheme;
 
     return (
         <ConfigProvider
@@ -27,13 +20,9 @@ export const Checkbox = (props: CheckboxProps) => {
                 },
             }}
         >
-            <CheckboxAntd disabled={disabled} checked={checked} className={className} {...checkboxProps}>
-                {children && <span>{children}</span>}
+            <CheckboxAntd disabled={disabled} checked={checked} {...props}>
+                {children && <span data-id={dataId}>{children}</span>}
             </CheckboxAntd>
         </ConfigProvider>
     );
-};
-
-Checkbox.defaultProps = defaultProps;
-
-export default withTheme(Checkbox);
+}, 'checkbox');

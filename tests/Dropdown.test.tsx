@@ -1,7 +1,8 @@
 import React from 'react';
 import { describe, expect, it, vitest } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { Dropdown } from '@/components/Dropdown';
+
+import { Dropdown } from '@components';
 
 const content = [
     {
@@ -30,7 +31,7 @@ describe('<Dropdown>', () => {
         const { getByText } = render(
             <Dropdown
                 text={textTest}
-                trigger='click'
+                trigger={['click']}
                 content={[
                     {
                         text: 'Edit',
@@ -48,7 +49,7 @@ describe('<Dropdown>', () => {
         const { getByText } = render(
             <Dropdown
                 text={textTest}
-                trigger='click'
+                trigger={['click']}
                 content={[
                     {
                         text: 'Edit',
@@ -70,7 +71,7 @@ describe('<Dropdown>', () => {
         const { getByText } = render(
             <Dropdown
                 text={textTest}
-                trigger='click'
+                trigger={['click']}
                 content={[
                     {
                         text: 'Edit',
@@ -99,7 +100,7 @@ describe('<Dropdown>', () => {
         const { getByText } = render(
             <Dropdown
                 text={textTest}
-                trigger='click'
+                trigger={['click']}
                 content={[
                     {
                         text: 'Edit',

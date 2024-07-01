@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
-import { gray200 } from '@/utils/selectors';
-import { Theme } from '@/utils/theme';
+import { gray200 } from '@utils/selectors';
+import { type Theme } from '@utils/theme';
 
 const StyledDivider = styled.hr<{ $vertical?: boolean; theme: Theme }>`
     border: none;

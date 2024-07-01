@@ -1,6 +1,7 @@
 {
     "compilerOptions": {
         "target": "ESNext",
+        "types": ["vite/client"],
         "useDefineForClassFields": true,
         "lib": ["DOM", "DOM.Iterable", "ESNext"],
         "allowJs": false,
@@ -19,12 +20,16 @@
 
         "baseUrl": "./src",
         "paths": {
-            "@/components/*": ["./lib/components/*"],
-            "@/styles/*": ["./lib/styles/*"],
-            "@/utils/*": ["./lib/utils/*"],
-            "@/config/*": ["./lib/config/*"]
+            "@components/*": ["./lib/components/*"],
+            "@components": ["./lib/components/index.ts"],
+            "@styles/*": ["./lib/styles/*"],
+            "@styles": ["./lib/styles/index.ts"],
+            "@utils/*": ["./lib/utils/*"],
+            "@utils": ["./lib/utils/index.ts"],
+            "@config/*": ["./lib/config/*"],
+            "@config": ["./lib/config/index.ts"]
         }
     },
-    "include": ["./src/**/*.ts", "./src/**/*.tsx", "./src/**/*.stories.*", "./tests/**/*.test.*", "./.storybook/**/*"],
+    "include": ["./src/**/*.ts", "./src/**/*.tsx", "./src/**/*.stories.*", "./tests/**/*.test.*", "./tests/mock/**/*.ts", "./.storybook/**/*"],
     "exclude": ["node_modules", "build", "dist", "coverage", "storybook-static", "./src/lib/config/**/*"]
 }

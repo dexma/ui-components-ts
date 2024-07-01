@@ -1,27 +1,20 @@
-import React, { CSSProperties, ReactNode, useContext } from 'react';
-import PropTypes from 'prop-types';
+import React, { HTMLAttributes, useContext } from 'react';
 import { ThemeContext } from 'styled-components';
 
-import theme, { Theme } from '@/utils/theme';
-import { StyledRow } from '@/styles/Row/StyledRow';
+import defaultTheme from '@utils/theme';
+import { StyledRow } from '@styles/Row/StyledRow';
 
-const defaultProps = {
-    reverse: false,
-    alignItems: 'center',
-    theme: theme,
-};
+export type RowhProps = { reverse?: boolean; alignItems?: string } & HTMLAttributes<HTMLDivElement>;
 
-export const Row = (props: { className?: string; reverse?: boolean; alignItems?: string; theme: Theme; children: ReactNode; style?: CSSProperties }) => {
-    const th = useContext(ThemeContext) || theme;
+export const Row = ({ alignItems = 'center', reverse, children, ...props }: RowhProps) => {
+    const th = useContext(ThemeContext) || defaultTheme;
     return (
-        <StyledRow className={props.className} style={{ ...props.style }} $alignItems={props.alignItems} $reverse={props.reverse} theme={th}>
-            {props.children}
+        <StyledRow $alignItems={alignItems} $reverse={reverse} theme={th} {...props}>
+            {children}
         </StyledRow>
     );
 };
 
 StyledRow.displayName = 'StyledRow';
-
-Row.defaultProps = defaultProps;
 
 export default Row;

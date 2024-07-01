@@ -1,6 +1,8 @@
-import { render } from '@testing-library/react';
-import { Dots } from '@/components/Dots/Dots';
+import React from 'react';
 import { describe, expect, it } from 'vitest';
+import { render } from '@testing-library/react';
+
+import { Dots } from '@components';
 
 describe('<Dots>', () => {
     it('Should render the dots correct', () => {

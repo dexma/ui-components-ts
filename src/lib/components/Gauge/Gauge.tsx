@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import Highcharts from 'highcharts';
-import PropTypes from 'prop-types';
-import { Chart } from '@/components/Chart';
-import { applyScientific, numberFormatter } from '@/utils/formatter';
-import { color } from '@/utils/theme';
 
-type IndicatorType = {
+import { Chart } from '@components/Chart';
+import { applyScientific, numberFormatter } from '@utils/formatter';
+import { color } from '@utils/theme';
+
+type Indicator = {
     color: string;
     tooltip: string;
     value: number;
 };
-type CheckpointType = IndicatorType;
+type Checkpoint = Indicator;
 
-type ComparisonType = {
+type Comparison = {
     enabled: boolean;
     period: {
         from: Date | null;
@@ -21,11 +21,11 @@ type ComparisonType = {
         text: string | null;
     };
     color: string;
-    value: number;
+    value?: number;
     showAsPercentage: boolean;
 };
 
-type RangeType = {
+type Range = {
     color: string;
     tooltip: string;
     from: number;
@@ -37,16 +37,32 @@ enum GaugeType {
 }
 
 type GaugeProps = {
-    checkpoints?: CheckpointType[];
-    comparison?: ComparisonType;
+    checkpoints?: Array<{ color: string; tooltip: string; value: number }>;
+    comparison?: {
+        enabled: boolean;
+        period: {
+            from: Date | null;
+            to: Date | null;
+            type: string;
+            text: string | null;
+        };
+        color: string;
+        value?: number;
+        showAsPercentage: boolean;
+    };
     'data-testid'?: string;
     decimalPoint?: string;
     hasData?: boolean;
-    indicator: IndicatorType;
+    indicator: { color: string; tooltip: string; value: number };
     max: number;
     min: number;
     options?: Highcharts.Options;
-    ranges?: RangeType[];
+    ranges?: Array<{
+        color: string;
+        tooltip: string;
+        from: number;
+        to: number;
+    }>;
     showAsPercentage?: boolean;
     thousandsSep?: string;
     title?: string;
@@ -63,11 +79,11 @@ Highcharts.wrap(Highcharts.Tooltip.prototype, 'refresh', (p, point, mouseEvent) 
     const current = this as unknown as any;
     p.call(current, point, mouseEvent);
 
-    if (!current.isHidden && !current.shared && !current.split) {
-        const pointTooltipBorderColor = point && point.options.tooltip && point.options.tooltip.borderColor;
-        const seriesTooltipBorderColor = point && point.series && point.series.options.tooltip && point.series.options.tooltip.borderColor;
+    if (current && !current.isHidden && !current.shared && !current.split) {
+        const pointTooltipBorderColor = point?.options.tooltip?.borderColor;
+        const seriesTooltipBorderColor = point?.series?.options.tooltip?.borderColor;
         const borderColor = pointTooltipBorderColor || seriesTooltipBorderColor;
-        const label = current.label;
+        const { label } = current;
 
         if (label && borderColor) {
             label.attr({
@@ -103,7 +119,7 @@ const parseInsideRange = (value: number, startRange: number, endRange: number) =
 const validValueAndThreshold = (value: number, threshold: number, min: number, max: number) =>
     !((value <= min && value <= max && min > threshold && max > threshold) || (value >= min && value >= max && min < threshold && max < threshold));
 
-export const getValueSeries = (indicator: IndicatorType, max: number, min: number, name?: string, showAsPercentage?: boolean) => {
+export const getValueSeries = (indicator: Indicator, max: number, min: number, name?: string, showAsPercentage?: boolean) => {
     let value = showAsPercentage ? valueAsPercentage(indicator.value, max, min) : indicator.value;
     const threshold = getThreshold(max, min);
     if (!validValueAndThreshold(value, 0, min, max)) return {};
@@ -151,7 +167,7 @@ export const getBackgroundSerie = (backgroundColor: Highcharts.ColorType, max: n
 export const indicatorLengthIsBiggerThanItsScientificNotationLength = (indicatorLength: number, indicatorValue: number) =>
     indicatorLength > applyScientific(indicatorValue, '.', 2).length;
 
-export const getRangeSeries = (ranges: RangeType[], min: number, max: number) => {
+export const getRangeSeries = (ranges: Range[], min: number, max: number) => {
     const rangesRes = ranges
         .sort((rangeA, rangeB) => rangeB.to - rangeA.to)
         .filter((range) => validValueAndThreshold(range.to, range.from, min, max))
@@ -180,7 +196,7 @@ export const getRangeSeries = (ranges: RangeType[], min: number, max: number) =>
     return rangesRes;
 };
 
-export const getCheckpointSeries = (checkpoints: CheckpointType[], max: number, min: number, showAsPercentage?: boolean) =>
+export const getCheckpointSeries = (checkpoints: Checkpoint[], max: number, min: number, showAsPercentage?: boolean) =>
     checkpoints
         .filter((cp) => cp.value <= max && cp.value >= min)
         .map((cp) => ({
@@ -196,6 +212,12 @@ export const getCheckpointSeries = (checkpoints: CheckpointType[], max: number, 
             type: 'gauge',
             dial: {
                 backgroundColor: cp.color,
+                borderColor: cp.color,
+                baseWidth: 1,
+                borderWidth: 1,
+                topWidth: 1,
+                baseLength: '90%',
+                rearLength: '-90%',
             },
             zIndex: 2,
         }));
@@ -224,41 +246,7 @@ const getSize = (width: number, height: number, fontSizeRelation = 10, minRatio 
     return basicSize * Math.min(proportion, minRatio);
 };
 
-export const getChart = (
-    chart: Highcharts.ChartOptions,
-    indicator: IndicatorType,
-    decimalSeparator?: string,
-    thousandSeparator?: string,
-    units?: string,
-    comparison?: ComparisonType,
-    showAsPercentage?: boolean,
-    hasData?: boolean
-) => ({
-    ...chart,
-    events: {
-        render() {
-            const chart2 = this as unknown as any;
-            // Main Data Label
-            if (chart2.indicatorLabel) {
-                chart2.indicatorLabel.destroy();
-            }
-            const mainSize = getSize(chart2.chartWidth, chart2.chartHeight);
-            renderIndicatorLabel(chart2, indicator, mainSize, decimalSeparator, thousandSeparator, hasData);
-            // Units
-            if (chart2.suffixDataLabel) {
-                chart2.suffixDataLabel.destroy();
-            }
-            const suffixSize = getSize(chart2.chartWidth, chart2.chartHeight, 16);
-            renderSuffix(chart2, mainSize, suffixSize, units, showAsPercentage);
-            // Comparison percentage
-            if (comparison && comparison.enabled) {
-                renderComparison(chart2, indicator, mainSize, suffixSize, comparison, units, decimalSeparator, thousandSeparator, hasData);
-            }
-        },
-    },
-});
-
-const renderIndicatorLabel = (chart: any, indicator: IndicatorType, mainSize: number, decimalSeparator?: string, thousandSeparator?: string, hasData?: boolean) => {
+const renderIndicatorLabel = (chart: any, indicator: Indicator, mainSize: number, decimalSeparator?: string, thousandSeparator?: string, hasData?: boolean) => {
     const currentChart = chart;
     currentChart.indicatorLabel = currentChart.renderer
         .text(hasData ? numberFormatter(indicator.value, decimalSeparator || ',', thousandSeparator || '.') : '-', currentChart.chartWidth / 2, currentChart.chartHeight / 2)
@@ -272,8 +260,8 @@ const renderIndicatorLabel = (chart: any, indicator: IndicatorType, mainSize: nu
         })
         .add();
     let textBox = currentChart.indicatorLabel.getBBox();
-    const plotWidth = currentChart.plotWidth;
-    const plotHeight = currentChart.plotHeight;
+    const { plotWidth } = currentChart;
+    const { plotHeight } = currentChart;
     const indicatorLength = numberFormatter(indicator.value, '.', '.').length;
     if (Math.min(plotWidth, plotHeight) / 2 / indicatorLength <= 3 * indicatorLength && indicatorLengthIsBiggerThanItsScientificNotationLength(indicatorLength, indicator.value)) {
         currentChart.indicatorLabel.attr({
@@ -303,41 +291,40 @@ const renderSuffix = (chart: any, mainSize: number, suffixSize: number, units?: 
 
 export const getPercentageComparisonValue = (comparativeValue: number, initialValue: number) => ((initialValue - comparativeValue) / Math.abs(comparativeValue)) * 100;
 
-export const getSymbolElement = (difference: number) => {
-    if (difference >= 0 && difference !== Number.POSITIVE_INFINITY) return '↑';
-    if (difference < 0 && difference !== Number.NEGATIVE_INFINITY) return '↓';
+export const getSymbolElement = (value?: number) => {
+    if (value && value >= 0 && value !== Number.POSITIVE_INFINITY) return '↑';
+    if (value && value < 0 && value !== Number.NEGATIVE_INFINITY) return '↓';
     return '-';
 };
 
-export const getPercentageElement = (comparison: ComparisonType, value: number, decimalSeparator?: string, thousandSeparator?: string) => {
-    const percentage = getPercentageComparisonValue(comparison.value, value);
+export const getPercentageElement = (comparison: Comparison, value: number, decimalSeparator?: string, thousandSeparator?: string) => {
+    const percentage = comparison.value ? getPercentageComparisonValue(comparison.value, value) : undefined;
     return `<span style="font-size: 1.2em; font-weight: bold; color: ${comparison.color};">${getSymbolElement(percentage)}</span><span style="color: ${comparison.color};"> ${
-        !Number.isNaN(percentage) && percentage !== Number.POSITIVE_INFINITY && percentage !== Number.NEGATIVE_INFINITY
+        percentage && !Number.isNaN(percentage) && percentage !== Number.POSITIVE_INFINITY && percentage !== Number.NEGATIVE_INFINITY
             ? numberFormatter(Math.abs(percentage), decimalSeparator || ',', thousandSeparator || '.')
             : ''
     }%</span>`;
 };
 
-export const getDifferenceElement = (comparison: ComparisonType, value: number, units?: string, decimalSeparator?: string, thousandSeparator?: string) => {
-    const difference = value - comparison.value;
+export const getDifferenceElement = (comparison: Comparison, value: number, units?: string, decimalSeparator?: string, thousandSeparator?: string) => {
+    const difference = comparison.value ? value - comparison.value : undefined;
     return `<span style="font-size: 1.2em; font-weight: bold; color: ${comparison.color};">${getSymbolElement(difference)}</span><span style="color: ${comparison.color};"> ${
-        !Number.isNaN(difference) ? numberFormatter(Math.abs(difference), decimalSeparator || ',', thousandSeparator || '.') : ''
+        difference && !Number.isNaN(difference) ? numberFormatter(Math.abs(difference), decimalSeparator || ',', thousandSeparator || '.') : ''
     } ${units}</span>`;
 };
 
-export const getComparisonText = (comparison: ComparisonType) => `<span style="color: ${color.gray500};">${comparison.period.text}</span>`;
-
-export const getCompareIndicator = (indicator: IndicatorType, comparison: ComparisonType, units?: string, decimalSeparator?: string, thousandSeparator?: string) =>
+export const getComparisonText = (comparison: Comparison) => `<span style="color: ${color.gray500};">${comparison.period.text}</span>`;
+export const getCompareIndicator = (indicator: Indicator, comparison: Comparison, units?: string, decimalSeparator?: string, thousandSeparator?: string) =>
     comparison.showAsPercentage
         ? getPercentageElement(comparison, indicator.value, decimalSeparator, thousandSeparator)
         : getDifferenceElement(comparison, indicator.value, units, decimalSeparator, thousandSeparator);
 
 const renderComparison = (
     chart: any,
-    indicator: IndicatorType,
+    indicator: Indicator,
     mainSize: number,
     suffixSize: number,
-    comparison: ComparisonType,
+    comparison: Comparison,
     units?: string,
     decimalSeparator?: string,
     thousandSeparator?: string,
@@ -387,6 +374,40 @@ const renderComparison = (
     currentChart.comparisonLabel.translate(-comparisonBox.width / 2, 2.5 * mainSize + 2.5 * suffixSize + 12);
 };
 
+export const getChart = (
+    chart: Highcharts.ChartOptions,
+    indicator: Indicator,
+    decimalSeparator?: string,
+    thousandSeparator?: string,
+    units?: string,
+    comparison?: Comparison,
+    showAsPercentage?: boolean,
+    hasData?: boolean
+) => ({
+    ...chart,
+    events: {
+        render() {
+            const chart2 = this as unknown as any;
+            // Main Data Label
+            if (chart2.indicatorLabel) {
+                chart2.indicatorLabel.destroy();
+            }
+            const mainSize = getSize(chart2.chartWidth, chart2.chartHeight);
+            renderIndicatorLabel(chart2, indicator, mainSize, decimalSeparator, thousandSeparator, hasData);
+            // Units
+            if (chart2.suffixDataLabel) {
+                chart2.suffixDataLabel.destroy();
+            }
+            const suffixSize = getSize(chart2.chartWidth, chart2.chartHeight, 16);
+            renderSuffix(chart2, mainSize, suffixSize, units, showAsPercentage);
+            // Comparison percentage
+            if (comparison && comparison.enabled) {
+                renderComparison(chart2, indicator, mainSize, suffixSize, comparison, units, decimalSeparator, thousandSeparator, hasData);
+            }
+        },
+    },
+});
+
 // Default chart
 export const chart: Highcharts.ChartOptions = {
     type: 'solidgauge',
@@ -426,25 +447,41 @@ const plotOptions = {
     },
 };
 
-export const Gauge = (props: GaugeProps) => {
-    const {
-        checkpoints,
-        comparison,
-        decimalPoint,
-        hasData,
-        indicator,
-        max,
-        min,
-        title,
-        options,
-        ranges,
-        showAsPercentage,
-        thousandsSep,
-        type,
-        units,
-        'data-testid': dataTestId,
-    } = props;
+const defaultOptions = {
+    chart,
+    title: {
+        text: '',
+    },
+    credits: {
+        enabled: false,
+    },
+    pane,
+    plotOptions,
+    tooltip: {
+        useHTML: true,
+        followPointer: true,
+        backgroundColor: 'transparent',
+    },
+};
 
+export const Gauge = ({
+    checkpoints,
+    comparison,
+    decimalPoint = ',',
+    hasData = true,
+    indicator,
+    max,
+    min,
+    title,
+    options,
+    ranges,
+    showAsPercentage,
+    thousandsSep = '.',
+    type = 'DIAL',
+    units,
+    'data-testid': dataTestId,
+    ...props
+}: GaugeProps) => {
     const [gaugeOptions, setGaugeOptions] = useState<any>();
 
     useEffect(() => {
@@ -484,6 +521,7 @@ export const Gauge = (props: GaugeProps) => {
                     useHTML: true,
                     followPointer: true,
                     backgroundColor: 'transparent',
+                    borderWidth: 1,
                     ...options?.tooltip,
                 },
             };
@@ -494,125 +532,6 @@ export const Gauge = (props: GaugeProps) => {
                 series: [...series] as unknown as Highcharts.SeriesOptionsType[],
             });
         }
-    }, [checkpoints, indicator, min, max, options, ranges, units]);
-    return <>{gaugeOptions && <Chart data-testid={dataTestId} options={gaugeOptions} />}</>;
+    }, [checkpoints, indicator, min, max, options, ranges, units, type, decimalPoint, thousandsSep, comparison, showAsPercentage, hasData, title]);
+    return gaugeOptions && <Chart data-testid={dataTestId} options={gaugeOptions} {...props} />;
 };
-
-const propTypes = {
-    /**
-     * Array of objects to draw pointers on the arc dedicated to indicator.
-     */
-    checkpoints: PropTypes.arrayOf(
-        PropTypes.shape({
-            color: PropTypes.string.isRequired,
-            tooltip: PropTypes.string,
-            value: PropTypes.number.isRequired,
-        })
-    ),
-    /**
-     * Object to compare a value against the indicator of the gauge. If it's enabled, it will show a text with the increment/decrement against the indicator.
-     */
-    comparison: PropTypes.shape({
-        enabled: PropTypes.bool.isRequired,
-        period: PropTypes.shape({
-            from: PropTypes.instanceOf(Date),
-            to: PropTypes.instanceOf(Date),
-            type: PropTypes.string,
-            text: PropTypes.string,
-        }),
-        color: PropTypes.string,
-        value: PropTypes.number.isRequired,
-        showAsPercentage: PropTypes.bool,
-    }),
-    /**
-     * String to specify data test id for Gauge chart
-     */
-    'data-testid': PropTypes.string,
-    /**
-     * Format of decimal point on the representation of the values on the chart.
-     */
-    decimalPoint: PropTypes.string,
-    /**
-     * Property to indicate if the indicator has or not data to be calculated. If this boolean is TRUE, the main indicator and comparison, if enabled, will show "-".
-     */
-    hasData: PropTypes.bool,
-    /**
-     * Main value draw on main arc and center of gauge. If showAsPercentage is activated, this value will be scaled to a value between 0%-100%.
-     */
-    indicator: PropTypes.shape({
-        color: PropTypes.string.isRequired,
-        tooltip: PropTypes.string,
-        value: PropTypes.number.isRequired,
-    }).isRequired,
-    /**
-     * Maximum value for the gauge. If showAsPercentage is activated, this value will be overwritten by 100.
-     */
-    max: PropTypes.number.isRequired,
-    /**
-     * Minimum value for the gauge. If showAsPercentage is activated, this value will be overwritten by 0.
-     */
-    min: PropTypes.number.isRequired,
-    /**
-     * All the highcharts options you can see on the <a href="https://api.highcharts.com/highcharts/chart">documentation</a>
-     */
-    options: PropTypes.shape({}),
-    /**
-     * Array of objects to draw range arcs below the arc dedicated to indicator.
-     */
-    ranges: PropTypes.arrayOf(
-        PropTypes.shape({
-            color: PropTypes.string.isRequired,
-            tooltip: PropTypes.string,
-            from: PropTypes.number,
-            to: PropTypes.number.isRequired,
-        })
-    ),
-    /**
-     * Values related to indicator, checkpoints and comparison will be shown in percentage format
-     */
-    showAsPercentage: PropTypes.bool,
-    /**
-     * Format of thousand separation on the representation of the values on the chart.
-     */
-    thousandsSep: PropTypes.string,
-    /**
-     * Title of the chart
-     */
-    title: PropTypes.string,
-    /**
-     * Posible types of visualization of Gauge. Currently, DIAL is only available.
-     */
-    type: PropTypes.oneOf(['DIAL']).isRequired,
-    /**
-     * Units of the indicator of the gauge
-     */
-    units: PropTypes.string,
-};
-
-const defaultOptions = {
-    chart,
-    title: {
-        text: '',
-    },
-    credits: {
-        enabled: false,
-    },
-    pane,
-    plotOptions,
-    tooltip: {
-        useHTML: true,
-        followPointer: true,
-        backgroundColor: 'transparent',
-    },
-};
-
-const defaultProps = {
-    type: 'DIAL',
-    showAsPercentage: false,
-    decimalPoint: ',',
-    thousandsSep: '.',
-    hasData: true,
-};
-
-Gauge.propTypes = propTypes;
-Gauge.defaultProps = defaultProps;

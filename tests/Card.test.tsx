@@ -1,7 +1,8 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
-import { Card } from '@/components/Card';
 import { describe, expect, it, vitest } from 'vitest';
+import { render, fireEvent } from '@testing-library/react';
+
+import { Card } from '@components';
 
 const IMAGE_URL = 'https://get.dexma.com/hs-fs/hubfs/Logo/New%20DEXMA%20Logo.png?width=350&name=New%20DEXMA%20Logo.png';
 

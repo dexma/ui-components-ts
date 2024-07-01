@@ -1,29 +1,12 @@
-import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
+import React, { type HTMLAttributes, useContext } from 'react';
 import { ThemeContext } from 'styled-components';
 
-import { StyledDivider } from '@/styles/Divider/StyledDivider';
-import theme from '@/utils/theme';
+import defaultTheme from '@utils/theme';
+import { StyledDivider } from '@styles/Divider/StyledDivider';
 
-const propTypes = {
-    /**
-     * Show the divider vertical
-     */
-    vertical: PropTypes.bool,
+export type DividerProps = { vertical?: boolean } & HTMLAttributes<HTMLHRElement>;
+
+export const Divider = ({ vertical, ...props }: DividerProps) => {
+    const th = useContext(ThemeContext) || defaultTheme;
+    return <StyledDivider data-testid='divider' $vertical={vertical} theme={th} {...props} />;
 };
-
-const defaultProps = {
-    vertical: false,
-};
-
-export const Divider = (props: { vertical: boolean }) => {
-    const th = useContext(ThemeContext) || theme;
-    return <StyledDivider data-testid='divider' $vertical={props.vertical} theme={th} />;
-};
-
-StyledDivider.displayName = 'StyledDivider';
-
-Divider.propTypes = propTypes;
-Divider.defaultProps = defaultProps;
-
-export default Divider;

@@ -1,5 +1,5 @@
 import { styled } from 'styled-components';
-import { StyledResult } from '@/styles/Result/StyledResult';
+import { StyledResult } from '@styles/Result/StyledResult';
 
 export const StyledChart = styled.div`
     .highcharts-exporting-group {

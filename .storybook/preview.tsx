@@ -1,12 +1,11 @@
 import React from 'react';
 import type { Preview } from '@storybook/react';
-import theme from '../src/lib/utils/theme';
+import defaultTheme from '../src/lib/utils/theme';
 import { ThemeProvider } from 'styled-components';
 import { GlobalStyle, StorybookStyles } from '../src/lib/utils/global';
 
 const preview: Preview = {
     parameters: {
-        actions: { argTypesRegex: '^on[A-Z].*' },
         controls: {
             matchers: {
                 color: /(background|color)$/i,
@@ -14,19 +13,20 @@ const preview: Preview = {
             },
         },
     },
+
     decorators: [
-        (Story: any) => {
-            return (
-                <>
-                    <GlobalStyle />
-                    <StorybookStyles />
-                    <ThemeProvider theme={theme}>
-                        <Story />
-                    </ThemeProvider>
-                </>
-            );
-        },
+        (Story: any) => (
+            <div style={{ minHeight: '300px' }}>
+                <GlobalStyle />
+                <StorybookStyles />
+                <ThemeProvider theme={defaultTheme}>
+                    <Story />
+                </ThemeProvider>
+            </div>
+        ),
     ],
+
+    tags: ['autodocs', 'autodocs'],
 };
 
 export default preview;

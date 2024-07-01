@@ -1,5 +1,7 @@
-export default {
-    title: '',
+import { ChartOptions } from '@components/Chart/types';
+
+const chartOptions: ChartOptions = {
+    title: { text: '' },
     series: [
         {
             type: 'column',
@@ -1162,7 +1164,7 @@ export default {
         },
     ],
     chart: {
-        zoomType: 'x',
+        zooming: { type: 'x' },
     },
     plotOptions: {
         series: {
@@ -1210,3 +1212,5 @@ export default {
         },
     },
 };
+
+export default chartOptions;

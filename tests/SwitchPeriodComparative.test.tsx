@@ -1,7 +1,8 @@
 import React from 'react';
-import { fireEvent, render } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
-import { SwitchPeriodComparative, getPreviousDate, getSamePeriodLastYear } from '@/components/SwitchPeriodComparative';
+import { fireEvent, render } from '@testing-library/react';
+
+import { SelectedPeriodType, SwitchPeriodComparative, getPreviousDate, getSamePeriodLastYear } from '@components';
 import { endDate, startDate } from './mock/SwitchPeriodComparative';
 
 describe('<SwitchPeriodComparative>', () => {
@@ -11,7 +12,7 @@ describe('<SwitchPeriodComparative>', () => {
         const { getByText } = render(
             <div>
                 <SwitchPeriodComparative
-                    selectedPeriod='previous_period'
+                    selectedPeriod={SelectedPeriodType.PREVIOUS_PERIOD}
                     startDate={startDate}
                     endDate={endDate}
                     samePeriodLastYearText={samePeriodLastYearText}
@@ -25,7 +26,7 @@ describe('<SwitchPeriodComparative>', () => {
     it('Should have checked previous_period input', () => {
         const { getByDisplayValue } = render(
             <div>
-                <SwitchPeriodComparative selectedPeriod='previous_period' startDate={startDate} endDate={endDate} />
+                <SwitchPeriodComparative selectedPeriod={SelectedPeriodType.PREVIOUS_PERIOD} startDate={startDate} endDate={endDate} />
             </div>
         );
         const previousPeriodInput = getByDisplayValue('previous_period');
@@ -36,7 +37,7 @@ describe('<SwitchPeriodComparative>', () => {
     it('Should have checked last_period input', () => {
         const { getByDisplayValue } = render(
             <div>
-                <SwitchPeriodComparative selectedPeriod='last_period' startDate={startDate} endDate={endDate} />
+                <SwitchPeriodComparative selectedPeriod={SelectedPeriodType.LAST_PERIOD} startDate={startDate} endDate={endDate} />
             </div>
         );
         const previousPeriodInput = getByDisplayValue('previous_period');
@@ -47,7 +48,7 @@ describe('<SwitchPeriodComparative>', () => {
     it('Should render the correct', () => {
         const { getByTestId } = render(
             <div>
-                <SwitchPeriodComparative selectedPeriod='previous_period' startDate={startDate} endDate={endDate} />
+                <SwitchPeriodComparative selectedPeriod={SelectedPeriodType.PREVIOUS_PERIOD} startDate={startDate} endDate={endDate} />
             </div>
         );
         expect(getByTestId('switch-period-comparative')).toBeTruthy();
@@ -57,7 +58,7 @@ describe('<SwitchPeriodComparative>', () => {
         const previousPeriod = `${previousStartDate} - ${previousEndDate}`;
         const { getByTestId } = render(
             <div>
-                <SwitchPeriodComparative selectedPeriod='previous_period' startDate={startDate} endDate={endDate} />
+                <SwitchPeriodComparative selectedPeriod={SelectedPeriodType.PREVIOUS_PERIOD} startDate={startDate} endDate={endDate} />
             </div>
         );
         expect(getByTestId('compare-period-previous-period-dates')).toHaveTextContent(previousPeriod);
@@ -67,14 +68,16 @@ describe('<SwitchPeriodComparative>', () => {
         const lastYearPeriod = `${lastYearStartDate} - ${lastYearEndDate}`;
         const { getByTestId } = render(
             <div>
-                <SwitchPeriodComparative selectedPeriod='last_period' startDate={startDate} endDate={endDate} />
+                <SwitchPeriodComparative selectedPeriod={SelectedPeriodType.LAST_PERIOD} startDate={startDate} endDate={endDate} />
             </div>
         );
         expect(getByTestId('compare-period-last-period-dates')).toHaveTextContent(lastYearPeriod);
     });
     it('Should call onPeriodSelect', () => {
         const mockCallBack = vi.fn();
-        const { getAllByTestId } = render(<SwitchPeriodComparative selectedPeriod='previous_period' startDate={startDate} endDate={endDate} onPeriodSelect={mockCallBack} />);
+        const { getAllByTestId } = render(
+            <SwitchPeriodComparative selectedPeriod={SelectedPeriodType.PREVIOUS_PERIOD} startDate={startDate} endDate={endDate} onPeriodSelect={mockCallBack} />
+        );
         const previousPeriodLabel = getAllByTestId('field-group-label')[0];
         const lastPeriodLabel = getAllByTestId('field-group-label')[1];
         fireEvent.click(previousPeriodLabel);

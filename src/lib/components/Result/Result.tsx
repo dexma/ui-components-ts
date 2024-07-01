@@ -1,82 +1,44 @@
-import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
+import React, { type ReactNode, useContext } from 'react';
 import { ThemeContext } from 'styled-components';
-import { Row } from '@/components/Row';
-import { Icon } from '@/components/Icon';
 
-import theme from '@/utils/theme';
-import { StyledResult } from '@/styles/Result/StyledResult';
+import defaultTheme from '@utils/theme';
+import { Icon, Row } from '@components';
+import { StyledResult } from '@styles/Result/StyledResult';
 
-const RESULT_VARIANT = Object.freeze({
-    success: 'success',
-    info: 'info',
-    warning: 'warning',
-    error: 'error',
-    deleted: 'deleted',
-    default: 'default',
-});
-
-const propTypes = {
-    /**
-     * Set the title of the result
-     */
-    title: PropTypes.string,
-    /**
-     * Set the info of the result
-     */
-    info: PropTypes.string,
-    /**
-     * You can set the footer of the resut as JSX element.
-     */
-    content: PropTypes.node,
-    /**
-     * Set the style variant of the result
-     */
-    variant: PropTypes.oneOf(Object.keys(RESULT_VARIANT)).isRequired,
-    /**
-     * Size of the icon inside result
-     */
-    size: PropTypes.number,
-    /**
-     * Set the icon <a href="https://dexma.github.io/ui-components/?path=/docs/icon--sizes#icons">Icons</a>:
-     */
-    icon: PropTypes.string,
-    /**
-     * Pass an element to render
-     */
-    iconElement: PropTypes.node,
-};
-
-const defaultProps = {
-    variant: RESULT_VARIANT.default,
-    size: 72,
-};
+export enum ResultVariants {
+    SUCCESS = 'success',
+    INFO = 'info',
+    WARNING = 'warning',
+    ERROR = 'error',
+    DELETED = 'deleted',
+    DEFAULT = 'default',
+}
 
 const getIcon = (variant: string) => {
-    let iconName = undefined;
-    let iconColor = undefined;
+    let iconName;
+    let iconColor;
     switch (variant) {
-        case RESULT_VARIANT.success:
+        case ResultVariants.SUCCESS:
             iconName = 'circle_check';
             iconColor = 'green';
             break;
-        case RESULT_VARIANT.info:
+        case ResultVariants.INFO:
             iconName = 'alert_sign';
             iconColor = 'blueLight';
             break;
-        case RESULT_VARIANT.warning:
+        case ResultVariants.WARNING:
             iconName = 'circle_info';
             iconColor = 'amber';
             break;
-        case RESULT_VARIANT.error:
+        case ResultVariants.ERROR:
             iconName = 'circle_delete';
             iconColor = 'red';
             break;
-        case RESULT_VARIANT.deleted:
+        case ResultVariants.DELETED:
             iconName = 'delete';
             iconColor = 'red';
             break;
-        case RESULT_VARIANT.default:
+        case ResultVariants.DEFAULT:
             iconName = 'vader';
             iconColor = 'gray300';
             break;
@@ -86,12 +48,21 @@ const getIcon = (variant: string) => {
     return { iconName, iconColor };
 };
 
-export const Result = (props: any) => {
-    const { title, info, variant, content, size, icon, iconElement } = props;
-    const th = useContext(ThemeContext) || theme;
+export type ResultProps = {
+    variant: ResultVariants;
+    content?: ReactNode;
+    title?: string;
+    info?: string;
+    size?: number;
+    icon?: string;
+    iconElement?: ReactNode;
+};
+
+export const Result = ({ title, info, variant = ResultVariants.DEFAULT, content, size = 72, icon, iconElement }: ResultProps) => {
+    const th = useContext(ThemeContext) || defaultTheme;
     const { iconName, iconColor } = getIcon(variant);
     return (
-        <StyledResult data-testid={`result-${variant}`} fluid className={`result-${variant}`} theme={th}>
+        <StyledResult fluid className={`result-${variant}`} data-testid={`result-${variant}`} theme={th}>
             <Row className='result-row icon'>{iconElement || <Icon name={icon || iconName} size={size} color={iconColor} data-testid={`icon_${icon || iconName}`} />}</Row>
             {title && (
                 <Row className='result-row title'>
@@ -107,10 +78,3 @@ export const Result = (props: any) => {
         </StyledResult>
     );
 };
-
-StyledResult.displayName = 'StyledResult';
-
-Result.propTypes = propTypes;
-Result.defaultProps = defaultProps;
-
-export default Result;

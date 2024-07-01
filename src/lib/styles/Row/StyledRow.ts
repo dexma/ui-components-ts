@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
-import { gridGutterCompensation } from '@/utils/selectors';
-import { Theme } from '@/utils/theme';
+
+import { type Theme } from '@utils/theme';
+import { gridGutterCompensation } from '@utils/selectors';
 
 const getAlignItems = (align: string) => {
     let newAlign = '';
